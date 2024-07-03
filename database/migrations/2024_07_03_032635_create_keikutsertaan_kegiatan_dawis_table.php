@@ -35,6 +35,7 @@ return new class extends Migration
             $table->enum('kegiatan_kesehatan', ['0','1']);
             $table->enum('perencanaan_kesehatan', ['0','1']);
             $table->enum('verified', ['yes','no']);
+            $table->unsignedBigInteger('created_by');
             $table->timestamps();
         });
     }

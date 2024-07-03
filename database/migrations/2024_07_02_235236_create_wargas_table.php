@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nkk',16);
             $table->string('nama',50);
             $table->string('jabatan',50);
-            $table->enum('jenis_kelamin',['l','p']);
+            $table->enum('jenis_kelamin',['L','P']);
             $table->string('tempat_lahir',30);
             $table->date('tanggal_lahir');
             $table->unsignedBigInteger('id_status_perkawinan');
@@ -34,6 +34,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_pendidikan');
             $table->unsignedBigInteger('id_pekerjaan');
             $table->enum('verified',['yes','no']);
+            $table->unsignedBigInteger('created_by');
             $table->timestamps();
         });
     }

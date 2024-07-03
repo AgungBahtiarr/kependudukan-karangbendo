@@ -20,6 +20,7 @@ return new class extends Migration
             // $table->integer('nominal',8);
             $table->year('periode_tahun');
             $table->unsignedInteger('nominal');
+            $table->unsignedBigInteger('created_by');
             $table->timestamps();
         });
     }

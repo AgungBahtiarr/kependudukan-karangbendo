@@ -39,6 +39,7 @@ return new class extends Migration
             $table->enum('pemanfaatan_pekarangan',['0','1']);
             $table->enum('kerja_bakti',['0','1']);
             $table->enum('verified',['yes','no']);
+            $table->unsignedBigInteger('created_by');
             $table->timestamps();
         });
     }

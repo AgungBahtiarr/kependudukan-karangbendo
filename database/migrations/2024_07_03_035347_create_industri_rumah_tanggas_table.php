@@ -18,6 +18,7 @@ return new class extends Migration
             $table->enum('bidang_pangan',['0','1']);
             $table->enum('bidang_jasa',['0','1']);
             $table->string('nama_usaha',30);
+            $table->unsignedBigInteger('created_by');
             $table->timestamps();
         });
     }
