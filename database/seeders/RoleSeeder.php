@@ -34,6 +34,7 @@ class RoleSeeder extends Seeder
 
         $kaderRole->givePermissionTo(
             'dashboard_access',
+            'logout'
         );
     }
 }
