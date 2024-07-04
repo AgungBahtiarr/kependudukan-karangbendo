@@ -15,7 +15,7 @@
                 @can('dashboard_access')
                 <li class="{{ Request::is('/') ? 'aktif' : ''}}">
                     <a href="{{ url('/') }}">
-                        <i class="las la-home"></i>
+                        <i class="ri-home-3-fill"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
@@ -24,8 +24,17 @@
                 @can('read_users')
                 <li class="{{ isActiveSidebar(route('users.index')) }}">
                     <a href="{{ route('users.index') }}">
-                        <i class="ri-edit-box-line"></i>
+                        <i class="ri-account-circle-fill"></i>
                         <span>Data Kader</span>
+                    </a>
+                </li>
+                @endcan
+
+                @can('read_wargas')
+                <li class="{{ isActiveSidebar(route('wargas.index')) }}">
+                    <a href="{{ route('wargas.index') }}">
+                        <i class="ri-team-fill"></i>
+                        <span>Data Warga</span>
                     </a>
                 </li>
                 @endcan

@@ -25,6 +25,11 @@ class PermissionSeeder extends Seeder
             'read_users',
             'update_users',
             'update_user_status',
+            # Warga permission
+            'create_wargas',
+            'read_wargas',
+            'update_wargas',
+            'update_warga_status',
             # Logout
             'logout',
         ];

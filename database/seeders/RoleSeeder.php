@@ -29,11 +29,19 @@ class RoleSeeder extends Seeder
             'read_users',
             'update_users',
             'update_user_status',
+            'create_wargas',
+            'read_wargas',
+            'update_wargas',
+            'update_warga_status',
             'logout',
         );
 
         $kaderRole->givePermissionTo(
             'dashboard_access',
+            'create_wargas',
+            'read_wargas',
+            'update_wargas',
+            'update_warga_status',
             'logout'
         );
     }
