@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
+use function Laravel\Prompts\search;
+
 class UserController extends Controller
 {
     public function index(Request $request)
@@ -14,6 +16,11 @@ class UserController extends Controller
 
         $kader = User::role('Kader');
         $status = $request->input('status');
+        $seacrhQuery = $request->query;
+
+        if ($seacrhQuery) {
+            $kader->where('name', 'like', '%' . $seacrhQuery . '%');
+        }
 
         if ($status == 'aktif') {
             $kader->where('status', 'aktif');
