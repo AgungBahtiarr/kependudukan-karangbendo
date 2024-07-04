@@ -25,8 +25,8 @@ class RoleSeeder extends Seeder
 
         $adminRole->givePermissionTo(
             'dashboard_access',
-            'read_users',
             'create_users',
+            'read_users',
             'update_users',
             'update_user_status',
             'logout',

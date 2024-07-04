@@ -21,8 +21,8 @@ class PermissionSeeder extends Seeder
             # Dashboard permissions
             'dashboard_access',
             # User permission
-            'read_users',
             'create_users',
+            'read_users',
             'update_users',
             'update_user_status',
             # Logout
