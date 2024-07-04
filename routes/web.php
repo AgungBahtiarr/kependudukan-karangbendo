@@ -5,10 +5,6 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 
 Route::prefix('auth')->group(function () {

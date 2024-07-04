@@ -14,7 +14,13 @@
 
             <div class="card-body">
                 <div class="row mb-4">
-                    <div class="col-md-10">
+                    <div class="col-md-2 iq-search-bar device-search">
+                        <form action="#" class="searchbox">
+                            <a class="search-link" href="#"><i class="ri-search-line"></i></a>
+                            <input type="text" class="text search-input" placeholder="Cari">
+                        </form>
+                    </div>
+                    <div class="col-md-8">
                         <select class="form-control d-inline-block" id="select-user-status-filter" name="filter">
                             <option value="" {{ request('status') == '' ? 'selected' : '' }}>Semua Kader</option>
                             <option value="active" {{ request('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
