@@ -14,7 +14,6 @@
 
             <div class="card-body">
                 <div class="row mb-4">
-<<<<<<< HEAD
 
                     <div class="col-md-3 iq-search-bar device-search">
                         <form action="" class="">
@@ -23,14 +22,12 @@
                         </form>
                     </div>
 
-=======
                     <div class="col-md-3 iq-search-bar device-search">
                         <form action="#" class="searchbox">
                             <a class="search-link" href="#"><i class="ri-search-line"></i></a>
                             <input type="text" class="text search-input" placeholder="Cari">
                         </form>
                     </div>
->>>>>>> 8edb0a4e9055dc119190125ee1e7650c9dda2353
                     <div class="col-md-6">
                         <select class="form-control" id="select-user-status-filter" name="filter">
                             <option value="" {{ request('status') == '' ? 'selected' : '' }}>Semua Kader</option>
@@ -40,11 +37,7 @@
                     </div>
 
                     @can('create_users')
-<<<<<<< HEAD
                     <div class="col-md-3 items-end">
-=======
-                    <div class="col-md-3">
->>>>>>> 8edb0a4e9055dc119190125ee1e7650c9dda2353
                         <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#createUserModal">
                             <i class="ri-user-add-line"></i>
                             Tambah Data Kader
