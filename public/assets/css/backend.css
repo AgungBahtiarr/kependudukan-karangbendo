@@ -15006,7 +15006,7 @@ fieldset[disabled] .btn {
   z-index: 999999; }
 
 #loading-center {
-  background: url(../images/logo/logo-color.png) no-repeat scroll center center;
+  background: url(../images/logo/logo-banyuwangi.svg) no-repeat scroll center center;
   background-size: 20%;
   width: 100%;
   height: 100%;
@@ -16278,7 +16278,7 @@ fieldset[disabled] .btn {
   z-index: 999999; }
 
 #loading-center {
-  background: url(../images/logo/logo-color.png) no-repeat scroll center center;
+  background: url(../images/logo/logo-banyuwangi.svg) no-repeat scroll center center;
   background-size: 20%;
   width: 100%;
   height: 100%;
@@ -19231,7 +19231,7 @@ button.close-popup {
   .dark button.bg-purple-light:focus {
     background-color: rgba(55, 38, 142, 0.1) !important; }
   .dark #loading-center {
-    background-image: url(../images/logo/logo-color.png); }
+    background-image: url(../images/logo/logo-banyuwangi.svg); }
   .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
     color: #ffffff; }
   .dark hr {

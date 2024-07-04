@@ -4,65 +4,80 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
+        $title = 'Data Kader';
 
+        $kader = User::role('Kader');
+        $status = $request->input('status');
 
-        return view('user.index');
+        if ($status == 'aktif') {
+            $kader->where('status', 'aktif');
+        } elseif ($status == 'non aktif') {
+            $kader->where('status', 'non aktif');
+        }
+
+        $users = $kader->get();
+
+        return view('user.index', compact('title', 'users', 'status'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'nik' => 'required',
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'nik' => $request->nik,
+            'username' => $request->username,
+            'password' => Hash::make($request->password),
+        ]);
+
+        $user->assignRole('Kader');
+
+        return redirect()->route('users.index')->with('success', 'Berhasil menambahkan data kader');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function update(Request $request, User $user)
     {
-        //
+        // $request->validate([
+        //     'name' => 'required',
+        //     'password' => 'nullable',
+        //     'username' => 'nullable',
+        //     'nik' => 'nullable',
+        // ]);
+
+        $user->update([
+            'name' => $request->name,
+            'nik' => $request->nik,
+            'username' => $request->username,
+            'password' => $request->password ? Hash::make($request->password) : $user->password,
+        ]);
+
+        return redirect()->route('users.index')->with('success', 'Data kader berhasil diperbarui');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function updateUserStatus(Request $request, $id)
     {
-        //
-    }
+        $users = User::findOrFail($id);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        if ($request->status == 'aktif') {
+            $users->status = 'aktif';
+        } elseif ($request->status == 'non aktif') {
+            $users->status = 'non aktif';
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $users->save();
+
+        return redirect()->route('users.index')->with('success', 'Status kader berhasil diperbarui');
     }
 }
