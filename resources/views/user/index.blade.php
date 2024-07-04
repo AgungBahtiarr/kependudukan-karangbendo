@@ -14,22 +14,24 @@
 
             <div class="card-body">
                 <div class="row mb-4">
-                    <div class="col-md-2 iq-search-bar device-search">
-                        <form action="#" class="searchbox">
-                            <a class="search-link" href="#"><i class="ri-search-line"></i></a>
-                            <input type="text" class="text search-input" placeholder="Cari">
+
+                    <div class="col-md-3 iq-search-bar device-search">
+                        <form action="" class="">
+                            {{-- <a class="search-link" href="#"><i class="ri-search-line"></i></a> --}}
+                            <input type="text" class="text search-input" placeholder="Cari" name="strquery">
                         </form>
                     </div>
-                    <div class="col-md-8">
-                        <select class="form-control d-inline-block" id="select-user-status-filter" name="filter">
+
+                    <div class="col-md-6">
+                        <select class="form-control" id="select-user-status-filter" name="filter">
                             <option value="" {{ request('status') == '' ? 'selected' : '' }}>Semua Kader</option>
-                            <option value="active" {{ request('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
-                            <option value="inactive" {{ request('status') == 'non aktif' ? 'selected' : '' }}>Non Aktif</option>
+                            <option value="aktif" {{ request('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
+                            <option value="non aktif" {{ request('status') == 'non aktif' ? 'selected' : '' }}>Non Aktif</option>
                         </select>
                     </div>
 
                     @can('create_users')
-                    <div class="col-md-2">
+                    <div class="col-md-3 items-end">
                         <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#createUserModal">
                             <i class="ri-user-add-line"></i>
                             Tambah Data Kader
