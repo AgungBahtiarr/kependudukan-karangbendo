@@ -15,7 +15,10 @@ class WargaController extends Controller
     {
         $title = 'Warga';
 
-        return view('warga.index', compact('title'));
+
+        $wargas = Warga::all();
+
+        return view('warga.index', compact('title','wargas'));
     }
 
     /**

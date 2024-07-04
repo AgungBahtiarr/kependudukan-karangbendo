@@ -21,13 +21,6 @@
                             <input type="text" class="text search-input" placeholder="Cari" name="strquery">
                         </form>
                     </div>
-
-                    <div class="col-md-3 iq-search-bar device-search">
-                        <form action="#" class="searchbox">
-                            <a class="search-link" href="#"><i class="ri-search-line"></i></a>
-                            <input type="text" class="text search-input" placeholder="Cari">
-                        </form>
-                    </div>
                     <div class="col-md-6">
                         <select class="form-control" id="select-user-status-filter" name="filter">
                             <option value="" {{ request('status') == '' ? 'selected' : '' }}>Semua Kader</option>
