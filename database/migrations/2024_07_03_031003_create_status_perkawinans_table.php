@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('status_perkawinans', function (Blueprint $table) {
             $table->id();
             $table->string('nama_status_kawin');
+            $table->timestamps();
         });
     }
 

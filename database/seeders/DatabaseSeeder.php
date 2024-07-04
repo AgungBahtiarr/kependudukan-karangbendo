@@ -16,6 +16,10 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             AgamaSeeder::class,
+            StatusPerkawinanSeeder::class,
+            PendidikanSeeder::class,
+            PekerjaanSeeder::class,
+            MakananPokokSeeder::class,
         ]);
     }
 }

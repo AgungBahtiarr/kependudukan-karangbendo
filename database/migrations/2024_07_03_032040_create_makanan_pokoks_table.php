@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('makanan_pokoks', function (Blueprint $table) {
             $table->id();
             $table->string('nama_makanan_pokok');
+            $table->timestamps();
         });
     }
 
