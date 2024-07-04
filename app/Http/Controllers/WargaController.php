@@ -13,7 +13,9 @@ class WargaController extends Controller
      */
     public function index()
     {
-        //
+        $title = 'Warga';
+
+        return view('warga.index', compact('title'));
     }
 
     /**
