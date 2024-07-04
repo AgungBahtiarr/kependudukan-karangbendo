@@ -22,6 +22,12 @@
     <link rel='stylesheet' href="{{ asset('assets/vendor/fullcalendar/list/main.css') }} " />
     <link rel="stylesheet" href="{{ asset('assets/vendor/mapbox/mapbox-gl.css') }}" />
     @vite('resources/css/app.css')
+    <style>
+        .dataTables_filter {
+            display: none;
+        }
+    </style>
+
     @yield('style')
 </head>
 
