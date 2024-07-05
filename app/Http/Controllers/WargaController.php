@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreWargaRequest;
 use App\Http\Requests\UpdateWargaRequest;
+use App\Models\Agama;
+use App\Models\Pekerjaan;
+use App\Models\Pendidikan;
+use App\Models\StatusPerkawinan;
 use App\Models\Warga;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class WargaController extends Controller
 {
@@ -14,10 +17,16 @@ class WargaController extends Controller
      */
     public function index(Request $request)
     {
-        $title = 'Data Kader';
+        $title = 'Data Warga';
 
-        $warga = Warga::all();
+        $wargas = Warga::with('agama', 'pendidikan', 'pekerjaan', 'statusPerkawinan')->get();
         $status = $request->input('status');
+
+
+        $perkawinan = StatusPerkawinan::get();
+        $agamas = Agama::get();
+        $pendidikans = Pendidikan::get();
+        $pekerjaans = Pekerjaan::get();
         // $seacrhQuery = $request->strquery;
 
 
@@ -27,13 +36,16 @@ class WargaController extends Controller
 
 
         if ($status == 'Kepala Keluarga') {
-            $warga->where('status_di_keluarga', '1');
+            $wargas->where('status_di_keluarga', '1');
         } elseif ($status == 'Anggota Keluarga') {
-            $warga->where('status_di_keluarga', '0');
+            $wargas->where('status_di_keluarga', '0');
         }
 
 
-        return view('warga.index', compact('title', 'warga', 'status'));
+        // return $wargas;
+
+
+        return view('warga.index', compact('title', 'wargas', 'status', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans'));
     }
 
     /**
@@ -56,21 +68,30 @@ class WargaController extends Controller
             'nik' => $request->nik,
             'nkk' => $request->nkk,
             'nama' => $request->nama,
+            'jabatan' => $request->jabatan,
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
+            "id_status_perkawinan" => $request->id_status_perkawinan,
             'id_agama' => $request->id_agama,
             'jenis_kelamin' => $request->jenis_kelamin,
             'status_di_keluarga' => $request->status_di_keluarga,
             'alamat_jalan' => $request->alamat_jalan,
             'alamat_desakel' => $request->alamat_jalan,
-            'alamat_kec' => $request->alamat_kec,
-            'alamat_kab' => $request->alamat_kab,
-            'alamat_prov' => $request->alamat_prov,
+            'rt' => $request->rt,
+            'rw' => $request->rw,
+            'id_pendidikan' => $request->id_pendidikan,
+            'id_pekerjaan' => $request->id_pekerjaan,
+            'verified' => 'no',
+            'created_by' => auth()->user()->id,
         ];
+
+        // return $data;
 
         $warga = Warga::create(
             $data
         );
+
+        return $warga;
 
 
         return redirect()->route('users.index')->with('success', 'Berhasil menambahkan data kader');

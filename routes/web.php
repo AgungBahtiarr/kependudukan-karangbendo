@@ -31,5 +31,8 @@ Route::middleware('auth')->group(function () {
     // Data Warga
     Route::prefix('warga')->group(function () {
         Route::get('', [WargaController::class, 'index'])->middleware('can:read_wargas')->name('wargas.index');
+        Route::post('store', [WargaController::class, 'store'])->middleware('can:create_wargas')->name('wargas.store');
+        Route::patch('/{warga}/update', [WargaController::class, 'update'])->middleware('can:update_wargas')->name('wargas.update');
+        Route::patch('/{id}/status', [WargaController::class, 'updateWargaStatus'])->middleware('can:update_wargas_status')->name('wargas.status.update');
     });
 });
