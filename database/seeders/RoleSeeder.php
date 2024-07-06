@@ -31,6 +31,7 @@ class RoleSeeder extends Seeder
             'update_user_status',
             'create_wargas',
             'read_wargas',
+            'edit_wargas',
             'update_wargas',
             'update_warga_status',
             'logout',

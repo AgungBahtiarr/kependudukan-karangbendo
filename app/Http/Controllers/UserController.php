@@ -15,6 +15,7 @@ class UserController extends Controller
         $title = 'Data Kader';
 
         $kader = User::role('Kader');
+
         $status = $request->input('status');
         $seacrhQuery = $request->strquery;
 
@@ -23,7 +24,7 @@ class UserController extends Controller
             $kader->where('name', 'like', '%' . strval($seacrhQuery) . '%');
         }
 
-        
+
         if ($status == 'aktif') {
             $kader->where('status', 'aktif');
         } elseif ($status == 'non aktif') {

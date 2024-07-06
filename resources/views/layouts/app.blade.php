@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" dir="">
+<html lang="en" dir="" id="root">
 
 <head>
     <meta charset="utf-8">
@@ -21,7 +21,15 @@
     <link rel='stylesheet' href="{{ asset('assets/vendor/fullcalendar/timegrid/main.css') }}" />
     <link rel='stylesheet' href="{{ asset('assets/vendor/fullcalendar/list/main.css') }} " />
     <link rel="stylesheet" href="{{ asset('assets/vendor/mapbox/mapbox-gl.css') }}" />
+
+    {{-- Tailwind --}}
     @vite('resources/css/app.css')
+
+    {{-- HTMX --}}
+
+    <script src="https://unpkg.com/htmx.org@2.0.0" integrity="sha384-wS5l5IKJBvK6sPTKa2WZ1js3d947pvWXbPJ1OmWfEuxLgeHcEbjUUA5i9V5ZkpCw" crossorigin="anonymous"></script>
+
+
     <style>
         .dataTables_filter {
             display: none;
