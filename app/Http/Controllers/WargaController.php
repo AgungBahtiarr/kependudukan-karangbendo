@@ -181,9 +181,12 @@ class WargaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Warga $warga)
+    public function show($id)
     {
-        //
+        $wargas = Warga::with('agama', 'pendidikan', 'pekerjaan', 'statusPerkawinan')->findOrFail($id);
+
+        return $wargas;
+
     }
 
     /**

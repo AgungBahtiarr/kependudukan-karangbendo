@@ -1,6 +1,5 @@
 @extends('layouts.app')
 
-
 @section('content')
     <div class="my-10 mx-12">
         <h1 class="text-2xl font-semibold">Tambah Data Warga</h1>

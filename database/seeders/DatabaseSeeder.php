@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             PendidikanSeeder::class,
             PekerjaanSeeder::class,
             MakananPokokSeeder::class,
+            KelompokBelajarSeeder::class,
+            SumberAirSeeder::class
         ]);
     }
 }

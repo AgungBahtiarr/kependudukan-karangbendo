@@ -38,6 +38,15 @@
                     </a>
                 </li>
                 @endcan
+
+                @can('read_cargas')
+                <li class="{{ isActiveSidebar(route('cargas.index')) }}">
+                    <a href="{{ route('cargas.index') }}">
+                        <i class="ri-team-fill"></i>
+                        <span>Catatan Rumah Tangga</span>
+                    </a>
+                </li>
+                @endcan
             </ul>
         </nav>
         <div class="p-3"></div>

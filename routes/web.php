@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CatatanRumahTanggaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KeikutsertaanKegiatanDawisController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WargaController;
 use App\Http\Middleware\CleanSession;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
@@ -45,10 +48,26 @@ Route::middleware('auth')->group(function () {
 
         Route::patch('/edit/back', [WargaController::class, 'backToEdit'])->middleware('can:edit_wargas')->name('wargas-edit.back');
 
-
         Route::patch('/update1', [WargaController::class, 'update1'])->middleware('can:update_wargas')->name('wargas.update1');
         Route::patch('/update', [WargaController::class, 'update'])->middleware('can:update_wargas')->name('wargas.update');
 
         Route::patch('/{id}/status', [WargaController::class, 'updateWargaStatus'])->middleware('can:update_wargas_status')->name('wargas.status.update');
+
+        Route::get('/{id}', [WargaController::class,'show'])->middleware('can:read_wargas')->name('wargas.show');
+    });
+
+
+    Route::prefix('dawis')->group(function () {
+        Route::get('', [KeikutsertaanKegiatanDawisController::class, 'index'])->middleware('can:read_dawis',)->name('dawis.index');
+        Route::get('/create/{id}', [KeikutsertaanKegiatanDawisController::class, 'create'])->middleware('can:create_dawis',)->name('dawis.create');
+        Route::post('/store', [KeikutsertaanKegiatanDawisController::class, 'store'])->middleware('can:create_dawis',)->name('dawis.store');
+        Route::get('/{id}', [KeikutsertaanKegiatanDawisController::class,'show'])->middleware('can:read_dawis')->name('dawis.show');
+    });
+
+
+    Route::prefix('cargas')->group(function () {
+        Route::get('', [CatatanRumahTanggaController::class, 'index'])->middleware('can:read_cargas',)->name('cargas.index');
+        Route::get('/create', [CatatanRumahTanggaController::class, 'create'])->middleware('can:create_cargas',)->name('cargas.create');
+        Route::post('/store', [CatatanRumahTanggaController::class, 'store'])->middleware('can:create_cargas',)->name('cargas.store');
     });
 });

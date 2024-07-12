@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('keikutsertaan_kegiatan_dawis', function (Blueprint $table) {
             $table->id();
-            $table->string('nik',16);
+            $table->string('nik',16)->unique();
             $table->enum('akseptor_kb', ['0','1']);
             $table->string('jenis_kb',30);
             $table->enum('posyandu', ['0','1']);
-            $table->integer('3');
+            $table->integer('frekuensi_posyandu', 3)->autoIncrement(false);
             $table->enum('bina_keluarga_balita', ['0','1']);
             $table->enum('memilki_tabungan', ['0','1']);
             $table->enum('kelompok_belajar', ['0','1']);
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->enum('koperasi', ['0','1']);
             $table->string('jenis_koperasi',30);
             $table->enum('berkebutuhan_khusus', ['0','1']);
-            $table->enum('penghayatan_pengalaman', ['0','1']);
+            $table->enum('penghayatan_pengamalan_pancasila', ['0','1']);
             $table->enum('gotong_royong', ['0','1']);
             $table->enum('pendidikan_keterampilan', ['0','1']);
             $table->enum('kehidupan_berkolaborasi', ['0','1']);

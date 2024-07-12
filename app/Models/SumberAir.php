@@ -5,15 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class KeikutsertaanKegiatanDawis extends Model
+class SumberAir extends Model
 {
     use HasFactory;
 
 
     protected $guarded = ['id'];
-
-
-    public function jenisKelompokBelajar(){
-        return $this->belongsTo(KelompokBelajar::class, 'id_jenis_kelompok_belajar');
-    }
 }

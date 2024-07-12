@@ -19,20 +19,32 @@ class PermissionSeeder extends Seeder
     {
         $permissions = [
             # Dashboard permissions
-            'dashboard_access',
+            "dashboard_access",
             # User permission
-            'create_users',
-            'read_users',
-            'update_users',
-            'update_user_status',
+            "create_users",
+            "read_users",
+            "update_users",
+            "update_user_status",
             # Warga permission
-            'create_wargas',
-            'read_wargas',
-            'edit_wargas',
-            'update_wargas',
-            'update_warga_status',
+            "create_wargas",
+            "read_wargas",
+            "edit_wargas",
+            "update_wargas",
+            "update_warga_status",
+            #KeikutsertaanDawis
+            "create_dawis",
+            "read_dawis",
+            "edit_dawis",
+            "update_dawis",
+            "update_dawis_status",
+            #catatan_rumah_tangga
+            "create_cargas",
+            "read_cargas",
+            "edit_cargas",
+            "update_cargas",
+            "update_cargas_status",
             # Logout
-            'logout',
+            "logout",
         ];
 
         $this->insertPermission($permissions);
@@ -40,11 +52,13 @@ class PermissionSeeder extends Seeder
 
     private function insertPermission(array $permissions): void
     {
-        $permissions = collect($permissions)->map(fn ($permission) => [
-            'name' => $permission,
-            'guard_name' => 'web',
-            'created_at' => Carbon::now()
-        ]);
+        $permissions = collect($permissions)->map(
+            fn($permission) => [
+                "name" => $permission,
+                "guard_name" => "web",
+                "created_at" => Carbon::now(),
+            ]
+        );
 
         Permission::insert($permissions->toArray());
     }
