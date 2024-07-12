@@ -3,11 +3,12 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CatatanRumahTanggaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\IndustriRumahTanggaController;
 use App\Http\Controllers\KeikutsertaanKegiatanDawisController;
+use App\Http\Controllers\PemanfaatanTanahPekaranganController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WargaController;
 use App\Http\Middleware\CleanSession;
-
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
@@ -69,5 +70,18 @@ Route::middleware('auth')->group(function () {
         Route::get('', [CatatanRumahTanggaController::class, 'index'])->middleware('can:read_cargas',)->name('cargas.index');
         Route::get('/create', [CatatanRumahTanggaController::class, 'create'])->middleware('can:create_cargas',)->name('cargas.create');
         Route::post('/store', [CatatanRumahTanggaController::class, 'store'])->middleware('can:create_cargas',)->name('cargas.store');
+    });
+
+    Route::prefix('pekarangans')->group(function () {
+        Route::get('', [PemanfaatanTanahPekaranganController::class, 'index'])->middleware('can:read_pekarangans',)->name('pekarangans.index');
+        Route::get('/create/{id}', [PemanfaatanTanahPekaranganController::class, 'create'])->middleware('can:create_pekarangans',)->name('pekarangans.create');
+        Route::post('/store', [PemanfaatanTanahPekaranganController::class, 'store'])->middleware('can:create_pekarangans',)->name('pekarangans.store');
+    });
+
+
+    Route::prefix('industries')->group(function () {
+        Route::get('', [IndustriRumahTanggaController::class, 'index'])->middleware('can:read_industries',)->name('industries.index');
+        Route::get('/create/{id}', [IndustriRumahTanggaController::class, 'create'])->middleware('can:create_industries',)->name('industries.create');
+        Route::post('/store', [IndustriRumahTanggaController::class, 'store'])->middleware('can:create_industries',)->name('industries.store');
     });
 });

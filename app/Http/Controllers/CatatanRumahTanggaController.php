@@ -69,6 +69,11 @@ class CatatanRumahTanggaController extends Controller
         ];
 
         $cargas = CatatanRumahTangga::create($data);
+        $cargas = json_decode($cargas);
+
+        if ($cargas->pemanfaatan_pekarangan == "1") {
+            return redirect('/pekarangans/create/'. $cargas->id);
+        }
 
         return redirect(route('cargas.index'));
     }

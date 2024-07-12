@@ -43,6 +43,28 @@ class PermissionSeeder extends Seeder
             "edit_cargas",
             "update_cargas",
             "update_cargas_status",
+
+            #pemanfaatan_tanah_pekarangan
+            "create_pekarangans",
+            "read_pekarangans",
+            "edit_pekarangans",
+            "update_pekarangans",
+            "update_pekarangans_status",
+
+            #industri_rumah_tangga
+            "create_industries",
+            "read_industries",
+            "edit_industries",
+            "update_industries",
+            "update_industries_status",
+
+            #bansos
+            "create_bansos",
+            "read_bansos",
+            "edit_bansos",
+            "update_bansos",
+            "update_bansos_status",
+            
             # Logout
             "logout",
         ];

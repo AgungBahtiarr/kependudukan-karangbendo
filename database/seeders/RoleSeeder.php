@@ -52,6 +52,27 @@ class RoleSeeder extends Seeder
             "update_cargas",
             "update_cargas_status",
 
+            #pekarangans
+            "create_pekarangans",
+            "read_pekarangans",
+            "edit_pekarangans",
+            "update_pekarangans",
+            "update_pekarangans_status",
+
+            #industri
+            "create_industries",
+            "read_industries",
+            "edit_industries",
+            "update_industries",
+            "update_industries_status",
+
+            #bansos
+            "create_bansos",
+            "read_bansos",
+            "edit_bansos",
+            "update_bansos",
+            "update_bansos_status",
+
             "logout"
         );
 

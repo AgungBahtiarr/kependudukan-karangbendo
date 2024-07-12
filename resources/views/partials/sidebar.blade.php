@@ -47,6 +47,15 @@
                     </a>
                 </li>
                 @endcan
+
+                @can('read_pekarangans')
+                <li class="{{ isActiveSidebar(route('pekarangans.index')) }}">
+                    <a href="{{ route('pekarangans.index') }}">
+                        <i class="ri-team-fill"></i>
+                        <span>Pemanfaatan Pekarangan</span>
+                    </a>
+                </li>
+                @endcan
             </ul>
         </nav>
         <div class="p-3"></div>
