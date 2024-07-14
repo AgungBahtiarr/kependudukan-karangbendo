@@ -51,7 +51,7 @@ class IndustriRumahTanggaController extends Controller
 
         $industri = IndustriRumahTangga::create($data);
 
-        return redirect('/warga');
+        return redirect('/cargas');
     }
 
     /**

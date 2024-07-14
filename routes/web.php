@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IndustriRumahTanggaController;
 use App\Http\Controllers\KeikutsertaanKegiatanDawisController;
 use App\Http\Controllers\PemanfaatanTanahPekaranganController;
+use App\Http\Controllers\PenerimaBansosController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WargaController;
 use App\Http\Middleware\CleanSession;
@@ -67,9 +68,22 @@ Route::middleware('auth')->group(function () {
 
 
     Route::prefix('cargas')->group(function () {
-        Route::get('', [CatatanRumahTanggaController::class, 'index'])->middleware('can:read_cargas',)->name('cargas.index');
-        Route::get('/create', [CatatanRumahTanggaController::class, 'create'])->middleware('can:create_cargas',)->name('cargas.create');
-        Route::post('/store', [CatatanRumahTanggaController::class, 'store'])->middleware('can:create_cargas',)->name('cargas.store');
+        Route::get('', [CatatanRumahTanggaController::class, 'index'])->middleware('can:read_cargas',CleanSession::class)->name('cargas.index');
+        Route::get('/create1', [CatatanRumahTanggaController::class, 'create1'])->middleware('can:create_cargas',)->name('cargas.create1');
+        Route::get('/create2', [CatatanRumahTanggaController::class, 'create2'])->middleware('can:create_cargas',)->name('cargas.create2');
+        Route::get('/create3', [CatatanRumahTanggaController::class, 'create3'])->middleware('can:create_cargas',)->name('cargas.create3');
+
+
+        Route::post('/store1', [CatatanRumahTanggaController::class, 'store1'])->middleware('can:create_cargas',)->name('cargas.store1');
+        Route::post('/store2', [CatatanRumahTanggaController::class, 'store2'])->middleware('can:create_cargas',)->name('cargas.store2');
+        Route::post('/store3', [CatatanRumahTanggaController::class, 'store3'])->middleware('can:create_cargas',)->name('cargas.store3');
+
+
+        Route::post('/store/back', [CatatanRumahTanggaController::class, 'backTo'])->middleware('can:create_cargas')->name('cargas.back');
+        Route::post('/store/back2', [CatatanRumahTanggaController::class, 'backTo2'])->middleware('can:create_cargas')->name('cargas.back2');
+
+
+
     });
 
     Route::prefix('pekarangans')->group(function () {
@@ -83,5 +97,13 @@ Route::middleware('auth')->group(function () {
         Route::get('', [IndustriRumahTanggaController::class, 'index'])->middleware('can:read_industries',)->name('industries.index');
         Route::get('/create/{id}', [IndustriRumahTanggaController::class, 'create'])->middleware('can:create_industries',)->name('industries.create');
         Route::post('/store', [IndustriRumahTanggaController::class, 'store'])->middleware('can:create_industries',)->name('industries.store');
+    });
+
+    Route::prefix('bansos')->group(function () {
+        Route::get('', [PenerimaBansosController::class, 'index'])->middleware('can:read_bansos',)->name('bansos.index');
+        Route::get('/create', [PenerimaBansosController::class, 'create'])->middleware('can:create_bansos',)->name('bansos.create');
+        Route::post('/store', [PenerimaBansosController::class, 'store'])->middleware('can:create_bansos',)->name('bansos.store');
+        Route::get('/edit/{id}', [PenerimaBansosController::class, 'edit'])->middleware('can:edit_bansos',)->name('bansos.edit');
+        Route::patch('/update/{id}', [PenerimaBansosController::class, 'update'])->middleware('can:edit_bansos',)->name('bansos.update');
     });
 });

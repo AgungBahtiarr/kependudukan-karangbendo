@@ -28,12 +28,12 @@
                         <div class="form-group">
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" id="tanaman_keras_ya" name="tanaman_keras" value="1"
-                                    class="custom-control-input">
+                                    class="custom-control-input" required>
                                 <label class="custom-control-label" for="tanaman_keras_ya"> Ya </label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" id="tanaman_keras_tidak" name="tanaman_keras" value="0"
-                                    class="custom-control-input">
+                                    class="custom-control-input" required>
                                 <label class="custom-control-label" for="tanaman_keras_tidak"> Tidak </label>
                             </div>
                         </div>
@@ -44,12 +44,12 @@
                         <div class="form-group">
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" id="toga_ya" name="toga" value="1"
-                                    class="custom-control-input">
+                                    class="custom-control-input" required>
                                 <label class="custom-control-label" for="toga_ya"> Ya </label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" id="toga_tidak" name="toga" value="0"
-                                    class="custom-control-input">
+                                    class="custom-control-input" required>
                                 <label class="custom-control-label" for="toga_tidak"> Tidak </label>
                             </div>
                         </div>
@@ -61,12 +61,12 @@
                         <div class="form-group">
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" id="lumbung_hidup_ya" name="lumbung_hidup" value="1"
-                                    class="custom-control-input">
+                                    class="custom-control-input" required>
                                 <label class="custom-control-label" for="lumbung_hidup_ya"> Ya </label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" id="lumbung_hidup_tidak" name="lumbung_hidup" value="0"
-                                    class="custom-control-input">
+                                    class="custom-control-input" required>
                                 <label class="custom-control-label" for="lumbung_hidup_tidak"> Tidak </label>
                             </div>
                         </div>
@@ -78,12 +78,12 @@
                         <div class="form-group">
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" id="warung_hidup_ya" name="warung_hidup" value="1"
-                                    class="custom-control-input">
+                                    class="custom-control-input" required>
                                 <label class="custom-control-label" for="warung_hidup_ya"> Ya </label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" id="warung_hidup_tidak" name="warung_hidup" value="0"
-                                    class="custom-control-input">
+                                    class="custom-control-input" required>
                                 <label class="custom-control-label" for="warung_hidup_tidak"> Tidak </label>
                             </div>
                         </div>
@@ -95,12 +95,12 @@
                         <div class="form-group">
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" id="perikanan_ya" name="perikanan" value="1"
-                                    class="custom-control-input">
+                                    class="custom-control-input" required>
                                 <label class="custom-control-label" for="perikanan_ya"> Ya </label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" id="perikanan_tidak" name="perikanan" value="0"
-                                    class="custom-control-input">
+                                    class="custom-control-input" required>
                                 <label class="custom-control-label" for="perikanan_tidak"> Tidak </label>
                             </div>
                         </div>
@@ -111,12 +111,12 @@
                         <div class="form-group">
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" id="peternakanan_ya" name="peternakanan" value="1"
-                                    class="custom-control-input">
+                                    class="custom-control-input" required>
                                 <label class="custom-control-label" for="peternakanan_ya"> Ya </label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" id="peternakanan_tidak" name="peternakanan" value="0"
-                                    class="custom-control-input">
+                                    class="custom-control-input" required>
                                 <label class="custom-control-label" for="peternakanan_tidak"> Tidak </label>
                             </div>
                         </div>
@@ -125,7 +125,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <a href="/warga" type="button" class="btn btn-secondary" data-dismiss="modal">Batal</a>
+                    <a href="/cargas" type="button" class="btn btn-secondary" data-dismiss="modal">Batal</a>
                     <button type="submit" class="btn btn-primary">Selanjutnya</a>
                 </div>
             </form>

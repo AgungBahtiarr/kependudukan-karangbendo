@@ -43,16 +43,16 @@
                 <li class="{{ isActiveSidebar(route('cargas.index')) }}">
                     <a href="{{ route('cargas.index') }}">
                         <i class="ri-team-fill"></i>
-                        <span>Catatan Rumah Tangga</span>
+                        <span>Catatan Keluarga</span>
                     </a>
                 </li>
                 @endcan
 
-                @can('read_pekarangans')
-                <li class="{{ isActiveSidebar(route('pekarangans.index')) }}">
-                    <a href="{{ route('pekarangans.index') }}">
+                @can('read_bansos')
+                <li class="{{ isActiveSidebar(route('bansos.index')) }}">
+                    <a href="{{ route('bansos.index') }}">
                         <i class="ri-team-fill"></i>
-                        <span>Pemanfaatan Pekarangan</span>
+                        <span>Bantuan Sosial</span>
                     </a>
                 </li>
                 @endcan

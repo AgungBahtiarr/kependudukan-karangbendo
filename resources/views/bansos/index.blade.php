@@ -8,7 +8,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <div class="header-title w-100">
-                        <h4 class="card-title d-inline-block mb-0">Data Catatan Rumah Tangga</h4>
+                        <h4 class="card-title d-inline-block mb-0">Data Penerima Bantuan Sosial</h4>
                     </div>
                 </div>
 
@@ -29,15 +29,12 @@
                             </select>
                         </div>
 
-                        @can('create_cargas')
+                        @can('create_bansos')
                             <div class="col-md-3 items-end">
-                                <a href={{route('cargas.create1')}} type="button" class="btn btn-primary btn-block">
+                                <a href={{ route('bansos.create') }} type="button" class="btn btn-primary btn-block">
                                     <i class="ri-user-add-line"></i>
-                                    Tambah Catatan Rumah Tangga
+                                    Tambah Data Bansos
                                 </a>
-
-                                <!-- Modal Tambah Data Kader Baru -->
-                                {{-- @include('cargas.create') --}}
                             </div>
                         @endcan
                     </div>
@@ -46,30 +43,29 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>NKK</th>
-                                <th>Kriteria Rumah</th>
-                                <th>Sumber air</th>
-                                <th>Satu Rumah Satu KK</th>
+                                <th>NIK</th>
+                                <th>Jenis Bantuan</th>
+                                <th>Periode Bulan</th>
+                                <th>Periode Tahun</th>
+                                <th>Nominal</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($cargas as $carga)
+                            @foreach ($bansoses as $bansos)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $carga->nkk }}</td>
-                                    <td>{{ $carga->kriteria_rumah }}</td>
-                                    <td>{{ $carga->sumber_air->nama_sumber_air}}</td>
-                                    <td>{{ $carga->satu_rumah_satu_kk }}</td>
+                                    <td>{{ $bansos->nik }}</td>
+                                    <td>{{ $bansos->jenis_bantuan }}</td>
+                                    <td>{{ $bansos->periode_bulan }}</td>
+                                    <td>{{ $bansos->periode_tahun }}</td>
+                                    <td>{{ $bansos->nominal }}</td>
                                     <td>
-                                        <!-- Edit Data Kader -->
-                                        {{-- <a href="{{ route('cargas.update', $carga->id) }}"
-                                            class="btn btn-warning btn-sm mr-2 my-1 edit-btn" data-toggle="modal"
-                                            data-target="#editcargaModal" data-name="{{ $user->name }}"
-                                            data-nik="{{ $user->nik }}" data-username="{{ $user->username }}">
+                                        <a href="{{ route('bansos.edit', $bansos->id) }}"
+                                            class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
                                             <i class="ri-edit-2-line"></i>
                                             Edit
-                                        </a> --}}
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach

@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PenerimaBansos extends Model
 {
     use HasFactory;
+
+
+    protected $guarded = ['id'];
 }
