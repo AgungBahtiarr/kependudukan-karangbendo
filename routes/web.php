@@ -10,6 +10,7 @@ use App\Http\Controllers\PenerimaBansosController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WargaController;
 use App\Http\Middleware\CleanSession;
+use App\Models\PemanfaatanTanahPekarangan;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
@@ -55,20 +56,28 @@ Route::middleware('auth')->group(function () {
 
         Route::patch('/{id}/status', [WargaController::class, 'updateWargaStatus'])->middleware('can:update_wargas_status')->name('wargas.status.update');
 
-        Route::get('/{id}', [WargaController::class,'show'])->middleware('can:read_wargas')->name('wargas.show');
+        Route::get('/{id}', [WargaController::class, 'show'])->middleware('can:read_wargas')->name('wargas.show');
+        Route::get('/2/{id}', [WargaController::class, 'show2'])->middleware('can:read_wargas')->name('wargas.show2');
+
+        Route::get('/verify/{id}', [WargaController::class, 'verify'])->middleware('can:edit_wargas')->name('wargas.verify');
+
+
+        Route::get('/isDawis/{id}', [WargaController::class, 'isDawis'])->name('wargas.isDawis');
     });
 
 
     Route::prefix('dawis')->group(function () {
         Route::get('', [KeikutsertaanKegiatanDawisController::class, 'index'])->middleware('can:read_dawis',)->name('dawis.index');
-        Route::get('/create/{id}', [KeikutsertaanKegiatanDawisController::class, 'create'])->middleware('can:create_dawis',)->name('dawis.create');
+        Route::get('/create/{nik}', [KeikutsertaanKegiatanDawisController::class, 'create'])->middleware('can:create_dawis',)->name('dawis.create');
         Route::post('/store', [KeikutsertaanKegiatanDawisController::class, 'store'])->middleware('can:create_dawis',)->name('dawis.store');
-        Route::get('/{id}', [KeikutsertaanKegiatanDawisController::class,'show'])->middleware('can:read_dawis')->name('dawis.show');
+        Route::get('/{id}', [KeikutsertaanKegiatanDawisController::class, 'show'])->middleware('can:read_dawis')->name('dawis.show');
+
+        Route::post('/isKelompokBelajar/{id}', [KeikutsertaanKegiatanDawisController::class, 'isKelompokBelajar']);
     });
 
 
     Route::prefix('cargas')->group(function () {
-        Route::get('', [CatatanRumahTanggaController::class, 'index'])->middleware('can:read_cargas',CleanSession::class)->name('cargas.index');
+        Route::get('', [CatatanRumahTanggaController::class, 'index'])->middleware('can:read_cargas', CleanSession::class)->name('cargas.index');
         Route::get('/create1', [CatatanRumahTanggaController::class, 'create1'])->middleware('can:create_cargas',)->name('cargas.create1');
         Route::get('/create2', [CatatanRumahTanggaController::class, 'create2'])->middleware('can:create_cargas',)->name('cargas.create2');
         Route::get('/create3', [CatatanRumahTanggaController::class, 'create3'])->middleware('can:create_cargas',)->name('cargas.create3');
@@ -82,7 +91,21 @@ Route::middleware('auth')->group(function () {
         Route::post('/store/back', [CatatanRumahTanggaController::class, 'backTo'])->middleware('can:create_cargas')->name('cargas.back');
         Route::post('/store/back2', [CatatanRumahTanggaController::class, 'backTo2'])->middleware('can:create_cargas')->name('cargas.back2');
 
+        Route::get('/show/{id}', [CatatanRumahTanggaController::class, 'show'])->middleware('can:read_cargas')->name('cargas.show');
+        Route::get('/show2/{id}', [CatatanRumahTanggaController::class, 'show2'])->middleware('can:read_cargas')->name('cargas.show2');
+        // Route::get('/show2/{id}', [CatatanRumahTanggaController::class, 'show2'])->middleware('can:read_cargas')->name('cargas.show2');
 
+        Route::get('/verify/{id}', [CatatanRumahTanggaController::class, 'verify'])->middleware('can:edit_cargas')->name('cargas.verify');
+
+
+        Route::get('/edit1/{id}', [CatatanRumahTanggaController::class,'edit1'])->name('cargas.edit1');
+        Route::get('/edit2/{id}', [CatatanRumahTanggaController::class,'edit2'])->name('cargas.edit2');
+        Route::get('/edit3/{id}', [CatatanRumahTanggaController::class,'edit3'])->name('cargas.edit3');
+
+
+        Route::patch('/update1', [CatatanRumahTanggaController::class,'update1'])->name('cargas.update1');
+        Route::patch('/update2', [CatatanRumahTanggaController::class,'update2'])->name('cargas.update2');
+        Route::patch('/update3', [CatatanRumahTanggaController::class,'update3'])->name('cargas.update3');
 
     });
 
@@ -90,6 +113,9 @@ Route::middleware('auth')->group(function () {
         Route::get('', [PemanfaatanTanahPekaranganController::class, 'index'])->middleware('can:read_pekarangans',)->name('pekarangans.index');
         Route::get('/create/{id}', [PemanfaatanTanahPekaranganController::class, 'create'])->middleware('can:create_pekarangans',)->name('pekarangans.create');
         Route::post('/store', [PemanfaatanTanahPekaranganController::class, 'store'])->middleware('can:create_pekarangans',)->name('pekarangans.store');
+        Route::get('/detail/{id}/{nkk}', [PemanfaatanTanahPekaranganController::class, 'show'])->middleware('can:read_pekarangans',)->name('pekarangans.show');
+        Route::get('/edit/{id}', [PemanfaatanTanahPekaranganController::class, 'edit'])->middleware('can:edit_pekarangans',)->name('pekarangans.edit');
+        Route::patch('/update', [PemanfaatanTanahPekaranganController::class, 'update'])->middleware('can:edit_pekarangans',)->name('pekarangans.update');
     });
 
 
@@ -97,6 +123,11 @@ Route::middleware('auth')->group(function () {
         Route::get('', [IndustriRumahTanggaController::class, 'index'])->middleware('can:read_industries',)->name('industries.index');
         Route::get('/create/{id}', [IndustriRumahTanggaController::class, 'create'])->middleware('can:create_industries',)->name('industries.create');
         Route::post('/store', [IndustriRumahTanggaController::class, 'store'])->middleware('can:create_industries',)->name('industries.store');
+        Route::get('/detail/{id}/{nkk}', [IndustriRumahTanggaController::class, 'show'])->middleware('can:read_industries',)->name('industries.show');
+        Route::get('/edit/{id}', [IndustriRumahTanggaController::class, 'edit'])->middleware('can:edit_industries',)->name('industries.edit');
+        Route::patch('/update', [IndustriRumahTanggaController::class, 'update'])->middleware('can:edit_industries',)->name('industries.update');
+
+
     });
 
     Route::prefix('bansos')->group(function () {

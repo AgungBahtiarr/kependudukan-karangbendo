@@ -25,19 +25,22 @@ return new class extends Migration {
             $table->integer("jumlah_wus", 2)->autoIncrement(false);
             $table->integer("jumlah_ibuta", 2)->autoIncrement(false);
             $table->integer("jumlah_lansia", 2)->autoIncrement(false);
+            $table->integer("jumlah_ibu_hamil",2)->autoIncrement(false);
+            $table->integer("jumlah_ibu_menyusui",2)->autoIncrement(false);
+
             // $table->unsignedTinyInteger('jumlah_balita');
             // $table->unsignedTinyInteger('jumlah_pus');
             // $table->unsignedTinyInteger('jumlah_wus');
             // $table->unsignedTinyInteger('jumlah_ibuta');
             $table->unsignedBigInteger("id_makanan_pokok");
             $table->enum("menempel_stiker_p4k", ["0", "1"]);
-            $table->enum("aktivitas_UP2k", ["0", "1"]);
+            $table->enum("aktivitas_up2k", ["0", "1"]);
             $table->string("jenis_up2k");
             $table->enum("usaha_kesehatan_lingkungan", ["0", "1"]);
             $table->enum("pemanfaatan_pekarangan", ["0", "1"]);
             $table->enum("industri_rumah_tangga",["0","1"]);
             $table->enum("kerja_bakti", ["0", "1"]);
-            $table->enum("verified", ["yes", "no"]);
+            $table->enum("verified", ["yes", "no"])->default("no");
             $table->unsignedBigInteger("created_by");
             $table->timestamps();
         });

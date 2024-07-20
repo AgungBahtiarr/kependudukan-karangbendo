@@ -67,25 +67,49 @@ class PemanfaatanTanahPekaranganController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(PemanfaatanTanahPekarangan $pemanfaatanTanahPekarangan)
+    public function show($id, $nkk)
     {
-        //
+
+        $pekarangan = PemanfaatanTanahPekarangan::where('nkk', $nkk)->get();
+
+        $isPekarangan = true;
+        if (count($pekarangan) != 0) {
+            $pekarangan = $pekarangan[0];
+            return view('pemanfaatan_pekarangan.detail', compact('pekarangan', 'id', 'isPekarangan','nkk'));
+        } else {
+            $isPekarangan = false;
+            return view('pemanfaatan_pekarangan.detail', compact('pekarangan', 'id', 'isPekarangan','nkk'));;
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(PemanfaatanTanahPekarangan $pemanfaatanTanahPekarangan)
+    public function edit($id)
     {
-        //
+        $pekarangan = PemanfaatanTanahPekarangan::findOrFail($id);
+
+        return view("pemanfaatan_pekarangan.edit", compact('pekarangan'))->fragment('edit');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePemanfaatanTanahPekaranganRequest $request, PemanfaatanTanahPekarangan $pemanfaatanTanahPekarangan)
+    public function update(Request $request)
     {
-        //
+        $data = [
+            'tanaman_keras' => $request->tanaman_keras,
+            'toga' => $request->toga,
+            'lumbung_hidup' => $request->lumbung_hidup,
+            'warung_hidup' => $request->warung_hidup,
+            'perikanan' => $request->perikanan,
+        ];
+
+        $pekarangan = PemanfaatanTanahPekarangan::findOrFail($request->id);
+
+        $pekarangan->update($data);
+
+        return redirect('/pekarangans/detail/' . $pekarangan->id . '/' . $pekarangan->nkk);
     }
 
     /**

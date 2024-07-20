@@ -5,9 +5,10 @@
         <h1 class="text-2xl font-semibold">Tambah Data Warga</h1>
 
 
-        <div class="my-4   w-72 flex justify-around items-center">
+        <div class="my-4 w-96 flex justify-around items-center">
             <a href="" class="bg-[#cfdfe3] py-3 px-2 rounded-sm">Informasi Umum</a>
             <a href="">Alamat</a>
+            <a href="">Catatan Dawis</a>
         </div>
 
         <div class="w-full bg-white my-6 py-4 px-4 rounded-lg">
@@ -114,7 +115,8 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div class="form-group">
                         <label for="id_status_perkawinan">Status Perkawinan</label>
-                        <select class="form-control" aria-label="Default select example" name="id_status_perkawinan">
+                        <select class="form-control" aria-label="Default select example" name="id_status_perkawinan"
+                            required>
                             @if ($wargaSession)
                                 @foreach ($perkawinan as $kawin)
                                     <option value={{ $kawin->id }}

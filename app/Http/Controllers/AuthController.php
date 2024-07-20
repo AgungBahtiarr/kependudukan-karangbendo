@@ -25,7 +25,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
             return redirect('/');
         } else {
-            return redirect('/login')->withErrors('Email atau password salah');
+            return redirect('/auth/login')->withErrors('Email atau password salah');
         }
     }
 

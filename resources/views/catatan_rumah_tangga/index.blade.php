@@ -31,7 +31,7 @@
 
                         @can('create_cargas')
                             <div class="col-md-3 items-end">
-                                <a href={{route('cargas.create1')}} type="button" class="btn btn-primary btn-block">
+                                <a href={{ route('cargas.create1') }} type="button" class="btn btn-primary btn-block">
                                     <i class="ri-user-add-line"></i>
                                     Tambah Catatan Rumah Tangga
                                 </a>
@@ -59,17 +59,23 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $carga->nkk }}</td>
                                     <td>{{ $carga->kriteria_rumah }}</td>
-                                    <td>{{ $carga->sumber_air->nama_sumber_air}}</td>
+                                    <td>{{ $carga->sumber_air->nama_sumber_air }}</td>
                                     <td>{{ $carga->satu_rumah_satu_kk }}</td>
                                     <td>
-                                        <!-- Edit Data Kader -->
-                                        {{-- <a href="{{ route('cargas.update', $carga->id) }}"
-                                            class="btn btn-warning btn-sm mr-2 my-1 edit-btn" data-toggle="modal"
-                                            data-target="#editcargaModal" data-name="{{ $user->name }}"
-                                            data-nik="{{ $user->nik }}" data-username="{{ $user->username }}">
+                                        <a href="{{ route('cargas.show', $carga->id) }}" class="btn btn-primary btn-sm mr-2 my-1 edit-btn">
                                             <i class="ri-edit-2-line"></i>
-                                            Edit
-                                        </a> --}}
+                                            Detail
+                                        </a>
+
+                                        @can('edit_cargas')
+                                            @if ($carga->verified == 'no')
+                                                <a href={{ route('cargas.verify', $carga->id) }}
+                                                    class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
+                                                    <i class="ri-edit-2-line"></i>
+                                                    Verifikasi
+                                                </a>
+                                            @endif
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

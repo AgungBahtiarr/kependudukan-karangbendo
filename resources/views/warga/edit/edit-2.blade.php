@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="my-10 mx-12">
-        <h1 class="text-2xl font-semibold">Tambah Data Warga</h1>
+        <h1 class="text-2xl font-semibold">Edit Data Warga</h1>
 
 
         <div class="my-4   w-72 flex justify-around items-center">

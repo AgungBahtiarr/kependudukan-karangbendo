@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateWargaRequest;
 use App\Models\Agama;
+use App\Models\KeikutsertaanKegiatanDawis;
 use App\Models\Pekerjaan;
 use App\Models\Pendidikan;
 use App\Models\StatusPerkawinan;
@@ -34,7 +35,6 @@ class WargaController extends Controller
         //     $warga->where('name', 'like', '%' . strval($seacrhQuery) . '%');
         // }
 
-
         if ($status == '1') {
             $wargas->where('status_keluarga', '1');
         } elseif ($status == '0') {
@@ -43,10 +43,22 @@ class WargaController extends Controller
 
         $wargas = $wargas->get();
 
-
-        return view('warga.index', compact('title', 'wargas', 'status', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans'));
+        return view('warga.index', compact('title', 'wargas', 'status', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans',));
     }
 
+
+    public function isDawis($id)
+    {
+        $warga = Warga::findOrFail($id);
+        $dawis = KeikutsertaanKegiatanDawis::where('nik', $warga->nik)->get();
+        if (count($dawis) == 1) {
+            return "";
+        } else {
+            return view('warga.partials.add-dawis',[
+                'nik' => $warga->nik,
+            ])->fragment('add-dawis');
+        }
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -175,7 +187,7 @@ class WargaController extends Controller
 
         $request->session()->forget(['warga1', 'warga2']);
 
-        return redirect()->route('wargas.index')->with('success', 'Berhasil Menambahkan Data Warga');
+        return redirect()->route('dawis.create', $warga->nik);
     }
 
     /**
@@ -183,11 +195,29 @@ class WargaController extends Controller
      */
     public function show($id)
     {
-        $wargas = Warga::with('agama', 'pendidikan', 'pekerjaan', 'statusPerkawinan')->findOrFail($id);
+        $warga = Warga::with('agama', 'pendidikan', 'pekerjaan', 'statusPerkawinan')->findOrFail($id);
 
-        return $wargas;
+        $perkawinan = StatusPerkawinan::get();
+        $agamas = Agama::get();
+        $pendidikans = Pendidikan::get();
+        $pekerjaans = Pekerjaan::get();
 
+        return view("warga.show.detail", compact('warga', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans',));
     }
+
+    public function show2($id)
+    {
+        $warga = Warga::with('agama', 'pendidikan', 'pekerjaan', 'statusPerkawinan')->findOrFail($id);
+
+        $perkawinan = StatusPerkawinan::get();
+        $agamas = Agama::get();
+        $pendidikans = Pendidikan::get();
+        $pekerjaans = Pekerjaan::get();
+
+        return view("warga.show.detail2", compact('warga', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans',));
+    }
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -223,10 +253,10 @@ class WargaController extends Controller
 
         $request->session()->put('se', $data);
 
-        return response(null, 200, ["HX-Redirect" => '/warga/edit/1/'. $request->id]);
+        return response(null, 200, ["HX-Redirect" => '/warga/edit/1/' . $request->id]);
     }
 
-    public function edit2($id,Request $request)
+    public function edit2($id, Request $request)
     {
         $warga = Warga::findOrFail($id);
 
@@ -270,6 +300,18 @@ class WargaController extends Controller
         return redirect('/warga/edit/2/' . $request->id);
     }
 
+
+    public function verify($id)
+    {
+        $warga = Warga::findOrFail($id);
+
+        $warga->update([
+            'verified' => 'yes'
+        ]);
+
+        return redirect("/warga");
+    }
+
     public function update(Request $request)
     {
         $warga = Warga::findOrFail($request->id);
@@ -289,7 +331,7 @@ class WargaController extends Controller
         $wargaSession = $request->session()->get('editWarga1');
         $wargaSession2 = $request->session()->get('editWarga2');
 
-        $allSession = array_merge($wargaSession, $wargaSession2);
+        $allSession = array_merge($wargaSession, $rawdata);
 
         $data = [
             'no_registrasi' => $allSession['no_registrasi'],
@@ -329,8 +371,11 @@ class WargaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Warga $warga)
+    public function destroy($id)
     {
-        //
+        $warga = Warga::findOrFail($id);
+
+        $warga->delete('$id');
+        return redirect(route("wargas.index"));
     }
 }

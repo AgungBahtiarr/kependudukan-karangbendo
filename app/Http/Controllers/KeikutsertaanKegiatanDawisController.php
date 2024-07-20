@@ -19,17 +19,29 @@ class KeikutsertaanKegiatanDawisController extends Controller
         //
     }
 
+
+    public function isKelompokBelajar($id)
+    {
+        $kelompokBelajars = KelompokBelajar::get();
+        if ($id == 1) {
+            return view('keikutsertaandawis.partials.input', compact('kelompokBelajars'))->fragment('jenisKelompok');
+        } else {
+            return '<div></div>';
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request, $id)
+    public function create(Request $request, $nik)
     {
         $title = 'Tambah Catatan Dawis';
-        $warga = Warga::findOrFail($id);
+        $warga = Warga::where('nik', $nik)->get();
         $kelompokBelajars = KelompokBelajar::get();
 
+        $warga = $warga[0];
         $nik = $warga->nik;
-        return view('keikutsertaandawis.create.create', compact('nik','title','kelompokBelajars'));
+        return view('keikutsertaandawis.create.create', compact('nik', 'title', 'kelompokBelajars'));
     }
 
     /**
@@ -37,16 +49,27 @@ class KeikutsertaanKegiatanDawisController extends Controller
      */
     public function store(Request $request)
     {
+
+
+
+        $idKelompokBelajar = 0;
+
+        if ($request->kelompok_belajar == 0) {
+            $idKelompokBelajar = 4;
+        }else{
+            $idKelompokBelajar = $request->id_jenis_kelompok_belajar;
+        }
+
         $data = [
             'nik' => $request->nik,
             'akseptor_kb' => $request->akseptor_kb,
             'jenis_kb' => $request->jenis_kb,
-            'posyandu'=> $request->posyandu,
-            'frekuensi_posyandu'=> $request->frekuensi_posyandu,
+            'posyandu' => $request->posyandu,
+            'frekuensi_posyandu' => $request->frekuensi_posyandu,
             'bina_keluarga_balita' => $request->bina_keluarga_balita,
             'memiliki_tabungan' => $request->memiliki_tabungan,
             'kelompok_belajar' => $request->kelompok_belajar,
-            'id_jenis_kelompok_belajar' => $request->id_jenis_kelompok_belajar,
+            'id_jenis_kelompok_belajar' => $idKelompokBelajar,
             'paud' => $request->paud,
             'koperasi' => $request->koperasi,
             'jenis_koperasi' => $request->jenis_koperasi,
@@ -60,7 +83,7 @@ class KeikutsertaanKegiatanDawisController extends Controller
             'kegiatan_kesehatan' => $request->kegiatan_kesehatan,
             'perencanaan_kesehatan' => $request->perencanaan_kesehatan,
             'verified' => "no",
-           'created_by' => auth()->user()->id,
+            'created_by' => auth()->user()->id,
         ];
 
         $catatanDawis = KeikutsertaanKegiatanDawis::create($data);

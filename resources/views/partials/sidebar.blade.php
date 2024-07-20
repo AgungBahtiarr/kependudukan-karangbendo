@@ -2,7 +2,7 @@
     <div class="iq-sidebar-logo d-flex align-items-center justify-content-between">
         <a href="{{ route('dashboard') }}" class="header-logo">
             <img src="{{ asset('assets/images/logo/logo-banyuwangi.svg') }}" class="img-fluid rounded-normal light-logo" alt="logo" style="width: 40px; height: auto;">
-            <img src=" {{ asset('assets/images/logo/logo-banyuwangi.svg') }}" class="img-fluid rounded-normal darkmode-logo" alt="logo" style="width: 40px; height: auto;">
+            {{-- <img src=" {{ asset('assets/images/logo/logo-banyuwangi.svg') }}" class="img-fluid rounded-normal darkmode-logo" alt="logo" style="width: 40px; height: auto;"> --}}
         </a>
         <div class="iq-menu-bt-sidebar">
             <i class="las la-bars wrapper-menu"></i>

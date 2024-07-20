@@ -24,7 +24,6 @@
                     </div>
 
 
-
                     <div class="form-group">
                         <label for="jumlah_pus">Jumlah Pria Usaha Sosial</label>
                         <input type="number" name="jumlah_pus" class="form-control"  required value={{ $cargasSession ? $cargasSession['jumlah_pus'] : '' }} >

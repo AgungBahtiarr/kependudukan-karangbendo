@@ -67,16 +67,28 @@
                                             <a href="{{ route('wargas.edit1', $warga->id) }}"
                                                 class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
                                                 <i class="ri-edit-2-line"></i>
-                                                Edit
+                                                Detail
                                             </a>
                                         @endcan
-                                        @can('create_dawis')
-                                            <a href={{route('dawis.create', $warga->id)}} class="btn btn-success btn-sm mr-2 my-1 edit-btn">
+                                        {{-- @can('read_wargas')
+                                            <a href={{ route('wargas.show', $warga->id) }}
+                                                class="btn btn-success btn-sm mr-2 my-1 edit-btn">
                                                 <i class="ri-edit-2-line"></i>
-                                                Tambah Catatan Dawis
+                                                Detail Warga
                                             </a>
-                                        @endcan
+                                        @endcan --}}
+                                        <div id="addDawis" hx-get="/warga/isDawis/{{$warga->id}}" hx-swap="innerHtml" hx-trigger="load">
 
+                                        </div>
+                                        @can('edit_wargas')
+                                            @if ($warga->verified == 'no')
+                                                <a href={{ route('wargas.verify', $warga->id) }}
+                                                    class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
+                                                    <i class="ri-edit-2-line"></i>
+                                                    Verifikasi
+                                                </a>
+                                            @endif
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

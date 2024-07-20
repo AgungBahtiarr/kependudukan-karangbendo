@@ -30,7 +30,7 @@ class IndustriRumahTanggaController extends Controller
 
         $carga = json_decode($carga);
 
-        return view('industri_rumah_tangga.create', compact('carga','title'));
+        return view('industri_rumah_tangga.create', compact('carga', 'title'));
     }
 
     /**
@@ -57,25 +57,51 @@ class IndustriRumahTanggaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(IndustriRumahTangga $industriRumahTangga)
+    public function show($id, $nkk)
     {
-        //
+
+        $industri = IndustriRumahTangga::where('nkk', $nkk)->get();
+
+        $isIndustri = true;
+
+        if (count($industri) != 0) {
+            $industri = $industri[0];
+            return view("industri_rumah_tangga.detail", compact('industri', 'id', 'nkk','isIndustri'));
+        }else{
+            $isIndustri = false;
+            return view("industri_rumah_tangga.detail", compact('industri', 'id', 'nkk','isIndustri'));
+        }
+
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(IndustriRumahTangga $industriRumahTangga)
+    public function edit(Request $request, $id)
     {
-        //
+
+        $industri = IndustriRumahTangga::findOrFail($id);
+
+        return view('industri_rumah_tangga.edit',compact('industri'))->fragment('edit');
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateIndustriRumahTanggaRequest $request, IndustriRumahTangga $industriRumahTangga)
+    public function update(Request $request)
     {
-        //
+        $data =[
+            'bidang_sandang' => $request->bidang_sandang,
+            'bidang_pangan' => $request->bidang_pangan,
+            'bidang_jasa' => $request->bidang_jasa,
+            'nama_usaha' => $request->nama_usaha,
+        ];
+        $industri = IndustriRumahTangga::findOrFail($request->id);
+
+        $industri->update($data);
+
+        return redirect(route("industries.show", [$industri->id, $industri->nkk]));
     }
 
     /**

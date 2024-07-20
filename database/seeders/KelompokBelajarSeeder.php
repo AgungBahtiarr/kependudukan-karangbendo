@@ -14,7 +14,7 @@ class KelompokBelajarSeeder extends Seeder
     public function run(): void
     {
         $kelompokBelajars = [
-            'Paket A', 'Paket B', 'Paket C'
+            'Paket A', 'Paket B', 'Paket C', "Tidak Ikut Kelompok Belajar"
         ];
 
         foreach ($kelompokBelajars as $item) {

@@ -38,32 +38,32 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-group">
-                        <label for="menempel_stiker_p4K">Menempel Stiker P4K</label>
+                        <label for="menempel_stiker_p4k">Menempel Stiker P4K</label>
                         <div class="form-group">
 
                             @if ($cargasSession)
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="menempel_stiker_p4K_ya" name="menempel_stiker_p4K"
-                                        value="1" {{ $cargasSession['menempel_stiker_p4K'] == '1' ? 'checked' : '' }}
+                                    <input type="radio" id="menempel_stiker_p4k_ya" name="menempel_stiker_p4k"
+                                        value="1" {{ $cargasSession['menempel_stiker_p4k'] == '1' ? 'checked' : '' }}
                                         class="custom-control-input" required>
-                                    <label class="custom-control-label" for="menempel_stiker_p4K_ya"> Ya </label>
+                                    <label class="custom-control-label" for="menempel_stiker_p4k_ya"> Ya </label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="menempel_stiker_p4K_tidak" name="menempel_stiker_p4K"
-                                        value="0" {{ $cargasSession['menempel_stiker_p4K'] == '0' ? 'checked' : '' }}
+                                    <input type="radio" id="menempel_stiker_p4k_tidak" name="menempel_stiker_p4k"
+                                        value="0" {{ $cargasSession['menempel_stiker_p4k'] == '0' ? 'checked' : '' }}
                                         class="custom-control-input" required>
-                                    <label class="custom-control-label" for="menempel_stiker_p4K_tidak"> Tidak </label>
+                                    <label class="custom-control-label" for="menempel_stiker_p4k_tidak"> Tidak </label>
                                 </div>
                             @else
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="menempel_stiker_p4K_ya" name="menempel_stiker_p4K"
+                                    <input type="radio" id="menempel_stiker_p4k_ya" name="menempel_stiker_p4k"
                                         value="1" class="custom-control-input" required>
-                                    <label class="custom-control-label" for="menempel_stiker_p4K_ya"> Ya </label>
+                                    <label class="custom-control-label" for="menempel_stiker_p4k_ya"> Ya </label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="menempel_stiker_p4K_tidak" name="menempel_stiker_p4K"
+                                    <input type="radio" id="menempel_stiker_p4k_tidak" name="menempel_stiker_p4k"
                                         value="0" class="custom-control-input" required>
-                                    <label class="custom-control-label" for="menempel_stiker_p4K_tidak"> Tidak </label>
+                                    <label class="custom-control-label" for="menempel_stiker_p4k_tidak"> Tidak </label>
                                 </div>
                             @endif
 
@@ -72,34 +72,34 @@
 
 
                     <div class="form-group">
-                        <label for="aktifitas_UP2K">Aktifitas UP2K</label>
+                        <label for="aktivitas_up2k">Aktivitas UP2K</label>
 
                         @if ($cargasSession)
                             <div class="form-group">
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="aktifitas_UP2K_ya" name="aktifitas_UP2K" value="1"
-                                        {{ $cargasSession['aktifitas_UP2K'] == '1' ? 'checked' : '' }}
+                                    <input type="radio" id="aktivitas_up2k_ya" name="aktivitas_up2k" value="1"
+                                        {{ $cargasSession['aktivitas_up2k'] == '1' ? 'checked' : '' }}
                                         class="custom-control-input" required>
-                                    <label class="custom-control-label" for="aktifitas_UP2K_ya"> Ya </label>
+                                    <label class="custom-control-label" for="aktivitas_up2k_ya"> Ya </label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="aktifitas_UP2K_tidak" name="aktifitas_UP2K" value="0"
-                                        {{ $cargasSession['aktifitas_UP2K'] == '0' ? 'checked' : '' }}
+                                    <input type="radio" id="aktivitas_up2k_tidak" name="aktivitas_up2k" value="0"
+                                        {{ $cargasSession['aktivitas_up2k'] == '0' ? 'checked' : '' }}
                                         class="custom-control-input" required>
-                                    <label class="custom-control-label" for="aktifitas_UP2K_tidak"> Tidak </label>
+                                    <label class="custom-control-label" for="aktivitas_up2k_tidak"> Tidak </label>
                                 </div>
                             </div>
                         @else
                             <div class="form-group">
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="aktifitas_UP2K_ya" name="aktifitas_UP2K" value="1"
+                                    <input type="radio" id="aktivitas_up2k_ya" name="aktivitas_up2k" value="1"
                                         class="custom-control-input" required>
-                                    <label class="custom-control-label" for="aktifitas_UP2K_ya"> Ya </label>
+                                    <label class="custom-control-label" for="aktivitas_up2k_ya"> Ya </label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="aktifitas_UP2K_tidak" name="aktifitas_UP2K" value="0"
+                                    <input type="radio" id="aktivitas_up2k_tidak" name="aktivitas_up2k" value="0"
                                         class="custom-control-input" required>
-                                    <label class="custom-control-label" for="aktifitas_UP2K_tidak"> Tidak </label>
+                                    <label class="custom-control-label" for="aktivitas_UP2K_tidak"> Tidak </label>
                                 </div>
                             </div>
                         @endif
