@@ -78,10 +78,49 @@ class RoleSeeder extends Seeder
 
         $kaderRole->givePermissionTo(
             "dashboard_access",
+
+            #warga
             "create_wargas",
             "read_wargas",
+            "edit_wargas",
             "update_wargas",
             "update_warga_status",
+
+            #dawis
+            "create_dawis",
+            "read_dawis",
+            "edit_dawis",
+            "update_dawis",
+            "update_dawis_status",
+
+            #cargas
+            "create_cargas",
+            "read_cargas",
+            "edit_cargas",
+            "update_cargas",
+            "update_cargas_status",
+
+            #pekarangans
+            "create_pekarangans",
+            "read_pekarangans",
+            "edit_pekarangans",
+            "update_pekarangans",
+            "update_pekarangans_status",
+
+            #industri
+            "create_industries",
+            "read_industries",
+            "edit_industries",
+            "update_industries",
+            "update_industries_status",
+
+            #bansos
+            "create_bansos",
+            "read_bansos",
+            "edit_bansos",
+            "update_bansos",
+            "update_bansos_status",
+
             "logout"
         );
     }

@@ -57,7 +57,7 @@ Route::middleware('auth')->group(function () {
         Route::patch('/{id}/status', [WargaController::class, 'updateWargaStatus'])->middleware('can:update_wargas_status')->name('wargas.status.update');
 
         Route::get('/{id}', [WargaController::class, 'show'])->middleware('can:read_wargas')->name('wargas.show');
-        Route::get('/2/{id}', [WargaController::class, 'show2'])->middleware('can:read_wargas')->name('wargas.show2');
+        // Route::get('/2/{id}', [WargaController::class, 'show2'])->middleware('can:read_wargas')->name('wargas.show2');
 
         Route::get('/verify/{id}', [WargaController::class, 'verify'])->middleware('can:edit_wargas')->name('wargas.verify');
 
@@ -69,7 +69,24 @@ Route::middleware('auth')->group(function () {
     Route::prefix('dawis')->group(function () {
         Route::get('', [KeikutsertaanKegiatanDawisController::class, 'index'])->middleware('can:read_dawis',)->name('dawis.index');
         Route::get('/create/{nik}', [KeikutsertaanKegiatanDawisController::class, 'create'])->middleware('can:create_dawis',)->name('dawis.create');
+        Route::get('/create2/{nik}', [KeikutsertaanKegiatanDawisController::class, 'create2'])->middleware('can:create_dawis',)->name('dawis.create2');
+
+
+        Route::post('/backTo', [KeikutsertaanKegiatanDawisController::class, 'backTo'])->middleware('can:create_dawis',)->name('dawis.backTo');
+
+
         Route::post('/store', [KeikutsertaanKegiatanDawisController::class, 'store'])->middleware('can:create_dawis',)->name('dawis.store');
+        Route::post('/store2', [KeikutsertaanKegiatanDawisController::class, 'store2'])->middleware('can:create_dawis',)->name('dawis.store2');
+
+
+        Route::get('/edit/{nik}', [KeikutsertaanKegiatanDawisController::class, 'edit'])->middleware('can:edit_dawis',)->name('dawis.edit');
+        Route::get('/edit2/{nik}', [KeikutsertaanKegiatanDawisController::class, 'edit2'])->middleware('can:edit_dawis',)->name('dawis.edit2');
+
+        Route::patch('/update', [KeikutsertaanKegiatanDawisController::class, 'update'])->middleware('can:update_dawis',)->name('dawis.update');
+        Route::patch('/update2', [KeikutsertaanKegiatanDawisController::class, 'update2'])->middleware('can:update_dawis',)->name('dawis.update2');
+
+
+
         Route::get('/{id}', [KeikutsertaanKegiatanDawisController::class, 'show'])->middleware('can:read_dawis')->name('dawis.show');
 
         Route::post('/isKelompokBelajar/{id}', [KeikutsertaanKegiatanDawisController::class, 'isKelompokBelajar']);

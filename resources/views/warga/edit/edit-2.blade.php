@@ -6,9 +6,10 @@
         <h1 class="text-2xl font-semibold">Edit Data Warga</h1>
 
 
-        <div class="my-4   w-72 flex justify-around items-center">
+        <div class="my-4 w-96 flex justify-around items-center">
             <a href="" class="">Informasi Umum</a>
             <a href="" class="bg-[#cfdfe3] py-3 px-2 rounded-sm">Alamat</a>
+            <a href="">Catatan Dawis</a>
         </div>
 
         <div class="w-full bg-white my-6 py-4 px-4 rounded-lg">

@@ -50,6 +50,9 @@
                                 <th>Kriteria Rumah</th>
                                 <th>Sumber air</th>
                                 <th>Satu Rumah Satu KK</th>
+                                @role('Admin')
+                                    <th>Status</th>
+                                @endrole
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -61,21 +64,29 @@
                                     <td>{{ $carga->kriteria_rumah }}</td>
                                     <td>{{ $carga->sumber_air->nama_sumber_air }}</td>
                                     <td>{{ $carga->satu_rumah_satu_kk }}</td>
+                                    @role('Admin')
+                                        <td>
+                                            @if ($carga->verified == 'yes')
+                                                Terverifikasi
+                                            @else
+                                                @can('edit_cargas')
+                                                    @if ($carga->verified == 'no')
+                                                        <a href={{ route('cargas.verify', $carga->id) }}
+                                                            class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
+                                                            <i class="ri-check-line"></i>
+                                                            Verifikasi
+                                                        </a>
+                                                    @endif
+                                                @endcan
+                                            @endif
+                                        </td>
+                                    @endrole
                                     <td>
-                                        <a href="{{ route('cargas.show', $carga->id) }}" class="btn btn-primary btn-sm mr-2 my-1 edit-btn">
-                                            <i class="ri-edit-2-line"></i>
+                                        <a href="{{ route('cargas.show', $carga->id) }}"
+                                            class="btn btn-primary btn-sm mr-2 my-1 edit-btn">
+                                            <i class="ri-information-fill"></i>
                                             Detail
                                         </a>
-
-                                        @can('edit_cargas')
-                                            @if ($carga->verified == 'no')
-                                                <a href={{ route('cargas.verify', $carga->id) }}
-                                                    class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
-                                                    <i class="ri-edit-2-line"></i>
-                                                    Verifikasi
-                                                </a>
-                                            @endif
-                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

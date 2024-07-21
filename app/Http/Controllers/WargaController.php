@@ -54,7 +54,7 @@ class WargaController extends Controller
         if (count($dawis) == 1) {
             return "";
         } else {
-            return view('warga.partials.add-dawis',[
+            return view('warga.partials.add-dawis', [
                 'nik' => $warga->nik,
             ])->fragment('add-dawis');
         }
@@ -202,7 +202,14 @@ class WargaController extends Controller
         $pendidikans = Pendidikan::get();
         $pekerjaans = Pekerjaan::get();
 
-        return view("warga.show.detail", compact('warga', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans',));
+        $dawisraw = KeikutsertaanKegiatanDawis::with('jenisKelompokBelajar')->where('nik', $warga->nik)->get();
+        $dawisraw = $dawisraw[0];
+        $dawis = KeikutsertaanKegiatanDawis::with('jenisKelompokBelajar')->findOrFail($dawisraw->id);
+        $dawis = json_decode($dawis,true);
+        $dawis = (object)$dawis;
+
+        // return $dawis;
+        return view("warga.show.detail", compact('warga', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans', 'dawis'));
     }
 
     public function show2($id)
@@ -365,7 +372,7 @@ class WargaController extends Controller
         $request->session()->forget(['editWarga1', 'editWarga2']);
 
 
-        return redirect('/warga');
+        return redirect(route("dawis.edit", $warga->nik));
     }
 
     /**

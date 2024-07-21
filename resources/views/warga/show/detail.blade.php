@@ -1,121 +1,196 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="my-10 mx-12">
-        <h1 class="text-2xl font-semibold">Detail Data Warga</h1>
+    <div class="mt-8 mx-16">
+        <h1 class="text-xl mb-7">Detail Data Warga</h1>
 
+        <div class="bg-white rounded-lg pl-8 py-6">
+            <div class="flex items-center  gap-4">
+                <h2 class="text-2xl font-medium">{{ $warga->nama }}</h2>
+                <div class="py-1 px-3 text-[#EA8C00] bg-[#fbe8cc] rounded-md">Anggota Keluarga</div>
+            </div>
 
-        <div class="my-4   w-72 flex justify-around items-center">
-            <a href="" class="bg-[#cfdfe3] py-3 px-2 rounded-sm">Informasi Umum</a>
-            <a href="">Alamat</a>
+            <ul class="mt-6 text-lg">
+                <li>Jenis Kelamin: {{ $warga->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</li>
+                <li>Nomor Induk Kependudukan: {{ $warga->nik }}</li>
+                <li>Nomor Kartu Keluarga: {{ $warga->nkk }}</li>
+            </ul>
         </div>
 
-        <div class="w-full bg-white my-6 py-4 px-4 rounded-lg">
-            <form action="">
-                @csrf
-                <div class="form-group">
-                    <label for="no_registrasi">No Registrasi</label>
-                    <input type="text" name="no_registrasi" class="form-control" required @readonly(true)
-                        value={{ $warga->no_registrasi }}>
-                </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 mt-8 gap-8">
+            <div class="bg-white rounded-lg font-medium">
+                <h2 class="border-black border-b pl-8 py-6">Informasi Personal</h2>
 
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="form-group">
-                        <label for="nik">NIK</label>
-                        <input type="text" name="nik" class="form-control" @readonly(true) required
-                            value="{{ $warga->nik }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="nkk">NKK</label>
-                        <input type="text" name="nkk" class="form-control" @readonly(true) required
-                            value="{{ $warga->nkk }}">
-                    </div>
-                </div>
+                <ul class="flex flex-col gap-7 pl-8 py-8">
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Tempat Lahir</div>
+                        <div>{{ $warga->tempat_lahir }}</div>
+                    </li>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Tanggal Lahir</div>
+                        <div>{{ $warga->tanggal_lahir }}</div>
+                    </li>
 
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="form-group">
-                        <label for="name">Nama</label>
-                        <input type="text" name="nama" class="form-control" @readonly(true) required
-                            value="{{ $warga->nama }}">
-                    </div>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Agama</div>
+                        <div>{{ $warga->agama->nama_agama }}</div>
+                    </li>
 
-                    <div class="form-group">
-                        <label for="jenis_kelamin">Jenis Kelamin</label>
-                        <select class="form-control" @readonly(true) name="jenis_kelamin">
-                            <option selected>{{ $warga->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</option>
-                        </select>
-                    </div>
-                </div>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Pendidikan</div>
+                        <div>{{ $warga->pendidikan->nama_pendidikan }}</div>
+                    </li>
 
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="form-group">
-                        <label for="tempat_lahir">Tempat Lahir</label>
-                        <input type="text" name="tempat_lahir" value={{ $warga->tempat_lahir }} @readonly(true)
-                            class="form-control" required value="">
-                    </div>
-                    <div class="form-group">
-                        <label for="tanggal_lahir">Tanggal Lahir</label>
-                        <input type="date" name="tanggal_lahir" class="form-control" required
-                            value={{ $warga->tanggal_lahir }} @readonly(true)>
-                    </div>
-                </div>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Status Perkawinan</div>
+                        <div>{{ $warga->statusPerkawinan->nama_status_kawin }}</div>
+                    </li>
+
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Jabatan</div>
+                        <div>{{ $warga->jabatan }}</div>
+                    </li>
+                </ul>
+            </div>
+            <div class="bg-white rounded-lg font-medium">
+                <h2 class="border-black border-b pl-8 py-6">Alamat</h2>
+
+                <ul class="flex flex-col gap-7 pl-8 py-8">
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Provinsi</div>
+                        <div>{{ $warga->alamat_prov }}</div>
+                    </li>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Kabupaten/Kota</div>
+                        <div>{{ $warga->alamat_kab }}</div>
+                    </li>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Kecamatan</div>
+                        <div>{{ $warga->alamat_kec }}</div>
+                    </li>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Desa/Kelurahan</div>
+                        <div>{{ $warga->alamat_desakel }}</div>
+                    </li>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">RW</div>
+                        <div>{{ $warga->rw }}</div>
+                    </li>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">RT</div>
+                        <div>{{ $warga->rt }}</div>
+                    </li>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Jalan</div>
+                        <div>{{ $warga->alamat_jalan }}</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
 
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="form-group">
-                        <label for="agama">Agama</label>
-                        <select class="form-control" aria-label="Default select example" @readonly(true) name="id_agama">
-                            <option selected>{{ $warga->agama->nama_agama }}</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="pendidikan">Pendidikan</label>
-                        <select class="form-control" name="id_pendidikan" @readonly(true)>
-                            <option selected>{{ $warga->pendidikan->nama_pendidikan }}</option>
-                        </select>
-                    </div>
-                </div>
+        <div class="bg-white rounded-lg font-medium my-8">
+            <h2 class="border-black border-b pl-8 py-6">Keikutsertaan Kegiatan Dawis</h2>
+            <div class="grid grid-cols-2">
+                <ul class="flex flex-col gap-7 pl-8 py-8">
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Akseptor KB</div>
+                        <div>{{ $dawis->akseptor_kb == '1' ? 'Iya' : 'Tidak' }}</div>
+                    </li>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Jenis Akseptor KB</div>
+                        <div>{{ $dawis->jenis_kb }}</div>
+                    </li>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Aktif Dalam Kegiatan Posyandu</div>
+                        <div>{{ $dawis->posyandu == '1' ? 'Iya' : 'Tidak' }}</div>
+                    </li>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Frekuensi Posyandu</div>
+                        <div>{{ $dawis->frekuensi_posyandu }}</div>
+                    </li>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Mengikuti Program Bina Keluarga Balita</div>
+                        <div>{{ $dawis->bina_keluarga_balita }}</div>
+                    </li>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Memiliki Tabungan</div>
+                        <div>{{ $dawis->memiliki_tabungan == '1' ? 'Iya' : 'Tidak' }}</div>
+                    </li>
+                </ul>
 
+                <ul class="flex flex-col gap-7 pl-8 py-8">
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Mengikuti Kelompok Belajar</div>
+                        <div>{{ $dawis->kelompok_belajar == '1' ? 'Iya' : 'Tidak' }}</div>
+                    </li>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Jenis Kelompok Belajar</div>
+                        <div>{{ $dawis->jenis_kelompok_belajar['nama_kelompok_belajar'] }}</div>
+                    </li>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Mengikuti PAUD/Sejenis</div>
+                        <div>{{ $dawis->paud == '1' ? 'Iya' : 'Tidak' }}</div>
+                    </li>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Ikut dalam Kegiatan Koperasi</div>
+                        <div>{{ $dawis->koperasi == '1' ? 'Iya' : 'Tidak' }}</div>
+                    </li>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Jenis Koperasi</div>
+                        <div>{{ $dawis->jenis_koperasi }}</div>
+                    </li>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Berkebutuhan Khusus</div>
+                        <div>{{ $dawis->berkebutuhan_khusus == '1' ? 'Iya' : 'Tidak' }}</div>
+                    </li>
+                </ul>
+            </div>
 
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="form-group">
-                        <label for="id_status_perkawinan">Status Perkawinan</label>
-                        <select class="form-control" aria-label="Default select example" @readonly(true) name="id_status_perkawinan">
-                            <option selected>{{ $warga->statusPerkawinan->nama_status_kawin }}</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="status_keluarga">Status Dalam Keluarga</label>
-                        <select class="form-control" aria-label="Default select example" name="status_keluarga"
-                            @readonly(true)>
-                            <option selected>{{ $warga->status_keluarga == '1' ? 'Kepala Keluarga' : 'Anggota Keluarga' }}
-                            </option>
-                        </select>
-                    </div>
-                </div>
+        </div>
 
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="form-group">
-                        <label for="pekerjaan">Pekerjaan</label>
-                        <select class="form-control" aria-label="Default select example" name="id_pekerjaan"
-                            @readonly(true)>
-                            <option selected>{{ $warga->pekerjaan->nama_pekerjaan }}</option>
+        <div class="bg-white rounded-lg font-medium my-8">
+            <h2 class="border-black border-b pl-8 py-6">Kegiatan Yang Diikuti</h2>
+            <div class="grid grid-cols-2">
+                <ul class="flex flex-col gap-7 pl-8 py-8">
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Penghayatan dan Pengamatan Pancasila</div>
+                        <div>{{ $dawis->penghayatan_pengamalan_pancasila == '1' ? 'Iya' : 'Tidak' }}</div>
+                    </li>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Gotong Royong</div>
+                        <div>{{ $dawis->gotong_royong == '1' ? 'Iya' : 'Tidak' }}</div>
+                    </li>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Pendidikan Dan Keterampilan</div>
+                        <div>{{ $dawis->pendidikan_keterampilan == '1' ? 'Iya' : 'Tidak' }}</div>
+                    </li>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Kehidupan Berkolaborasi</div>
+                        <div>{{ $dawis->kehidupan_berkolaborasi == '1' ? 'Iya' : 'Tidak' }}</div>
+                    </li>
+                </ul>
 
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="jabatan">Jabatan</label>
-                        <input type="text" name="jabatan" class="form-control" required value={{ $warga->jabatan }}
-                            @readonly(true)>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <a href="/warga" type="button" class="btn btn-secondary" data-dismiss="modal">Batal</a>
-                    <a href="/warga/2/{{$warga->id}}" type="submit" class="btn btn-primary">Selanjutnya</a>
-                </div>
-            </form>
+                <ul class="flex flex-col gap-7 pl-8 py-8">
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Pangan</div>
+                        <div>{{ $dawis->pangan == '1' ? 'Iya' : 'Tidak' }}</div>
+                    </li>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Sandang</div>
+                        <div>{{ $dawis->sandang == '1' ? 'Iya' : 'Tidak' }}</div>
+                    </li>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Kegiatan Kesehatan</div>
+                        <div>{{ $dawis->kegiatan_kesehatan == '1' ? 'Iya' : 'Tidak' }}</div>
+                    </li>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Perencanaan Kesehatan</div>
+                        <div>{{ $dawis->perencanaan_kesehatan == '1' ? 'Iya' : 'Tidak' }}</div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
+
 @endsection

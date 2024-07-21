@@ -19,7 +19,7 @@ return new class extends Migration
             $table->enum('posyandu', ['0','1']);
             $table->integer('frekuensi_posyandu', 3)->autoIncrement(false);
             $table->enum('bina_keluarga_balita', ['0','1']);
-            $table->enum('memilki_tabungan', ['0','1']);
+            $table->enum('memiliki_tabungan', ['0','1']);
             $table->enum('kelompok_belajar', ['0','1']);
             $table->unsignedBigInteger('id_jenis_kelompok_belajar');
             $table->enum('paud', ['0','1']);

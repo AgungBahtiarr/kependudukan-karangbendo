@@ -13,7 +13,8 @@ class KeikutsertaanKegiatanDawis extends Model
     protected $guarded = ['id'];
 
 
-    public function jenisKelompokBelajar(){
+    public function jenisKelompokBelajar()
+    {
         return $this->belongsTo(KelompokBelajar::class, 'id_jenis_kelompok_belajar');
     }
 }

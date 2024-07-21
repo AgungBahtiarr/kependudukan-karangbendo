@@ -24,7 +24,7 @@
 
                 <div class="form-group">
                     <label for="periode_bulan">Periode Bulan</label>
-                    <select class="form-control" name="periode_bulan">
+                    <select class="form-control" name="periode_bulan" required>
                         <option selected>Pilih Periode Bulan </option>
                         @foreach ($months as $month)
                             <option value={{ $month }}>{{ $month }}</option>
@@ -34,7 +34,7 @@
 
                 <div class="form-group">
                     <label for="periode_tahun">Periode Tahun</label>
-                    <input type="text" name="periode_tahun" class="form-control" required>
+                    <input type="number" name="periode_tahun" class="form-control" required>
                 </div>
 
                 <div class="form-group">

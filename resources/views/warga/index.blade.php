@@ -50,6 +50,9 @@
                                 <th>NO KK</th>
                                 <th>JENIS KELAMIN</th>
                                 <th>STATUS DALAM KELUARGA</th>
+                                @role('Admin')
+                                    <th>Status</th>
+                                @endrole
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -62,33 +65,41 @@
                                     <td>{{ $warga->nkk }}</td>
                                     <td>{{ $warga->jenis_kelamin == 'L' ? 'Laki-Laki' : 'Perempuan' }}</td>
                                     <td>{{ $warga->status_keluarga == '0' ? 'Anggota Keluarga' : 'Kepala Keluarga' }}</td>
+                                    @role('Admin')
+                                        <td>
+                                            @if ($warga->verified == 'yes')
+                                                Terverifikasi
+                                            @else
+                                                @can('edit_wargas')
+                                                    @if ($warga->verified == 'no')
+                                                        <a href={{ route('wargas.verify', $warga->id) }}
+                                                            class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
+                                                            <i class="ri-check-line"></i>
+                                                            Verifikasi
+                                                        </a>
+                                                    @endif
+                                                @endcan
+                                            @endif
+                                        </td>
+                                    @endrole
                                     <td>
-                                        @can('edit_wargas')
-                                            <a href="{{ route('wargas.edit1', $warga->id) }}"
-                                                class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
-                                                <i class="ri-edit-2-line"></i>
+                                        @can('read_wargas')
+                                            <a href="{{ route('wargas.show', $warga->id) }}"
+                                                class="btn btn-primary btn-sm mr-2 my-1 edit-btn">
+                                                <i class="ri-information-fill"></i>
                                                 Detail
                                             </a>
                                         @endcan
-                                        {{-- @can('read_wargas')
-                                            <a href={{ route('wargas.show', $warga->id) }}
-                                                class="btn btn-success btn-sm mr-2 my-1 edit-btn">
-                                                <i class="ri-edit-2-line"></i>
-                                                Detail Warga
-                                            </a>
-                                        @endcan --}}
-                                        <div id="addDawis" hx-get="/warga/isDawis/{{$warga->id}}" hx-swap="innerHtml" hx-trigger="load">
-
-                                        </div>
                                         @can('edit_wargas')
-                                            @if ($warga->verified == 'no')
-                                                <a href={{ route('wargas.verify', $warga->id) }}
-                                                    class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
-                                                    <i class="ri-edit-2-line"></i>
-                                                    Verifikasi
-                                                </a>
-                                            @endif
+                                            <a href="{{ route('wargas.edit1', $warga->id) }}"
+                                                class="btn btn-secondary btn-sm mr-2 my-1 edit-btn">
+                                                <i class="ri-edit-2-line"></i>
+                                                Edit
+                                            </a>
                                         @endcan
+                                        <div id="addDawis" hx-get="/warga/isDawis/{{ $warga->id }}" hx-swap="innerHtml"
+                                            hx-trigger="load">
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
