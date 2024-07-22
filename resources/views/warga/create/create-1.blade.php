@@ -8,7 +8,6 @@
         <div class="my-4 w-96 flex justify-around items-center">
             <a href="" class="bg-[#cfdfe3] py-3 px-2 rounded-sm">Informasi Umum</a>
             <a href="">Alamat</a>
-            <a href="">Catatan Dawis</a>
         </div>
 
         <div class="w-full bg-white my-6 py-4 px-4 rounded-lg">

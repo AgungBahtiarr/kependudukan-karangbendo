@@ -90,6 +90,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}', [KeikutsertaanKegiatanDawisController::class, 'show'])->middleware('can:read_dawis')->name('dawis.show');
 
         Route::post('/isKelompokBelajar/{id}', [KeikutsertaanKegiatanDawisController::class, 'isKelompokBelajar']);
+        Route::post('/isJenisKb/{id}', [KeikutsertaanKegiatanDawisController::class, 'isKb'])->name("dawis.isKb");
+        Route::post('/isPosyandu/{id}', [KeikutsertaanKegiatanDawisController::class, 'isPosyandu'])->name("dawis.isPosyandu");
+        Route::post('/isKoperasi/{id}', [KeikutsertaanKegiatanDawisController::class, 'isKoperasi'])->name("dawis.isPosyandu");
+
+
+
     });
 
 
@@ -115,15 +121,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/verify/{id}', [CatatanRumahTanggaController::class, 'verify'])->middleware('can:edit_cargas')->name('cargas.verify');
 
 
-        Route::get('/edit1/{id}', [CatatanRumahTanggaController::class,'edit1'])->name('cargas.edit1');
-        Route::get('/edit2/{id}', [CatatanRumahTanggaController::class,'edit2'])->name('cargas.edit2');
-        Route::get('/edit3/{id}', [CatatanRumahTanggaController::class,'edit3'])->name('cargas.edit3');
+        Route::get('/edit1/{id}', [CatatanRumahTanggaController::class, 'edit1'])->name('cargas.edit1');
+        Route::get('/edit2/{id}', [CatatanRumahTanggaController::class, 'edit2'])->name('cargas.edit2');
+        Route::get('/edit3/{id}', [CatatanRumahTanggaController::class, 'edit3'])->name('cargas.edit3');
 
 
-        Route::patch('/update1', [CatatanRumahTanggaController::class,'update1'])->name('cargas.update1');
-        Route::patch('/update2', [CatatanRumahTanggaController::class,'update2'])->name('cargas.update2');
-        Route::patch('/update3', [CatatanRumahTanggaController::class,'update3'])->name('cargas.update3');
-
+        Route::patch('/update1', [CatatanRumahTanggaController::class, 'update1'])->name('cargas.update1');
+        Route::patch('/update2', [CatatanRumahTanggaController::class, 'update2'])->name('cargas.update2');
+        Route::patch('/update3', [CatatanRumahTanggaController::class, 'update3'])->name('cargas.update3');
     });
 
     Route::prefix('pekarangans')->group(function () {
@@ -143,8 +148,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/detail/{id}/{nkk}', [IndustriRumahTanggaController::class, 'show'])->middleware('can:read_industries',)->name('industries.show');
         Route::get('/edit/{id}', [IndustriRumahTanggaController::class, 'edit'])->middleware('can:edit_industries',)->name('industries.edit');
         Route::patch('/update', [IndustriRumahTanggaController::class, 'update'])->middleware('can:edit_industries',)->name('industries.update');
-
-
     });
 
     Route::prefix('bansos')->group(function () {

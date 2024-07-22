@@ -1,4 +1,5 @@
-<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -13,15 +14,16 @@
                     @method('PATCH')
                     <div class="form-group">
                         <label for="name">Nama</label>
-                        <input type="text" name="name" class="form-control edit-name" value="{{ $user->name }}" required>
+                        <input type="text" name="name" class="form-control edit-name" value="{{ $user->name }}"
+                            required>
                     </div>
                     <div class="form-group">
                         <label for="nik">NIK</label>
-                        <input type="text" name="nik" class="form-control" required>
+                        <input type="text" name="nik" class="form-control" required value="{{ $user->nik }}">
                     </div>
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input type="text" name="username" class="form-control" required>
+                        <input type="text" name="username" class="form-control" required value={{ $user->username }}>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>

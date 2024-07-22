@@ -29,6 +29,7 @@ class UserController extends Controller
             $kader->where('status', 'aktif');
         } elseif ($status == 'non aktif') {
             $kader->where('status', 'non aktif');
+
         }
 
         $users = $kader->get();
@@ -49,7 +50,7 @@ class UserController extends Controller
             'name' => $request->name,
             'nik' => $request->nik,
             'username' => $request->username,
-            'password' => Hash::make($request->password),
+            'password' => bcrypt($request->password),
         ]);
 
         $user->assignRole('Kader');

@@ -6,9 +6,7 @@
     <div class="my-10 mx-12">
         <h1 class="text-2xl font-semibold">Tambah Data Catatan Dawis</h1>
 
-        <div class="my-4 w-96 flex justify-around items-center">
-            <a href="">Informasi Umum</a>
-            <a href="">Alamat</a>
+        <div class="my-4 w-96 flex items-center">
             <a href="" class="bg-[#cfdfe3] py-3 px-2 rounded-sm">Catatan Dawis</a>
         </div>
 
@@ -23,13 +21,15 @@
                         <label for="akseptor_kb">Akseptor KB</label>
                         <div class="form-group">
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="kb_ya" name="akseptor_kb" value="1"
+                                <input hx-trigger="click" hx-post="/dawis/isJenisKb/1" hx-swap="innerHtml"
+                                    hx-target="#jenisKb" type="radio" id="kb_ya" name="akseptor_kb" value="1"
                                     class="custom-control-input" required
                                     {{ $dawisSession && $dawisSession['akseptor_kb'] == '1' ? 'checked' : '' }}>
                                 <label class="custom-control-label" for="kb_ya"> Ya </label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="kb_tidak" name="akseptor_kb" value="0"
+                                <input hx-trigger="click" hx-post="/dawis/isJenisKb/0" hx-swap="innerHtml"
+                                    hx-target="#jenisKb" type="radio" id="kb_tidak" name="akseptor_kb" value="0"
                                     class="custom-control-input" required
                                     {{ $dawisSession && $dawisSession['akseptor_kb'] == '0' ? 'checked' : '' }}>
                                 <label class="custom-control-label" for="kb_tidak"> Tidak </label>
@@ -37,10 +37,8 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="jenis_kb">Jenis KB</label>
-                        <input type="text" name="jenis_kb" class="form-control" required
-                            value={{ $dawisSession ? $dawisSession['jenis_kb'] : '' }}>
+                    <div id="jenisKb" hx-swap="innerHtml" hx-trigger="load"
+                        hx-post="{{ $dawisSession && $dawisSession['akseptor_kb'] == '1' ? '/dawis/isJenisKb/1' : '' }}">
                     </div>
 
 
@@ -48,25 +46,34 @@
                         <label for="posyandu">Posyandu</label>
                         <div class="form-group">
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="posyandu_ya" name="posyandu" value="1"
+                                <input hx-trigger="click" hx-post="/dawis/isPosyandu/1" hx-swap="innerHtml"
+                                    hx-target="#frekPos" type="radio" id="posyandu_ya" name="posyandu" value="1"
                                     class="custom-control-input" required
                                     {{ $dawisSession && $dawisSession['posyandu'] == '1' ? 'checked' : '' }}>
                                 <label class="custom-control-label" for="posyandu_ya"> Ya </label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="posyandu_tidak" name="posyandu" value="0"
-                                    class="custom-control-input" required
+                                <input hx-trigger="click" hx-post="/dawis/isPosyandu/0" hx-swap="innerHtml"
+                                    hx-target="#frekPos" type="radio" type="radio" id="posyandu_tidak" name="posyandu"
+                                    value="0" class="custom-control-input" required
                                     {{ $dawisSession && $dawisSession['posyandu'] == '0' ? 'checked' : '' }}>
                                 <label class="custom-control-label" for="posyandu_tidak"> Tidak </label>
                             </div>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="frekuensi_posyandu">Frekuensi Posyandu</label>
-                        <input type="number" name="frekuensi_posyandu" class="form-control" required
-                            value={{ $dawisSession ? $dawisSession['frekuensi_posyandu'] : '' }}>
-                    </div>
+
+                    @if ($dawisSession && $dawisSession['posyandu'] == 1)
+                        <div id="frekPos">
+                            <div class="form-group">
+                                <label for="frekuensi_posyandu">Frekuensi Posyandu</label>
+                                <input type="number" name="frekuensi_posyandu" class="form-control" required
+                                    value={{ $dawisSession ? $dawisSession['frekuensi_posyandu'] : '' }}>
+                            </div>
+                        </div>
+                    @else
+                        <div id="frekPos"></div>
+                    @endif
 
                     <div class="form-group">
                         <label for="binabalita">Bina Keluarga Balita</label>
@@ -176,14 +183,16 @@
                         <label for="koperasi">Koperasi</label>
                         <div class="form-group">
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="koperasi_ya" name="koperasi" value="1"
-                                    class="custom-control-input" required
+                                <input hx-trigger="click" hx-post="/dawis/isKoperasi/1" hx-swap="innerHtml"
+                                    hx-target="#jenisKoperasi" type="radio" id="koperasi_ya" name="koperasi"
+                                    value="1" class="custom-control-input" required
                                     {{ $dawisSession && $dawisSession['koperasi'] == '1' ? 'checked' : '' }}>
                                 <label class="custom-control-label" for="koperasi_ya"> Ya </label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="koperasi_tidak" name="koperasi" value="0"
-                                    class="custom-control-input" required
+                                <input hx-trigger="click" hx-post="/dawis/isKoperasi/0" hx-swap="innerHtml"
+                                    hx-target="#jenisKoperasi" type="radio" id="koperasi_tidak" name="koperasi"
+                                    value="0" class="custom-control-input" required
                                     {{ $dawisSession && $dawisSession['koperasi'] == '0' ? 'checked' : '' }}>
                                 <label class="custom-control-label" for="koperasi_tidak"> Tidak </label>
                             </div>
@@ -191,10 +200,8 @@
                     </div>
 
 
-                    <div class="form-group">
-                        <label for="jenis_koperasi">Jenis Koperasi</label>
-                        <input type="text" name="jenis_koperasi" class="form-control" required
-                            value={{ $dawisSession ? $dawisSession['jenis_koperasi'] : '' }}>
+                    <div id="jenisKoperasi" hx-swap="innerHtml" hx-trigger="load"
+                        hx-post="{{ $dawisSession && $dawisSession['koperasi'] == '1' ? '/dawis/isKoperasi/1' : '' }}">
                     </div>
 
                     <div class="form-group">

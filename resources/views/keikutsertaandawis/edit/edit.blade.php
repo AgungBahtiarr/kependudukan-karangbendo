@@ -39,8 +39,11 @@
 
                     <div class="form-group">
                         <label for="jenis_kb">Jenis KB</label>
-                        <input type="text" name="jenis_kb" class="form-control" required value={{ $dawis->jenis_kb }}>
+                        <input type="text" name="jenis_kb" class="form-control"
+                            {{ $dawis->akseptor_kb == '1' ? 'required' : '' }}
+                            value={{ $dawis->jenis_kb ? $dawis->jenis_kb : '' }}>
                     </div>
+
 
 
                     <div class="form-group">
@@ -61,8 +64,8 @@
 
                     <div class="form-group">
                         <label for="frekuensi_posyandu">Frekuensi Posyandu</label>
-                        <input type="number" name="frekuensi_posyandu" class="form-control" required
-                            value={{ $dawis->frekuensi_posyandu }}>
+                        <input type="number" name="frekuensi_posyandu" class="form-control"
+                            {{ $dawis->posyandu == '1' ? 'required' : '' }} value={{ $dawis->frekuensi_posyandu }}>
                     </div>
 
                     <div class="form-group">
@@ -127,7 +130,17 @@
 
 
                     @if ($dawis->id_jenis_kelompok_belajar == '4')
-                        <div id="jenisKelompok"></div>
+                        <div class="form-group">
+                            <label for="jenis_kelompok_belajar">Jenis Kelompok Belajar</label>
+                            <select class="form-control" name="id_jenis_kelompok_belajar" required>
+                                <option selected disabled>Pilih Jenis Kelompok Belajar</option>
+                                @foreach ($kelompokBelajars as $kelompokBelajar)
+                                    <option value={{ $kelompokBelajar->id }}>
+                                        {{ $kelompokBelajar->nama_kelompok_belajar }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                     @else
                         <div id="jenisKelompok">
                             <div class="form-group">
@@ -183,8 +196,8 @@
 
                     <div class="form-group">
                         <label for="jenis_koperasi">Jenis Koperasi</label>
-                        <input type="text" name="jenis_koperasi" class="form-control" required
-                            value={{ $dawis->jenis_koperasi }}>
+                        <input type="text" name="jenis_koperasi" class="form-control"
+                            {{ $dawis->koperasi == '1' ? 'required' : '' }} value={{ $dawis->jenis_koperasi }}>
                     </div>
 
                     <div class="form-group">

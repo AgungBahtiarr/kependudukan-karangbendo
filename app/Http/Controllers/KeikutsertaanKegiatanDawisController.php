@@ -20,15 +20,52 @@ class KeikutsertaanKegiatanDawisController extends Controller
     }
 
 
-    public function isKelompokBelajar($id)
+    public function isKelompokBelajar(Request $request, $id)
     {
+        $dawisSession = $request->session()->get('dawis1');
         $kelompokBelajars = KelompokBelajar::get();
         if ($id == 1) {
-            return view('keikutsertaandawis.partials.input', compact('kelompokBelajars'))->fragment('jenisKelompok');
+            return view('keikutsertaandawis.partials.input', compact('kelompokBelajars', 'dawisSession'))->fragment('jenisKelompok');
         } else {
             return '<div></div>';
         }
     }
+
+    public function isKb(Request $request, $id)
+    {
+        $dawisSession = $request->session()->get('dawis1');
+        $kelompokBelajars = KelompokBelajar::get();
+        if ($id == 1) {
+            return view('keikutsertaandawis.partials.inputEdit', compact('kelompokBelajars', 'dawisSession'))->fragment('jenisKbEdit');
+        } else {
+            return '<div></div>';
+        }
+    }
+
+    public function isPosyandu(Request $request, $id)
+    {
+        $dawisSession = $request->session()->get('dawis1');
+        $kelompokBelajars = KelompokBelajar::get();
+        if ($id == 1) {
+            return view('keikutsertaandawis.partials.input', compact('kelompokBelajars', 'dawisSession'))->fragment('frekPos');
+        } else {
+            return '<div></div>';
+        }
+    }
+
+
+    public function isKoperasi(Request $request, $id)
+    {
+        $dawisSession = $request->session()->get('dawis1');
+        $kelompokBelajars = KelompokBelajar::get();
+        if ($id == 1) {
+            return view('keikutsertaandawis.partials.input', compact('kelompokBelajars', 'dawisSession'))->fragment('jenisKoperasi');
+        } else {
+            return '<div></div>';
+        }
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -69,6 +106,9 @@ class KeikutsertaanKegiatanDawisController extends Controller
     {
 
         $idKelompokBelajar = 0;
+        $jenisKb = "";
+        $frekPos = "";
+        $jenisKoperasi = "";
 
         if ($request->kelompok_belajar == 0) {
             $idKelompokBelajar = 4;
@@ -76,19 +116,37 @@ class KeikutsertaanKegiatanDawisController extends Controller
             $idKelompokBelajar = $request->id_jenis_kelompok_belajar;
         }
 
+        if ($request->akseptor_kb == 0) {
+            $jenisKb = "";
+        } else {
+            $jenisKb = $request->jenis_kb;
+        }
+
+        if ($request->posyandu == 0) {
+            $frekPos = null;
+        } else {
+            $frekPos = $request->frekuensi_posyandu;
+        }
+
+        if ($request->koperasi == 0) {
+            $jenisKoperasi = null;
+        } else {
+            $jenisKoperasi = $request->jenis_koperasi;
+        }
+
         $data = [
             'nik' => $request->nik,
             'akseptor_kb' => $request->akseptor_kb,
-            'jenis_kb' => $request->jenis_kb,
+            'jenis_kb' => $jenisKb,
             'posyandu' => $request->posyandu,
-            'frekuensi_posyandu' => $request->frekuensi_posyandu,
+            'frekuensi_posyandu' => $frekPos,
             'bina_keluarga_balita' => $request->bina_keluarga_balita,
             'memiliki_tabungan' => $request->memiliki_tabungan,
             'kelompok_belajar' => $request->kelompok_belajar,
             'id_jenis_kelompok_belajar' => $idKelompokBelajar,
             'paud' => $request->paud,
             'koperasi' => $request->koperasi,
-            'jenis_koperasi' => $request->jenis_koperasi,
+            'jenis_koperasi' => $jenisKoperasi,
             'berkebutuhan_khusus' => $request->berkebutuhan_khusus,
         ];
 
@@ -145,7 +203,6 @@ class KeikutsertaanKegiatanDawisController extends Controller
 
         $allDawis = array_merge($dawis1, $dawis2);
 
-
         $dawis = KeikutsertaanKegiatanDawis::create($allDawis);
 
         return redirect(route('wargas.index'));
@@ -181,7 +238,7 @@ class KeikutsertaanKegiatanDawisController extends Controller
 
 
 
-        return view('keikutsertaandawis.edit.edit', compact('nik', 'title', 'kelompokBelajars', 'dawis','warga'));
+        return view('keikutsertaandawis.edit.edit', compact('nik', 'title', 'kelompokBelajars', 'dawis', 'warga'));
     }
 
     public function edit2(Request $request, $nik)
@@ -208,6 +265,9 @@ class KeikutsertaanKegiatanDawisController extends Controller
     public function update(Request $request)
     {
         $idKelompokBelajar = 0;
+        $jenisKb = "";
+        $frekPos = "";
+        $jenisKoperasi = "";
 
         if ($request->kelompok_belajar == 0) {
             $idKelompokBelajar = 4;
@@ -215,19 +275,37 @@ class KeikutsertaanKegiatanDawisController extends Controller
             $idKelompokBelajar = $request->id_jenis_kelompok_belajar;
         }
 
+        if ($request->akseptor_kb == 0) {
+            $jenisKb = "";
+        } else {
+            $jenisKb = $request->jenis_kb;
+        }
+
+        if ($request->posyandu == 0) {
+            $frekPos = null;
+        } else {
+            $frekPos = $request->frekuensi_posyandu;
+        }
+
+        if ($request->koperasi == 0) {
+            $jenisKoperasi = null;
+        } else {
+            $jenisKoperasi = $request->jenis_koperasi;
+        }
+
         $data = [
             'nik' => $request->nik,
             'akseptor_kb' => $request->akseptor_kb,
-            'jenis_kb' => $request->jenis_kb,
+            'jenis_kb' => $jenisKb,
             'posyandu' => $request->posyandu,
-            'frekuensi_posyandu' => $request->frekuensi_posyandu,
+            'frekuensi_posyandu' => $frekPos,
             'bina_keluarga_balita' => $request->bina_keluarga_balita,
             'memiliki_tabungan' => $request->memiliki_tabungan,
             'kelompok_belajar' => $request->kelompok_belajar,
             'id_jenis_kelompok_belajar' => $idKelompokBelajar,
             'paud' => $request->paud,
             'koperasi' => $request->koperasi,
-            'jenis_koperasi' => $request->jenis_koperasi,
+            'jenis_koperasi' => $jenisKoperasi,
             'berkebutuhan_khusus' => $request->berkebutuhan_khusus,
         ];
 

@@ -61,9 +61,9 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $carga->nkk }}</td>
-                                    <td>{{ $carga->kriteria_rumah }}</td>
+                                    <td>{{ $carga->kriteria_rumah == "1" ? "Layak huni" : "Tidak Layak Huni" }}</td>
                                     <td>{{ $carga->sumber_air->nama_sumber_air }}</td>
-                                    <td>{{ $carga->satu_rumah_satu_kk }}</td>
+                                    <td>{{ $carga->satu_rumah_satu_kk == "1" ? "Ya" : "Tidak" }}</td>
                                     @role('Admin')
                                         <td>
                                             @if ($carga->verified == 'yes')

@@ -16,27 +16,7 @@
             <form action="{{ route('cargas.store2') }}" method="POST">
                 @csrf
 
-                <div class="form-group">
-                    <label for="id_makanan_pokok">Jenis Makanan Pokok</label>
-                    <select class="form-control" name="id_makanan_pokok">
-
-                        @if ($cargasSession)
-                            @foreach ($makanans as $makanan)
-                                <option value={{ $makanan->id }}
-                                    {{ $cargasSession['id_makanan_pokok'] == $makanan->id ? 'selected' : '' }}>
-                                    {{ $makanan->nama_makanan_pokok }}</option>
-                            @endforeach
-                        @else
-                            <option selected>Pilih Jenis Makanan Pokok</option>
-                            @foreach ($makanans as $makanan)
-                                <option value={{ $makanan->id }}>{{ $makanan->nama_makanan_pokok }}</option>
-                            @endforeach
-                        @endif
-
-                    </select>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2">
                     <div class="form-group">
                         <label for="menempel_stiker_p4k">Menempel Stiker P4K</label>
                         <div class="form-group">
@@ -69,6 +49,30 @@
 
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="id_makanan_pokok">Jenis Makanan Pokok</label>
+                        <select class="form-control" name="id_makanan_pokok">
+
+                            @if ($cargasSession)
+                                @foreach ($makanans as $makanan)
+                                    <option value={{ $makanan->id }}
+                                        {{ $cargasSession['id_makanan_pokok'] == $makanan->id ? 'selected' : '' }}>
+                                        {{ $makanan->nama_makanan_pokok }}</option>
+                                @endforeach
+                            @else
+                                <option selected>Pilih Jenis Makanan Pokok</option>
+                                @foreach ($makanans as $makanan)
+                                    <option value={{ $makanan->id }}>{{ $makanan->nama_makanan_pokok }}</option>
+                                @endforeach
+                            @endif
+
+                        </select>
+                    </div>
+
+                </div>
+
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
 
                     <div class="form-group">
@@ -99,19 +103,17 @@
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="aktivitas_up2k_tidak" name="aktivitas_up2k" value="0"
                                         class="custom-control-input" required>
-                                    <label class="custom-control-label" for="aktivitas_UP2K_tidak"> Tidak </label>
+                                    <label class="custom-control-label" for="aktivitas_up2k_tidak"> Tidak </label>
                                 </div>
                             </div>
                         @endif
                     </div>
+                    <div class="form-group">
+                        <label for="jenis_up2k">Jenis UP2K</label>
+                        <input type="text" name="jenis_up2k" class="form-control" required
+                            value={{ $cargasSession ? $cargasSession['jenis_up2k'] : '' }}>
+                    </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="jenis_up2k">Jenis UP2K</label>
-                    <input type="text" name="jenis_up2k" class="form-control" required
-                        value={{ $cargasSession ? $cargasSession['jenis_up2k'] : '' }}>
-                </div>
-
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-group">
@@ -139,12 +141,14 @@
                             <div class="form-group">
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="usaha_kesehatan_lingkungan_ya"
-                                        name="usaha_kesehatan_lingkungan" value="1" class="custom-control-input" required>
+                                        name="usaha_kesehatan_lingkungan" value="1" class="custom-control-input"
+                                        required>
                                     <label class="custom-control-label" for="usaha_kesehatan_lingkungan_ya"> Ya </label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="usaha_kesehatan_lingkungan_tidak"
-                                        name="usaha_kesehatan_lingkungan" value="0" class="custom-control-input" required>
+                                        name="usaha_kesehatan_lingkungan" value="0" class="custom-control-input"
+                                        required>
                                     <label class="custom-control-label" for="usaha_kesehatan_lingkungan_tidak"> Tidak
                                     </label>
                                 </div>
@@ -227,12 +231,14 @@
                             <div class="form-group">
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="kerja_bakti_ya" name="kerja_bakti" value="1"
-                                        class="custom-control-input" {{ $cargasSession['kerja_bakti'] == '1' ? 'checked' : '' }} required>
+                                        class="custom-control-input"
+                                        {{ $cargasSession['kerja_bakti'] == '1' ? 'checked' : '' }} required>
                                     <label class="custom-control-label" for="kerja_bakti_ya"> Ya </label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="kerja_bakti_tidak" name="kerja_bakti" value="0"
-                                        class="custom-control-input" {{ $cargasSession['kerja_bakti'] == '0' ? 'checked' : '' }} required>
+                                        class="custom-control-input"
+                                        {{ $cargasSession['kerja_bakti'] == '0' ? 'checked' : '' }} required>
                                     <label class="custom-control-label" for="kerja_bakti_tidak"> Tidak </label>
                                 </div>
                             </div>
@@ -257,7 +263,7 @@
 
                 <div class="modal-footer">
                     <a hx-post={{ route('cargas.back') }} hx-trigger="click" type="button"
-                    class="btn btn-secondary">Kembali</a>
+                        class="btn btn-secondary">Kembali</a>
                     <button type="submit" class="btn btn-primary">Selanjutnya</a>
                 </div>
             </form>

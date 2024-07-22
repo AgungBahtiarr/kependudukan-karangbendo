@@ -6,9 +6,7 @@
     <div class="my-10 mx-12">
         <h1 class="text-2xl font-semibold">Tambah Data Catatan Dawis</h1>
 
-        <div class="my-4 w-96 flex justify-around items-center">
-            <a href="">Informasi Umum</a>
-            <a href="">Alamat</a>
+        <div class="my-4 w-96 flex items-center">
             <a href="" class="bg-[#cfdfe3] py-3 px-2 rounded-sm">Catatan Dawis</a>
         </div>
 

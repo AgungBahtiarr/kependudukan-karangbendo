@@ -47,6 +47,11 @@
                     </li>
 
                     <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Pekerjaan</div>
+                        <div>{{ $warga->pekerjaan->nama_pekerjaan }}</div>
+                    </li>
+
+                    <li class="flex flex-col gap-3">
                         <div class="font-medium text-[#ADADAD]">Jabatan</div>
                         <div>{{ $warga->jabatan }}</div>
                     </li>
@@ -111,7 +116,7 @@
                     </li>
                     <li class="flex flex-col gap-3">
                         <div class="font-medium text-[#ADADAD]">Mengikuti Program Bina Keluarga Balita</div>
-                        <div>{{ $dawis->bina_keluarga_balita }}</div>
+                        <div>{{ $dawis->bina_keluarga_balita == '1' ? 'Iya' : 'Tidak' }}</div>
                     </li>
                     <li class="flex flex-col gap-3">
                         <div class="font-medium text-[#ADADAD]">Memiliki Tabungan</div>

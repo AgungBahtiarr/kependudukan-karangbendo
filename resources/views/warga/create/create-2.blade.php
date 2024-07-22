@@ -10,7 +10,6 @@
         <div class="my-4 w-96 flex justify-around items-center">
             <a href="">Informasi Umum</a>
             <a href="" class="bg-[#cfdfe3] py-3 px-2 rounded-sm">Alamat</a>
-            <a href="">Catatan Dawis</a>
         </div>
 
         <div class="w-full bg-white my-6 py-4 px-4 rounded-lg">
@@ -18,23 +17,19 @@
                 @csrf
                 <div class="form-group">
                     <label for="provinsi">Provinsi</label>
-                    <input type="text" name="alamat_prov" class="form-control" required
-                        value={{ $wargaSession ? $wargaSession['alamat_prov'] : '' }}>
+                    <input type="text" name="alamat_prov" class="form-control" required value="Jawa Timur">
                 </div>
                 <div class="form-group">
                     <label for="kabupaten">Kabupaten</label>
-                    <input type="text" name="alamat_kab" class="form-control" required
-                        value={{ $wargaSession ? $wargaSession['alamat_kab'] : '' }}>
+                    <input type="text" name="alamat_kab" class="form-control" required value="Banyuwangi">
                 </div>
                 <div class="form-group">
                     <label for="kabupaten">Kecamatan</label>
-                    <input type="text" name="alamat_kec" class="form-control" required
-                        value={{ $wargaSession ? $wargaSession['alamat_kec'] : '' }}>
+                    <input type="text" name="alamat_kec" class="form-control" required value="Rogojampi">
                 </div>
                 <div class="form-group">
                     <label for="desa kel">Desa/Kelurahan</label>
-                    <input type="text" name="alamat_desakel" class="form-control" required
-                        value={{ $wargaSession ? $wargaSession['alamat_desakel'] : '' }}>
+                    <input type="text" name="alamat_desakel" class="form-control" required value="Karangbendo">
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
