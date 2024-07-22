@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('users.store') }}" method="POST">
+                <form action="{{ route('users.store') }}" method="POST" id="kader-form">
                     @csrf
                     <div class="form-group">
                         <label for="name">Nama</label>
