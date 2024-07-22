@@ -30,6 +30,7 @@ class CatatanRumahTanggaController extends Controller
      */
     public function create1(Request $request)
     {
+
         $makanans = MakananPokok::get();
         $sumbers = SumberAir::get();
 
@@ -37,6 +38,32 @@ class CatatanRumahTanggaController extends Controller
 
 
         return view('catatan_rumah_tangga.create.create1', compact('makanans', 'sumbers', 'cargasSession'));
+    }
+
+    public function isNkkInang(Request $request, $id)
+    {
+        $cargasSession = $request->session()->get('cargas1');
+
+        // return $id;
+
+        if ($id == 1) {
+            return view("catatan_rumah_tangga.partials.input", compact('cargasSession'))->fragment('nkkInang');
+        } else {
+            return "";
+        }
+    }
+
+    public function isUp2k(Request $request, $id)
+    {
+        $cargasSession = $request->session()->get('cargas2');
+
+        // return $id;
+
+        if ($id == 1) {
+            return view("catatan_rumah_tangga.partials.satukk", compact('cargasSession'))->fragment('jenisUp2k');
+        } else {
+            return "";
+        }
     }
 
     public function create2(Request $request)
@@ -62,9 +89,17 @@ class CatatanRumahTanggaController extends Controller
      */
     public function store1(Request $request)
     {
+
+        $nkkInang = "";
+
+        if ($request->satu_rumah_satu_kk == 0) {
+            $nkkInang = "";
+        } else {
+            $nkkInang = $request->satu_rumah_satu_kk;
+        }
         $data = [
             "nkk" => $request->nkk,
-            "nkk_inang" => $request->nkk_inang,
+            "nkk_inang" => $nkkInang ,
             "jumlah_jamban_keluarga" => $request->jumlah_jamban_keluarga,
             "id_sumber_air" => $request->id_sumber_air,
             "kriteria_rumah" => $request->kriteria_rumah,
@@ -83,11 +118,18 @@ class CatatanRumahTanggaController extends Controller
 
     public function store2(Request $request)
     {
+        $up2k = "";
+
+        if ($request->aktivitas_up2k == 0) {
+            $up2k = "";
+        } else {
+            $up2k = $request->jenis_up2k;
+        }
         $data = [
             "id_makanan_pokok" => $request->id_makanan_pokok,
             "menempel_stiker_p4k" => $request->menempel_stiker_p4k,
             "aktivitas_up2k" => $request->aktivitas_up2k,
-            "jenis_up2k" => $request->jenis_up2k,
+            "jenis_up2k" => $up2k,
             "usaha_kesehatan_lingkungan" => $request->usaha_kesehatan_lingkungan,
             "pemanfaatan_pekarangan" => $request->pemanfaatan_pekarangan,
             "industri_rumah_tangga" => $request->industri_rumah_tangga,
@@ -199,7 +241,7 @@ class CatatanRumahTanggaController extends Controller
         $sumbers = SumberAir::get();
         $makanans = MakananPokok::get();
 
-        return view('catatan_rumah_tangga.show.detail', compact('carga','sumbers','makanans'));
+        return view('catatan_rumah_tangga.show.detail', compact('carga', 'sumbers', 'makanans'));
     }
 
     public function show2($id, Request $request)

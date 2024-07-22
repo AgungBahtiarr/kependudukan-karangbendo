@@ -36,7 +36,7 @@ class KeikutsertaanKegiatanDawisController extends Controller
         $dawisSession = $request->session()->get('dawis1');
         $kelompokBelajars = KelompokBelajar::get();
         if ($id == 1) {
-            return view('keikutsertaandawis.partials.inputEdit', compact('kelompokBelajars', 'dawisSession'))->fragment('jenisKbEdit');
+            return view('keikutsertaandawis.partials.input', compact('kelompokBelajars', 'dawisSession'))->fragment('jenisKb');
         } else {
             return '<div></div>';
         }

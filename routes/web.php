@@ -129,6 +129,10 @@ Route::middleware('auth')->group(function () {
         Route::patch('/update1', [CatatanRumahTanggaController::class, 'update1'])->name('cargas.update1');
         Route::patch('/update2', [CatatanRumahTanggaController::class, 'update2'])->name('cargas.update2');
         Route::patch('/update3', [CatatanRumahTanggaController::class, 'update3'])->name('cargas.update3');
+
+        Route::post('/isNkkInang/{id}',[CatatanRumahTanggaController::class, 'isNkkInang']);
+        Route::post('/isUp2k/{id}',[CatatanRumahTanggaController::class, 'isUp2k']);
+
     });
 
     Route::prefix('pekarangans')->group(function () {

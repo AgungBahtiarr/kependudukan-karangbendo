@@ -78,41 +78,40 @@
                     <div class="form-group">
                         <label for="aktivitas_up2k">Aktivitas UP2K</label>
 
-                        @if ($cargasSession)
-                            <div class="form-group">
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="aktivitas_up2k_ya" name="aktivitas_up2k" value="1"
-                                        {{ $cargasSession['aktivitas_up2k'] == '1' ? 'checked' : '' }}
-                                        class="custom-control-input" required>
-                                    <label class="custom-control-label" for="aktivitas_up2k_ya"> Ya </label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="aktivitas_up2k_tidak" name="aktivitas_up2k" value="0"
-                                        {{ $cargasSession['aktivitas_up2k'] == '0' ? 'checked' : '' }}
-                                        class="custom-control-input" required>
-                                    <label class="custom-control-label" for="aktivitas_up2k_tidak"> Tidak </label>
-                                </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input hx-trigger="click" hx-post="/cargas/isUp2k/1" hx-swap="innerHtml"
+                                    hx-target="#jenisUp2k" type="radio" id="aktivitas_up2k_ya" name="aktivitas_up2k"
+                                    value="1"
+                                    {{ $cargasSession && $cargasSession['aktivitas_up2k'] == '1' ? 'checked' : '' }}
+                                    class="custom-control-input" required>
+                                <label class="custom-control-label" for="aktivitas_up2k_ya"> Ya </label>
                             </div>
-                        @else
-                            <div class="form-group">
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="aktivitas_up2k_ya" name="aktivitas_up2k" value="1"
-                                        class="custom-control-input" required>
-                                    <label class="custom-control-label" for="aktivitas_up2k_ya"> Ya </label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="aktivitas_up2k_tidak" name="aktivitas_up2k" value="0"
-                                        class="custom-control-input" required>
-                                    <label class="custom-control-label" for="aktivitas_up2k_tidak"> Tidak </label>
-                                </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input hx-trigger="click" hx-post="/cargas/isUp2k/0" hx-swap="innerHtml"
+                                    hx-target="#jenisUp2k" type="radio" id="aktivitas_up2k_tidak" name="aktivitas_up2k"
+                                    value="0"
+                                    {{ $cargasSession && $cargasSession['aktivitas_up2k'] == '0' ? 'checked' : '' }}
+                                    class="custom-control-input" required>
+                                <label class="custom-control-label" for="aktivitas_up2k_tidak"> Tidak </label>
                             </div>
-                        @endif
+                        </div>
+
                     </div>
-                    <div class="form-group">
-                        <label for="jenis_up2k">Jenis UP2K</label>
-                        <input type="text" name="jenis_up2k" class="form-control" required
-                            value={{ $cargasSession ? $cargasSession['jenis_up2k'] : '' }}>
-                    </div>
+
+                    @if ($cargasSession && $cargasSession['aktivitas_up2k'] == 1)
+                        <div id="jenisUp2k">
+                            <div class="form-group">
+                                <label for="jenis_up2k">Jenis UP2K</label>
+                                <input type="text" name="jenis_up2k" class="form-control" required
+                                    value={{ $cargasSession ? $cargasSession['jenis_up2k'] : '' }}>
+                            </div>
+                        </div>
+                    @else
+                        <div id="jenisUp2k">
+
+                        </div>
+                    @endif
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

@@ -65,7 +65,7 @@
                     </div>
                     <div class="form-group">
                         <label for="tanggal_lahir">Tanggal Lahir</label>
-                        <input type="date" name="tanggal_lahir" class="form-control" required
+                        <input type="date" placeholder="dd-mm-yyyy" name="tanggal_lahir" class="form-control" required
                             value={{ $wargaSession ? $wargaSession['tanggal_lahir'] : '' }}>
                     </div>
                 </div>

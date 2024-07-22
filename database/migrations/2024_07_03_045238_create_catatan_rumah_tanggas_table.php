@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->enum("ada_tempat_sampah", ["0", "1"]);
             $table->enum("ada_saluran_pembuangan_limbah", ["0", "1"]);
             $table->enum("satu_rumah_satu_kk", ["0", "1"]);
-            $table->string("nkk_inang", 16);
+            $table->string("nkk_inang", 16)->nullable(true);
             $table->integer("jumlah_balita", 2)->autoIncrement(false);
             $table->integer("jumlah_pus", 2)->autoIncrement(false);
             $table->integer("jumlah_wus", 2)->autoIncrement(false);
@@ -35,7 +35,7 @@ return new class extends Migration {
             $table->unsignedBigInteger("id_makanan_pokok");
             $table->enum("menempel_stiker_p4k", ["0", "1"]);
             $table->enum("aktivitas_up2k", ["0", "1"]);
-            $table->string("jenis_up2k");
+            $table->string("jenis_up2k")->nullable(true);
             $table->enum("usaha_kesehatan_lingkungan", ["0", "1"]);
             $table->enum("pemanfaatan_pekarangan", ["0", "1"]);
             $table->enum("industri_rumah_tangga",["0","1"]);

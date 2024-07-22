@@ -28,7 +28,7 @@
                     <div class="form-group">
                         <label for="password">Password</label>
                         <div class="input-group">
-                            <input type="password" name="password" class="form-control" required id="password">
+                            <input type="password" name="password" class="form-control"  id="password">
                             <div class="input-group-append">
                                 <span class="input-group-text" id="togglePassword"><i class="fa fa-eye"></i></span>
                             </div>

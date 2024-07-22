@@ -103,7 +103,7 @@
 
         <div class="content-item mb-3">
             <h2>Nomor KK Inang</h2>
-            <input type="text" class="form-control" value={{ $carga->nkk_inang }} name="nkk_inang">
+            <input type="text" class="form-control" name="nkk_inang" value={{ $carga->nkk_inang }}>
         </div>
 
         <div class="modal-footer">
