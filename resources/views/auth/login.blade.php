@@ -9,19 +9,29 @@
                     <div class="col-lg-5">
                         <h2 class="mb-2">Login</h2>
                         <p>Silahkan login terlebih dahulu untuk masuk ke dalam sistem</p>
-                        <form action="{{ route('login') }}" method="POST">
+                        <form action="{{ route('login') }}" method="POST" id="login" name="login">
                             @csrf
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="floating-label form-group">
-                                        <input class="floating-input form-control" type="text" placeholder=" " name="username">
+                                        <input class="floating-input form-control @error('username') is-invalid @enderror" type="text" placeholder=" " name="username" value="{{ old('username') }}">
                                         <label>Username</label>
+                                        @error('username')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="floating-label form-group">
-                                        <input class="floating-input form-control" type="password" placeholder=" " name="password">
+                                        <input class="floating-input form-control @error('password') is-invalid @enderror" type="password" placeholder=" " name="password">
                                         <label>Password</label>
+                                        @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
