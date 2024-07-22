@@ -10,6 +10,13 @@
             <a href="">Alamat</a>
         </div> --}}
 
+        <div class="mt-4">
+            @error('error')
+                <div class="alert alert-danger" role="alert">
+                    <div class="iq-alert-text">{{ $errors->first() }}</div>
+                </div>
+            @enderror
+        </div>
 
         <div class="w-full bg-white my-6 py-4 px-4 rounded-lg">
             <form action="{{ route('cargas.store1') }}" method="POST">
@@ -18,7 +25,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-group">
                         <label for="nkk">No Kartu Keluarga</label>
-                        <input type="text" name="nkk" class="form-control" required
+                        <input type="text" minlength="16" maxlength="16" name="nkk" class="form-control" required
                             value={{ $cargasSession ? $cargasSession['nkk'] : '' }}>
                     </div>
 
@@ -62,7 +69,7 @@
                         <div id="nkkInang">
                             <div class="form-group">
                                 <label for="nkk_inang">Nomor Kartu Keluarga Inang</label>
-                                <input type="text" name="nkk_inang" class="form-control" required
+                                <input type="text" minlength="16" maxlength="16" name="nkk_inang" class="form-control" required
                                     value={{ $cargasSession ? $cargasSession['nkk_inang'] : '' }}>
                             </div>
                         </div>

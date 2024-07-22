@@ -6,7 +6,7 @@
 
         <div class="content-item mb-3">
             <h2>Nomor KK</h2>
-            <input type="text" class="form-control" value={{ $carga->nkk }} name="nkk">
+            <input type="text" minlength="16" maxlength="16" class="form-control" value={{ $carga->nkk }} name="nkk">
         </div>
 
         <div class="content-item mb-3">
@@ -103,7 +103,8 @@
 
         <div class="content-item mb-3">
             <h2>Nomor KK Inang</h2>
-            <input type="text" class="form-control" name="nkk_inang" value={{ $carga->nkk_inang }}>
+            <input type="text" minlength="16" maxlength="16" class="form-control" name="nkk_inang"
+                value={{ $carga->nkk_inang }}>
         </div>
 
         <div class="modal-footer">

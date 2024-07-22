@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="{{ asset('assets/images/logo/logo-banyuwangi.svg') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/backend-plugin.min.css?v=2.0.0') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/backend.css?v=2.0.0') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendor/@fortawesome/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/@fontawesome/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendor/remixicon/fonts/remixicon.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendor/@icon/dripicons/dripicons.css') }}">

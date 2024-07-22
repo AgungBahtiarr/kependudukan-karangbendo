@@ -129,7 +129,7 @@
                     </div>
 
 
-                    @if ($dawis->id_jenis_kelompok_belajar == '4')
+                    @if ($dawis->id_jenis_kelompok_belajar == null)
                         <div class="form-group">
                             <label for="jenis_kelompok_belajar">Jenis Kelompok Belajar</label>
                             <select class="form-control" name="id_jenis_kelompok_belajar" required>

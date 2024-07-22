@@ -7,6 +7,7 @@ use App\Http\Requests\StoreKeikutsertaanKegiatanDawisRequest;
 use App\Http\Requests\UpdateKeikutsertaanKegiatanDawisRequest;
 use App\Models\KelompokBelajar;
 use App\Models\Warga;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class KeikutsertaanKegiatanDawisController extends Controller
@@ -111,7 +112,7 @@ class KeikutsertaanKegiatanDawisController extends Controller
         $jenisKoperasi = "";
 
         if ($request->kelompok_belajar == 0) {
-            $idKelompokBelajar = 4;
+            $idKelompokBelajar = null;
         } else {
             $idKelompokBelajar = $request->id_jenis_kelompok_belajar;
         }
@@ -134,6 +135,24 @@ class KeikutsertaanKegiatanDawisController extends Controller
             $jenisKoperasi = $request->jenis_koperasi;
         }
 
+        // $validator = $request->validate([
+        //     'nik' => 'required|string|size:16', // NIK biasanya 16 digit
+        //     'akseptor_kb' => 'required|boolean',
+        //     'jenis_kb' => 'required_if:akseptor_kb,1|string',
+        //     'posyandu' => 'required|boolean',
+        //     'frekuensi_posyandu' => 'required_if:posyandu,1|integer|min:0',
+        //     'bina_keluarga_balita' => 'required|boolean',
+        //     'memiliki_tabungan' => 'required|boolean',
+        //     'kelompok_belajar' => 'required|boolean',
+        //     'id_jenis_kelompok_belajar' => 'required_if:kelompok_belajar,1|integer|exists:jenis_kelompok_belajar,id',
+        //     'paud' => 'required|boolean',
+        //     'koperasi' => 'required|boolean',
+        //     'jenis_koperasi' => 'required_if:koperasi,1|string',
+        //     'berkebutuhan_khusus' => 'required|boolean',
+        // ]);
+
+
+
         $data = [
             'nik' => $request->nik,
             'akseptor_kb' => $request->akseptor_kb,
@@ -149,6 +168,8 @@ class KeikutsertaanKegiatanDawisController extends Controller
             'jenis_koperasi' => $jenisKoperasi,
             'berkebutuhan_khusus' => $request->berkebutuhan_khusus,
         ];
+
+
 
         $request->session()->put('dawis1', $data);
 
@@ -203,7 +224,42 @@ class KeikutsertaanKegiatanDawisController extends Controller
 
         $allDawis = array_merge($dawis1, $dawis2);
 
-        $dawis = KeikutsertaanKegiatanDawis::create($allDawis);
+
+        try {
+            $dawis = KeikutsertaanKegiatanDawis::create($allDawis);
+        } catch (QueryException $e) {
+
+            $errorCode = $e->getCode();
+            $errorMessage = 'Mohon maaf, terjadi kesalahan saat menyimpan data.';
+
+            switch ($errorCode) {
+                case '23000':
+                    if (str_contains($e->getMessage(), 'Duplicate entry')) {
+                        $errorMessage = 'Data yang Anda masukkan sudah ada dalam sistem. Mohon periksa kembali untuk menghindari duplikasi.';
+                    } else {
+                        $errorMessage = 'Data yang dimasukkan tidak sesuai dengan ketentuan. Mohon periksa kembali isian Anda.';
+                    }
+                    break;
+                case '22001':
+                    $errorMessage = 'Beberapa informasi yang Anda masukkan terlalu panjang. Mohon persingkat isian tersebut.';
+                    break;
+                case '22003':
+                    $errorMessage = 'Nilai angka yang Anda masukkan terlalu besar. Mohon masukkan nilai yang lebih kecil.';
+                    break;
+                case '22007':
+                    $errorMessage = 'Format tanggal yang Anda masukkan tidak sesuai. Mohon periksa kembali format tanggalnya.';
+                    break;
+                case '42S22':
+                    $errorMessage = 'Terjadi kesalahan teknis pada sistem kami. Tim teknis kami akan segera menangani masalah ini.';
+                    break;
+                default:
+                    $errorMessage = 'Terjadi kesalahan yang tidak terduga. Silakan coba lagi nanti atau hubungi dukungan pelanggan jika masalah berlanjut.';
+            }
+
+
+            return redirect(route("dawis.create", $dawis1['nik']))->withErrors(['error' => $errorMessage]);
+        }
+
 
         return redirect(route('wargas.index'));
     }
@@ -270,7 +326,7 @@ class KeikutsertaanKegiatanDawisController extends Controller
         $jenisKoperasi = "";
 
         if ($request->kelompok_belajar == 0) {
-            $idKelompokBelajar = 4;
+            $idKelompokBelajar = null;
         } else {
             $idKelompokBelajar = $request->id_jenis_kelompok_belajar;
         }

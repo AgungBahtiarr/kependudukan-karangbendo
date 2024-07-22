@@ -10,6 +10,14 @@
             <a href="" class="bg-[#cfdfe3] py-3 px-2 rounded-sm">Catatan Dawis</a>
         </div>
 
+        <div>
+            @error('error')
+                <div class="alert alert-danger" role="alert">
+                    <div class="iq-alert-text">{{ $errors->first() }}</div>
+                </div>
+            @enderror
+        </div>
+
         <form action={{ route('dawis.store') }} method="POST">
             @csrf
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -67,7 +75,7 @@
                         <div id="frekPos">
                             <div class="form-group">
                                 <label for="frekuensi_posyandu">Frekuensi Posyandu</label>
-                                <input type="number" name="frekuensi_posyandu" class="form-control" required
+                                <input type="number" min="0" name="frekuensi_posyandu" class="form-control" required
                                     value={{ $dawisSession ? $dawisSession['frekuensi_posyandu'] : '' }}>
                             </div>
                         </div>
@@ -136,7 +144,7 @@
                     </div>
 
                     @if ($dawisSession)
-                        @if ($dawisSession['id_jenis_kelompok_belajar'] == '4')
+                        @if ($dawisSession['id_jenis_kelompok_belajar'] == null)
                             <div id="jenisKelompok"></div>
                         @else
                             <div id="jenisKelompok">

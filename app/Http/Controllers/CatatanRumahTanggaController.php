@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCatatanRumahTanggaRequest;
 use App\Http\Requests\UpdateCatatanRumahTanggaRequest;
 use App\Models\MakananPokok;
 use App\Models\SumberAir;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class CatatanRumahTanggaController extends Controller
@@ -97,9 +98,12 @@ class CatatanRumahTanggaController extends Controller
         } else {
             $nkkInang = $request->satu_rumah_satu_kk;
         }
+
+
+
         $data = [
             "nkk" => $request->nkk,
-            "nkk_inang" => $nkkInang ,
+            "nkk_inang" => $nkkInang,
             "jumlah_jamban_keluarga" => $request->jumlah_jamban_keluarga,
             "id_sumber_air" => $request->id_sumber_air,
             "kriteria_rumah" => $request->kriteria_rumah,
@@ -168,9 +172,40 @@ class CatatanRumahTanggaController extends Controller
 
         $allSession = array_merge($cargas1, $cargas2, $cargas3, $created_by);
 
+        try {
+            $cargas = CatatanRumahTangga::create($allSession);
+        } catch (QueryException $e) {
+            $errorCode = $e->getCode();
+            $errorMessage = 'Mohon maaf, terjadi kesalahan saat menyimpan data.';
+
+            switch ($errorCode) {
+                case '23000':
+                    if (str_contains($e->getMessage(), 'Duplicate entry')) {
+                        $errorMessage = 'Data yang Anda masukkan sudah ada dalam sistem. Mohon periksa kembali untuk menghindari duplikasi.';
+                    } else {
+                        $errorMessage = 'Data yang dimasukkan tidak sesuai dengan ketentuan. Mohon periksa kembali isian Anda.';
+                    }
+                    break;
+                case '22001':
+                    $errorMessage = 'Beberapa informasi yang Anda masukkan terlalu panjang. Mohon persingkat isian tersebut.';
+                    break;
+                case '22003':
+                    $errorMessage = 'Nilai angka yang Anda masukkan terlalu besar. Mohon masukkan nilai yang lebih kecil.';
+                    break;
+                case '22007':
+                    $errorMessage = 'Format tanggal yang Anda masukkan tidak sesuai. Mohon periksa kembali format tanggalnya.';
+                    break;
+                case '42S22':
+                    $errorMessage = 'Terjadi kesalahan teknis pada sistem kami. Tim teknis kami akan segera menangani masalah ini.';
+                    break;
+                default:
+                    $errorMessage = 'Terjadi kesalahan yang tidak terduga. Silakan coba lagi nanti atau hubungi dukungan pelanggan jika masalah berlanjut.';
+            }
 
 
-        $cargas = CatatanRumahTangga::create($allSession);
+            return redirect(route("cargas.create1"))->withErrors(['error' => $errorMessage]);
+        }
+
         $cargas = json_decode($cargas);
 
         if ($cargas->pemanfaatan_pekarangan == "1") {
