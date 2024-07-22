@@ -29,7 +29,6 @@ class UserController extends Controller
             $kader->where('status', 'aktif');
         } elseif ($status == 'non aktif') {
             $kader->where('status', 'non aktif');
-
         }
 
         $users = $kader->get();
@@ -41,9 +40,9 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'nik' => 'required',
+            'nik' => 'required|unique|number|size:16',
             'username' => 'required',
-            'password' => 'required',
+            'password' => 'required|min:4',
         ]);
 
         $user = User::create([
