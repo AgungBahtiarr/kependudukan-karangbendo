@@ -93,8 +93,12 @@ class PenerimaBansosController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PenerimaBansos $penerimaBansos)
+    public function destroy($id)
     {
-        //
+        $bansos = PenerimaBansos::findOrFail($id);
+
+        $bansos->delete();
+
+        return response(null, 200, ["HX-Redirect" => '/bansos']);
     }
 }

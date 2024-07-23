@@ -100,6 +100,11 @@
                                         <div id="addDawis" hx-get="/warga/isDawis/{{ $warga->id }}" hx-swap="innerHtml"
                                             hx-trigger="load">
                                         </div>
+
+                                        <a class="btn btn-danger btn-sm mr-2 my-1 edit-btn"
+                                            hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
+                                            hx-delete={{ route('wargas.delete', $warga->id) }}><i
+                                                class="ri-delete-bin-2-line"></i>Delete</a>
                                     </td>
                                 </tr>
                             @endforeach

@@ -25,7 +25,7 @@
 @fragment('frekPos')
     <div class="form-group">
         <label for="frekuensi_posyandu">Frekuensi Posyandu</label>
-        <input type="number" min="1" max="1" name="frekuensi_posyandu" class="form-control" required
+        <input type="number" min="0" name="frekuensi_posyandu" class="form-control" required
             value={{ $dawisSession ? $dawisSession['frekuensi_posyandu'] : '' }}>
     </div>
 @endfragment

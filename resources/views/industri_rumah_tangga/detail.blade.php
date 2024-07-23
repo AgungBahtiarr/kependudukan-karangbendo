@@ -40,7 +40,7 @@
         <div class="flex justify-end mr-6 mt-5">
             <div>
                 <a class="btn btn-secondary" href="/pekarangans/detail/{{ $id }}/{{ $nkk }}">Kembali</a>
-                <a class="btn btn-primary" href="/cargas/">Selanjutnya</a>
+                <a class="btn btn-primary" href="/cargas/">Selesai</a>
             </div>
         </div>
     @else
@@ -51,7 +51,7 @@
                     <div class="flex mt-3">
                         <div>
                             <a class="btn btn-secondary" href="/pekarangans/detail/{{ $id }}/{{ $nkk }}">Kembali</a>
-                            <a class="btn btn-primary" href="/cargas/">Selanjutnya</a>
+                            <a class="btn btn-primary" href="/cargas/">Selesai</a>
                         </div>
                     </div>
                 </div>

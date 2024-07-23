@@ -12,7 +12,7 @@
 
                 <div class="form-group">
                     <label for="nik">Nomer Induk Kependudukan</label>
-                    <input type="text" name="nik" class="form-control" required>
+                    <input type="text" minlength="16" maxlength="16" name="nik" class="form-control" required>
                 </div>
 
 

@@ -61,9 +61,9 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $carga->nkk }}</td>
-                                    <td>{{ $carga->kriteria_rumah == "1" ? "Layak huni" : "Tidak Layak Huni" }}</td>
+                                    <td>{{ $carga->kriteria_rumah == '1' ? 'Layak huni' : 'Tidak Layak Huni' }}</td>
                                     <td>{{ $carga->sumber_air->nama_sumber_air }}</td>
-                                    <td>{{ $carga->satu_rumah_satu_kk == "1" ? "Ya" : "Tidak" }}</td>
+                                    <td>{{ $carga->satu_rumah_satu_kk == '1' ? 'Ya' : 'Tidak' }}</td>
                                     @role('Admin')
                                         <td>
                                             @if ($carga->verified == 'yes')
@@ -87,6 +87,10 @@
                                             <i class="ri-information-fill"></i>
                                             Detail
                                         </a>
+                                        <a class="btn btn-danger btn-sm mr-2 my-1 edit-btn"
+                                            hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
+                                            hx-delete={{ route('cargas.delete', $carga->id) }}><i
+                                                class="ri-delete-bin-2-line"></i>Delete</a>
                                     </td>
                                 </tr>
                             @endforeach

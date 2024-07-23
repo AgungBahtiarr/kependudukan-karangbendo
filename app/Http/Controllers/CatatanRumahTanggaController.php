@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\CatatanRumahTangga;
 use App\Http\Requests\StoreCatatanRumahTanggaRequest;
 use App\Http\Requests\UpdateCatatanRumahTanggaRequest;
+use App\Models\IndustriRumahTangga;
 use App\Models\MakananPokok;
+use App\Models\PemanfaatanTanahPekarangan;
 use App\Models\SumberAir;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -47,7 +49,7 @@ class CatatanRumahTanggaController extends Controller
 
         // return $id;
 
-        if ($id == 1) {
+        if ($id == 0) {
             return view("catatan_rumah_tangga.partials.input", compact('cargasSession'))->fragment('nkkInang');
         } else {
             return "";
@@ -94,9 +96,9 @@ class CatatanRumahTanggaController extends Controller
         $nkkInang = "";
 
         if ($request->satu_rumah_satu_kk == 0) {
-            $nkkInang = "";
-        } else {
             $nkkInang = $request->satu_rumah_satu_kk;
+        } else {
+            $nkkInang = "";
         }
 
 
@@ -387,5 +389,21 @@ class CatatanRumahTanggaController extends Controller
      */
     public function destroy($id)
     {
+        $carga = CatatanRumahTangga::findOrFail($id);
+        $industri = IndustriRumahTangga::where('nkk', $carga->nkk)->get();
+        $pekarangan =  PemanfaatanTanahPekarangan::where('nkk', $carga->nkk)->get();
+        if (count($industri) == 1) {
+            $industri[0]->delete();
+        }
+
+        if (count($pekarangan) == 1) {
+            $pekarangan[0]->delete();
+        }
+
+        $carga->delete();
+
+        return response(null, 200, ["HX-Redirect" => '/cargas']);
+
+
     }
 }

@@ -127,11 +127,12 @@
                 <ul class="flex flex-col gap-7 pl-8 py-8">
                     <li class="flex flex-col gap-3">
                         <div class="font-medium text-[#ADADAD]">Mengikuti Kelompok Belajar</div>
-                        <div>{{ $dawis->kelompok_belajar == '1' ? 'Iya' : 'Tidak' }}</div>
+                        <div>{{ $dawis->kelompok_belajar && $dawis->kelompok_belajar == '1' ? 'Iya' : 'Tidak' }}</div>
                     </li>
                     <li class="flex flex-col gap-3">
                         <div class="font-medium text-[#ADADAD]">Jenis Kelompok Belajar</div>
-                        <div>{{ $dawis->jenis_kelompok_belajar['nama_kelompok_belajar'] }}</div>
+                        <div>{{ $dawis->kelompok_belajar && $dawis->jenis_kelompok_belajar['nama_kelompok_belajar'] }}
+                        </div>
                     </li>
                     <li class="flex flex-col gap-3">
                         <div class="font-medium text-[#ADADAD]">Mengikuti PAUD/Sejenis</div>
@@ -197,5 +198,4 @@
             </div>
         </div>
     </div>
-
 @endsection

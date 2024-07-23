@@ -65,7 +65,7 @@
                     </div>
 
 
-                    @if ($cargasSession && $cargasSession['satu_rumah_satu_kk'] == 1)
+                    @if ($cargasSession && $cargasSession['satu_rumah_satu_kk'] == 0)
                         <div id="nkkInang">
                             <div class="form-group">
                                 <label for="nkk_inang">Nomor Kartu Keluarga Inang</label>

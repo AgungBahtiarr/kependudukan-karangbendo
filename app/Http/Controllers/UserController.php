@@ -40,9 +40,9 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'nik' => 'required|unique|number|size:16',
+            'nik' => 'required',
             'username' => 'required',
-            'password' => 'required|min:4',
+            'password' => 'required',
         ]);
 
         $user = User::create([

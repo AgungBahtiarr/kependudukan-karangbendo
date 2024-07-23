@@ -12,7 +12,7 @@ class UserSeeder extends Seeder
     {
         $admin = User::create([
             'nik' => '1602205303040002',
-            'name' => 'Azizatur Rohma',
+            'name' => 'Admin',
             'username' => 'admin',
             'password' => Hash::make(1234),
         ]);

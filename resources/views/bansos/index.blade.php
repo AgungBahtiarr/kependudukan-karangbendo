@@ -66,6 +66,10 @@
                                             <i class="ri-edit-2-line"></i>
                                             Edit
                                         </a>
+                                        <a class="btn btn-danger btn-sm mr-2 my-1 edit-btn"
+                                            hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
+                                            hx-delete={{ route('bansos.delete', $bansos->id) }}><i
+                                                class="ri-delete-bin-2-line"></i>Delete</a>
                                     </td>
                                 </tr>
                             @endforeach

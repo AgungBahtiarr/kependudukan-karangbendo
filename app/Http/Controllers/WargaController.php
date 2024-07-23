@@ -91,22 +91,6 @@ class WargaController extends Controller
 
     public function store1(Request $request)
     {
-        $request->validate([
-            'no_registrasi' => 'required|numeric|unique:warga',
-            'nik' => 'required|numeric|size:16|unique:warga',
-            'nkk' => 'required|numeric|size:16',
-            'nama' => 'required|string',
-            'jenis_kelamin' => 'required',
-            'tempat_lahir' => 'required|string',
-            'tanggal_lahir' => 'required|date',
-            'id_agama' => 'required|integer|exists:agama,id',
-            'id_pendidikan' => 'required|integer|exists:pendidikan,id',
-            'id_status_perkawinan' => 'required|integer|exists:status_perkawinan,id',
-            'status_keluarga' => 'required|string',
-            'id_pekerjaan' => 'required|integer|exists:pekerjaan,id',
-            'jabatan' => 'nullable|string',
-        ]);
-
         $data = [
             'no_registrasi' => $request->no_registrasi,
             'nik' => $request->nik,
@@ -373,7 +357,6 @@ class WargaController extends Controller
             'rw' => $allSession['rw'],
             'id_pendidikan' => $allSession['id_pendidikan'],
             'id_pekerjaan' => $allSession['id_pekerjaan'],
-            'verified' => 'no',
             'created_by' => auth()->user()->id,
         ];
 
@@ -393,8 +376,11 @@ class WargaController extends Controller
     public function destroy($id)
     {
         $warga = Warga::findOrFail($id);
+        $dawis = KeikutsertaanKegiatanDawis::where('nik', $warga->nik)->get();
+        $dawis = $dawis[0];
 
-        $warga->delete('$id');
-        return redirect(route("wargas.index"));
+        $dawis->delete();
+        $warga->delete();
+        return response(null, 200, ["HX-Redirect" => '/warga']);
     }
 }

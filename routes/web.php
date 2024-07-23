@@ -63,6 +63,8 @@ Route::middleware('auth')->group(function () {
 
 
         Route::get('/isDawis/{id}', [WargaController::class, 'isDawis'])->name('wargas.isDawis');
+
+        Route::delete('/{id}', [WargaController::class, 'destroy'])->name('wargas.delete');
     });
 
 
@@ -93,9 +95,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/isJenisKb/{id}', [KeikutsertaanKegiatanDawisController::class, 'isKb'])->name("dawis.isKb");
         Route::post('/isPosyandu/{id}', [KeikutsertaanKegiatanDawisController::class, 'isPosyandu'])->name("dawis.isPosyandu");
         Route::post('/isKoperasi/{id}', [KeikutsertaanKegiatanDawisController::class, 'isKoperasi'])->name("dawis.isPosyandu");
-
-
-
     });
 
 
@@ -130,9 +129,11 @@ Route::middleware('auth')->group(function () {
         Route::patch('/update2', [CatatanRumahTanggaController::class, 'update2'])->name('cargas.update2');
         Route::patch('/update3', [CatatanRumahTanggaController::class, 'update3'])->name('cargas.update3');
 
-        Route::post('/isNkkInang/{id}',[CatatanRumahTanggaController::class, 'isNkkInang']);
-        Route::post('/isUp2k/{id}',[CatatanRumahTanggaController::class, 'isUp2k']);
+        Route::post('/isNkkInang/{id}', [CatatanRumahTanggaController::class, 'isNkkInang']);
+        Route::post('/isUp2k/{id}', [CatatanRumahTanggaController::class, 'isUp2k']);
 
+
+        Route::delete('/{id}', [CatatanRumahTanggaController::class, 'destroy'])->name('cargas.delete');
     });
 
     Route::prefix('pekarangans')->group(function () {
@@ -160,5 +161,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/store', [PenerimaBansosController::class, 'store'])->middleware('can:create_bansos',)->name('bansos.store');
         Route::get('/edit/{id}', [PenerimaBansosController::class, 'edit'])->middleware('can:edit_bansos',)->name('bansos.edit');
         Route::patch('/update/{id}', [PenerimaBansosController::class, 'update'])->middleware('can:edit_bansos',)->name('bansos.update');
+
+        Route::delete('/{id}', [PenerimaBansosController::class, 'destroy'])->name('bansos.delete');
     });
 });
