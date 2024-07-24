@@ -6,8 +6,51 @@
     <div class="my-10 mx-12">
         <h1 class="text-2xl font-semibold">Tambah Data Catatan Dawis</h1>
 
-        <div class="my-4 w-96 flex items-center">
-            <a href="" class="bg-[#cfdfe3] py-3 px-2 rounded-sm">Catatan Dawis</a>
+        <div class="my-4">
+            <ol
+                class="flex items-center w-full text-sm font-medium text-center text-gray-500 dark:text-gray-400 sm:text-base">
+                <li
+                    class="flex md:w-full items-center text-blue-600 dark:text-blue-500 sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700">
+                    <span
+                        class="flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 dark:after:text-gray-500">
+                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                        </svg>
+                        Informasi <span class="hidden sm:inline-flex sm:ms-2">Personal</span>
+                    </span>
+                </li>
+                <li
+                    class="flex md:w-full items-center text-blue-600 dark:text-blue-500 sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700">
+                    <span
+                        class="flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 dark:after:text-gray-500">
+                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                        </svg>
+                        Alamat <span class="hidden sm:inline-flex sm:ms-2"></span>
+                    </span>
+                </li>
+                <li
+                    class="flex md:w-full items-center text-blue-600 dark:text-blue-500 sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700">
+                    <span
+                        class="flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 dark:after:text-gray-500">
+                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                        </svg>
+                        Dawis <span class="hidden sm:inline-flex sm:ms-2"></span>
+                    </span>
+                </li>
+                <li class="flex items-center">
+                    <span class="me-2">4</span>
+                    Kegiatan
+                </li>
+            </ol>
+
         </div>
 
         <div>
@@ -21,7 +64,7 @@
         <form action={{ route('dawis.store') }} method="POST">
             @csrf
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="w-full bg-white my-6 py-4 px-4 rounded-lg">
+                <div class="w-full bg-white gap-2 my-6 py-4 px-4 rounded-lg">
                     <input type="hidden" name="nik" class="form-control" required value={{ $nik }}
                         @readonly(true)>
 
@@ -75,8 +118,8 @@
                         <div id="frekPos">
                             <div class="form-group">
                                 <label for="frekuensi_posyandu">Frekuensi Posyandu</label>
-                                <input type="number" min="0" name="frekuensi_posyandu" class="form-control" required
-                                    value={{ $dawisSession ? $dawisSession['frekuensi_posyandu'] : '' }}>
+                                <input type="number" min="0" name="frekuensi_posyandu" class="form-control"
+                                    required value={{ $dawisSession ? $dawisSession['frekuensi_posyandu'] : '' }}>
                             </div>
                         </div>
                     @else
