@@ -16,7 +16,7 @@
 @fragment('jenisKb')
     <div class="form-group">
         <label for="jenis_kb">Jenis KB</label>
-        <input type="text" name="jenis_kb" class="form-control" required
+        <input type="text" name="jenis_kb" class="form-control" placeholder="Intra Uterine Device,Implan,Sterilisasi dll" required
             value={{ $dawisSession ? $dawisSession['jenis_kb'] : '' }}>
     </div>
 @endfragment
@@ -24,8 +24,8 @@
 
 @fragment('frekPos')
     <div class="form-group">
-        <label for="frekuensi_posyandu">Frekuensi Posyandu</label>
-        <input type="number" min="0" name="frekuensi_posyandu" class="form-control" required
+        <label for="frekuensi_posyandu">Frekuensi Posyandu (Dalam 1 Tahun)</label>
+        <input type="number" min="0" name="frekuensi_posyandu" class="form-control" placeholder="1,2,3" required
             value={{ $dawisSession ? $dawisSession['frekuensi_posyandu'] : '' }}>
     </div>
 @endfragment

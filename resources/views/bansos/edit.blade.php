@@ -7,7 +7,7 @@
 
 @section('content')
     <div class="my-10 mx-12">
-        <h1 class="text-2xl font-semibold">Edit Data Industri Rumah Tangga</h1>
+        <h1 class="text-2xl font-semibold">Edit Data Bantuan Sosial</h1>
 
 
         <div class="w-full bg-white my-6 py-4 px-4 rounded-lg">

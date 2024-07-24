@@ -160,7 +160,7 @@
 
                 <div class="form-group">
                     <label for="jabatan">Jabatan</label>
-                    <input type="text" name="jabatan" class="form-control" required value={{ $wargaSession ? $wargaSession['jabatan'] : '' }}>
+                    <input type="text" name="jabatan" class="form-control" value={{ $wargaSession ? $wargaSession['jabatan'] : '' }}>
                 </div>
             </div>
 

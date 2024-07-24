@@ -18,6 +18,7 @@ class PekerjaanSeeder extends Seeder
             'Pegawai Swasta',
             'Pelayan',
             'Karyawan',
+            'Belum Bekerja',
             'Lainnya'
         ];
 
