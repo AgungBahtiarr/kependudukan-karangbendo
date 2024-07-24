@@ -27,11 +27,6 @@
 
     @vite(['resources/js/app.js'])
 
-    {{-- HTMX --}}
-
-    {{-- <script src="https://unpkg.com/htmx.org@2.0.0" integrity="sha384-wS5l5IKJBvK6sPTKa2WZ1js3d947pvWXbPJ1OmWfEuxLgeHcEbjUUA5i9V5ZkpCw" crossorigin="anonymous"></script> --}}
-
-
     <style>
         .dataTables_filter {
             display: none;
@@ -99,10 +94,10 @@
     <!-- Chart Custom JavaScript -->
     <script src="{{ asset('assets/js/chart-custom.js') }}"></script>
 
-    <!-- slider JavaScript -->
+    <!-- Slider JavaScript -->
     <script src="{{ asset('assets/js/slider.js') }}"></script>
 
-    <!-- app JavaScript -->
+    <!-- App JavaScript -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
 </body>
 

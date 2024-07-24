@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\CatatanRumahTangga;
+use App\Models\Warga;
 
 class DashboardController extends Controller
 {
@@ -10,6 +11,9 @@ class DashboardController extends Controller
     {
         $title = 'Dashboard';
 
-        return view('dashboard.index', compact('title'));
+        $jumlahWarga = Warga::count();
+        $jumlahCatatanKeluarga = CatatanRumahTangga::count();
+
+        return view('dashboard.index', compact('title', 'jumlahWarga', 'jumlahCatatanKeluarga'));
     }
 }
