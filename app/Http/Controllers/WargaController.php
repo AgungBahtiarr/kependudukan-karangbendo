@@ -20,7 +20,6 @@ class WargaController extends Controller
     {
         $title = 'Data Warga';
 
-        // auth()->user()->roles[0]->name;
 
         $wargas = Warga::with('agama', 'pendidikan', 'pekerjaan', 'statusPerkawinan');
         $status = $request->input('status');
@@ -30,17 +29,21 @@ class WargaController extends Controller
         $agamas = Agama::get();
         $pendidikans = Pendidikan::get();
         $pekerjaans = Pekerjaan::get();
-        // $seacrhQuery = $request->strquery;
+        $seacrhQuery = $request->strquery;
 
 
-        // if ($seacrhQuery) {
-        //     $warga->where('name', 'like', '%' . strval($seacrhQuery) . '%');
-        // }
+        if ($seacrhQuery) {
+            $wargas->where('nama', 'like', '%' . strval($seacrhQuery) . '%');
+        }elseif ($seacrhQuery == "") {
+            $wargas->get();
+        }
 
-        if ($status == '1') {
-            $wargas->where('status_keluarga', '1');
-        } elseif ($status == '0') {
-            $wargas->where('status_keluarga', '0');
+        if ($status == 'yes') {
+            $wargas->where('verified', 'yes');
+        } elseif ($status == 'no') {
+            $wargas->where('verified', 'no');
+        }elseif($status == 'all'){
+            $wargas->get();
         }
 
         $wargas = $wargas->get();

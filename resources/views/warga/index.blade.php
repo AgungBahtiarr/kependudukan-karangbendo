@@ -22,12 +22,12 @@
                         </div>
                         <div class="col-md-6">
                             <select class="form-control" id="select-warga-status-filter" name="filter">
-                                <option value="" {{ request('status') == '' ? 'selected' : '' }}>Semua Warga</option>
-                                <option value="1" {{ request('status') == 'aktif' ? 'selected' : '' }}>Kepala Keluarga
+                                <option value="all" {{ request('status') == 'all' ? 'selected' : '' }}>Semua Warga
                                 </option>
-                                <option value="0" {{ request('status') == 'non aktif' ? 'selected' : '' }}>Anggota
-                                    Keluarga
+                                <option value="yes" {{ request('status') == 'yes' ? 'selected' : '' }}>Teverifikasi
                                 </option>
+                                <option value="no" {{ request('status') == 'no' ? 'selected' : '' }}>Belum
+                                    Terverifikasi</option>
                             </select>
                         </div>
 

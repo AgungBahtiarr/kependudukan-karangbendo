@@ -15,12 +15,29 @@ class CatatanRumahTanggaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Catatan Rumah Tangga';
+        $cargas = CatatanRumahTangga::with('makananPokok', 'sumberAir');
+        $select = $request->input('status');
+        $seacrhQuery = $request->strquery;
 
-        $cargas = CatatanRumahTangga::with('makananPokok', 'sumberAir')->get();
 
+        if ($seacrhQuery) {
+            $cargas->where('nkk', 'like', '%' . strval($seacrhQuery) . '%');
+        }elseif ($seacrhQuery == "") {
+            $cargas->get();
+        }
+
+        if ($select == 'yes') {
+            $cargas->where('verified', 'yes');
+        } elseif ($select == 'no') {
+            $cargas->where('verified', 'no');
+        }elseif($select == 'all'){
+            $cargas->get();
+        }
+
+        $cargas = $cargas->get();
         $cargas = json_decode($cargas);
 
         return view("catatan_rumah_tangga.index", compact('cargas', 'title'));

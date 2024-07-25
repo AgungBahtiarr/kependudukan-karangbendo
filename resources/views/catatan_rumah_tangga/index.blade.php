@@ -17,15 +17,16 @@
 
                         <div class="col-md-3 iq-search-bar device-search">
                             <form action="" class="">
-                                {{-- <a class="search-link" href="#"><i class="ri-search-line"></i></a> --}}
                                 <input type="text" class="text search-input" placeholder="Cari" name="strquery">
                             </form>
                         </div>
                         <div class="col-md-6">
-                            <select class="form-control" id="select-user-status-filter" name="filter">
-                                <option value="" {{ request('status') == '' ? 'selected' : '' }}>Semua KK</option>
-                                {{-- <option value="aktif" {{ request('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
-                            <option value="non aktif" {{ request('status') == 'non aktif' ? 'selected' : '' }}>Non Aktif</option> --}}
+                            <select class="form-control" id="select-cargas-status-filter" name="filter">
+                                <option value="all" {{ request('status') == 'all' ? 'selected' : '' }}>Semua</option>
+                                <option value="yes" {{ request('status') == 'yes' ? 'selected' : '' }}>Terverifikasi
+                                </option>
+                                <option value="no" {{ request('status') == 'no' ? 'selected' : '' }}>Belum Terverifikasi
+                                </option>
                             </select>
                         </div>
 
@@ -103,4 +104,12 @@
 @endsection
 
 @section('script')
+    <script>
+        $(function() {
+            $('#select-cargas-status-filter').change(e => {
+                window.location.href =
+                    `{{ route('cargas.index') }}${$(e.target).val() ? `?status=${$(e.target).val()}` : ''}`;
+            });
+        });
+    </script>
 @endsection
