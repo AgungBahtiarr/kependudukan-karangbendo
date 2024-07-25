@@ -20,6 +20,8 @@ class WargaController extends Controller
     {
         $title = 'Data Warga';
 
+        // auth()->user()->roles[0]->name;
+
         $wargas = Warga::with('agama', 'pendidikan', 'pekerjaan', 'statusPerkawinan');
         $status = $request->input('status');
 
@@ -152,6 +154,8 @@ class WargaController extends Controller
 
         $allSession = array_merge($wargaSession, $wargaSession2);
 
+        $userRole = auth()->user()->getRoleNames()->first();
+
         $data = [
             'no_registrasi' => $allSession['no_registrasi'],
             'nik' => $allSession['nik'],
@@ -173,7 +177,7 @@ class WargaController extends Controller
             'rw' => $allSession['rw'],
             'id_pendidikan' => $allSession['id_pendidikan'],
             'id_pekerjaan' => $allSession['id_pekerjaan'],
-            'verified' => 'no',
+            'verified' => $userRole == 'Admin' ? 'yes' : 'no',
             'created_by' => auth()->user()->id,
         ];
 

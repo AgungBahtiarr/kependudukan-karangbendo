@@ -203,6 +203,8 @@ class KeikutsertaanKegiatanDawisController extends Controller
     public function store2(Request $request)
     {
 
+        $userRole = auth()->user()->getRoleNames()->first();
+
         $data = [
             'penghayatan_pengamalan_pancasila' => $request->penghayatan_pengamalan_pancasila,
             'gotong_royong' => $request->gotong_royong,
@@ -212,7 +214,7 @@ class KeikutsertaanKegiatanDawisController extends Controller
             'sandang' => $request->sandang,
             'kegiatan_kesehatan' => $request->kegiatan_kesehatan,
             'perencanaan_kesehatan' => $request->perencanaan_kesehatan,
-            'verified' => "no",
+            'verified' => $userRole == "Admin" ? "yes" : "no",
             'created_by' => auth()->user()->id,
         ];
 

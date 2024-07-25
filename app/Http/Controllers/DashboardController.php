@@ -14,6 +14,10 @@ class DashboardController extends Controller
         $jumlahWarga = Warga::count();
         $jumlahCatatanKeluarga = CatatanRumahTangga::count();
 
-        return view('dashboard.index', compact('title', 'jumlahWarga', 'jumlahCatatanKeluarga'));
+        $jumlahWargaTerverifikasi = Warga::where('verified', 'yes')->count();
+        $jumlahCatatanKeluargaTerverifikasi = CatatanRumahTangga::where('verified', 'yes')->count();
+
+
+        return view('dashboard.index', compact('title', 'jumlahWarga', 'jumlahCatatanKeluarga', 'jumlahWargaTerverifikasi', 'jumlahCatatanKeluargaTerverifikasi'));
     }
 }

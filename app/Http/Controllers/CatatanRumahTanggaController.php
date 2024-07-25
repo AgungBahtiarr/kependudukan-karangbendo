@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\CatatanRumahTangga;
-use App\Http\Requests\StoreCatatanRumahTanggaRequest;
-use App\Http\Requests\UpdateCatatanRumahTanggaRequest;
 use App\Models\IndustriRumahTangga;
 use App\Models\MakananPokok;
 use App\Models\PemanfaatanTanahPekarangan;
@@ -162,13 +160,14 @@ class CatatanRumahTanggaController extends Controller
 
         $request->session()->put('cargas3', $rawData);
 
+        $userRole = auth()->user()->getRoleNames()->first();
 
         $cargas1 = $request->session()->get('cargas1');
         $cargas2 = $request->session()->get('cargas2');
         $cargas3 = $request->session()->get('cargas3');
         $created_by = [
             'created_by' => auth()->user()->id,
-            'verified' => "no"
+            'verified' => $userRole == "Admin" ? "yes" : "no"
         ];
 
 
@@ -403,7 +402,5 @@ class CatatanRumahTanggaController extends Controller
         $carga->delete();
 
         return response(null, 200, ["HX-Redirect" => '/cargas']);
-
-
     }
 }
