@@ -33,7 +33,7 @@
                     <span
                         class="flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 dark:after:text-gray-500">
                         <span class="me-2">3</span>
-                         Dawis <span class="hidden sm:inline-flex sm:ms-2"></span>
+                        Dawis <span class="hidden sm:inline-flex sm:ms-2"></span>
                     </span>
                 </li>
                 <li class="flex items-center">
@@ -41,7 +41,14 @@
                     Kegiatan
                 </li>
             </ol>
+        </div>
 
+        <div class="mt-4">
+            @error('error')
+                <div class="alert alert-danger" role="alert">
+                    <div class="iq-alert-text">{{ $errors->first() }}</div>
+                </div>
+            @enderror
         </div>
 
         <div class="w-full bg-white my-6 py-4 px-4 rounded-lg">
@@ -75,7 +82,7 @@
 
                     <div class="form-group">
                         <label for="jenis_kelamin">Jenis Kelamin</label>
-                        <select class="form-control" name="jenis_kelamin">
+                        <select class="form-control" name="jenis_kelamin" required>
                             @if ($wargaSession)
                                 {{-- <option value={{$wargaSession['jenis_kelamin']}}></option> --}}
                                 <option value="L" {{ $wargaSession['jenis_kelamin'] == 'L' ? 'selected' : '' }}>
@@ -83,7 +90,7 @@
                                 <option value="P" {{ $wargaSession['jenis_kelamin'] == 'P' ? 'selected' : '' }}>
                                     Perempuan</option>
                             @else
-                                <option selected>Pilih Jenis Kelamin</option>
+                                <option selected disabled>Pilih Jenis Kelamin</option>
                                 <option value="L">Laki-laki</option>
                                 <option value="P">Perempuan</option>
                             @endif

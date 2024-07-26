@@ -9,6 +9,7 @@ use App\Models\Pekerjaan;
 use App\Models\Pendidikan;
 use App\Models\StatusPerkawinan;
 use App\Models\Warga;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class WargaController extends Controller
@@ -34,7 +35,7 @@ class WargaController extends Controller
 
         if ($seacrhQuery) {
             $wargas->where('nama', 'like', '%' . strval($seacrhQuery) . '%');
-        }elseif ($seacrhQuery == "") {
+        } elseif ($seacrhQuery == "") {
             $wargas->get();
         }
 
@@ -42,7 +43,7 @@ class WargaController extends Controller
             $wargas->where('verified', 'yes');
         } elseif ($status == 'no') {
             $wargas->where('verified', 'no');
-        }elseif($status == 'all'){
+        } elseif ($status == 'all') {
             $wargas->get();
         }
 
@@ -170,7 +171,7 @@ class WargaController extends Controller
             "id_status_perkawinan" => $allSession['id_status_perkawinan'],
             'id_agama' => $allSession['id_agama'],
             'jenis_kelamin' => $allSession['jenis_kelamin'],
-            'status_di_keluarga' => $allSession['status_keluarga'],
+            'status_keluarga' => $allSession['status_keluarga'],
             'alamat_jalan' => $allSession['alamat_jalan'],
             'alamat_desakel' => $allSession['alamat_desakel'],
             'alamat_kec' => $allSession['alamat_kec'],
@@ -184,9 +185,42 @@ class WargaController extends Controller
             'created_by' => auth()->user()->id,
         ];
 
-        $warga = Warga::create(
-            $data
-        );
+
+        try {
+            $warga = Warga::create(
+                $data
+            );
+        } catch (QueryException $e) {
+            $errorCode = $e->getCode();
+            $errorMessage = 'Mohon maaf, terjadi kesalahan saat menyimpan data.';
+
+            switch ($errorCode) {
+                case '23000':
+                    if (str_contains($e->getMessage(), 'Duplicate entry')) {
+                        $errorMessage = 'Data yang Anda masukkan sudah ada dalam sistem. Mohon periksa kembali untuk menghindari duplikasi.';
+                    } else {
+                        $errorMessage = 'Data yang dimasukkan tidak sesuai dengan ketentuan. Mohon periksa kembali isian Anda.';
+                    }
+                    break;
+                case '22001':
+                    $errorMessage = 'Beberapa informasi yang Anda masukkan terlalu panjang. Mohon persingkat isian tersebut.';
+                    break;
+                case '22003':
+                    $errorMessage = 'Nilai angka yang Anda masukkan terlalu besar. Mohon masukkan nilai yang lebih kecil.';
+                    break;
+                case '22007':
+                    $errorMessage = 'Format tanggal yang Anda masukkan tidak sesuai. Mohon periksa kembali format tanggalnya.';
+                    break;
+                case '42S22':
+                    $errorMessage = 'Terjadi kesalahan teknis pada sistem kami. Tim teknis kami akan segera menangani masalah ini.';
+                    break;
+                default:
+                    $errorMessage = 'Terjadi kesalahan yang tidak terduga. Silakan coba lagi nanti atau hubungi dukungan pelanggan jika masalah berlanjut.';
+            }
+
+            return redirect(route("wargas.create1"))->withErrors(['error' => $errorMessage]);
+        }
+
 
         $request->session()->forget(['warga1', 'warga2']);
 

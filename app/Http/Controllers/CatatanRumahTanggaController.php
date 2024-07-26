@@ -193,6 +193,8 @@ class CatatanRumahTanggaController extends Controller
         try {
             $cargas = CatatanRumahTangga::create($allSession);
         } catch (QueryException $e) {
+
+            return $e;
             $errorCode = $e->getCode();
             $errorMessage = 'Mohon maaf, terjadi kesalahan saat menyimpan data.';
 

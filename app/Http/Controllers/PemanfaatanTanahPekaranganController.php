@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PemanfaatanTanahPekarangan;
-use App\Http\Requests\StorePemanfaatanTanahPekaranganRequest;
-use App\Http\Requests\UpdatePemanfaatanTanahPekaranganRequest;
+
 use App\Models\CatatanRumahTangga;
 use Illuminate\Http\Request;
 
@@ -50,6 +49,7 @@ class PemanfaatanTanahPekaranganController extends Controller
             'lumbung_hidup' => $request->lumbung_hidup,
             'warung_hidup' => $request->warung_hidup,
             'perikanan' => $request->perikanan,
+            'peternakan' => $request->peternakan
         ];
 
         $pekarangan = PemanfaatanTanahPekarangan::create($data);
@@ -103,6 +103,7 @@ class PemanfaatanTanahPekaranganController extends Controller
             'lumbung_hidup' => $request->lumbung_hidup,
             'warung_hidup' => $request->warung_hidup,
             'perikanan' => $request->perikanan,
+            'peternakan' => $request->peternakan
         ];
 
         $pekarangan = PemanfaatanTanahPekarangan::findOrFail($request->id);

@@ -152,12 +152,12 @@
                         <label for="peternakanan">Peternakanan</label>
                         <div class="form-group">
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="peternakanan_ya" name="peternakanan" value="1"
+                                <input type="radio" id="peternakanan_ya" name="peternakan" value="1"
                                     class="custom-control-input" required>
                                 <label class="custom-control-label" for="peternakanan_ya"> Ya </label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="peternakanan_tidak" name="peternakanan" value="0"
+                                <input type="radio" id="peternakanan_tidak" name="peternakan" value="0"
                                     class="custom-control-input" required>
                                 <label class="custom-control-label" for="peternakanan_tidak"> Tidak </label>
                             </div>

@@ -100,12 +100,12 @@
                 <label for="peternakanan">Peternakanan</label>
                 <div class="form-group">
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="peternakanan_ya" name="peternakanan" value="1"
+                        <input type="radio" id="peternakanan_ya" name="peternakan" value="1"
                             {{ $pekarangan->peternakan == '1' ? 'checked' : '' }} class="custom-control-input" required>
                         <label class="custom-control-label" for="peternakanan_ya"> Ya </label>
                     </div>
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="peternakanan_tidak" name="peternakanan" value="0"
+                        <input type="radio" id="peternakanan_tidak" name="peternakan" value="0"
                             {{ $pekarangan->peternakan == '0' ? 'checked' : '' }} class="custom-control-input" required>
                         <label class="custom-control-label" for="peternakanan_tidak"> Tidak </label>
                     </div>
