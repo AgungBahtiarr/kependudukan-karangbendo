@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <div class="header-title w-100">
-                    <h4 class="card-title d-inline-block mb-0">Data Kader</h4>
+                    <h4 class="card-title d-inline-block mb-0">Akun Kader</h4>
                 </div>
             </div>
 
@@ -33,7 +33,7 @@
                     <div class="col-md-3 items-end">
                         <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#createUserModal">
                             <i class="ri-user-add-line"></i>
-                            Tambah Data Kader
+                            Tambah Akun Kader
                         </button>
 
                         <!-- Modal Tambah Data Kader Baru -->
