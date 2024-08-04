@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PenerimaBansos;
 use App\Http\Requests\StorePenerimaBansosRequest;
 use App\Http\Requests\UpdatePenerimaBansosRequest;
+use App\Models\ProgramBansos;
 use Illuminate\Http\Request;
 
 class PenerimaBansosController extends Controller
@@ -16,7 +17,7 @@ class PenerimaBansosController extends Controller
     {
         $title = "Data Bansos";
 
-        $bansoses = PenerimaBansos::get();
+        $bansoses = PenerimaBansos::with('program')->get();
         return view("bansos.index", compact('title', 'bansoses'));
     }
 
@@ -26,8 +27,9 @@ class PenerimaBansosController extends Controller
     public function create()
     {
         $title = 'Data Bansos';
+        $programs = ProgramBansos::get();
         $months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agus', 'Sep', 'Okt', 'Nov', 'Des'];
-        return view('bansos.create', compact('title', 'months'));
+        return view('bansos.create', compact('title', 'months', 'programs'));
     }
 
     /**
@@ -35,14 +37,23 @@ class PenerimaBansosController extends Controller
      */
     public function store(Request $request)
     {
+        // $data = [
+        //     'nik' => $request->nik,
+        //     'jenis_bantuan' => $request->jenis_bantuan,
+        //     'periode_bulan' => $request->periode_bulan,
+        //     'periode_tahun' => $request->periode_tahun,
+        //     'nominal' => $request->nominal,
+        //     'created_by' => auth()->user()->id
+        // ];
+
         $data = [
             'nik' => $request->nik,
-            'jenis_bantuan' => $request->jenis_bantuan,
-            'periode_bulan' => $request->periode_bulan,
-            'periode_tahun' => $request->periode_tahun,
-            'nominal' => $request->nominal,
+            'id_program_bansos' => $request->id_program_bansos,
+            'status' => '1',
             'created_by' => auth()->user()->id
         ];
+
+
 
         $bansos = PenerimaBansos::create($data);
 
@@ -65,9 +76,10 @@ class PenerimaBansosController extends Controller
     {
         $bansos = PenerimaBansos::findOrFail($id);
         $title = 'Data Bansos';
-        $months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agus', 'Sep', 'Okt', 'Nov', 'Des'];
+        // $months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agus', 'Sep', 'Okt', 'Nov', 'Des'];
+        $programs = ProgramBansos::get();
 
-        return view('bansos.edit', compact('bansos', 'title', 'months'));
+        return view('bansos.edit', compact('bansos', 'title', 'programs'));
     }
 
     /**
@@ -75,12 +87,11 @@ class PenerimaBansosController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $data = [
             'nik' => $request->nik,
-            'jenis_bantuan' => $request->jenis_bantuan,
-            'periode_bulan' => $request->periode_bulan,
-            'periode_tahun' => $request->periode_tahun,
-            'nominal' => $request->nominal,
+            'id_program_bansos' => $request->id_program_bansos,
+            'status' => '1',
             'created_by' => auth()->user()->id
         ];
         $bansos = PenerimaBansos::findOrFail($id);

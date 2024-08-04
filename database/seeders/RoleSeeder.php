@@ -38,6 +38,13 @@ class RoleSeeder extends Seeder
             "update_wargas",
             "update_warga_status",
 
+            #kematian
+            "create_kematians",
+            "read_kematians",
+            "edit_kematians",
+            "update_kematians",
+            "update_kematians_status",
+
             #dawis
             "create_dawis",
             "read_dawis",

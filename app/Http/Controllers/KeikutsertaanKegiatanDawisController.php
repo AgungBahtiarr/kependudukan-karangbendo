@@ -290,7 +290,12 @@ class KeikutsertaanKegiatanDawisController extends Controller
         $nik = $warga->nik;
 
         $dawis = KeikutsertaanKegiatanDawis::with('jenisKelompokBelajar')->where('nik', $nik)->get();
+
+        if (count($dawis) == 0) {
+            return redirect(route("wargas.index"));
+        }
         $dawis = $dawis[0];
+
 
         $dawis = KeikutsertaanKegiatanDawis::with('jenisKelompokBelajar')->findOrFail($dawis->id);
 

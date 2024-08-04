@@ -17,8 +17,8 @@
 
                         <div class="col-md-3 iq-search-bar device-search">
                             <form action="" class="">
-                                    <a class="search-link" href="#"><i class="ri-search-line"></i></a>
-                                    <input type="text" class="text search-input" placeholder="Cari" name="strquery">
+                                <a class="search-link" href="#"><i class="ri-search-line"></i></a>
+                                <input type="text" class="text search-input" placeholder="Cari" name="strquery">
                             </form>
                         </div>
                         <div class="col-md-6">
@@ -45,10 +45,9 @@
                             <tr>
                                 <th>No</th>
                                 <th>NIK</th>
+                                <th>Sumber Dana</th>
                                 <th>Jenis Bantuan</th>
-                                <th>Periode Bulan</th>
-                                <th>Periode Tahun</th>
-                                <th>Nominal</th>
+                                <th>Detail Bantuan</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -57,10 +56,9 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $bansos->nik }}</td>
-                                    <td>{{ $bansos->jenis_bantuan }}</td>
-                                    <td>{{ $bansos->periode_bulan }}</td>
-                                    <td>{{ $bansos->periode_tahun }}</td>
-                                    <td>{{ $bansos->nominal }}</td>
+                                    <td>{{ $bansos->program->nama_program }}</td>
+                                    <td>{{ $bansos->program->jenis_bantuan }}</td>
+                                    <td>{{ $bansos->program->detail_bantuan }}</td>
                                     <td>
                                         <a href="{{ route('bansos.edit', $bansos->id) }}"
                                             class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
@@ -71,6 +69,11 @@
                                             hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
                                             hx-delete={{ route('bansos.delete', $bansos->id) }}><i
                                                 class="ri-delete-bin-2-line"></i>Delete</a>
+
+                                        <a class="btn bg-indigo-500 text-white btn-sm mr-2 my-1 edit-btn"
+                                            hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
+                                            hx-post={{ route('trabas.store', $bansos->id) }}><i
+                                                class="ri-edit-2-line"></i>Log</a>
                                     </td>
                                 </tr>
                             @endforeach

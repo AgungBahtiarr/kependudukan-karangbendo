@@ -11,7 +11,6 @@
                         <h4 class="card-title d-inline-block mb-0">Data Catatan Rumah Tangga</h4>
                     </div>
                 </div>
-
                 <div class="card-body">
                     <div class="row mb-4">
 

@@ -56,6 +56,20 @@
                 </li>
                 @endcan
 
+                <li class="{{ isActiveSidebar(route('kematian.index')) }}">
+                    <a href="{{ route('kematian.index') }}">
+                        <i class="ri-hand-heart-fill"></i>
+                        <span>Kematian</span>
+                    </a>
+                </li>
+
+                <li class="{{ isActiveSidebar(route('programbansos.index')) }}">
+                    <a href="{{ route('programbansos.index') }}">
+                        <i class="ri-hand-heart-fill"></i>
+                        <span>Program Bansos</span>
+                    </a>
+                </li>
+
                 @can('logout')
                 <li class="{{ isActiveSidebar(route('logout')) }}">
                     <a href="{{ route('logout') }}" onclick="return confirm('Apakah Anda yakin ingin logout ini?');">

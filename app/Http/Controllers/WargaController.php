@@ -418,9 +418,13 @@ class WargaController extends Controller
     {
         $warga = Warga::findOrFail($id);
         $dawis = KeikutsertaanKegiatanDawis::where('nik', $warga->nik)->get();
-        $dawis = $dawis[0];
 
-        $dawis->delete();
+        if (count($dawis)  != 0 ) {
+            $dawis = $dawis[0];
+            $dawis->delete();
+        }
+
+
         $warga->delete();
         return response(null, 200, ["HX-Redirect" => '/warga']);
     }

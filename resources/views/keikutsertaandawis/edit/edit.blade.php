@@ -145,14 +145,14 @@
                         <label for="kelompok_belajar">Kelompok Belajar</label>
                         <div class="form-group">
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input hx-trigger="click" hx-post="/dawis/isKelompokBelajar/1" hx-swap="innerHtml"
+                                <input hx-trigger="click" hx-post="/dawis/isKelompokBelajar/1" hx-include="[method='post']" hx-swap="innerHtml"
                                     hx-target="#jenisKelompok" type="radio" id="kelompok_belajar_ya"
                                     name="kelompok_belajar" value="1" class="custom-control-input" required
                                     {{ $dawis->kelompok_belajar == '1' ? 'checked' : '' }}>
                                 <label class="custom-control-label" for="kelompok_belajar_ya"> Ya </label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input hx-trigger="click" hx-post="/dawis/isKelompokBelajar/0" hx-swap="innerHtml"
+                                <input hx-trigger="click" hx-post="/dawis/isKelompokBelajar/0" hx-include="[method='post']" hx-swap="innerHtml"
                                     hx-target="#jenisKelompok" type="radio" id="kelompok_belajar_tidak"
                                     name="kelompok_belajar" value="0" class="custom-control-input" required
                                     {{ $dawis->kelompok_belajar == '0' ? 'checked' : '' }}>

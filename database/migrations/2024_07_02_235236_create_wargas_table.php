@@ -34,6 +34,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_pendidikan');
             $table->unsignedBigInteger('id_pekerjaan');
             $table->enum('verified',['yes','no']);
+            $table->enum('status_kematian',["0","1"])->default('0');
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
         });

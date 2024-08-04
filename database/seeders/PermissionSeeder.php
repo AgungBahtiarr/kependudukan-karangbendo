@@ -64,7 +64,14 @@ class PermissionSeeder extends Seeder
             "edit_bansos",
             "update_bansos",
             "update_bansos_status",
-            
+
+            #kematians
+            "create_kematians",
+            "read_kematians",
+            "edit_kematians",
+            "update_kematians",
+            "update_kematians_status",
+
             # Logout
             "logout",
         ];

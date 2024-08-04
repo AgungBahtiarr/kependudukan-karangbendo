@@ -2,7 +2,7 @@
 
 
 @section('title')
-    {{$title}}
+    {{ $title }}
 @endsection
 
 @section('content')
@@ -15,38 +15,21 @@
                 @method('patch')
                 @csrf
 
-
                 <div class="form-group">
                     <label for="nik">Nomer Induk Kependudukan</label>
-                    <input type="text" minlength="16" maxlength="16" name="nik" class="form-control" value={{$bansos->nik}} required>
+                    <input type="text" minlength="16" maxlength="16" name="nik" class="form-control"
+                        value={{ $bansos->nik }} required>
                 </div>
 
-
                 <div class="form-group">
-                    <label for="jenis_bantuan">Jenis Bantuan</label>
-                    <input type="text" name="jenis_bantuan" class="form-control" value={{$bansos->jenis_bantuan}} required>
-                </div>
-
-
-                <div class="form-group">
-                    <label for="periode_bulan">Periode Bulan</label>
-                    <select class="form-control" name="periode_bulan">
-                        @foreach ($months as $month)
-                            <option {{$month == $bansos->periode_bulan ? 'selected' : ''}} value={{ $month }}>{{ $month }}</option>
+                    <label for="id_program_bansos">Program Bansos</label>
+                    <select class="form-control" name="id_program_bansos" required>
+                        {{-- <option selected>Pilih Program Bansos </option> --}}
+                        @foreach ($programs as $program)
+                            <option value={{ $program->id }} {{$bansos->program->id == $program->id ? "selected" : ""}}>{{ $program->nama_program }}</option>
                         @endforeach
                     </select>
                 </div>
-
-                <div class="form-group">
-                    <label for="periode_tahun">Periode Tahun</label>
-                    <input type="text" name="periode_tahun" class="form-control" value={{$bansos->periode_tahun}} required>
-                </div>
-
-                <div class="form-group">
-                    <label for="nominal">Nominal</label>
-                    <input type="number" name="nominal" class="form-control" value="{{$bansos->nominal}}" required>
-                </div>
-
 
                 <div class="modal-footer">
                     <a href="/bansos" type="button" class="btn btn-secondary" data-dismiss="modal">Batal</a>
