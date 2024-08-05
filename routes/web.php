@@ -114,7 +114,11 @@ Route::middleware('auth')->group(function () {
     Route::prefix('kematian')->group(function () {
         Route::get('', [KematianController::class, 'index'])->name('kematian.index');
         Route::get('/create', [KematianController::class, 'create'])->name('kematian.create');
+        Route::get('/{id}',[KematianController::class,'show'])->name('kematian.show');
         Route::post('',[KematianController::class,'store'])->name('kematian.store');
+        Route::get('/edit/{id}',[KematianController::class,'edit'])->name('kematian.edit');
+        Route::patch('/{id}',[KematianController::class,'update'])->name('kematian.update');
+        Route::delete('/{id}',[KematianController::class,'destroy'])->name('kematian.delete');
     });
 
     Route::prefix('dawis')->group(function () {

@@ -33,7 +33,7 @@ class KematianController extends Controller
      */
     public function store(Request $request)
     {
-        $data =[
+        $data = [
             'nik' => $request->nik,
             'nik_pelapor' => $request->nik_pelapor,
             'waktu_kematian' => $request->waktu_kematian,
@@ -59,32 +59,52 @@ class KematianController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show($id)
     {
-        //
+        $kematian = Kematian::with('warga')->findOrFail($id);
+        return view('kematian.detail', compact('kematian'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Kematian $kematian)
+    public function edit($id)
     {
-        //
+        $kematian = Kematian::with('warga')->findOrFail($id);
+        return view('kematian.edit', compact('kematian'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateKematianRequest $request, Kematian $kematian)
+    public function update(Request $request, $id)
     {
-        //
+        $data = [
+            'nik_pelapor' => $request->nik_pelapor,
+            'waktu_kematian' => $request->waktu_kematian,
+            'tanggal_pemakaman' => $request->tanggal_pemakaman,
+            'tempat_meninggal' => $request->tempat_meninggal,
+            'kontak_keluarga' => $request->kontak_keluarga,
+            'sebab_kematian' => $request->sebab_kematian
+        ];
+
+        $kematian = Kematian::with('warga')->findOrFail($id);
+
+        $kematian->update($data);
+
+        return redirect(route("kematian.index"));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Kematian $kematian)
+    public function destroy($id)
     {
-        //
+        $kematian = Kematian::findOrFail($id);
+        $warga = Warga::where('nik', $kematian->nik)->first();
+        $warga->update(['status_kematian' => '0']);
+        $kematian->delete();
+
+        return response(null, 200, ["HX-Redirect" => route('kematian.index')]);
     }
 }

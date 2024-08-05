@@ -32,7 +32,7 @@
 
                         @can('create_kematians')
                             <div class="col-md-3 items-end">
-                                <a href={{route("kematian.create")}} type="button" class="btn btn-primary btn-block">
+                                <a href={{ route('kematian.create') }} type="button" class="btn btn-primary btn-block">
                                     <i class="ri-user-add-line"></i>
                                     Tambah Data Kematian
                                 </a>
@@ -56,35 +56,32 @@
                             @foreach ($kematians as $kematian)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{$kematian->warga->nama}}</td>
+                                    <td>{{ $kematian->warga->nama }}</td>
                                     <td>{{ $kematian->nik }}</td>
                                     <td>{{ $kematian->nik_pelapor }}</td>
                                     <td>{{ $kematian->waktu_kematian }}</td>
                                     <td>{{ $kematian->kontak_keluarga }}</td>
-                                    {{-- <td>
-                                    @can('read_kematians')
-                                        <a href="{{ route('kematians.show', $warga->id) }}"
-                                            class="btn btn-primary btn-sm mr-2 my-1 edit-btn">
-                                            <i class="ri-information-fill"></i>
-                                            Detail
+                                    <td>
+                                        @can('read_kematians')
+                                            <a href="{{ route('kematian.show', $kematian->id) }}"
+                                                class="btn btn-primary btn-sm mr-2 my-1 edit-btn">
+                                                <i class="ri-information-fill"></i>
+                                                Detail
+                                            </a>
+                                        @endcan
+                                        @can('edit_kematians')
+                                            <a href="{{ route('kematian.edit', $kematian->id) }}"
+                                                class="btn btn-secondary btn-sm mr-2 my-1 edit-btn">
+                                                <i class="ri-edit-2-line"></i>
+                                                Edit
+                                            </a>
+                                        @endcan
+                                        <a class="btn btn-danger btn-sm mr-2 my-1 edit-btn"
+                                            hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
+                                            hx-delete={{ route('kematian.delete', $kematian->id) }}>
+                                            <i class="ri-delete-bin-2-line"></i>Delete
                                         </a>
-                                    @endcan
-                                    @can('edit_kematians')
-                                        <a href="{{ route('kematians.edit1', $warga->id) }}"
-                                            class="btn btn-secondary btn-sm mr-2 my-1 edit-btn">
-                                            <i class="ri-edit-2-line"></i>
-                                            Edit
-                                        </a>
-                                    @endcan
-                                    <div id="addDawis" hx-get="/warga/isDawis/{{ $warga->id }}" hx-swap="innerHtml"
-                                        hx-trigger="load">
-                                    </div>
-
-                                    <a class="btn btn-danger btn-sm mr-2 my-1 edit-btn"
-                                        hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
-                                        hx-delete={{ route('kematians.delete', $warga->id) }}><i
-                                            class="ri-delete-bin-2-line"></i>Delete</a>
-                                </td> --}}
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
