@@ -70,10 +70,11 @@
                                             hx-delete={{ route('bansos.delete', $bansos->id) }}><i
                                                 class="ri-delete-bin-2-line"></i>Delete</a>
 
-                                        <a class="btn bg-indigo-500 text-white btn-sm mr-2 my-1 edit-btn"
-                                            hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
-                                            hx-post={{ route('trabas.store', $bansos->id) }}><i
-                                                class="ri-edit-2-line"></i>Log</a>
+                                        <div hx-get={{ route('bansos.isLog', $bansos->id) }} hx-trigger="load"
+                                            hx-target="this" hx-swap="innerHtml">
+
+                                        </div>
+
                                     </td>
                                 </tr>
                             @endforeach

@@ -14,7 +14,6 @@
 
                 <div class="card-body">
                     <div class="row mb-4">
-
                         <div class="col-md-3 iq-search-bar device-search">
                             <form action="" class="">
                                 <input type="text" class="text search-input" placeholder="Cari" name="strquery">

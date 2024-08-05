@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\PenerimaBansos;
-use App\Http\Requests\StorePenerimaBansosRequest;
-use App\Http\Requests\UpdatePenerimaBansosRequest;
+
 use App\Models\ProgramBansos;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PenerimaBansosController extends Controller
@@ -17,8 +17,29 @@ class PenerimaBansosController extends Controller
     {
         $title = "Data Bansos";
 
-        $bansoses = PenerimaBansos::with('program')->get();
+        $bansoses = PenerimaBansos::with('program', 'riwayat')->get();
+        // return $bansoses;
         return view("bansos.index", compact('title', 'bansoses'));
+    }
+
+
+    public function isLog($id)
+    {
+        $bansos = PenerimaBansos::with('program', 'riwayat')->findOrFail($id);
+
+        $riwayats = $bansos->riwayat;
+
+        if (count($riwayats) == 0) {
+            return view("bansos.partials.log", compact('bansos'))->fragment('log');
+        }
+
+        foreach ($riwayats as $riwayat) {
+            if ($riwayat->created_at->format('M') == Carbon::now()->format('M')) {
+                return "<div></div>";
+            } else {
+                return view("bansos.partials.log", compact('bansos'))->fragment('log');
+            }
+        }
     }
 
     /**

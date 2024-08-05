@@ -282,6 +282,8 @@ Route::middleware('auth')->group(function () {
             ->name('bansos.update');
 
         Route::delete('/{id}', [PenerimaBansosController::class, 'destroy'])->name('bansos.delete');
+
+        Route::get('is-log/{id}',[PenerimaBansosController::class,'isLog'])->name("bansos.isLog");
     });
 
     Route::prefix('transaksi-bansos')->group(function (){
