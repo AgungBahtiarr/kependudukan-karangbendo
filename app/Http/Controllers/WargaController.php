@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdateWargaRequest;
 use App\Models\Agama;
 use App\Models\KeikutsertaanKegiatanDawis;
+use App\Models\Kematian;
 use App\Models\Pekerjaan;
 use App\Models\Pendidikan;
 use App\Models\StatusPerkawinan;
@@ -98,7 +98,7 @@ class WargaController extends Controller
     public function store1(Request $request)
     {
         $data = [
-            'no_registrasi' => $request->no_registrasi,
+            // 'no_registrasi' => $request->no_registrasi,
             'nik' => $request->nik,
             'nkk' => $request->nkk,
             'nama' => $request->nama,
@@ -161,7 +161,7 @@ class WargaController extends Controller
         $userRole = auth()->user()->getRoleNames()->first();
 
         $data = [
-            'no_registrasi' => $allSession['no_registrasi'],
+            // 'no_registrasi' => $allSession['no_registrasi'],
             'nik' => $allSession['nik'],
             'nkk' => $allSession['nkk'],
             'nama' => $allSession['nama'],
@@ -239,27 +239,28 @@ class WargaController extends Controller
         $pendidikans = Pendidikan::get();
         $pekerjaans = Pekerjaan::get();
 
-        $dawisraw = KeikutsertaanKegiatanDawis::with('jenisKelompokBelajar')->where('nik', $warga->nik)->get();
-        $dawisraw = $dawisraw[0];
+        $dawisraw = KeikutsertaanKegiatanDawis::with('jenisKelompokBelajar')->where('nik', $warga->nik)->first();
         $dawis = KeikutsertaanKegiatanDawis::with('jenisKelompokBelajar')->findOrFail($dawisraw->id);
         $dawis = json_decode($dawis, true);
         $dawis = (object)$dawis;
 
+        $kematian = Kematian::where('nik', $warga->nik)->first();
+
         // return $dawis;
-        return view("warga.show.detail", compact('warga', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans', 'dawis'));
+        return view("warga.show.detail", compact('warga', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans', 'dawis','kematian'));
     }
 
-    public function show2($id)
-    {
-        $warga = Warga::with('agama', 'pendidikan', 'pekerjaan', 'statusPerkawinan')->findOrFail($id);
+    // public function show2($id)
+    // {
+    //     $warga = Warga::with('agama', 'pendidikan', 'pekerjaan', 'statusPerkawinan')->findOrFail($id);
 
-        $perkawinan = StatusPerkawinan::get();
-        $agamas = Agama::get();
-        $pendidikans = Pendidikan::get();
-        $pekerjaans = Pekerjaan::get();
+    //     $perkawinan = StatusPerkawinan::get();
+    //     $agamas = Agama::get();
+    //     $pendidikans = Pendidikan::get();
+    //     $pekerjaans = Pekerjaan::get();
 
-        return view("warga.show.detail2", compact('warga', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans',));
-    }
+    //     return view("warga.show.detail2", compact('warga', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans',));
+    // }
 
 
 
@@ -314,7 +315,9 @@ class WargaController extends Controller
 
         $wargaSession = $request->session()->get('editWarga2');
 
-        return view('warga.edit.edit-2', compact('title', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans', 'warga', 'wargaSession'));
+
+
+        return view('warga.edit.edit-2', compact('title', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans', 'warga', 'wargaSession',));
     }
 
     /**
@@ -323,7 +326,7 @@ class WargaController extends Controller
     public function update1(Request $request)
     {
         $data = [
-            'no_registrasi' => $request->no_registrasi,
+            // 'no_registrasi' => $request->no_registrasi,
             'nik' => $request->nik,
             'nkk' => $request->nkk,
             'nama' => $request->nama,
@@ -378,7 +381,7 @@ class WargaController extends Controller
         $allSession = array_merge($wargaSession, $rawdata);
 
         $data = [
-            'no_registrasi' => $allSession['no_registrasi'],
+            // 'no_registrasi' => $allSession['no_registrasi'],
             'nik' => $allSession['nik'],
             'nkk' => $allSession['nkk'],
             'nama' => $allSession['nama'],
@@ -419,7 +422,7 @@ class WargaController extends Controller
         $warga = Warga::findOrFail($id);
         $dawis = KeikutsertaanKegiatanDawis::where('nik', $warga->nik)->get();
 
-        if (count($dawis)  != 0 ) {
+        if (count($dawis)  != 0) {
             $dawis = $dawis[0];
             $dawis->delete();
         }

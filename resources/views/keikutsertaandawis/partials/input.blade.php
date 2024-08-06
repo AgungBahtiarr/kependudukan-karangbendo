@@ -2,7 +2,7 @@
     <div class="form-group">
         <label for="jenis_kelompok_belajar">Jenis Kelompok Belajar</label>
         <select class="form-control" name="id_jenis_kelompok_belajar" required>
-            <option selected disabled>Pilih Jenis Kelompok Belajar</option>
+            <option value="" selected disabled>Pilih Jenis Kelompok Belajar</option>
             @foreach ($kelompokBelajars as $kelompokBelajar)
                 <option value={{ $kelompokBelajar->id }}>
                     {{ $kelompokBelajar->nama_kelompok_belajar }}
@@ -16,8 +16,16 @@
 @fragment('jenisKb')
     <div class="form-group">
         <label for="jenis_kb">Jenis KB</label>
-        <input type="text" name="jenis_kb" class="form-control" placeholder="Intra Uterine Device,Implan,Sterilisasi dll" required
-            value={{ $dawisSession ? $dawisSession['jenis_kb'] : '' }}>
+        {{-- <input type="text" name="jenis_kb" class="form-control" placeholder="Intra Uterine Device,Implan,Sterilisasi dll" required
+            value={{ $dawisSession ? $dawisSession['jenis_kb'] : '' }}> --}}
+        <select class="form-control" name="jenis_kb" required>
+            <option value="" selected disabled>Pilih Jenis KB</option>
+            @foreach ($jenisKb as $kb)
+                <option value={{ $dawisSession ? $dawisSession['jenis_kb'] : '' }}>
+                    {{ $kb }}
+                </option>
+            @endforeach
+        </select>
     </div>
 @endfragment
 

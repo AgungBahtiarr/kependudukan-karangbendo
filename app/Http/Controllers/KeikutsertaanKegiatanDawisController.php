@@ -25,8 +25,22 @@ class KeikutsertaanKegiatanDawisController extends Controller
     {
         $dawisSession = $request->session()->get('dawis1');
         $kelompokBelajars = KelompokBelajar::get();
+
+        $jenisKb = [
+            'Pil KB',
+            'Suntik KB',
+            'IUD (Alat Kontrasepsi Dalam Rahim)',
+            'Implan',
+            'Kondom',
+            'Tubektomi',
+            'Vasektomi',
+            'Metode Kalender',
+            'Senggama Terputus',
+            'MAL (Metode Amenorea Laktasi)'
+        ];
+
         if ($id == 1) {
-            return view('keikutsertaandawis.partials.input', compact('kelompokBelajars', 'dawisSession'))->fragment('jenisKelompok');
+            return view('keikutsertaandawis.partials.input', compact('kelompokBelajars', 'dawisSession','jenisKb'))->fragment('jenisKelompok');
         } else {
             return '<div></div>';
         }
@@ -36,8 +50,20 @@ class KeikutsertaanKegiatanDawisController extends Controller
     {
         $dawisSession = $request->session()->get('dawis1');
         $kelompokBelajars = KelompokBelajar::get();
+        $jenisKb = [
+            'Pil KB',
+            'Suntik KB',
+            'IUD (Alat Kontrasepsi Dalam Rahim)',
+            'Implan',
+            'Kondom',
+            'Tubektomi',
+            'Vasektomi',
+            'Metode Kalender',
+            'Senggama Terputus',
+            'MAL (Metode Amenorea Laktasi)'
+        ];
         if ($id == 1) {
-            return view('keikutsertaandawis.partials.input', compact('kelompokBelajars', 'dawisSession'))->fragment('jenisKb');
+            return view('keikutsertaandawis.partials.input', compact('kelompokBelajars', 'dawisSession', 'jenisKb'))->fragment('jenisKb');
         } else {
             return '<div></div>';
         }
@@ -47,8 +73,20 @@ class KeikutsertaanKegiatanDawisController extends Controller
     {
         $dawisSession = $request->session()->get('dawis1');
         $kelompokBelajars = KelompokBelajar::get();
+        $jenisKb = [
+            'Pil KB',
+            'Suntik KB',
+            'IUD (Alat Kontrasepsi Dalam Rahim)',
+            'Implan',
+            'Kondom',
+            'Tubektomi',
+            'Vasektomi',
+            'Metode Kalender',
+            'Senggama Terputus',
+            'MAL (Metode Amenorea Laktasi)'
+        ];
         if ($id == 1) {
-            return view('keikutsertaandawis.partials.input', compact('kelompokBelajars', 'dawisSession'))->fragment('frekPos');
+            return view('keikutsertaandawis.partials.input', compact('kelompokBelajars', 'dawisSession','jenisKb'))->fragment('frekPos');
         } else {
             return '<div></div>';
         }
@@ -59,8 +97,20 @@ class KeikutsertaanKegiatanDawisController extends Controller
     {
         $dawisSession = $request->session()->get('dawis1');
         $kelompokBelajars = KelompokBelajar::get();
+        $jenisKb = [
+            'Pil KB',
+            'Suntik KB',
+            'IUD (Alat Kontrasepsi Dalam Rahim)',
+            'Implan',
+            'Kondom',
+            'Tubektomi',
+            'Vasektomi',
+            'Metode Kalender',
+            'Senggama Terputus',
+            'MAL (Metode Amenorea Laktasi)'
+        ];
         if ($id == 1) {
-            return view('keikutsertaandawis.partials.input', compact('kelompokBelajars', 'dawisSession'))->fragment('jenisKoperasi');
+            return view('keikutsertaandawis.partials.input', compact('kelompokBelajars', 'dawisSession','jenisKb'))->fragment('jenisKoperasi');
         } else {
             return '<div></div>';
         }
@@ -82,8 +132,21 @@ class KeikutsertaanKegiatanDawisController extends Controller
 
         $dawisSession = $request->session()->get('dawis1');
 
+        $jenisKb = [
+            'Pil KB',
+            'Suntik KB',
+            'IUD (Alat Kontrasepsi Dalam Rahim)',
+            'Implan',
+            'Kondom',
+            'Tubektomi',
+            'Vasektomi',
+            'Metode Kalender',
+            'Senggama Terputus',
+            'MAL (Metode Amenorea Laktasi)'
+        ];
 
-        return view('keikutsertaandawis.create.create', compact('nik', 'title', 'kelompokBelajars', 'dawisSession'));
+
+        return view('keikutsertaandawis.create.create', compact('nik', 'title', 'kelompokBelajars', 'dawisSession', 'jenisKb'));
     }
 
     public function create2(Request $request, $nik)
@@ -299,9 +362,20 @@ class KeikutsertaanKegiatanDawisController extends Controller
 
         $dawis = KeikutsertaanKegiatanDawis::with('jenisKelompokBelajar')->findOrFail($dawis->id);
 
+        $jenisKb = [
+            'Pil KB',
+            'Suntik KB',
+            'IUD (Alat Kontrasepsi Dalam Rahim)',
+            'Implan',
+            'Kondom',
+            'Tubektomi',
+            'Vasektomi',
+            'Metode Kalender',
+            'Senggama Terputus',
+            'MAL (Metode Amenorea Laktasi)'
+        ];
 
-
-        return view('keikutsertaandawis.edit.edit', compact('nik', 'title', 'kelompokBelajars', 'dawis', 'warga'));
+        return view('keikutsertaandawis.edit.edit', compact('nik', 'title', 'kelompokBelajars', 'dawis', 'warga', 'jenisKb'));
     }
 
     public function edit2(Request $request, $nik)

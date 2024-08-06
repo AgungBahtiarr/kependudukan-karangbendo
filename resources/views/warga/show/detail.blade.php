@@ -14,6 +14,19 @@
                 <li>Jenis Kelamin: {{ $warga->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</li>
                 <li>Nomor Induk Kependudukan: {{ $warga->nik }}</li>
                 <li>Nomor Kartu Keluarga: {{ $warga->nkk }}</li>
+                @if ($kematian)
+                    <li>
+                        <div class="flex flex-col">
+                            <span>Lihat Detail Kematian</span>
+                        </div>
+                        <a href="{{ route('kematian.show', $kematian->id) }}"
+                            class="btn btn-primary btn-sm mr-2 my-1 edit-btn">
+                            <i class="ri-information-fill"></i>
+                            Detail
+                        </a>
+                    </li>
+                @endif
+
             </ul>
         </div>
 

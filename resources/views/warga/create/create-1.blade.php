@@ -54,11 +54,11 @@
         <div class="w-full bg-white my-6 py-4 px-4 rounded-lg">
             <form action="{{ route('wargas.store1') }}" method="POST">
                 @csrf
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="no_registrasi">No Registrasi</label>
                     <input type="number" name="no_registrasi" class="form-control" required
                         value={{ $wargaSession ? $wargaSession['no_registrasi'] : '' }}>
-                </div>
+                </div> --}}
 
                 <div class="grid grid-cols-2 gap-4">
                     <div class="form-group">

@@ -42,11 +42,11 @@
                 @method('patch')
                 @csrf
                 <input type="hidden" name="id" value={{ $warga->id }}>
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="no_registrasi">No Registrasi</label>
                     <input type="number" name="no_registrasi" class="form-control" required
                         value={{ $wargaSession ? $wargaSession['no_registrasi'] : $warga->no_registrasi }}>
-                </div>
+                </div> --}}
 
                 <div class="grid grid-cols-2 gap-4">
                     <div class="form-group">
@@ -70,7 +70,7 @@
 
                     <div class="form-group">
                         <label for="jenis_kelamin">Jenis Kelamin</label>
-                        <select class="form-control" name="jenis_kelamin">
+                        <select class="form-control" name="jenis_kelamin" required>
                             @if ($wargaSession)
                                 {{-- <option value={{$wargaSession['jenis_kelamin']}}></option> --}}
                                 <option value="L" {{ $wargaSession['jenis_kelamin'] == 'L' ? 'selected' : '' }}>
@@ -85,7 +85,7 @@
                                     Perempuan
                                 </option>
                             @else
-                                <option selected>Pilih Jenis Kelamin</option>
+                                <option value="" selected>Pilih Jenis Kelamin</option>
                                 <option value="L">Laki-laki</option>
                                 <option value="P">Perempuan</option>
                             @endif
@@ -110,7 +110,7 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div class="form-group">
                         <label for="agama">Agama</label>
-                        <select class="form-control" aria-label="Default select example" name="id_agama">
+                        <select class="form-control" aria-label="Default select example" name="id_agama" required>
                             @if ($wargaSession)
                                 @foreach ($agamas as $agama)
                                     <option value={{ $agama->id }}
@@ -125,7 +125,7 @@
                                     </option>
                                 @endforeach
                             @else
-                                <option selected>Pilih Agama</option>
+                                <option value="" selected>Pilih Agama</option>
                                 @foreach ($agamas as $agama)
                                     <option value={{ $agama->id }}>{{ $agama->nama_agama }}</option>
                                 @endforeach
@@ -135,7 +135,7 @@
                     </div>
                     <div class="form-group">
                         <label for="pendidikan">Pendidikan</label>
-                        <select class="form-control" name="id_pendidikan">
+                        <select class="form-control" name="id_pendidikan" required>
                             @if ($wargaSession)
                                 @foreach ($pendidikans as $pendidikan)
                                     <option value={{ $pendidikan->id }}
@@ -151,7 +151,7 @@
                                     </option>
                                 @endforeach
                             @else
-                                <option selected>Pilih Pendidikan</option>
+                                <option value="" selected>Pilih Pendidikan</option>
                                 @foreach ($pendidikans as $pendidikan)
                                     <option value={{ $pendidikan->id }}>{{ $pendidikan->nama_pendidikan }}</option>
                                 @endforeach
@@ -165,7 +165,8 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div class="form-group">
                         <label for="id_status_perkawinan">Status Perkawinan</label>
-                        <select class="form-control" aria-label="Default select example" name="id_status_perkawinan">
+                        <select class="form-control" aria-label="Default select example" name="id_status_perkawinan"
+                            required>
                             @if ($wargaSession)
                                 @foreach ($perkawinan as $kawin)
                                     <option value={{ $kawin->id }}
@@ -181,7 +182,7 @@
                                     </option>
                                 @endforeach
                             @else
-                                <option selected>Pilih Status Perkawinan</option>
+                                <option value="" selected>Pilih Status Perkawinan</option>
                                 @foreach ($perkawinan as $kawin)
                                     <option value={{ $kawin->id }}>{{ $kawin->nama_status_kawin }}</option>
                                 @endforeach
@@ -191,21 +192,17 @@
                     </div>
                     <div class="form-group">
                         <label for="status_keluarga">Status Dalam Keluarga</label>
-                        <select class="form-control" aria-label="Default select example" name="status_keluarga">
+                        <select class="form-control" aria-label="Default select example" name="status_keluarga" required>
                             @if ($wargaSession)
                                 <option value="0" {{ $wargaSession['status_keluarga'] == '0' ? 'selected' : '' }}>
                                     Anggota Keluarga</option>
                                 <option value="1" {{ $wargaSession['status_keluarga'] == '1' ? 'selected' : '' }}>
                                     Kepala Keluarga</option>
-                            @elseif ($warga->status_keluarga)
+                            @elseif ($warga)
                                 <option value="0" {{ $warga->status_keluarga == '0' ? 'selected' : '' }}>Anggota
                                     Keluarga</option>
                                 <option value="1" {{ $warga->status_keluarga == '1' ? 'selected' : '' }}>Kepala
                                     Keluarga</option>
-                            @else
-                                <option selected>Pilih Status Dalam Keluarga</option>
-                                <option value="0">Anggota Keluarga</option>
-                                <option value="1">Kepala Keluarga</option>
                             @endif
                         </select>
                     </div>
@@ -241,7 +238,7 @@
 
                     <div class="form-group">
                         <label for="jabatan">Jabatan</label>
-                        <input type="text" name="jabatan" class="form-control" required
+                        <input type="text" name="jabatan" class="form-control"
                             value={{ $wargaSession ? $wargaSession['jabatan'] : $warga->jabatan }}>
                     </div>
                 </div>
