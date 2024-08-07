@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProgramBansosRequest;
 use App\Http\Requests\UpdateProgramBansosRequest;
+use App\Models\PenerimaBansos;
 use App\Models\ProgramBansos;
 use Illuminate\Http\Request;
 
@@ -24,6 +25,17 @@ class ProgramBansosController extends Controller
     public function create()
     {
         return view('program_bansos.create');
+    }
+
+    public function isUsed($id)
+    {
+        $penerima = PenerimaBansos::where('id_program_bansos', $id)->get();
+        $program = ProgramBansos::findOrFail($id);
+        if (count($penerima) == 0) {
+            return view("program_bansos.partials.delete", compact('program'))->fragment('delete');
+        } else {
+            return "";
+        }
     }
 
     /**
@@ -83,8 +95,10 @@ class ProgramBansosController extends Controller
     public function destroy($id)
     {
         $program = ProgramBansos::findOrFail($id);
-        $program->delete();
-
+        $penerima = PenerimaBansos::where('id_program_bansos', $id)->get();
+        if (count($penerima) == 0) {
+            $program->delete();
+        }
         return response(null, 200, ["HX-Redirect" => route('programbansos.index')]);
     }
 }

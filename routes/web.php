@@ -310,5 +310,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit/{id}', [ProgramBansosController::class, 'edit'])->name('programbansos.edit');
         Route::patch('/{id}', [ProgramBansosController::class, 'update'])->name('programbansos.update');
         Route::delete('/delete/{id}', [ProgramBansosController::class, 'destroy'])->name('programbansos.delete');
+
+        Route::post('/is-used/{id}', [ProgramBansosController::class, 'isUsed'])->name('programbansos.is-used');
     });
 });
