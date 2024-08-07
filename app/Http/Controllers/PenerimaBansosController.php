@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PenerimaBansos;
 
 use App\Models\ProgramBansos;
+use App\Models\Warga;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -29,15 +30,18 @@ class PenerimaBansosController extends Controller
 
         $riwayats = $bansos->riwayat;
 
-        if (count($riwayats) == 0) {
-            return view("bansos.partials.log", compact('bansos'))->fragment('log');
-        }
+        if ($bansos->status == "1") {
 
-        foreach ($riwayats as $riwayat) {
-            if ($riwayat->created_at->format('M') == Carbon::now()->format('M')) {
-                return "<div></div>";
-            } else {
+            if (count($riwayats) == 0) {
                 return view("bansos.partials.log", compact('bansos'))->fragment('log');
+            }
+
+            foreach ($riwayats as $riwayat) {
+                if ($riwayat->created_at->format('M') == Carbon::now()->format('M')) {
+                    return "<div></div>";
+                } else {
+                    return view("bansos.partials.log", compact('bansos'))->fragment('log');
+                }
             }
         }
     }
@@ -74,12 +78,20 @@ class PenerimaBansosController extends Controller
             'created_by' => auth()->user()->id
         ];
 
-
-
         $bansos = PenerimaBansos::create($data);
 
 
         return redirect('/bansos');
+    }
+
+
+    public function status($bansosid, $id)
+    {
+        $penerima = PenerimaBansos::findOrFail($bansosid);
+
+        $penerima->update(['status' => $id]);
+
+        return response(null, 200, ["HX-Redirect" => '/bansos']);
     }
 
     /**

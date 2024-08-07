@@ -70,15 +70,7 @@
                                             @if ($warga->verified == 'yes')
                                                 Terverifikasi
                                             @else
-                                                @can('edit_wargas')
-                                                    @if ($warga->verified == 'no')
-                                                        <a href={{ route('wargas.verify', $warga->id) }}
-                                                            class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
-                                                            <i class="ri-check-line"></i>
-                                                            Verifikasi
-                                                        </a>
-                                                    @endif
-                                                @endcan
+                                                Belum Terverifikasi
                                             @endif
                                         </td>
                                     @endrole
@@ -97,13 +89,22 @@
                                                 Edit
                                             </a>
                                         @endcan
+                                        @can('edit_wargas')
+                                            @if ($warga->verified == 'no')
+                                                <a href={{ route('wargas.verify', $warga->id) }}
+                                                    class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
+                                                    <i class="ri-check-line"></i>
+                                                    Verifikasi
+                                                </a>
+                                            @endif
+                                        @endcan
                                         <div id="addDawis" hx-get="/warga/isDawis/{{ $warga->id }}" hx-swap="innerHtml"
                                             hx-trigger="load">
                                         </div>
 
                                         <a class="btn btn-danger btn-sm mr-2 my-1 edit-btn"
                                             hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
-                                            hx-delete={{ route('wargas.delete', $warga->id) }}><i
+                                            hx-delete="/warga/{{ $warga->id }}"><i
                                                 class="ri-delete-bin-2-line"></i>Delete</a>
                                     </td>
                                 </tr>

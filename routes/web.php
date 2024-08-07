@@ -15,6 +15,8 @@ use App\Http\Controllers\WargaController;
 use App\Http\Middleware\CleanSession;
 use App\Models\PemanfaatanTanahPekarangan;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
+
 
 Route::get('/', [DashboardController::class, 'index'])
     ->middleware('auth')
@@ -108,17 +110,21 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/isDawis/{id}', [WargaController::class, 'isDawis'])->name('wargas.isDawis');
 
+        Route::post('/isDomisili/{id}', [WargaController::class, 'isDomisili'])->name('wargas.isDomisili');
+
+        Route::patch('/isDomisili/{id}', [WargaController::class, 'isDomisili'])->name('wargas.isDomisiliPatch');
+
         Route::delete('/{id}', [WargaController::class, 'destroy'])->name('wargas.delete');
     });
 
     Route::prefix('kematian')->group(function () {
         Route::get('', [KematianController::class, 'index'])->name('kematian.index');
         Route::get('/create', [KematianController::class, 'create'])->name('kematian.create');
-        Route::get('/{id}',[KematianController::class,'show'])->name('kematian.show');
-        Route::post('',[KematianController::class,'store'])->name('kematian.store');
-        Route::get('/edit/{id}',[KematianController::class,'edit'])->name('kematian.edit');
-        Route::patch('/{id}',[KematianController::class,'update'])->name('kematian.update');
-        Route::delete('/{id}',[KematianController::class,'destroy'])->name('kematian.delete');
+        Route::get('/{id}', [KematianController::class, 'show'])->name('kematian.show');
+        Route::post('', [KematianController::class, 'store'])->name('kematian.store');
+        Route::get('/edit/{id}', [KematianController::class, 'edit'])->name('kematian.edit');
+        Route::patch('/{id}', [KematianController::class, 'update'])->name('kematian.update');
+        Route::delete('/{id}', [KematianController::class, 'destroy'])->name('kematian.delete');
     });
 
     Route::prefix('dawis')->group(function () {
@@ -287,18 +293,19 @@ Route::middleware('auth')->group(function () {
 
         Route::delete('/{id}', [PenerimaBansosController::class, 'destroy'])->name('bansos.delete');
 
-        Route::get('is-log/{id}',[PenerimaBansosController::class,'isLog'])->name("bansos.isLog");
+        Route::get('is-log/{id}', [PenerimaBansosController::class, 'isLog'])->name("bansos.isLog");
+
+        Route::post('/status/{bansosid}/{id}', [PenerimaBansosController::class, 'status']);
     });
 
-    Route::prefix('transaksi-bansos')->group(function (){
-        Route::post('/create/{id}',[TransaksiBansosController::class,'store'])->name('trabas.store');
+    Route::prefix('transaksi-bansos')->group(function () {
+        Route::post('/create/{id}', [TransaksiBansosController::class, 'store'])->name('trabas.store');
     });
 
 
-    Route::prefix('program-bansos')->group(function(){
-        Route::get('',[ProgramBansosController::class,'index'])->name('programbansos.index');
-        Route::get('/create',[ProgramBansosController::class,'create'])->name('programbansos.create');
-        Route::post('',[ProgramBansosController::class,'store'])->name('programbansos.store');
-
+    Route::prefix('program-bansos')->group(function () {
+        Route::get('', [ProgramBansosController::class, 'index'])->name('programbansos.index');
+        Route::get('/create', [ProgramBansosController::class, 'create'])->name('programbansos.create');
+        Route::post('', [ProgramBansosController::class, 'store'])->name('programbansos.store');
     });
 });

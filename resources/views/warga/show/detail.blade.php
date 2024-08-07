@@ -102,6 +102,18 @@
                         <div class="font-medium text-[#ADADAD]">Jalan</div>
                         <div>{{ $warga->alamat_jalan }}</div>
                     </li>
+
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Domisili Sesuai KTP</div>
+                        <div>{{ $warga->domisili_sesuai_ktp == '1' ? 'Ya' : 'Tidak' }}</div>
+                    </li>
+
+                    @if ($warga->domisili_sesuai_ktp == '1')
+                        <li class="flex flex-col gap-3">
+                            <div class="font-medium text-[#ADADAD]">Alamat Domisili</div>
+                            <div>{{ $warga->alamat_domisili }}</div>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </div>
@@ -210,5 +222,41 @@
                 </ul>
             </div>
         </div>
+
+
+        <div class="bg-white rounded-lg font-medium my-8">
+            <h2 class="border-black border-b pl-8 py-6">Riwayat Bantuan Sosial</h2>
+            <div class="grid grid-cols-1 mx-4">
+                @if ($riwayatBansos == null)
+                    <div class="flex justify-center items-center my-12">Tidak Ada Riwayat Bantuan Sosial</div>
+                @else
+
+                    @foreach ($riwayatBansos as $bansos)
+                    <h1 class="my-4">Nama Program: {{$bansos->program->nama_program}}</h1>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Periode Bulan</th>
+                                    <th scope="col">Periode Tahun</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($bansos->riwayat as $riwayat)
+                                    <tr>
+                                        <th scope="row">{{$loop->iteration}}</th>
+                                        <td>{{$riwayat->created_at->format('M')}}</td>
+                                        <td>{{$riwayat->created_at->format('Y')}}</td>
+                                    </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table>
+                    @endforeach
+                @endif
+            </div>
+        </div>
+
+
     </div>
 @endsection

@@ -86,6 +86,28 @@
                         value={{ $wargaSession ? $wargaSession['alamat_jalan'] : '' }}>
                 </div>
 
+                <div class="form-group">
+                    <label for="domisili_sesuai_ktp">Domisili Sesuai KTP</label>
+                    <div class="form-group">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input hx-trigger="click" hx-post="/warga/isDomisili/1" hx-swap="innerHtml" hx-target="#domisili"
+                                type="radio" id="kb_ya" name="domisili_sesuai_ktp" value="1"
+                                class="custom-control-input" required
+                                {{ $wargaSession && $wargaSession['domisili_sesuai_ktp'] == '1' ? 'checked' : '' }}>
+                            <label class="custom-control-label" for="kb_ya"> Ya </label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input hx-trigger="click" hx-post="/warga/isDomisili/0" hx-swap="innerHtml" hx-target="#domisili"
+                                type="radio" id="kb_tidak" name="domisili_sesuai_ktp" value="0"
+                                class="custom-control-input" required
+                                {{ $wargaSession && $wargaSession['domisili_sesuai_ktp'] == '0' ? 'checked' : '' }}>
+                            <label class="custom-control-label" for="kb_tidak"> Tidak </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="domisili"></div>
+
                 <div class="modal-footer">
                     <a hx-post={{ route('wargas.back') }} hx-trigger="click" type="button"
                         class="btn btn-secondary">Kembali</a>

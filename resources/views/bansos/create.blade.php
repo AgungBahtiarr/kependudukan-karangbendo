@@ -16,7 +16,7 @@
                 <div class="form-group">
                     <label for="id_program_bansos">Program Bansos</label>
                     <select class="form-control" name="id_program_bansos" required>
-                        <option selected>Pilih Program Bansos </option>
+                        <option value="" selected>Pilih Program Bansos </option>
                         @foreach ($programs as $program)
                             <option value={{ $program->id }}>{{ $program->nama_program }}</option>
                         @endforeach

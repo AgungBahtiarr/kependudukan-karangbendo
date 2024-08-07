@@ -7,7 +7,9 @@ use App\Models\KeikutsertaanKegiatanDawis;
 use App\Models\Kematian;
 use App\Models\Pekerjaan;
 use App\Models\Pendidikan;
+use App\Models\PenerimaBansos;
 use App\Models\StatusPerkawinan;
+use App\Models\TransaksiBansos;
 use App\Models\Warga;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -129,6 +131,8 @@ class WargaController extends Controller
             'rt' => $request->rt,
             'rw' => $request->rw,
             'alamat_jalan' => $request->alamat_jalan,
+            'domisili_sesuai_ktp' => $request->domisili_sesuai_ktp,
+            'alamat_domisili' => $request->alamat_domisili
         ];
 
         $request->session()->put('warga2', $data);
@@ -149,6 +153,8 @@ class WargaController extends Controller
             'rt' => $request->rt,
             'rw' => $request->rw,
             'alamat_jalan' => $request->alamat_jalan,
+            'domisili_sesuai_ktp' => $request->domisili_sesuai_ktp,
+            'alamat_domisili' => $request->alamat_domisili
         ];
 
         $request->session()->put('warga2', $rawdata);
@@ -179,6 +185,8 @@ class WargaController extends Controller
             'alamat_prov' => $allSession['alamat_prov'],
             'rt' => $allSession['rt'],
             'rw' => $allSession['rw'],
+            'domisili_sesuai_ktp' => $allSession['domisili_sesuai_ktp'],
+            'alamat_domisili' => $allSession['alamat_domisili'],
             'id_pendidikan' => $allSession['id_pendidikan'],
             'id_pekerjaan' => $allSession['id_pekerjaan'],
             'verified' => $userRole == 'Admin' ? 'yes' : 'no',
@@ -227,6 +235,17 @@ class WargaController extends Controller
         return redirect()->route('dawis.create', $warga->nik);
     }
 
+
+    public function isDomisili($id)
+    {
+
+        if ($id == '1') {
+            return view('warga.partials.alamat')->fragment('domisili');
+        }
+
+        return "<div></div>";
+    }
+
     /**
      * Display the specified resource.
      */
@@ -246,8 +265,10 @@ class WargaController extends Controller
 
         $kematian = Kematian::where('nik', $warga->nik)->first();
 
+        $riwayatBansos = PenerimaBansos::with('program','riwayat')->where('nik',$warga->nik)->get();
+        // return $riwayatBansos;
         // return $dawis;
-        return view("warga.show.detail", compact('warga', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans', 'dawis','kematian'));
+        return view("warga.show.detail", compact('warga', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans', 'dawis', 'kematian','riwayatBansos'));
     }
 
     // public function show2($id)
@@ -294,6 +315,8 @@ class WargaController extends Controller
             'rt' => $request->rt,
             'rw' => $request->rw,
             'alamat_jalan' => $request->alamat_jalan,
+            'domisili_sesuai_ktp' => $request->domisili_sesuai_ktp,
+            'alamat_domisili' => $request->alamat_domisili
         ];
 
         $request->session()->put('se', $data);
@@ -371,6 +394,8 @@ class WargaController extends Controller
             'rt' => $request->rt,
             'rw' => $request->rw,
             'alamat_jalan' => $request->alamat_jalan,
+            'domisili_sesuai_ktp' => $request->domisili_sesuai_ktp,
+            'alamat_domisili' => $request->alamat_domisili
         ];
 
         $request->session()->put('editWarga2', $rawdata);
@@ -399,6 +424,8 @@ class WargaController extends Controller
             'alamat_prov' => $allSession['alamat_prov'],
             'rt' => $allSession['rt'],
             'rw' => $allSession['rw'],
+            'domisili_sesuai_ktp' => $allSession['domisili_sesuai_ktp'],
+            'alamat_domisili' => $allSession['alamat_domisili'],
             'id_pendidikan' => $allSession['id_pendidikan'],
             'id_pekerjaan' => $allSession['id_pekerjaan'],
             'created_by' => auth()->user()->id,

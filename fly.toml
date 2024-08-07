@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for kependudukan-karangbendo on 2024-08-02T15:05:24+07:00
+# fly.toml app configuration file generated for kependudukan-karangbendo on 2024-08-06T20:26:48+07:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -14,18 +14,18 @@ console_command = 'php /var/www/html/artisan tinker'
 
 [env]
   APP_ENV = 'production'
-  LOG_CHANNEL = 'stderr'
-  LOG_LEVEL = 'info'
-  LOG_STDERR_FORMATTER = 'Monolog\Formatter\JsonFormatter'
-  SESSION_DRIVER = 'cookie'
-  SESSION_SECURE_COOKIE = 'true'
+  APP_URL='https://kependudukan-karangbendo.fly.dev'
   DB_CONNECTION='pgsql'
   DB_HOST='aws-0-ap-southeast-1.pooler.supabase.com'
   DB_PORT='5432'
   DB_DATABASE='postgres'
   DB_USERNAME='postgres.fcnceqdgetyqrttaorsq'
   DB_PASSWORD='Agungtok12..'
-  DB_SSLMODE='prefer'
+  LOG_CHANNEL = 'stderr'
+  LOG_LEVEL = 'info'
+  LOG_STDERR_FORMATTER = 'Monolog\Formatter\JsonFormatter'
+  SESSION_DRIVER = 'cookie'
+  SESSION_SECURE_COOKIE = 'true'
 
 [http_service]
   internal_port = 8080
@@ -35,7 +35,18 @@ console_command = 'php /var/www/html/artisan tinker'
   min_machines_running = 0
   processes = ['app']
 
+
+
 [[vm]]
   memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
+
+[[services.port]]
+    force_https = true
+    handlers = ["http"]
+    port = 8080
+
+[[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443

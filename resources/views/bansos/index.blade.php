@@ -48,6 +48,7 @@
                                 <th>Sumber Dana</th>
                                 <th>Jenis Bantuan</th>
                                 <th>Detail Bantuan</th>
+                                <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -59,6 +60,7 @@
                                     <td>{{ $bansos->program->nama_program }}</td>
                                     <td>{{ $bansos->program->jenis_bantuan }}</td>
                                     <td>{{ $bansos->program->detail_bantuan }}</td>
+                                    <td>{{ $bansos->status == '1' ? 'Aktif' : 'Non-Aktif' }}</td>
                                     <td>
                                         <a href="{{ route('bansos.edit', $bansos->id) }}"
                                             class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
@@ -72,8 +74,19 @@
 
                                         <div hx-get={{ route('bansos.isLog', $bansos->id) }} hx-trigger="load"
                                             hx-target="this" hx-swap="innerHtml">
-
                                         </div>
+
+                                        @if ($bansos->status == '1')
+                                            <button class="btn btn-light btn-sm mr-2"
+                                                hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
+                                                hx-post="/bansos/status/{{ $bansos->id }}/0"
+                                                hx-trigger="click">Non-Aktifkan</button>
+                                        @else
+                                            <button class="btn btn-light btn-sm mr-2"
+                                                hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
+                                                hx-post="/bansos/status/{{ $bansos->id }}/1"
+                                                hx-trigger="click">Aktifkan</button>
+                                        @endif
 
                                     </td>
                                 </tr>

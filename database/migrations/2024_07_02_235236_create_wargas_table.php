@@ -28,6 +28,8 @@ return new class extends Migration
             $table->string('alamat_kec')->default('Rogojampi');
             $table->string('alamat_kab')->default('Banyuwangi');
             $table->string('alamat_prov')->default('Jawa Timur');
+            $table->enum('domisili_sesuai_ktp',['0','1']);
+            $table->string('alamat_domisili')->nullable(true);
             $table->string('rt',3);
             $table->string('rw',3);
             $table->unsignedBigInteger('id_pendidikan');
