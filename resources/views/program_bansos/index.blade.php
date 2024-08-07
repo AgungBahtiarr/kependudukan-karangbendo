@@ -59,30 +59,28 @@
                                     <td>{{ $program->sumber_dana }}</td>
                                     <td>{{ $program->jenis_bantuan }}</td>
                                     <td>{{ $program->detail_bantuan }}</td>
-                                    {{-- <td>
-                                @can('read_kematians')
-                                    <a href="{{ route('kematians.show', $warga->id) }}"
-                                        class="btn btn-primary btn-sm mr-2 my-1 edit-btn">
-                                        <i class="ri-information-fill"></i>
-                                        Detail
-                                    </a>
-                                @endcan
-                                @can('edit_kematians')
-                                    <a href="{{ route('kematians.edit1', $warga->id) }}"
-                                        class="btn btn-secondary btn-sm mr-2 my-1 edit-btn">
-                                        <i class="ri-edit-2-line"></i>
-                                        Edit
-                                    </a>
-                                @endcan
-                                <div id="addDawis" hx-get="/warga/isDawis/{{ $warga->id }}" hx-swap="innerHtml"
-                                    hx-trigger="load">
-                                </div>
+                                    <td>
+                                        {{-- @can('read_kematians')
+                                            <a href="{{ route('kematians.show', $warga->id) }}"
+                                                class="btn btn-primary btn-sm mr-2 my-1 edit-btn">
+                                                <i class="ri-information-fill"></i>
+                                                Detail
+                                            </a>
+                                        @endcan --}}
+                                        <a href="{{ route('programbansos.edit', $program->id) }}"
+                                            class="btn btn-secondary btn-sm mr-2 my-1 edit-btn">
+                                            <i class="ri-edit-2-line"></i>
+                                            Edit
+                                        </a>
+                                        {{-- <div id="addDawis" hx-get="/warga/isDawis/{{ $warga->id }}" hx-swap="innerHtml"
+                                            hx-trigger="load">
+                                        </div> --}}
 
-                                <a class="btn btn-danger btn-sm mr-2 my-1 edit-btn"
-                                    hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
-                                    hx-delete={{ route('kematians.delete', $warga->id) }}><i
-                                        class="ri-delete-bin-2-line"></i>Delete</a>
-                            </td> --}}
+                                        <a class="btn btn-danger btn-sm mr-2 my-1 edit-btn"
+                                            hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
+                                            hx-delete="/program-bansos/delete/{{ $program->id }}"><i
+                                                class="ri-delete-bin-2-line"></i>Delete</a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

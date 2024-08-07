@@ -307,5 +307,8 @@ Route::middleware('auth')->group(function () {
         Route::get('', [ProgramBansosController::class, 'index'])->name('programbansos.index');
         Route::get('/create', [ProgramBansosController::class, 'create'])->name('programbansos.create');
         Route::post('', [ProgramBansosController::class, 'store'])->name('programbansos.store');
+        Route::get('/edit/{id}', [ProgramBansosController::class, 'edit'])->name('programbansos.edit');
+        Route::patch('/{id}', [ProgramBansosController::class, 'update'])->name('programbansos.update');
+        Route::delete('/delete/{id}', [ProgramBansosController::class, 'destroy'])->name('programbansos.delete');
     });
 });

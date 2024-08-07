@@ -15,7 +15,7 @@ class ProgramBansosController extends Controller
     public function index()
     {
         $programs =  ProgramBansos::all();
-        return view('program_bansos.index',compact('programs'));
+        return view('program_bansos.index', compact('programs'));
     }
 
     /**
@@ -54,24 +54,37 @@ class ProgramBansosController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ProgramBansos $programBansos)
+    public function edit($id)
     {
-        //
+        $program = ProgramBansos::findOrFail($id);
+        return view('program_bansos.edit', compact('program'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProgramBansosRequest $request, ProgramBansos $programBansos)
+    public function update(Request $request, $id)
     {
-        //
+        $data = [
+            'nama_program' => $request->nama_program,
+            'sumber_dana' => $request->sumber_dana,
+            'jenis_bantuan' => $request->jenis_bantuan,
+            'detail_bantuan' => $request->detail_bantuan
+        ];
+        $program = ProgramBansos::findOrFail($id);
+        $program->update($data);
+
+        return redirect(route("programbansos.index"));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ProgramBansos $programBansos)
+    public function destroy($id)
     {
-        //
+        $program = ProgramBansos::findOrFail($id);
+        $program->delete();
+
+        return response(null, 200, ["HX-Redirect" => route('programbansos.index')]);
     }
 }
