@@ -69,18 +69,19 @@
                                             @if ($carga->verified == 'yes')
                                                 Terverifikasi
                                             @else
-                                                @can('edit_cargas')
-                                                    @if ($carga->verified == 'no')
-                                                        <a href={{ route('cargas.verify', $carga->id) }}
-                                                            class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
-                                                            <i class="ri-check-line"></i>
-                                                            Verifikasi
-                                                        </a>
-                                                    @endif
-                                                @endcan
+                                                Belum Terverifikasi
                                             @endif
                                         </td>
                                     @endrole
+                                    @can('edit_cargas')
+                                        @if ($carga->verified == 'no')
+                                            <a href={{ route('cargas.verify', $carga->id) }}
+                                                class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
+                                                <i class="ri-check-line"></i>
+                                                Verifikasi
+                                            </a>
+                                        @endif
+                                    @endcan
                                     <td>
                                         <a href="{{ route('cargas.show', $carga->id) }}"
                                             class="btn btn-primary btn-sm mr-2 my-1 edit-btn">

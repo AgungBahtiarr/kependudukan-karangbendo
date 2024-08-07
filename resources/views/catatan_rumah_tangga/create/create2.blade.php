@@ -84,7 +84,7 @@
                     </div>
                     <div class="form-group">
                         <label for="id_makanan_pokok">Jenis Makanan Pokok</label>
-                        <select class="form-control" name="id_makanan_pokok">
+                        <select class="form-control" name="id_makanan_pokok" required>
 
                             @if ($cargasSession)
                                 @foreach ($makanans as $makanan)
@@ -93,7 +93,7 @@
                                         {{ $makanan->nama_makanan_pokok }}</option>
                                 @endforeach
                             @else
-                                <option selected>Pilih Jenis Makanan Pokok</option>
+                                <option value="" selected>Pilih Jenis Makanan Pokok</option>
                                 @foreach ($makanans as $makanan)
                                     <option value={{ $makanan->id }}>{{ $makanan->nama_makanan_pokok }}</option>
                                 @endforeach

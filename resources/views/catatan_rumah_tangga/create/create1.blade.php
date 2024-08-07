@@ -184,7 +184,7 @@
                                         {{ $sumber->nama_sumber_air }}</option>
                                 @endforeach
                             @else
-                                <option selected>Pilih Jenis Sumber Air</option>
+                                <option value="" selected>Pilih Jenis Sumber Air</option>
                                 @foreach ($sumbers as $sumber)
                                     <option value={{ $sumber->id }}>{{ $sumber->nama_sumber_air }}</option>
                                 @endforeach
