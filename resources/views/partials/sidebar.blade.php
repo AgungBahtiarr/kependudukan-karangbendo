@@ -13,25 +13,6 @@
     <div class="data-scrollbar" data-scroll="1">
         <nav class="iq-sidebar-menu">
             <ul id="iq-sidebar-toggle" class="iq-menu">
-                {{-- <li class=" ">
-                    <a href="#widget" class="collapsed" data-toggle="collapse" aria-expanded="false">
-                        <i class="las la-chart-pie iq-arrow-left"></i><span>Widget</span>
-                        <i class="las la-angle-right iq-arrow-right arrow-active"></i>
-                        <i class="las la-angle-down iq-arrow-right arrow-hover"></i>
-                    </a>
-                    <ul id="widget" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                        <li class=" ">
-                            <a href="">
-                                <i class="las la-tools"></i><span>widget simple</span>
-                            </a>
-                        </li>
-                        <li class=" ">
-                            <a href="">
-                                <i class="las la-toolbox"></i><span>widget chart</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li> --}}
                 @can('dashboard_access')
                     <li class="{{ Request::is('/') ? 'active' : '' }}">
                         <a href="{{ url('/') }}">
@@ -68,26 +49,44 @@
                     </li>
                 @endcan
 
-                @can('read_bansos')
-                    <li class="{{ isActiveSidebar(route('bansos.index')) }}">
-                        <a href="{{ route('bansos.index') }}">
-                            <i class="ri-hand-heart-fill"></i>
-                            <span>Bantuan Sosial</span>
-                        </a>
-                    </li>
-                @endcan
+                <li class="{{ isActiveSidebar(route('bansos.index')) }}">
+                    <a href="#" id="widgetToggle"
+                        class="flex items-center py-3 px-2 text-base font-normal text-gray-900 rounded-lg dark:text-white">
+                        <i class="ri-hand-heart-fill pl-[10px]"></i>
+                        <span class="flex-1 ml-2 text-left whitespace-nowrap">Bantuan Sosial</span>
+                        <i id="widgetArrow" class="ri-arrow-down-s-line"></i>
+                    </a>
+                    <ul id="widgetSubmenu" class="hidden py-2 space-y-2">
+
+                        @can('read_bansos')
+                            <li class="{{ isActiveSidebar(route('bansos.index')) }}">
+                                <a href="{{ route('bansos.index') }}">
+                                    <i class="ri-user-follow-line"></i>
+                                    <span>Penerima Bantuan</span>
+                                </a>
+                            </li>
+                        @endcan
+                        <li class="{{ isActiveSidebar(route('programbansos.index')) }}">
+                            <a href="{{ route('programbansos.index') }}">
+                                <i class="ri-file-text-line"></i>
+                                <span>Program Bansos</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
 
                 <li class="{{ isActiveSidebar(route('kematian.index')) }}">
                     <a href="{{ route('kematian.index') }}">
-                        <i class="ri-hand-heart-fill"></i>
+                        <i class="ri-honour-fill"></i>
                         <span>Kematian</span>
                     </a>
                 </li>
 
-                <li class="{{ isActiveSidebar(route('programbansos.index')) }}">
-                    <a href="{{ route('programbansos.index') }}">
-                        <i class="ri-hand-heart-fill"></i>
-                        <span>Program Bansos</span>
+                <li class="{{ isActiveSidebar(route('laporan.index')) }}">
+                    <a href="{{ route('laporan.index') }}">
+                        <i class="ri-file-chart-fill"></i>
+                        <span>Laporan</span>
                     </a>
                 </li>
 

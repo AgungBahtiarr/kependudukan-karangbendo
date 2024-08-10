@@ -9,6 +9,7 @@ use App\Http\Controllers\KematianController;
 use App\Http\Controllers\PemanfaatanTanahPekaranganController;
 use App\Http\Controllers\PenerimaBansosController;
 use App\Http\Controllers\ProgramBansosController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TransaksiBansosController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WargaController;
@@ -312,5 +313,10 @@ Route::middleware('auth')->group(function () {
         Route::delete('/delete/{id}', [ProgramBansosController::class, 'destroy'])->name('programbansos.delete');
 
         Route::post('/is-used/{id}', [ProgramBansosController::class, 'isUsed'])->name('programbansos.is-used');
+    });
+
+
+    Route::prefix('laporan')->group(function () {
+        Route::get('', [ReportController::class, 'index'])->name('laporan.index');
     });
 });

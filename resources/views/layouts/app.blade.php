@@ -61,6 +61,9 @@
     <!-- Mapbox Javascript -->
     <script src="/assets/js/mapbox-gl.js"></script>
     <script src="/assets/js/mapbox.js"></script>
+
+    <script src="/assets/js/morris.js"></script>
+
     <!-- Fullcalender Javascript -->
     <script src="/assets/vendor/fullcalendar/core/main.js"></script>
     <script src="/assets/vendor/fullcalendar/daygrid/main.js"></script>
@@ -79,6 +82,21 @@
     <script src="/assets/js/slider.js"></script>
     <!-- App JavaScript -->
     <script src="/assets/js/app.js"></script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const widgetToggle = document.getElementById('widgetToggle');
+            const widgetSubmenu = document.getElementById('widgetSubmenu');
+            const widgetArrow = document.getElementById('widgetArrow');
+
+            widgetToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                widgetSubmenu.classList.toggle('hidden');
+                widgetArrow.classList.toggle('rotate-180');
+            });
+        });
+    </script>
 </body>
 
 </html>
