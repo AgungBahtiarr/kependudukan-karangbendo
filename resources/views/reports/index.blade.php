@@ -14,7 +14,7 @@
             </div>
 
             <div class="card-body flex justify-center items-center my-10">
-                <h1 class="text-5xl font-medium">100+</h1>
+                <h1 class="text-5xl font-medium">{{ count($wargas) }}</h1>
             </div>
         </div>
 
@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <div class="card col-span-2">
+        <div class="card col-span-1 md:col-span-2">
             <div class="card-header">
                 <h4 class="header-title">Berdasarkan Usia</h4>
             </div>
@@ -37,7 +37,7 @@
             </div>
         </div>
 
-        <div class="card ">
+        <div class="card">
             <div class="card-header">
                 <h4 class="header-title">Berdasarkan Agama</h4>
             </div>
@@ -79,6 +79,8 @@
 @endsection
 
 
+
+
 @section('script')
     <script>
         const jenisKelamin = Morris.Donut({
@@ -88,11 +90,11 @@
             // the chart.
             data: [{
                     label: "Laki-laki",
-                    value: 55
+                    value: {{ $jenis_kelamin['laki_laki'] }}
                 },
                 {
                     label: "Perempuan",
-                    value: 45
+                    value: {{ $jenis_kelamin['perempuan'] }}
                 }
             ],
             colors: ['#3498db', '#e74c3c'],
@@ -101,10 +103,14 @@
             }
         });
 
+        var agamaData = <?php echo json_encode($agama); ?>;
+
         const agamaOptions = {
             series: [{
                 name: 'Jumlah Warga',
-                data: [100, 75, 50, 75, 65, 54]
+                data: agamaData.map(function(agama) {
+                    return agama;
+                })
             }],
             chart: {
                 type: 'bar',
@@ -149,10 +155,14 @@
         const agama = new ApexCharts(document.querySelector("#agama"), agamaOptions);
         agama.render();
 
+
+        var pendidikanData = <?php echo json_encode($pendidikan); ?>;
         const pendidikanOptions = {
             series: [{
                 name: 'Jumlah',
-                data: [100, 75, 50, 75, 65, 54, 54]
+                data: pendidikanData.map(function(pendidikan) {
+                    return pendidikan;
+                })
             }],
             chart: {
                 type: 'bar',
@@ -197,10 +207,14 @@
         const pendidikan = new ApexCharts(document.querySelector("#pendidikan"), pendidikanOptions);
         pendidikan.render();
 
+
+        const pekerjaanData = <?php echo json_encode($pekerjaan); ?>;
         const pekerjaanOptions = {
             series: [{
                 name: 'Jumlah',
-                data: [100, 75, 50, 75, 65, 54]
+                data: pekerjaanData.map(function(pekerjaan) {
+                    return pekerjaan;
+                })
             }],
             chart: {
                 type: 'bar',
@@ -247,10 +261,13 @@
         const pekerjaan = new ApexCharts(document.querySelector("#pekerjaan"), pekerjaanOptions);
         pekerjaan.render();
 
+        const perkawinanData = <?php echo json_encode($perkawinan); ?>;
         const perkawinanOptions = {
             series: [{
                 name: 'Jumlah Warga',
-                data: [100, 75, 50, 75]
+                data: perkawinanData.map(function(perkawinan) {
+                    return perkawinan;
+                })
             }],
             chart: {
                 type: 'bar',
@@ -297,7 +314,10 @@
 
         var usiaOtions = {
             series: [{
-                data: [8, 3, 12, 6, 6, 10, 30, 15, 10]
+                data: [{{ $rentangUsia[0] }}, {{ $rentangUsia[1] }}, {{ $rentangUsia[2] }},
+                    {{ $rentangUsia[3] }}, {{ $rentangUsia[4] }}, {{ $rentangUsia[5] }},
+                    {{ $rentangUsia[6] }}, {{ $rentangUsia[7] }}, {{ $rentangUsia[8] }},
+                ]
             }],
             chart: {
                 type: 'bar',
@@ -306,7 +326,7 @@
             plotOptions: {
                 bar: {
                     horizontal: false,
-                    columnWidth: '55%',
+                    columnWidth: '30%',
                     endingShape: 'rounded'
                 }
             },

@@ -99,6 +99,12 @@ class WargaController extends Controller
 
     public function store1(Request $request)
     {
+        $jabatan = '';
+        if ($request->jabatan == null) {
+            $jabatan = '';
+        } else {
+            $jabatan = $request->jabatan;
+        }
         $data = [
             // 'no_registrasi' => $request->no_registrasi,
             'nik' => $request->nik,
@@ -112,7 +118,7 @@ class WargaController extends Controller
             'id_status_perkawinan' => $request->id_status_perkawinan,
             'status_keluarga' => $request->status_keluarga,
             'id_pekerjaan' => $request->id_pekerjaan,
-            'jabatan' => $request->jabatan,
+            'jabatan' => $jabatan,
         ];
 
         $request->session()->put('warga1', $data);
@@ -193,7 +199,6 @@ class WargaController extends Controller
             'created_by' => auth()->user()->id,
         ];
 
-
         try {
             $warga = Warga::create(
                 $data
@@ -222,6 +227,9 @@ class WargaController extends Controller
                 case '42S22':
                     $errorMessage = 'Terjadi kesalahan teknis pada sistem kami. Tim teknis kami akan segera menangani masalah ini.';
                     break;
+                case '23505':
+                    $errorMessage = 'Data yang Anda masukkan (NIK) sudah ada dalam sistem. Mohon periksa kembali untuk menghindari duplikasi.';
+                    break;
                 default:
                     $errorMessage = 'Terjadi kesalahan yang tidak terduga. Silakan coba lagi nanti atau hubungi dukungan pelanggan jika masalah berlanjut.';
             }
@@ -239,7 +247,7 @@ class WargaController extends Controller
     public function isDomisili($id)
     {
 
-        if ($id == '1') {
+        if ($id == '0') {
             return view('warga.partials.alamat')->fragment('domisili');
         }
 
@@ -265,10 +273,10 @@ class WargaController extends Controller
 
         $kematian = Kematian::where('nik', $warga->nik)->first();
 
-        $riwayatBansos = PenerimaBansos::with('program','riwayat')->where('nik',$warga->nik)->get();
+        $riwayatBansos = PenerimaBansos::with('program', 'riwayat')->where('nik', $warga->nik)->get();
         // return $riwayatBansos;
         // return $dawis;
-        return view("warga.show.detail", compact('warga', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans', 'dawis', 'kematian','riwayatBansos'));
+        return view("warga.show.detail", compact('warga', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans', 'dawis', 'kematian', 'riwayatBansos'));
     }
 
     // public function show2($id)

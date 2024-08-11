@@ -108,7 +108,7 @@
                         <div>{{ $warga->domisili_sesuai_ktp == '1' ? 'Ya' : 'Tidak' }}</div>
                     </li>
 
-                    @if ($warga->domisili_sesuai_ktp == '1')
+                    @if ($warga->domisili_sesuai_ktp == '0')
                         <li class="flex flex-col gap-3">
                             <div class="font-medium text-[#ADADAD]">Alamat Domisili</div>
                             <div>{{ $warga->alamat_domisili }}</div>

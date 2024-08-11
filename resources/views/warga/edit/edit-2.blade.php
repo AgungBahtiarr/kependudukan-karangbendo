@@ -110,7 +110,7 @@
                 </div>
 
 
-                @if ($warga->domisili_sesuai_ktp == '1')
+                @if ($warga->domisili_sesuai_ktp == '0')
                     <div id="domisili">
                         <div class="form-group">
                             <label for="alamat_domisili">Alamat Domisili</label>
@@ -118,7 +118,7 @@
                                 value={{ $warga->alamat_domisili }}>
                         </div>
                     </div>
-                @elseif ($warga->domisili_sesuai_ktp == '0')
+                @elseif ($warga->domisili_sesuai_ktp == '1')
                     <div id="domisili"></div>
                 @endif
 
