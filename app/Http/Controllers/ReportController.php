@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Warga;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\Return_;
 
 class ReportController extends Controller
 {
@@ -256,5 +258,32 @@ class ReportController extends Controller
         $perkawinan = ReportController::perkawinan($wargas);
 
         return view("reports.index", compact('wargas', 'jenis_kelamin', 'rentangUsia', 'agama', 'pendidikan', 'pekerjaan', 'perkawinan'));
+    }
+
+
+    public function reportDemografi()
+    {
+        $wargas = Warga::with('agama', 'pendidikan', 'pekerjaan', 'statusPerkawinan')->get();
+
+        $jenis_kelamin = ReportController::jenisKelamin($wargas);
+        $rentangUsia = ReportController::rentangUsia($wargas);
+        $agama = ReportController::agama($wargas);
+        $pendidikan = ReportController::pendidikan($wargas);
+        $pekerjaan = ReportController::pekerjaan($wargas);
+        $perkawinan = ReportController::perkawinan($wargas);
+
+        $data = [
+            'jenisKelamin' => $jenis_kelamin,
+            'rentangUsia' => $rentangUsia,
+            'agama' => $agama,
+            'pendidikan' => $pendidikan,
+            'pekerjaan' => $pekerjaan,
+            'perkawinan' => $perkawinan
+        ];
+
+        $pdf = Pdf::loadView('reports.demografi.index', $data);
+        $pdf->setPaper('A4', 'potrait');
+        $pdf->render();
+        return $pdf->stream('test.pdf');
     }
 }
