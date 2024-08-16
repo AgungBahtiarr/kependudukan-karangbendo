@@ -32,24 +32,41 @@ class WargaController extends Controller
         $agamas = Agama::get();
         $pendidikans = Pendidikan::get();
         $pekerjaans = Pekerjaan::get();
-        $seacrhQuery = $request->strquery;
+        $searchQuery = $request->strquery;
 
+        
 
-        if ($seacrhQuery) {
-            $wargas->where('nama', 'like', '%' . strval($seacrhQuery) . '%');
-        } elseif ($seacrhQuery == "") {
-            $wargas->get();
-        }
+        // if ($searchQuery && $status == 'pendidikan') {
+        //     $wargas = $wargas->where(function ($query) use ($searchQuery) {
+        //         $query->whereRaw('LOWER(nama) LIKE ?', ['%' . strtolower($searchQuery) . '%'])
+        //             ->orWhereRaw('LOWER(nik) LIKE ?', ['%' . strtolower($searchQuery) . '%']);
+        //     });
+        // }
+
+        // if ($searchQuery == "") {
+        //     $wargas->get();
+        // }
 
         if ($status == 'yes') {
             $wargas->where('verified', 'yes');
-        } elseif ($status == 'no') {
+        }
+        if ($status == 'no') {
             $wargas->where('verified', 'no');
-        } elseif ($status == 'all') {
+        }
+        if ($status == 'all') {
             $wargas->get();
         }
 
+        if ($status == 'domisili_sesuai') {
+            $wargas->where('domisili_sesuai_ktp', '1');
+        }
+        if ($status == 'domisili_tidak_sesuai') {
+            $wargas->where('domisili_sesuai_ktp', '0');
+        }
+
         $wargas = $wargas->get();
+
+        // return $wargas;
 
         return view('warga.index', compact('title', 'wargas', 'status', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans',));
     }

@@ -84,11 +84,29 @@
                 </li>
 
                 <li class="{{ isActiveSidebar(route('laporan.index')) }}">
-                    <a href="{{ route('laporan.index') }}">
-                        <i class="ri-file-chart-fill"></i>
-                        <span>Laporan</span>
+                    <a href="#" id="widgetToggle2"
+                        class="flex items-center py-3 px-2 text-base font-normal text-gray-900 rounded-lg dark:text-white">
+                        <i class="ri-file-chart-fill pl-[10px]"></i>
+                        <span class="flex-1 ml-2 text-left whitespace-nowrap">Laporan</span>
+                        <i id="widgetArrow2" class="ri-arrow-down-s-line"></i>
                     </a>
+                    <ul id="widgetSubmenu2" class="hidden py-2 space-y-2">
+                        <li class="{{ isActiveSidebar(route('laporan.index')) }}">
+                            <a href="{{ route('laporan.index') }}">
+                                <i class="ri-file-chart-fill"></i>
+                                <span>Warga</span>
+                            </a>
+                        </li>
+                        <li class="{{ isActiveSidebar(route('laporan.cargas')) }}">
+                            <a href="{{ route('laporan.cargas') }}">
+                                <i class="ri-file-chart-fill"></i>
+                                <span>Rumah Tangga</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
+
+
 
                 @can('logout')
                     <li class="{{ isActiveSidebar(route('logout')) }}">

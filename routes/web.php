@@ -319,5 +319,6 @@ Route::middleware('auth')->group(function () {
     Route::prefix('laporan')->group(function () {
         Route::get('', [ReportController::class, 'index'])->name('laporan.index');
         Route::post('/demografi', [ReportController::class, 'reportDemografi'])->name('laporan.demografi');
+        Route::get('/cargas', [ReportController::class, 'indexCargas'])->name('laporan.cargas');
     });
 });

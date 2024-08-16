@@ -26,12 +26,7 @@ return new class extends Migration {
             $table->integer("jumlah_ibuta", 2)->autoIncrement(false);
             $table->integer("jumlah_lansia", 2)->autoIncrement(false);
             $table->integer("jumlah_ibu_hamil",2)->autoIncrement(false);
-            $table->integer("jumlah_ibu_menyusui",2)->autoIncrement(false);
-
-            // $table->unsignedTinyInteger('jumlah_balita');
-            // $table->unsignedTinyInteger('jumlah_pus');
-            // $table->unsignedTinyInteger('jumlah_wus');
-            // $table->unsignedTinyInteger('jumlah_ibuta');
+            $table->integer("jumlah_ibu_menyusui",2)->autoIncrement(false);;
             $table->unsignedBigInteger("id_makanan_pokok");
             $table->enum("menempel_stiker_p4k", ["0", "1"]);
             $table->enum("aktivitas_up2k", ["0", "1"]);

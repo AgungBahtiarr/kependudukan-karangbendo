@@ -96,6 +96,19 @@
                 widgetArrow.classList.toggle('rotate-180');
             });
         });
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const widgetToggle = document.getElementById('widgetToggle2');
+            const widgetSubmenu = document.getElementById('widgetSubmenu2');
+            const widgetArrow = document.getElementById('widgetArrow2');
+
+            widgetToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                widgetSubmenu.classList.toggle('hidden');
+                widgetArrow.classList.toggle('rotate-180');
+            });
+        });
     </script>
 </body>
 

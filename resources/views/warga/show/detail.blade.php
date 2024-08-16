@@ -230,9 +230,8 @@
                 @if ($riwayatBansos == null)
                     <div class="flex justify-center items-center my-12">Tidak Ada Riwayat Bantuan Sosial</div>
                 @else
-
                     @foreach ($riwayatBansos as $bansos)
-                    <h1 class="my-4">Nama Program: {{$bansos->program->nama_program}}</h1>
+                        <h1 class="my-4">Nama Program: {{ $bansos->program->nama_program }}</h1>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -244,9 +243,9 @@
                             <tbody>
                                 @foreach ($bansos->riwayat as $riwayat)
                                     <tr>
-                                        <th scope="row">{{$loop->iteration}}</th>
-                                        <td>{{$riwayat->created_at->format('M')}}</td>
-                                        <td>{{$riwayat->created_at->format('Y')}}</td>
+                                        <th scope="row">{{ $loop->iteration }}</th>
+                                        <td>{{ $riwayat->created_at->format('M') }}</td>
+                                        <td>{{ $riwayat->created_at->format('Y') }}</td>
                                     </tr>
                                 @endforeach
 
