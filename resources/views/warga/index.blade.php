@@ -90,7 +90,7 @@
                             </div>
                         </form>
 
-                        <div class="">
+                        <div class="col-span-2">
                             <select class="form-control" id="select-warga-status-filter" name="filter">
                                 <option value="all" {{ request('status') == 'all' ? 'selected' : '' }}>Semua Warga
                                 </option>
@@ -122,7 +122,7 @@
                             </select>
                         </div> --}}
 
-                        <div>
+                        {{-- <div>
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
                                 data-target="#staticBackdrop">
@@ -169,7 +169,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                         @can('create_wargas')
                             <div class="">

@@ -442,11 +442,31 @@ class ReportController extends Controller
         $cargas = CatatanRumahTangga::with('makananPokok', 'sumberAir')->get();
         $statistikDasar = ReportController::statistikDasar();
         $sanitasi = ReportController::analisisSanitasi($cargas);
-        // $kesehatan = ReportController::kesehatanKeselamatan();
         $sosial = ReportController::aktivitasSosialEkonomi();
 
         // return $sosial;
         // return $kesehatan;
         return view('reports.cargas.index', compact('statistikDasar', 'sanitasi', 'sosial'));
+    }
+
+    public function reportCargas()
+    {
+        $cargas = CatatanRumahTangga::with('makananPokok', 'sumberAir')->get();
+        $statistikDasar = ReportController::statistikDasar();
+        $sanitasi = ReportController::analisisSanitasi($cargas);
+        $sosial = ReportController::aktivitasSosialEkonomi();
+        $data = [
+            'statistik' => $statistikDasar,
+            'sanitasi' => $sanitasi,
+            'sosial' => $sosial
+        ];
+
+        // return $data;
+
+
+        $pdf = Pdf::loadView('reports.cargas.report', $data);
+        $pdf->setPaper('A4', 'potrait');
+        $pdf->render();
+        return $pdf->stream('test.pdf');
     }
 }

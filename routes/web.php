@@ -320,5 +320,7 @@ Route::middleware('auth')->group(function () {
         Route::get('', [ReportController::class, 'index'])->name('laporan.index');
         Route::post('/demografi', [ReportController::class, 'reportDemografi'])->name('laporan.demografi');
         Route::get('/cargas', [ReportController::class, 'indexCargas'])->name('laporan.cargas');
+        Route::post('/cargas', [ReportController::class, 'reportCargas'])->name('laporan.cargas_report');
+
     });
 });
