@@ -34,18 +34,34 @@ class WargaController extends Controller
         $pekerjaans = Pekerjaan::get();
         $searchQuery = $request->strquery;
 
-        
 
-        // if ($searchQuery && $status == 'pendidikan') {
-        //     $wargas = $wargas->where(function ($query) use ($searchQuery) {
-        //         $query->whereRaw('LOWER(nama) LIKE ?', ['%' . strtolower($searchQuery) . '%'])
-        //             ->orWhereRaw('LOWER(nik) LIKE ?', ['%' . strtolower($searchQuery) . '%']);
-        //     });
-        // }
 
-        // if ($searchQuery == "") {
-        //     $wargas->get();
-        // }
+        if ($request->filterPendidikan) {
+            $wargas->where('id_pendidikan', $request->filterPendidikan);
+        }
+
+        if ($request->filterAgama) {
+            $wargas->where('id_agama', $request->filterAgama);
+        }
+
+        if ($request->filterPekerjaan) {
+            $wargas->where('id_pekerjaan', $request->filterPekerjaan);
+        }
+
+        if ($request->filterPerkawinan) {
+            $wargas->where('id_status_perkawinan', $request->filterPerkawinan);
+        }
+
+        if ($searchQuery) {
+            $wargas = $wargas->where(function ($query) use ($searchQuery) {
+                $query->whereRaw('LOWER(nama) LIKE ?', ['%' . strtolower($searchQuery) . '%'])
+                    ->orWhereRaw('LOWER(nik) LIKE ?', ['%' . strtolower($searchQuery) . '%']);
+            });
+        }
+
+        if ($searchQuery == "") {
+            $wargas->get();
+        }
 
         if ($status == 'yes') {
             $wargas->where('verified', 'yes');
@@ -466,9 +482,41 @@ class WargaController extends Controller
         return redirect(route("dawis.edit", $warga->nik));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    public function filterPendidikan()
+    {
+        $pendidikan = Pendidikan::all();
+        $agama = Agama::all();
+        $pekerjaan = Pekerjaan::all();
+        $perkawinan = StatusPerkawinan::all();
+        return view('warga.partials.form', compact('pendidikan', 'agama', 'pekerjaan', 'perkawinan'))->fragment('pendidikan');
+    }
+    public function filterAgama()
+    {
+        $pendidikan = Pendidikan::all();
+        $agama = Agama::all();
+        $pekerjaan = Pekerjaan::all();
+        $perkawinan = StatusPerkawinan::all();
+        return view('warga.partials.form', compact('pendidikan', 'agama', 'pekerjaan', 'perkawinan'))->fragment('agama');
+    }
+
+    public function filterPekerjaan()
+    {
+        $pendidikan = Pendidikan::all();
+        $agama = Agama::all();
+        $pekerjaan = Pekerjaan::all();
+        $perkawinan = StatusPerkawinan::all();
+        return view('warga.partials.form', compact('pendidikan', 'agama', 'pekerjaan', 'perkawinan'))->fragment('pekerjaan');
+    }
+
+    public function filterStatusPerkawinan()
+    {
+        $pendidikan = Pendidikan::all();
+        $agama = Agama::all();
+        $pekerjaan = Pekerjaan::all();
+        $perkawinan = StatusPerkawinan::all();
+        return view('warga.partials.form', compact('pendidikan', 'agama', 'pekerjaan', 'perkawinan'))->fragment('perkawinan');
+    }
+
     public function destroy($id)
     {
         $warga = Warga::findOrFail($id);

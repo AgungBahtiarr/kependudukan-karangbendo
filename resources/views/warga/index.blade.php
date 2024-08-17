@@ -66,18 +66,18 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 mb-3 lg:grid-cols-4 gap-1">
 
                         {{-- <div class="">
-                            <div class="iq-search-bar device-search">
-                                <form action="#" class="searchbox">
-                                    <a class="search-link" href="#"><i class="ri-search-line"></i></a>
-                                    <input type="text" class="text search-input" placeholder="Search here..."
-                                        name="strquery">
-                                </form>
-                            </div>
-                        </div> --}}
+                                <div class="iq-search-bar device-search">
+                                    <form action="#" class="searchbox">
+                                        <a class="search-link" href="#"><i class="ri-search-line"></i></a>
+                                        <input type="text" class="text search-input" placeholder="Search here..."
+                                            name="strquery">
+                                    </form>
+                                </div>
+                            </div>  --}}
 
-                        <form action="">
+                        <form action="" class="col-span-2">
                             <div class="relative">
-                                <input type="text" placeholder="Cari..."
+                                <input type="text" placeholder="Cari Nama / NIK ..."
                                     class="w-full pl-4 pr-10 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#fafbfe]"
                                     name="strquery">
                                 <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
@@ -90,7 +90,7 @@
                             </div>
                         </form>
 
-                        <div class="col-span-2">
+                        {{-- <div class="col-span-2">
                             <select class="form-control" id="select-warga-status-filter" name="filter">
                                 <option value="all" {{ request('status') == 'all' ? 'selected' : '' }}>Semua Warga
                                 </option>
@@ -105,7 +105,7 @@
                                     {{ request('status') == 'domisili_tidak_sesuai' ? 'selected' : '' }}>Domisili Tidak
                                     Sesuai KTP</option>
                             </select>
-                        </div>
+                        </div> --}}
 
                         {{-- <div class="">
                             <select class="form-control" id="select-warga-search-filter" name="filter-search" required>
@@ -120,13 +120,13 @@
                                 </option>
                                 <option value="rw" {{ request('status') == 'rw' ? 'selected' : '' }}>RW</option>
                             </select>
-                        </div> --}}
+                        </div>  --}}
 
-                        {{-- <div>
+                        <div class="">
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
+                            <button type="button" class="btn btn-secondary btn-block" data-toggle="modal"
                                 data-target="#staticBackdrop">
-                                Cari Berdasarkan
+                                Filter Berdasarkan
                             </button>
 
                             <!-- Modal -->
@@ -135,41 +135,66 @@
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Filter Warga</h1>
                                             <button type="button" class="btn-close" data-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="">
-                                                <select class="form-control" id="select-warga-search-filter"
-                                                    name="filter-search" required>
-                                                    <option value="" selected>Cari Berdasarkan</option>
-                                                    <option value="pendidikan"
+
+                                            <div class="">
+                                                <select class="form-control" id="select-warga-status-filter" name="filter">
+                                                    <option value="all"
+                                                        {{ request('status') == 'all' ? 'selected' : '' }}>Semua Warga
+                                                    </option>
+                                                    <option value="yes"
+                                                        {{ request('status') == 'yes' ? 'selected' : '' }}>Teverifikasi
+                                                    </option>
+                                                    <option value="no"
+                                                        {{ request('status') == 'no' ? 'selected' : '' }}>Belum
+                                                        Terverifikasi</option>
+                                                    <option value="domisili_sesuai"
+                                                        {{ request('status') == 'domisili_sesuai' ? 'selected' : '' }}>
+                                                        Domisili Sesuai KTP</option>
+                                                    <option value="domisili_tidak_sesuai"
+                                                        {{ request('status') == 'domisili_tidak_sesuai' ? 'selected' : '' }}>
+                                                        Domisili Tidak
+                                                        Sesuai KTP</option>
+                                                    <option hx-get={{ route('wargas.filter-pendidikan') }}
+                                                        hx-trigger="click" hx-swap="innerHtml" hx-target="#formFilter"
+                                                        value="pendidikan"
                                                         {{ request('status') == 'pendidikan' ? 'selected' : '' }}>
                                                         Pendidikan
                                                     </option>
-                                                    <option value="agama"
+                                                    <option hx-get={{ route('wargas.filter-agama') }} hx-trigger="click"
+                                                        hx-swap="innerHtml" hx-target="#formFilter" value="agama"
                                                         {{ request('status') == 'agama' ? 'selected' : '' }}>Agama</option>
-                                                    <option value="pekerjaan"
+                                                    <option hx-get={{ route('wargas.filter-pekerjaan') }} hx-trigger="click"
+                                                        hx-swap="innerHtml" hx-target="#formFilter" value="pekerjaan"
                                                         {{ request('status') == 'pekerjaan' ? 'selected' : '' }}>Pekerjaan
                                                     </option>
-                                                    <option value="rt"
-                                                        {{ request('status') == 'rt' ? 'selected' : '' }}>RT
+                                                    <option hx-get={{ route('wargas.filter-status-perkawinan') }}
+                                                        hx-trigger="click" hx-swap="innerHtml" hx-target="#formFilter"
+                                                        value="status-perkawinan"
+                                                        {{ request('status') == 'status-perkawinan' ? 'selected' : '' }}>
+                                                        Status Perkawinan
                                                     </option>
-                                                    <option value="rw"
-                                                        {{ request('status') == 'rw' ? 'selected' : '' }}>RW</option>
                                                 </select>
-                                            </form>
+                                            </div>
+
+                                            <div id="formFilter">
+
+                                            </div>
+
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Understood</button>
+                                            {{-- <button type="button" class="btn btn-primary">Understood</button> --}}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
 
                         @can('create_wargas')
                             <div class="">
@@ -259,21 +284,34 @@
             </div>
         </div>
     </div>
+
+    {{-- $(function() {
+        $('#select-warga-search-filter').change(e => {
+            window.location.href =
+                `{{ route('wargas.index') }}${$(e.target).val() ? `?status=${$(e.target).val()}` : ''}`;
+        });
+    }); --}}
 @endsection
 
 @section('script')
     <script>
-        $(function() {
-            $('#select-warga-status-filter').change(e => {
-                window.location.href =
-                    `{{ route('wargas.index') }}${$(e.target).val() ? `?status=${$(e.target).val()}` : ''}`;
-            });
-        });
+        // $(function() {
+        //     $('#select-warga-status-filter').change(e => {
+        //         window.location.href =
+        //             `{{ route('wargas.index') }}${$(e.target).val() ? `?status=${$(e.target).val()}` : ''}`;
+        //     });
+        // });
 
         $(function() {
-            $('#select-warga-search-filter').change(e => {
-                window.location.href =
-                    `{{ route('wargas.index') }}${$(e.target).val() ? `?status=${$(e.target).val()}` : ''}`;
+            $('#select-warga-status-filter').change(function(e) {
+                var selectedValue = $(e.target).val();
+                var excludedOptions = ['pendidikan', 'agama', 'pekerjaan', 'status-perkawinan'];
+
+                if (selectedValue && !excludedOptions.includes(selectedValue)) {
+                    window.location.href = `{{ route('wargas.index') }}?status=${selectedValue}`;
+                } else if (!selectedValue) {
+                    window.location.href = `{{ route('wargas.index') }}`;
+                }
             });
         });
     </script>
