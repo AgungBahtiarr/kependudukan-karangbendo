@@ -17,6 +17,22 @@ class UserSeeder extends Seeder
             'password' => Hash::make(1234),
         ]);
 
+        $kader = User::create([
+            'nik' => '3510112909030002',
+            'name' => 'Kader',
+            'username' => 'kader',
+            'password' => Hash::make(1234),
+        ]);
+
+        $pimpinan = User::create([
+            'nik' => '3510112909030001',
+            'name' => 'Pimpinan',
+            'username' => 'pimpinan',
+            'password' => Hash::make(1234),
+        ]);
+
+        $pimpinan->assignRole('Pimpinan');
+        $kader->assignRole('Kader');
         $admin->assignRole('Admin');
     }
 }

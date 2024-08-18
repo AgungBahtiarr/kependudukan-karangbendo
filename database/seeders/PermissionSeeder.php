@@ -25,24 +25,29 @@ class PermissionSeeder extends Seeder
             "read_users",
             "update_users",
             "update_user_status",
+
             # Warga permission
             "create_wargas",
             "read_wargas",
             "edit_wargas",
             "update_wargas",
             "update_warga_status",
+            "delete_wargas",
+
             #KeikutsertaanDawis
             "create_dawis",
             "read_dawis",
             "edit_dawis",
             "update_dawis",
             "update_dawis_status",
+
             #catatan_rumah_tangga
             "create_cargas",
             "read_cargas",
             "edit_cargas",
             "update_cargas",
             "update_cargas_status",
+            "delete_cargas",
 
             #pemanfaatan_tanah_pekarangan
             "create_pekarangans",
@@ -64,6 +69,7 @@ class PermissionSeeder extends Seeder
             "edit_bansos",
             "update_bansos",
             "update_bansos_status",
+            "delete_bansos",
 
             #kematians
             "create_kematians",
@@ -71,12 +77,15 @@ class PermissionSeeder extends Seeder
             "edit_kematians",
             "update_kematians",
             "update_kematians_status",
+            "delete_kematians",
 
             #laporan
             "create_laporan",
             "read_laporan",
             "edit_laporan",
             "update_laporan",
+            "delete_laporan",
+
 
             # Logout
             "logout",

@@ -15,93 +15,97 @@
                 <div class="card-body">
                     <div class="grid grid-cols-1 md:grid-cols-2 mb-3 lg:grid-cols-4 gap-1">
 
-                        <form action="" class="col-span-2">
-                            <div class="relative">
-                                <input type="text" placeholder="Cari Nama / NIK ..."
-                                    class="w-full pl-4 pr-10 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#fafbfe]"
-                                    name="strquery">
-                                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                    </svg>
+                        @can('read_wargas')
+                            <form action="" class="col-span-2">
+                                <div class="relative">
+                                    <input type="text" placeholder="Cari Nama / NIK ..."
+                                        class="w-full pl-4 pr-10 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#fafbfe]"
+                                        name="strquery">
+                                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                        </svg>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        @endcan
 
-                        <div class="">
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-secondary btn-block" data-toggle="modal"
-                                data-target="#staticBackdrop">
-                                Filter Berdasarkan
-                            </button>
+                        @can('read_wargas')
+                            <div class="">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-secondary btn-block" data-toggle="modal"
+                                    data-target="#staticBackdrop">
+                                    Filter Berdasarkan
+                                </button>
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false"
-                                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Filter Warga</h1>
-                                            <button type="button" class="btn-close" data-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-
-                                            <div class="">
-                                                <select class="form-control" id="select-warga-status-filter" name="filter">
-                                                    <option value="all"
-                                                        {{ request('status') == 'all' ? 'selected' : '' }}>Semua Warga
-                                                    </option>
-                                                    <option value="yes"
-                                                        {{ request('status') == 'yes' ? 'selected' : '' }}>Teverifikasi
-                                                    </option>
-                                                    <option value="no"
-                                                        {{ request('status') == 'no' ? 'selected' : '' }}>Belum
-                                                        Terverifikasi</option>
-                                                    <option value="domisili_sesuai"
-                                                        {{ request('status') == 'domisili_sesuai' ? 'selected' : '' }}>
-                                                        Domisili Sesuai KTP</option>
-                                                    <option value="domisili_tidak_sesuai"
-                                                        {{ request('status') == 'domisili_tidak_sesuai' ? 'selected' : '' }}>
-                                                        Domisili Tidak
-                                                        Sesuai KTP</option>
-                                                    <option hx-get={{ route('wargas.filter-pendidikan') }}
-                                                        hx-trigger="click" hx-swap="innerHtml" hx-target="#formFilter"
-                                                        value="pendidikan"
-                                                        {{ request('status') == 'pendidikan' ? 'selected' : '' }}>
-                                                        Pendidikan
-                                                    </option>
-                                                    <option hx-get={{ route('wargas.filter-agama') }} hx-trigger="click"
-                                                        hx-swap="innerHtml" hx-target="#formFilter" value="agama"
-                                                        {{ request('status') == 'agama' ? 'selected' : '' }}>Agama</option>
-                                                    <option hx-get={{ route('wargas.filter-pekerjaan') }} hx-trigger="click"
-                                                        hx-swap="innerHtml" hx-target="#formFilter" value="pekerjaan"
-                                                        {{ request('status') == 'pekerjaan' ? 'selected' : '' }}>Pekerjaan
-                                                    </option>
-                                                    <option hx-get={{ route('wargas.filter-status-perkawinan') }}
-                                                        hx-trigger="click" hx-swap="innerHtml" hx-target="#formFilter"
-                                                        value="status-perkawinan"
-                                                        {{ request('status') == 'status-perkawinan' ? 'selected' : '' }}>
-                                                        Status Perkawinan
-                                                    </option>
-                                                </select>
+                                <!-- Modal -->
+                                <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false"
+                                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Filter Warga</h1>
+                                                <button type="button" class="btn-close" data-dismiss="modal"
+                                                    aria-label="Close"></button>
                                             </div>
+                                            <div class="modal-body">
 
-                                            <div id="formFilter">
+                                                <div class="">
+                                                    <select class="form-control" id="select-warga-status-filter" name="filter">
+                                                        <option value="all"
+                                                            {{ request('status') == 'all' ? 'selected' : '' }}>Semua Warga
+                                                        </option>
+                                                        <option value="yes"
+                                                            {{ request('status') == 'yes' ? 'selected' : '' }}>Teverifikasi
+                                                        </option>
+                                                        <option value="no"
+                                                            {{ request('status') == 'no' ? 'selected' : '' }}>Belum
+                                                            Terverifikasi</option>
+                                                        <option value="domisili_sesuai"
+                                                            {{ request('status') == 'domisili_sesuai' ? 'selected' : '' }}>
+                                                            Domisili Sesuai KTP</option>
+                                                        <option value="domisili_tidak_sesuai"
+                                                            {{ request('status') == 'domisili_tidak_sesuai' ? 'selected' : '' }}>
+                                                            Domisili Tidak
+                                                            Sesuai KTP</option>
+                                                        <option hx-get={{ route('wargas.filter-pendidikan') }}
+                                                            hx-trigger="click" hx-swap="innerHtml" hx-target="#formFilter"
+                                                            value="pendidikan"
+                                                            {{ request('status') == 'pendidikan' ? 'selected' : '' }}>
+                                                            Pendidikan
+                                                        </option>
+                                                        <option hx-get={{ route('wargas.filter-agama') }} hx-trigger="click"
+                                                            hx-swap="innerHtml" hx-target="#formFilter" value="agama"
+                                                            {{ request('status') == 'agama' ? 'selected' : '' }}>Agama</option>
+                                                        <option hx-get={{ route('wargas.filter-pekerjaan') }} hx-trigger="click"
+                                                            hx-swap="innerHtml" hx-target="#formFilter" value="pekerjaan"
+                                                            {{ request('status') == 'pekerjaan' ? 'selected' : '' }}>Pekerjaan
+                                                        </option>
+                                                        <option hx-get={{ route('wargas.filter-status-perkawinan') }}
+                                                            hx-trigger="click" hx-swap="innerHtml" hx-target="#formFilter"
+                                                            value="status-perkawinan"
+                                                            {{ request('status') == 'status-perkawinan' ? 'selected' : '' }}>
+                                                            Status Perkawinan
+                                                        </option>
+                                                    </select>
+                                                </div>
+
+                                                <div id="formFilter">
+
+                                                </div>
 
                                             </div>
-
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endcan
 
                         @can('create_wargas')
                             <div class="">
@@ -176,10 +180,13 @@
                                                 hx-swap="innerHtml" hx-trigger="load">
                                             </div>
 
-                                            <a class="btn btn-danger btn-sm mr-2 my-1 edit-btn"
-                                                hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
-                                                hx-delete="/warga/{{ $warga->id }}"><i
-                                                    class="ri-delete-bin-2-line"></i>Delete</a>
+                                            @can('delete_wargas')
+                                                <a class="btn btn-danger btn-sm mr-2 my-1 edit-btn"
+                                                    hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
+                                                    hx-delete="/warga/{{ $warga->id }}"><i
+                                                        class="ri-delete-bin-2-line"></i>Delete</a>
+                                            @endcan
+
                                         </td>
                                     </tr>
                                 @endforeach
@@ -202,7 +209,6 @@
 
 @section('script')
     <script>
-
         $(function() {
             $('#select-warga-status-filter').change(function(e) {
                 var selectedValue = $(e.target).val();

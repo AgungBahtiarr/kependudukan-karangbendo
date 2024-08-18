@@ -49,64 +49,66 @@
                     </li>
                 @endcan
 
-                <li class="{{ isActiveSidebar(route('bansos.index')) }}">
-                    <a href="#" id="widgetToggle"
-                        class="flex items-center py-3 px-2 text-base font-normal text-gray-900 rounded-lg dark:text-white">
-                        <i class="ri-hand-heart-fill pl-[10px]"></i>
-                        <span class="flex-1 ml-2 text-left whitespace-nowrap">Bantuan Sosial</span>
-                        <i id="widgetArrow" class="ri-arrow-down-s-line"></i>
-                    </a>
-                    <ul id="widgetSubmenu" class="hidden py-2 space-y-2">
+                @can('read_bansos')
+                    <li class="{{ isActiveSidebar(route('bansos.index')) }}">
+                        <a href="#" id="widgetToggle"
+                            class="flex items-center py-3 px-2 text-base font-normal text-gray-900 rounded-lg dark:text-white">
+                            <i class="ri-hand-heart-fill pl-[10px]"></i>
+                            <span class="flex-1 ml-2 text-left whitespace-nowrap">Bantuan Sosial</span>
+                            <i id="widgetArrow" class="ri-arrow-down-s-line"></i>
+                        </a>
+                        <ul id="widgetSubmenu" class="hidden py-2 space-y-2">
 
-                        @can('read_bansos')
                             <li class="{{ isActiveSidebar(route('bansos.index')) }}">
                                 <a href="{{ route('bansos.index') }}">
                                     <i class="ri-user-follow-line"></i>
                                     <span>Penerima Bantuan</span>
                                 </a>
                             </li>
-                        @endcan
-                        <li class="{{ isActiveSidebar(route('programbansos.index')) }}">
-                            <a href="{{ route('programbansos.index') }}">
-                                <i class="ri-file-text-line"></i>
-                                <span>Program Bansos</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                            <li class="{{ isActiveSidebar(route('programbansos.index')) }}">
+                                <a href="{{ route('programbansos.index') }}">
+                                    <i class="ri-file-text-line"></i>
+                                    <span>Program Bansos</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endcan
+
+                @can('read_kematians')
+                    <li class="{{ isActiveSidebar(route('kematian.index')) }}">
+                        <a href="{{ route('kematian.index') }}">
+                            <i class="ri-honour-fill"></i>
+                            <span>Kematian</span>
+                        </a>
+                    </li>
+                @endcan
 
 
-                <li class="{{ isActiveSidebar(route('kematian.index')) }}">
-                    <a href="{{ route('kematian.index') }}">
-                        <i class="ri-honour-fill"></i>
-                        <span>Kematian</span>
-                    </a>
-                </li>
-
-                <li class="{{ isActiveSidebar(route('laporan.index')) }}">
-                    <a href="#" id="widgetToggle2"
-                        class="flex items-center py-3 px-2 text-base font-normal text-gray-900 rounded-lg dark:text-white">
-                        <i class="ri-file-chart-fill pl-[10px]"></i>
-                        <span class="flex-1 ml-2 text-left whitespace-nowrap">Laporan</span>
-                        <i id="widgetArrow2" class="ri-arrow-down-s-line"></i>
-                    </a>
-                    <ul id="widgetSubmenu2" class="hidden py-2 space-y-2">
-                        <li class="{{ isActiveSidebar(route('laporan.index')) }}">
-                            <a href="{{ route('laporan.index') }}">
-                                <i class="ri-file-chart-fill"></i>
-                                <span>Warga</span>
-                            </a>
-                        </li>
-                        <li class="{{ isActiveSidebar(route('laporan.cargas')) }}">
-                            <a href="{{ route('laporan.cargas') }}">
-                                <i class="ri-file-chart-fill"></i>
-                                <span>Rumah Tangga</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-
+                @can('read_laporan')
+                    <li class="{{ isActiveSidebar(route('laporan.index')) }}">
+                        <a href="#" id="widgetToggle2"
+                            class="flex items-center py-3 px-2 text-base font-normal text-gray-900 rounded-lg dark:text-white">
+                            <i class="ri-file-chart-fill pl-[10px]"></i>
+                            <span class="flex-1 ml-2 text-left whitespace-nowrap">Laporan</span>
+                            <i id="widgetArrow2" class="ri-arrow-down-s-line"></i>
+                        </a>
+                        <ul id="widgetSubmenu2" class="hidden py-2 space-y-2">
+                            <li class="{{ isActiveSidebar(route('laporan.index')) }}">
+                                <a href="{{ route('laporan.index') }}">
+                                    <i class="ri-file-chart-fill"></i>
+                                    <span>Warga</span>
+                                </a>
+                            </li>
+                            <li class="{{ isActiveSidebar(route('laporan.cargas')) }}">
+                                <a href="{{ route('laporan.cargas') }}">
+                                    <i class="ri-file-chart-fill"></i>
+                                    <span>Rumah Tangga</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endcan
 
                 @can('logout')
                     <li class="{{ isActiveSidebar(route('logout')) }}">

@@ -42,6 +42,7 @@ class RoleSeeder extends Seeder
             "edit_wargas",
             "update_wargas",
             "update_warga_status",
+            "delete_wargas",
 
             #kematian
             "create_kematians",
@@ -49,6 +50,7 @@ class RoleSeeder extends Seeder
             "edit_kematians",
             "update_kematians",
             "update_kematians_status",
+            "delete_kematians",
 
             #dawis
             "create_dawis",
@@ -56,6 +58,7 @@ class RoleSeeder extends Seeder
             "edit_dawis",
             "update_dawis",
             "update_dawis_status",
+            
 
             #cargas
             "create_cargas",
@@ -63,6 +66,7 @@ class RoleSeeder extends Seeder
             "edit_cargas",
             "update_cargas",
             "update_cargas_status",
+            "delete_cargas",
 
             #pekarangans
             "create_pekarangans",
@@ -84,12 +88,15 @@ class RoleSeeder extends Seeder
             "edit_bansos",
             "update_bansos",
             "update_bansos_status",
+            "delete_bansos",
 
             #laporan
             "create_laporan",
             "read_laporan",
             "edit_laporan",
             "update_laporan",
+            "delete_laporan",
+
 
             "logout"
         );
@@ -103,6 +110,7 @@ class RoleSeeder extends Seeder
             "edit_wargas",
             "update_wargas",
             "update_warga_status",
+            "delete_wargas",
 
             #dawis
             "create_dawis",
@@ -117,6 +125,7 @@ class RoleSeeder extends Seeder
             "edit_cargas",
             "update_cargas",
             "update_cargas_status",
+            "delete_cargas",
 
             #pekarangans
             "create_pekarangans",
@@ -171,6 +180,9 @@ class RoleSeeder extends Seeder
 
             #laporan
             "read_laporan",
+
+            #kematian
+            "read_kematians",
 
             "logout"
         );
