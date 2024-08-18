@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreKematianRequest;
-use App\Http\Requests\UpdateKematianRequest;
 use App\Models\Kematian;
 use App\Models\Warga;
 use Illuminate\Http\Request;
@@ -13,10 +11,20 @@ class KematianController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $kematians = Kematian::with('warga')->get();
         $title = "Kematian";
+        $search = $request->strquery;
+        $kematians = Kematian::with('warga');
+
+        if ($search) {
+            $kematians->where('nik', 'like', '%' . strval($search) . '%');
+        }
+        if ($search == "") {
+            $kematians->get();
+        }
+
+        $kematians = $kematians->get();
         return view("kematian.index", compact("title", "kematians"));
     }
 
@@ -33,6 +41,12 @@ class KematianController extends Controller
      */
     public function store(Request $request)
     {
+        $warga = Warga::where('nik', $request->nik)->first();
+
+        if (!$warga) {
+            return "<script>alert('NIK Belum Terdaftar Di Data Warga'); window.location = '/kematian';</script>";
+        }
+
         $data = [
             'nik' => $request->nik,
             'nik_pelapor' => $request->nik_pelapor,

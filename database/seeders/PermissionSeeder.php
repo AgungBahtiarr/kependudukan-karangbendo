@@ -72,6 +72,12 @@ class PermissionSeeder extends Seeder
             "update_kematians",
             "update_kematians_status",
 
+            #laporan
+            "create_laporan",
+            "read_laporan",
+            "edit_laporan",
+            "update_laporan",
+
             # Logout
             "logout",
         ];

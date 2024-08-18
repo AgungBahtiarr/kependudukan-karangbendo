@@ -9,18 +9,47 @@ use App\Models\Warga;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
+use function Laravel\Prompts\alert;
+
 class PenerimaBansosController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = "Data Bansos";
+        $search = $request->strquery;
+        $select = $request->input('status');
+        $bansoses = PenerimaBansos::with('program', 'riwayat');
+        $programs = ProgramBansos::get();
 
-        $bansoses = PenerimaBansos::with('program', 'riwayat')->get();
-        // return $bansoses;
-        return view("bansos.index", compact('title', 'bansoses'));
+        if ($search) {
+            $bansoses->where('nik', 'like', '%' . strval($search) . '%');
+        }
+        if ($search == "") {
+            $bansoses->get();
+        }
+
+        if ($select == 'aktif') {
+            $bansoses->where('status', '1');
+        }
+
+        if ($select == 'non aktif') {
+            $bansoses->where('status', '0');
+        }
+
+        foreach ($programs as $program) {
+            if ($select == $program->nama_program) {
+                $bansoses->whereHas('program', function ($q) use ($program) {
+                    $q->where('nama_program', $program->nama_program);
+                });
+            }
+        }
+
+        $bansoses = $bansoses->get();
+
+        return view("bansos.index", compact('title', 'bansoses', 'programs'));
     }
 
 
@@ -62,14 +91,11 @@ class PenerimaBansosController extends Controller
      */
     public function store(Request $request)
     {
-        // $data = [
-        //     'nik' => $request->nik,
-        //     'jenis_bantuan' => $request->jenis_bantuan,
-        //     'periode_bulan' => $request->periode_bulan,
-        //     'periode_tahun' => $request->periode_tahun,
-        //     'nominal' => $request->nominal,
-        //     'created_by' => auth()->user()->id
-        // ];
+        $warga = Warga::where('nik', $request->nik)->first();
+
+        if (!$warga) {
+            return "<script>alert('NIK Belum Terdaftar Di Data Warga'); window.location = '/bansos';</script>";
+        }
 
         $data = [
             'nik' => $request->nik,

@@ -13,9 +13,21 @@ class ProgramBansosController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $programs =  ProgramBansos::all();
+        $programs = ProgramBansos::query();
+        $search = $request->strquery;
+
+        if ($search) {
+            $programs->where('nama_program', 'like', '%' . strval($search) . '%');
+        }
+
+        if ($search == "") {
+            $programs->get();
+        }
+
+        $programs = $programs->get();
+
         return view('program_bansos.index', compact('programs'));
     }
 
@@ -69,6 +81,7 @@ class ProgramBansosController extends Controller
     public function edit($id)
     {
         $program = ProgramBansos::findOrFail($id);
+
         return view('program_bansos.edit', compact('program'));
     }
 

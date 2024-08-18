@@ -12,49 +12,6 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    {{-- <div class="row mb-4">
-
-                        <div class="col-md-3 iq-search-bar device-search">
-                            <form action="" class="">
-                                <input type="text" class="text search-input" placeholder="Cari" name="strquery">
-                            </form>
-                        </div>
-
-                        <form action="" class="col-span-2">
-                            <div class="relative">
-                                <input type="text" placeholder="Cari Nama / NIK ..."
-                                    class="w-full pl-4 pr-10 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#fafbfe]"
-                                    name="strquery">
-                                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                    </svg>
-                                </div>
-                            </div>
-                        </form>
-
-                        <div class="col-md-6">
-                            <select class="form-control" id="select-cargas-status-filter" name="filter">
-                                <option value="all" {{ request('status') == 'all' ? 'selected' : '' }}>Semua</option>
-                                <option value="yes" {{ request('status') == 'yes' ? 'selected' : '' }}>Terverifikasi
-                                </option>
-                                <option value="no" {{ request('status') == 'no' ? 'selected' : '' }}>Belum Terverifikasi
-                                </option>
-                            </select>
-                        </div>
-
-                        @can('create_cargas')
-                            <div class="col-md-3 items-end">
-                                <a href={{ route('cargas.create1') }} type="button" class="btn btn-primary btn-block">
-                                    <i class="ri-user-add-line"></i>
-                                    Tambah Catatan Rumah Tangga
-                                </a>
-                            </div>
-                        @endcan
-                    </div> --}}
-
                     <div class="grid grid-cols-1 md:grid-cols-2 mb-3 lg:grid-cols-4 gap-1">
                         <form action="" class="col-span-2">
                             <div class="relative">
@@ -71,15 +28,6 @@
                             </div>
                         </form>
 
-                        {{-- <div class="">
-                            <select class="form-control" id="select-cargas-status-filter" name="filter">
-                                <option value="all" {{ request('status') == 'all' ? 'selected' : '' }}>Semua</option>
-                                <option value="yes" {{ request('status') == 'yes' ? 'selected' : '' }}>Terverifikasi
-                                </option>
-                                <option value="no" {{ request('status') == 'no' ? 'selected' : '' }}>Belum Terverifikasi
-                                </option>
-                            </select>
-                        </div> --}}
 
                         <div class="">
                             <!-- Button trigger modal -->
@@ -237,12 +185,6 @@
 
 @section('script')
     <script>
-        // $(function() {
-        //     $('#select-cargas-status-filter').change(e => {
-        //         window.location.href =
-        //             `{{ route('cargas.index') }}${$(e.target).val() ? `?status=${$(e.target).val()}` : ''}`;
-        //     });
-        // });
 
         $(function() {
             $('#select-warga-status-filter').change(function(e) {

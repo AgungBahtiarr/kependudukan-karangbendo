@@ -23,6 +23,11 @@ class RoleSeeder extends Seeder
             "guard_name" => "web",
         ]);
 
+        $pimpinanRole = Role::create([
+            "name" => "Pimpinan",
+            "guard_name" => "web"
+        ]);
+
         $adminRole->givePermissionTo(
             "dashboard_access",
             #user
@@ -80,6 +85,12 @@ class RoleSeeder extends Seeder
             "update_bansos",
             "update_bansos_status",
 
+            #laporan
+            "create_laporan",
+            "read_laporan",
+            "edit_laporan",
+            "update_laporan",
+
             "logout"
         );
 
@@ -121,12 +132,45 @@ class RoleSeeder extends Seeder
             "update_industries",
             "update_industries_status",
 
+            // #bansos
+            // "create_bansos",
+            // "read_bansos",
+            // "edit_bansos",
+            // "update_bansos",
+            // "update_bansos_status",
+
+            "logout"
+        );
+
+
+        $pimpinanRole->givePermissionTo(
+            "dashboard_access",
+            #user
+            "read_users",
+
+            #warga
+            "read_wargas",
+
+            #kematian
+            "read_kematians",
+
+            #dawis
+            "read_dawis",
+
+            #cargas
+            "read_cargas",
+
+            #pekarangans
+            "read_pekarangans",
+
+            #industri
+            "read_industries",
+
             #bansos
-            "create_bansos",
             "read_bansos",
-            "edit_bansos",
-            "update_bansos",
-            "update_bansos_status",
+
+            #laporan
+            "read_laporan",
 
             "logout"
         );

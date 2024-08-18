@@ -13,12 +13,12 @@
                     <div class="form-group">
                         <label for="nama_program">Nama Program</label>
                         <input type="text" name="nama_program" class="form-control" required
-                            value={{ $program->nama_program }}>
+                            value="{{ $program->nama_program }}">
                     </div>
                     <div class="form-group">
                         <label for="sumber_dana">Sumber Dana</label>
                         <input type="text" name="sumber_dana" class="form-control" required
-                            value={{ $program->sumber_dana }}>
+                            value="{{ $program->sumber_dana }}">
                     </div>
 
                     <div class="form-group">
@@ -33,7 +33,7 @@
                     <div class="form-group">
                         <label for="detail_bantuan">Detail Bantuan</label>
                         <input type="text" name="detail_bantuan" class="form-control" required
-                            value={{ $program->detail_bantuan }}>
+                            value="{{ $program->detail_bantuan }}">
                     </div>
                 </div>
 
