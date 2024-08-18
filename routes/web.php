@@ -109,23 +109,35 @@ Route::middleware('auth')->group(function () {
         Route::get('/create1', [CatatanRumahTanggaController::class, 'create1'])->middleware('can:create_cargas')->name('cargas.create1');
         Route::get('/create2', [CatatanRumahTanggaController::class, 'create2'])->middleware('can:create_cargas')->name('cargas.create2');
         Route::get('/create3', [CatatanRumahTanggaController::class, 'create3'])->middleware('can:create_cargas')->name('cargas.create3');
+
         Route::post('/store1', [CatatanRumahTanggaController::class, 'store1'])->middleware('can:create_cargas')->name('cargas.store1');
         Route::post('/store2', [CatatanRumahTanggaController::class, 'store2'])->middleware('can:create_cargas')->name('cargas.store2');
         Route::post('/store3', [CatatanRumahTanggaController::class, 'store3'])->middleware('can:create_cargas')->name('cargas.store3');
+
         Route::post('/store/back', [CatatanRumahTanggaController::class, 'backTo'])->middleware('can:create_cargas')->name('cargas.back');
         Route::post('/store/back2', [CatatanRumahTanggaController::class, 'backTo2'])->middleware('can:create_cargas')->name('cargas.back2');
+
         Route::get('/show/{id}', [CatatanRumahTanggaController::class, 'show'])->middleware('can:read_cargas')->name('cargas.show');
         Route::get('/show2/{id}', [CatatanRumahTanggaController::class, 'show2'])->middleware('can:read_cargas')->name('cargas.show2');
+
         Route::get('/verify/{id}', [CatatanRumahTanggaController::class, 'verify'])->middleware('can:edit_cargas')->name('cargas.verify');
+
         Route::get('/edit1/{id}', [CatatanRumahTanggaController::class, 'edit1'])->name('cargas.edit1');
         Route::get('/edit2/{id}', [CatatanRumahTanggaController::class, 'edit2'])->name('cargas.edit2');
         Route::get('/edit3/{id}', [CatatanRumahTanggaController::class, 'edit3'])->name('cargas.edit3');
+
         Route::patch('/update1', [CatatanRumahTanggaController::class, 'update1'])->name('cargas.update1');
         Route::patch('/update2', [CatatanRumahTanggaController::class, 'update2'])->name('cargas.update2');
         Route::patch('/update3', [CatatanRumahTanggaController::class, 'update3'])->name('cargas.update3');
+
         Route::post('/isNkkInang/{id}', [CatatanRumahTanggaController::class, 'isNkkInang']);
         Route::post('/isUp2k/{id}', [CatatanRumahTanggaController::class, 'isUp2k']);
+
         Route::delete('/{id}', [CatatanRumahTanggaController::class, 'destroy'])->name('cargas.delete');
+
+        // Route::get('/filter/kriteria-rumah', [CatatanRumahTanggaController::class, 'kriteriaRumah'])->name('cargas.filter-kriteria-rumah');
+        Route::get('/filter/sumber-air', [CatatanRumahTanggaController::class, 'sumberAir'])->name('cargas.filter-sumber-air');
+        Route::get('/filter/makanan-pokok', [CatatanRumahTanggaController::class, 'makananPokok'])->name('cargas.filter-makanan-pokok');
     });
 
     Route::prefix('pekarangans')->group(function () {

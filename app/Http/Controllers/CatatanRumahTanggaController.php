@@ -25,16 +25,41 @@ class CatatanRumahTanggaController extends Controller
 
         if ($seacrhQuery) {
             $cargas->where('nkk', 'like', '%' . strval($seacrhQuery) . '%');
-        }elseif ($seacrhQuery == "") {
+        } elseif ($seacrhQuery == "") {
             $cargas->get();
         }
 
         if ($select == 'yes') {
             $cargas->where('verified', 'yes');
-        } elseif ($select == 'no') {
+        }
+        if ($select == 'no') {
             $cargas->where('verified', 'no');
-        }elseif($select == 'all'){
+        }
+        if ($select == 'all') {
             $cargas->get();
+        }
+
+        if ($select == 'rumah_layak') {
+            $cargas->where('kriteria_rumah', '1');
+        }
+
+        if ($select == 'rumah_tidak_layak') {
+            $cargas->where('kriteria_rumah', '0');
+        }
+
+        if ($request->filterSumberAir) {
+            $cargas->where('id_sumber_air', $request->filterSumberAir);
+        }
+
+        if ($request->filterMakananPokok) {
+            $cargas->where('id_makanan_pokok', $request->filterMakananPokok);
+        }
+
+        if ($select == 'ada_nkk_inang') {
+            $cargas->where('satu_rumah_satu_kk', '1');
+        }
+        if ($select == 'tidak_ada_nkk_inang') {
+            $cargas->where('satu_rumah_satu_kk', '0');
         }
 
         $cargas = $cargas->get();
@@ -42,6 +67,22 @@ class CatatanRumahTanggaController extends Controller
 
         return view("catatan_rumah_tangga.index", compact('cargas', 'title'));
     }
+
+
+    public function sumberAir()
+    {
+        $sumbers = SumberAir::all();
+        $makanans = MakananPokok::all();
+        return view("catatan_rumah_tangga.partials.form", compact('sumbers'))->fragment('sumber-air');
+    }
+
+    public function makananPokok()
+    {
+        $sumbers = SumberAir::all();
+        $makanans = MakananPokok::all();
+        return view("catatan_rumah_tangga.partials.form", compact('sumbers', 'makanans'))->fragment('makanan-pokok');
+    }
+
 
     /**
      * Show the form for creating a new resource.
