@@ -102,8 +102,6 @@ class RoleSeeder extends Seeder
         );
 
         $kaderRole->givePermissionTo(
-            "dashboard_access",
-
             #warga
             "create_wargas",
             "read_wargas",
