@@ -63,70 +63,73 @@
                     </div>
 
 
-                    <table id="datatable" class="table data-table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>NIK</th>
-                                <th>Sumber Dana</th>
-                                <th>Jenis Bantuan</th>
-                                <th>Detail Bantuan</th>
-                                <th>Status</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($bansoses as $bansos)
+                    <div class="overflow-x-scroll md:overflow-x-hidden w-full">
+                        <table id="datatable" class="table data-table table-striped table-bordered">
+                            <thead>
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $bansos->nik }}</td>
-                                    <td>{{ $bansos->program->nama_program }}</td>
-                                    <td>{{ $bansos->program->jenis_bantuan }}</td>
-                                    <td>{{ $bansos->program->detail_bantuan }}</td>
-                                    <td>{{ $bansos->status == '1' ? 'Aktif' : 'Non-Aktif' }}</td>
-                                    <td>
-                                        @can('edit_bansos')
-                                            <a href="{{ route('bansos.edit', $bansos->id) }}"
-                                                class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
-                                                <i class="ri-edit-2-line"></i>
-                                                Edit
-                                            </a>
-                                        @endcan
-
-                                        @can('delete_bansos')
-                                            <a class="btn btn-danger btn-sm mr-2 my-1 edit-btn"
-                                                hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
-                                                hx-delete={{ route('bansos.delete', $bansos->id) }}><i
-                                                    class="ri-delete-bin-2-line"></i>Delete</a>
-                                        @endcan
-
-
-                                        @can('edit_bansos')
-                                            <div hx-get={{ route('bansos.isLog', $bansos->id) }} hx-trigger="load"
-                                                hx-target="this" hx-swap="innerHtml">
-                                            </div>
-                                        @endcan
-
-
-                                        @can('edit_bansos')
-                                            @if ($bansos->status == '1')
-                                                <button class="btn btn-light btn-sm mr-2"
-                                                    hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
-                                                    hx-post="/bansos/status/{{ $bansos->id }}/0"
-                                                    hx-trigger="click">Non-Aktifkan</button>
-                                            @else
-                                                <button class="btn btn-light btn-sm mr-2"
-                                                    hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
-                                                    hx-post="/bansos/status/{{ $bansos->id }}/1"
-                                                    hx-trigger="click">Aktifkan</button>
-                                            @endif
-                                        @endcan
-
-                                    </td>
+                                    <th>No</th>
+                                    <th>NIK</th>
+                                    <th>Sumber Dana</th>
+                                    <th>Jenis Bantuan</th>
+                                    <th>Detail Bantuan</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($bansoses as $bansos)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $bansos->nik }}</td>
+                                        <td>{{ $bansos->program->nama_program }}</td>
+                                        <td>{{ $bansos->program->jenis_bantuan }}</td>
+                                        <td>{{ $bansos->program->detail_bantuan }}</td>
+                                        <td>{{ $bansos->status == '1' ? 'Aktif' : 'Non-Aktif' }}</td>
+                                        <td>
+                                            @can('edit_bansos')
+                                                <a href="{{ route('bansos.edit', $bansos->id) }}"
+                                                    class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
+                                                    <i class="ri-edit-2-line"></i>
+                                                    Edit
+                                                </a>
+                                            @endcan
+
+                                            @can('delete_bansos')
+                                                <a class="btn btn-danger btn-sm mr-2 my-1 edit-btn"
+                                                    hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
+                                                    hx-delete={{ route('bansos.delete', $bansos->id) }}><i
+                                                        class="ri-delete-bin-2-line"></i>Delete</a>
+                                            @endcan
+
+
+                                            @can('edit_bansos')
+                                                <div hx-get={{ route('bansos.isLog', $bansos->id) }} hx-trigger="load"
+                                                    hx-target="this" hx-swap="innerHtml">
+                                                </div>
+                                            @endcan
+
+
+                                            @can('edit_bansos')
+                                                @if ($bansos->status == '1')
+                                                    <button class="btn btn-light btn-sm mr-2"
+                                                        hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
+                                                        hx-post="/bansos/status/{{ $bansos->id }}/0"
+                                                        hx-trigger="click">Non-Aktifkan</button>
+                                                @else
+                                                    <button class="btn btn-light btn-sm mr-2"
+                                                        hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
+                                                        hx-post="/bansos/status/{{ $bansos->id }}/1"
+                                                        hx-trigger="click">Aktifkan</button>
+                                                @endif
+                                            @endcan
+
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
             </div>
         </div>

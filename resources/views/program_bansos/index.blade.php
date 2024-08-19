@@ -40,44 +40,47 @@
                         @endcan
                     </div>
 
-                    <table id="datatable" class="table data-table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Program</th>
-                                <th>Sumber Dana</th>
-                                <th>Jenis Bantuan</th>
-                                <th>Detail Bantuan</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($programs as $program)
+                    <div class="overflow-x-scroll md:overflow-x-hidden w-full">
+                        <table id="datatable" class="table data-table table-striped table-bordered">
+                            <thead>
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $program->nama_program }}</td>
-                                    <td>{{ $program->sumber_dana }}</td>
-                                    <td>{{ $program->jenis_bantuan }}</td>
-                                    <td>{{ $program->detail_bantuan }}</td>
-                                    <td>
-                                        @can('edit_bansos')
-                                            <a href="{{ route('programbansos.edit', $program->id) }}"
-                                                class="btn btn-secondary btn-sm mr-2 my-1 edit-btn">
-                                                <i class="ri-edit-2-line"></i>
-                                                Edit
-                                            </a>
-                                        @endcan
-
-                                        @can('delete_bansos')
-                                            <div hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
-                                                hx-post={{ route('programbansos.is-used', $program->id) }} hx-trigger="load"
-                                                hx-swap="innerHtml" hx-target="this"></div>
-                                        @endcan
-                                    </td>
+                                    <th>No</th>
+                                    <th>Nama Program</th>
+                                    <th>Sumber Dana</th>
+                                    <th>Jenis Bantuan</th>
+                                    <th>Detail Bantuan</th>
+                                    <th>Aksi</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($programs as $program)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $program->nama_program }}</td>
+                                        <td>{{ $program->sumber_dana }}</td>
+                                        <td>{{ $program->jenis_bantuan }}</td>
+                                        <td>{{ $program->detail_bantuan }}</td>
+                                        <td>
+                                            @can('edit_bansos')
+                                                <a href="{{ route('programbansos.edit', $program->id) }}"
+                                                    class="btn btn-secondary btn-sm mr-2 my-1 edit-btn">
+                                                    <i class="ri-edit-2-line"></i>
+                                                    Edit
+                                                </a>
+                                            @endcan
+
+                                            @can('delete_bansos')
+                                                <div hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
+                                                    hx-post={{ route('programbansos.is-used', $program->id) }} hx-trigger="load"
+                                                    hx-swap="innerHtml" hx-target="this"></div>
+                                            @endcan
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
             </div>
         </div>

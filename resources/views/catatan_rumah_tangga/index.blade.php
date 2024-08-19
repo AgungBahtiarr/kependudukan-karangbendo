@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <div class="grid grid-cols-1 md:grid-cols-2 mb-3 lg:grid-cols-4 gap-1">
                         @can('read_cargas')
-                            <form action="" class="col-span-2">
+                            <form action="" class="md:col-span-2">
                                 <div class="relative">
                                     <input type="text" placeholder="Cari Nama / NIK ..."
                                         class="w-full pl-4 pr-10 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#fafbfe]"
@@ -127,67 +127,70 @@
                         @endcan
                     </div>
 
-                    <table id="datatable" class="table data-table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>NKK</th>
-                                <th>Kriteria Rumah</th>
-                                <th>Sumber air</th>
-                                <th>Satu Rumah Satu KK</th>
-                                @role('Admin')
-                                    <th>Status</th>
-                                @endrole
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($cargas as $carga)
+                    <div class="overflow-x-scroll md:overflow-x-hidden w-full">
+                        <table id="datatable" class="table data-table table-striped table-bordered">
+                            <thead>
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $carga->nkk }}</td>
-                                    <td>{{ $carga->kriteria_rumah == '1' ? 'Layak huni' : 'Tidak Layak Huni' }}</td>
-                                    <td>{{ $carga->sumber_air->nama_sumber_air }}</td>
-                                    <td>{{ $carga->satu_rumah_satu_kk == '1' ? 'Ya' : 'Tidak' }}</td>
+                                    <th>No</th>
+                                    <th>NKK</th>
+                                    <th>Kriteria Rumah</th>
+                                    <th>Sumber air</th>
+                                    <th>Satu Rumah Satu KK</th>
                                     @role('Admin')
-                                        <td>
-                                            @if ($carga->verified == 'yes')
-                                                Terverifikasi
-                                            @else
-                                                Belum Terverifikasi
-                                            @endif
-                                        </td>
+                                        <th>Status</th>
                                     @endrole
-                                    @can('edit_cargas')
-                                        @if ($carga->verified == 'no')
-                                            <a href={{ route('cargas.verify', $carga->id) }}
-                                                class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
-                                                <i class="ri-check-line"></i>
-                                                Verifikasi
-                                            </a>
-                                        @endif
-                                    @endcan
-                                    <td>
-                                        @can('read_cargas')
-                                            <a href="{{ route('cargas.show', $carga->id) }}"
-                                                class="btn btn-primary btn-sm mr-2 my-1 edit-btn">
-                                                <i class="ri-information-fill"></i>
-                                                Detail
-                                            </a>
-                                        @endcan
-
-                                        @can('delete_cargas')
-                                            <a class="btn btn-danger btn-sm mr-2 my-1 edit-btn"
-                                                hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
-                                                hx-delete={{ route('cargas.delete', $carga->id) }}><i
-                                                    class="ri-delete-bin-2-line"></i>Delete</a>
-                                        @endcan
-
-                                    </td>
+                                    <th>Aksi</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($cargas as $carga)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $carga->nkk }}</td>
+                                        <td>{{ $carga->kriteria_rumah == '1' ? 'Layak huni' : 'Tidak Layak Huni' }}</td>
+                                        <td>{{ $carga->sumber_air->nama_sumber_air }}</td>
+                                        <td>{{ $carga->satu_rumah_satu_kk == '1' ? 'Ya' : 'Tidak' }}</td>
+                                        @role('Admin')
+                                            <td>
+                                                @if ($carga->verified == 'yes')
+                                                    Terverifikasi
+                                                @else
+                                                    Belum Terverifikasi
+                                                @endif
+                                            </td>
+                                        @endrole
+                                        @can('edit_cargas')
+                                            @if ($carga->verified == 'no')
+                                                <a href={{ route('cargas.verify', $carga->id) }}
+                                                    class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
+                                                    <i class="ri-check-line"></i>
+                                                    Verifikasi
+                                                </a>
+                                            @endif
+                                        @endcan
+                                        <td>
+                                            @can('read_cargas')
+                                                <a href="{{ route('cargas.show', $carga->id) }}"
+                                                    class="btn btn-primary btn-sm mr-2 my-1 edit-btn">
+                                                    <i class="ri-information-fill"></i>
+                                                    Detail
+                                                </a>
+                                            @endcan
+
+                                            @can('delete_cargas')
+                                                <a class="btn btn-danger btn-sm mr-2 my-1 edit-btn"
+                                                    hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
+                                                    hx-delete={{ route('cargas.delete', $carga->id) }}><i
+                                                        class="ri-delete-bin-2-line"></i>Delete</a>
+                                            @endcan
+
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
             </div>
         </div>
