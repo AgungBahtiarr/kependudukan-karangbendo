@@ -21,7 +21,7 @@
                     </div>
                     <div class="form-group">
                         <label for="nik">NIK</label>
-                        <input type="text" name="nik" class="form-control">
+                        <input type="text" name="nik" class="form-control" minlength="16" maxlength="16">
                         @error('nik')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
