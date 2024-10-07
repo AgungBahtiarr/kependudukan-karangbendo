@@ -15,7 +15,7 @@
                     </div>
                     <div class="form-group">
                         <label for="nik_pelapor">NIK Pelapor</label>
-                        <input type="text" name="nik_pelapor" inputmode="numeric" minlength="16" maxlength="16" class="form-control" required>
+                        <input type="text" inputmode="numeric" name="nik_pelapor" inputmode="numeric" minlength="16" maxlength="16" class="form-control" required>
                     </div>
                 </div>
 

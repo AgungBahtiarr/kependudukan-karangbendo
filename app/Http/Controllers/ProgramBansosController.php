@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreProgramBansosRequest;
-use App\Http\Requests\UpdateProgramBansosRequest;
 use App\Models\PenerimaBansos;
 use App\Models\ProgramBansos;
 use Illuminate\Http\Request;

@@ -237,6 +237,7 @@ class WargaController extends Controller
                 $data
             );
         } catch (QueryException $e) {
+            return $e;
             $errorCode = $e->getCode();
             $errorMessage = 'Mohon maaf, terjadi kesalahan saat menyimpan data.';
 
@@ -292,6 +293,7 @@ class WargaController extends Controller
      */
     public function show($id)
     {
+        $title = 'Detail Warga';
         $warga = Warga::with('agama', 'pendidikan', 'pekerjaan', 'statusPerkawinan')->findOrFail($id);
 
         $perkawinan = StatusPerkawinan::get();

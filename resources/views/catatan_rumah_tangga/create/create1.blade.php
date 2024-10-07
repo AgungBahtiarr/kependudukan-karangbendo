@@ -49,6 +49,11 @@
                     <div class="iq-alert-text">{{ $errors->first() }}</div>
                 </div>
             @enderror
+            @error('add1')
+                <div class="alert alert-danger" role="alert">
+                    <div class="iq-alert-text">{{ $errors->first() }}</div>
+                </div>
+            @enderror
         </div>
 
         <div class="w-full bg-white my-6 py-4 px-4 rounded-lg">

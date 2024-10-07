@@ -70,21 +70,20 @@
                                                             {{ request('status') == 'domisili_tidak_sesuai' ? 'selected' : '' }}>
                                                             Domisili Tidak
                                                             Sesuai KTP</option>
-                                                        <option hx-get={{ route('wargas.filter-pendidikan') }}
-                                                            hx-trigger="click" hx-swap="innerHtml" hx-target="#formFilter"
-                                                            value="pendidikan"
+                                                        <option hx-get="/warga/filter/pendidikan" hx-trigger="click"
+                                                            hx-swap="innerHtml" hx-target="#formFilter" value="pendidikan"
                                                             {{ request('status') == 'pendidikan' ? 'selected' : '' }}>
                                                             Pendidikan
                                                         </option>
-                                                        <option hx-get={{ route('wargas.filter-agama') }} hx-trigger="click"
+                                                        <option hx-get="/warga/filter/agama" hx-trigger="click"
                                                             hx-swap="innerHtml" hx-target="#formFilter" value="agama"
                                                             {{ request('status') == 'agama' ? 'selected' : '' }}>Agama</option>
                                                         <option hx-get={{ route('wargas.filter-pekerjaan') }} hx-trigger="click"
                                                             hx-swap="innerHtml" hx-target="#formFilter" value="pekerjaan"
                                                             {{ request('status') == 'pekerjaan' ? 'selected' : '' }}>Pekerjaan
                                                         </option>
-                                                        <option hx-get={{ route('wargas.filter-status-perkawinan') }}
-                                                            hx-trigger="click" hx-swap="innerHtml" hx-target="#formFilter"
+                                                        <option hx-get="/warga/filter/status-perkawinan" hx-trigger="click"
+                                                            hx-swap="innerHtml" hx-target="#formFilter"
                                                             value="status-perkawinan"
                                                             {{ request('status') == 'status-perkawinan' ? 'selected' : '' }}>
                                                             Status Perkawinan
@@ -181,7 +180,7 @@
                                             </div>
 
                                             @can('delete_wargas')
-                                                <a class="btn btn-danger btn-sm mr-2 my-1 edit-btn"
+                                                <a id="btn-delete" class="btn btn-danger btn-sm mr-2 my-1 text-white"
                                                     hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
                                                     hx-delete="/warga/{{ $warga->id }}"><i
                                                         class="ri-delete-bin-2-line"></i>Delete</a>

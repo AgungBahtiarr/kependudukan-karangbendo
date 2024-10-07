@@ -33,14 +33,23 @@
                         @endcan
 
                         @can('read_bansos')
-                            <div class="lg:col-span-2">
+                            <div class="lg:col-span-1">
                                 <select class="form-control" id="select-filter" name="filter">
                                     <option value="" {{ request('status') == '' ? 'selected' : '' }}>Filter Berdasarkan
                                     </option>
                                     <option value="aktif" {{ request('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
                                     <option value="non aktif" {{ request('status') == 'non aktif' ? 'selected' : '' }}>Non Aktif
                                     </option>
+                                </select>
+                            </div>
 
+                        @endcan
+                        @can('read_bansos')
+                            <div class="lg:col-span-1">
+                                <select class="form-control" id="select-filter" name="filter">
+                                    <option value="" {{ request('status') == '' ? 'selected' : '' }}>Filter Berdasarkan
+                                        Program
+                                    </option>
                                     @foreach ($programs as $program)
                                         <option value="{{ $program->nama_program }}"
                                             {{ request('status') == $program->nama_program ? 'selected' : '' }}>
@@ -95,7 +104,7 @@
                                             @endcan
 
                                             @can('delete_bansos')
-                                                <a class="btn btn-danger btn-sm mr-2 my-1 edit-btn"
+                                                <a id="btn-delete" class="btn btn-danger btn-sm mr-2 my-1 edit-btn"
                                                     hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
                                                     hx-delete={{ route('bansos.delete', $bansos->id) }}><i
                                                         class="ri-delete-bin-2-line"></i>Delete</a>

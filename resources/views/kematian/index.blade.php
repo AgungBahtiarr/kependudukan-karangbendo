@@ -82,7 +82,7 @@
                                             @endcan
 
                                             @can('delete_kematians')
-                                                <a class="btn btn-danger btn-sm mr-2 my-1 edit-btn"
+                                                <a id="btn-delete" class="btn btn-danger btn-sm mr-2 my-1 edit-btn"
                                                     hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
                                                     hx-delete={{ route('kematian.delete', $kematian->id) }}>
                                                     <i class="ri-delete-bin-2-line"></i>Delete

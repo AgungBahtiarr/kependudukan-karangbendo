@@ -125,7 +125,7 @@
 
                 <div class="modal-footer">
                     <a href="/cargas" type="button" class="btn btn-secondary" data-dismiss="modal">Batal</a>
-                    <button type="submit" class="btn btn-primary">Selanjutnya</a>
+                    <button type="submit" class="btn btn-primary">Simpan</a>
                 </div>
             </form>
         </div>

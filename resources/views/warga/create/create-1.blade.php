@@ -115,7 +115,7 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div class="form-group">
                         <label for="agama">Agama</label>
-                        <select class="form-control" aria-label="Default select example" name="id_agama">
+                        <select class="form-control" aria-label="Default select example" name="id_agama" required>
                             @if ($wargaSession)
                                 @foreach ($agamas as $agama)
                                     <option value={{ $agama->id }}
@@ -124,7 +124,7 @@
                                     </option>
                                 @endforeach
                             @else
-                                <option selected>Pilih Agama</option>
+                                <option value="" selected disabled>Pilih Agama</option>
                                 @foreach ($agamas as $agama)
                                     <option value={{ $agama->id }}>{{ $agama->nama_agama }}</option>
                                 @endforeach
@@ -134,7 +134,7 @@
                     </div>
                     <div class="form-group">
                         <label for="pendidikan">Pendidikan</label>
-                        <select class="form-control" name="id_pendidikan">
+                        <select class="form-control" name="id_pendidikan" required>
                             @if ($wargaSession)
                                 @foreach ($pendidikans as $pendidikan)
                                     <option value={{ $pendidikan->id }}
@@ -143,7 +143,7 @@
                                     </option>
                                 @endforeach
                             @else
-                                <option selected>Pilih Pendidikan</option>
+                                <option value="" selected disabled>Pilih Pendidikan</option>
                                 @foreach ($pendidikans as $pendidikan)
                                     <option value={{ $pendidikan->id }}>{{ $pendidikan->nama_pendidikan }}</option>
                                 @endforeach
@@ -166,23 +166,23 @@
                                     </option>
                                 @endforeach
                             @else
-                                <option selected>Pilih Status Perkawinan</option>
+                                <option value="" selected>Pilih Status Perkawinan</option>
                                 @foreach ($perkawinan as $kawin)
-                                    <option value={{ $kawin->id }}>{{ $kawin->nama_status_kawin }}</option>
+                                    <option  value={{ $kawin->id }}>{{ $kawin->nama_status_kawin }}</option>
                                 @endforeach
                             @endif
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="status_keluarga">Status Dalam Keluarga</label>
-                        <select class="form-control" aria-label="Default select example" name="status_keluarga">
+                        <select class="form-control" aria-label="Default select example" name="status_keluarga" required>
                             @if ($wargaSession)
                                 <option value="0" {{ $wargaSession['status_keluarga'] == '0' ? 'selected' : '' }}>
                                     Anggota Keluarga</option>
                                 <option value="1" {{ $wargaSession['status_keluarga'] == '1' ? 'selected' : '' }}>
                                     Kepala Keluarga</option>
                             @else
-                                <option selected>Pilih Status Dalam Keluarga</option>
+                                <option value="" selected>Pilih Status Dalam Keluarga</option>
                                 <option value="0">Anggota Keluarga</option>
                                 <option value="1">Kepala Keluarga</option>
                             @endif
@@ -193,7 +193,7 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div class="form-group">
                         <label for="pekerjaan">Pekerjaan</label>
-                        <select class="form-control" aria-label="Default select example" name="id_pekerjaan">
+                        <select class="form-control" aria-label="Default select example" name="id_pekerjaan" required>
                             @if ($wargaSession)
                                 @foreach ($pekerjaans as $pekerjaan)
                                     <option value={{ $pekerjaan->id }}
@@ -202,7 +202,7 @@
                                     </option>
                                 @endforeach
                             @else
-                                <option selected>Pilih Pekerjaan</option>
+                                <option  value="">Pilih Pekerjaan</option>
                                 @foreach ($pekerjaans as $pekerjaan)
                                     <option value={{ $pekerjaan->id }}>{{ $pekerjaan->nama_pekerjaan }}</option>
                                 @endforeach
@@ -211,7 +211,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="jabatan">Jabatan</label>
+                        <label for="jabatan">Jabatan (Jika Ada)</label>
                         <input type="text" name="jabatan" class="form-control"
                             value={{ $wargaSession ? $wargaSession['jabatan'] : '' }}>
                     </div>

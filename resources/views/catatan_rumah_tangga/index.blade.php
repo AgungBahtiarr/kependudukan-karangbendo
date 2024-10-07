@@ -16,7 +16,7 @@
                         @can('read_cargas')
                             <form action="" class="md:col-span-2">
                                 <div class="relative">
-                                    <input type="text" placeholder="Cari Nama / NIK ..."
+                                    <input type="text" placeholder="Cari NIK ..."
                                         class="w-full pl-4 pr-10 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#fafbfe]"
                                         name="strquery">
                                     <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
@@ -83,16 +83,14 @@
                                                             Tidak dengan NKK Induk
                                                         </option>
 
-                                                        <option hx-get={{ route('cargas.filter-sumber-air') }}
-                                                            hx-trigger="click" hx-swap="innerHtml" hx-target="#formFilter"
-                                                            value="sumber-air"
+                                                        <option hx-get="/cargas/filter/sumber-air" hx-trigger="click"
+                                                            hx-swap="innerHtml" hx-target="#formFilter" value="sumber-air"
                                                             {{ request('status') == 'sumber-air' ? 'selected' : '' }}>
                                                             Sumber Air
                                                         </option>
 
-                                                        <option hx-get={{ route('cargas.filter-makanan-pokok') }}
-                                                            hx-trigger="click" hx-swap="innerHtml" hx-target="#formFilter"
-                                                            value="makanan-pokok"
+                                                        <option hx-get="/cargas/filter/makanan-pokok" hx-trigger="click"
+                                                            hx-swap="innerHtml" hx-target="#formFilter" value="makanan-pokok"
                                                             {{ request('status') == 'makanan-pokok' ? 'selected' : '' }}>
                                                             Makanan Pokok
                                                         </option>
@@ -159,16 +157,16 @@
                                                 @endif
                                             </td>
                                         @endrole
-                                        @can('edit_cargas')
-                                            @if ($carga->verified == 'no')
-                                                <a href={{ route('cargas.verify', $carga->id) }}
-                                                    class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
-                                                    <i class="ri-check-line"></i>
-                                                    Verifikasi
-                                                </a>
-                                            @endif
-                                        @endcan
                                         <td>
+                                            @role('Admin')
+                                                @if ($carga->verified == 'no')
+                                                    <a href={{ route('cargas.verify', $carga->id) }}
+                                                        class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
+                                                        <i class="ri-check-line"></i>
+                                                        Verifikasi
+                                                    </a>
+                                                @endif
+                                            @endrole
                                             @can('read_cargas')
                                                 <a href="{{ route('cargas.show', $carga->id) }}"
                                                     class="btn btn-primary btn-sm mr-2 my-1 edit-btn">
@@ -177,8 +175,28 @@
                                                 </a>
                                             @endcan
 
+                                            @can('create_cargas')
+                                                @if ($carga->pemanfaatan_pekarangan == '1')
+                                                    <a href="{{ route('pekarangans.create', $carga->id) }}"
+                                                        class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
+                                                        <i class="ri-information-fill"></i>
+                                                        Tambah Data Pekarangan
+                                                    </a>
+                                                @endif
+                                            @endcan
+
+                                            @can('create_cargas')
+                                                @if ($carga->industri_rumah_tangga == '1')
+                                                    <a href="{{ route('industries.create', $carga->id) }}"
+                                                        class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
+                                                        <i class="ri-information-fill"></i>
+                                                        Tambah Data Industri Rumah Tangga
+                                                    </a>
+                                                @endif
+                                            @endcan
+
                                             @can('delete_cargas')
-                                                <a class="btn btn-danger btn-sm mr-2 my-1 edit-btn"
+                                                <a id="btn-delete" class="btn btn-danger btn-sm mr-2 my-1 edit-btn"
                                                     hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
                                                     hx-delete={{ route('cargas.delete', $carga->id) }}><i
                                                         class="ri-delete-bin-2-line"></i>Delete</a>

@@ -46,6 +46,15 @@
     </div>
     <!-- Wrapper End-->
     @include('partials.footer')
+
+    {{-- <script>
+        const Swal = require('sweetalert2')
+    </script> --}}
+
+    <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@11.14.1/dist/sweetalert2.all.min.js "></script>
+    <link href=" https://cdn.jsdelivr.net/npm/sweetalert2@11.14.1/dist/sweetalert2.min.css " rel="stylesheet">
+
+
     <!-- Backend Bundle JavaScript -->
     <script src="/assets/js/htmx.min.js"></script>
     <script src="/assets/js/backend-bundle.min.js"></script>
@@ -107,6 +116,34 @@
                 e.preventDefault();
                 widgetSubmenu.classList.toggle('hidden');
                 widgetArrow.classList.toggle('rotate-180');
+            });
+        });
+    </script>
+    <script>
+        $(function() {
+            $(document).on('click', '#btn-delete', function(e) {
+                e.preventDefault();
+                var form = $(this).closest('form');
+
+                Swal.fire({
+                    title: "Apakah Anda Yakin?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Ya",
+                    cancelButtonText: "Tidak"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                        Swal.fire({
+                            title: "Data berhasil dihapus!",
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 5000
+                        });
+                    }
+                });
             });
         });
     </script>

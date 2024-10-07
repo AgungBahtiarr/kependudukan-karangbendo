@@ -19,7 +19,7 @@
                     </div>
                     <div class="form-group">
                         <label for="nik">NIK</label>
-                        <input type="text" name="nik" class="form-control" required value="{{ $user->nik }}">
+                        <input type="text" name="nik" class="form-control" minlength="16" maxlength="16" required value="{{ $user->nik }}">
                     </div>
                     <div class="form-group">
                         <label for="username">Username</label>

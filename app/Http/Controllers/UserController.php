@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -45,12 +46,17 @@ class UserController extends Controller
             'password' => 'required',
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'nik' => $request->nik,
-            'username' => $request->username,
-            'password' => bcrypt($request->password),
-        ]);
+
+        try {
+            $user = User::create([
+                'name' => $request->name,
+                'nik' => $request->nik,
+                'username' => $request->username,
+                'password' => bcrypt($request->password),
+            ]);
+        } catch (QueryException $e) {
+            return redirect()->route('users.index')->withErrors(['addKader' => 'Data sudah ada']);
+        }
 
         $user->assignRole('Kader');
 

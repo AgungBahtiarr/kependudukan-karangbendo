@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('nik', 16)->unique();
             $table->string('name');
-            $table->string('username');
+            $table->string('username')->unique();
             $table->string('password');
             $table->enum('status', ['aktif', 'non aktif'])->default('aktif');
             $table->rememberToken();

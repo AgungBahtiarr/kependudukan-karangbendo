@@ -60,18 +60,19 @@ class IndustriRumahTanggaController extends Controller
     public function show($id, $nkk)
     {
 
+        $title = 'Detail Industri Rumah Tangga';
+
         $industri = IndustriRumahTangga::where('nkk', $nkk)->get();
 
         $isIndustri = true;
 
         if (count($industri) != 0) {
             $industri = $industri[0];
-            return view("industri_rumah_tangga.detail", compact('industri', 'id', 'nkk','isIndustri'));
-        }else{
+            return view("industri_rumah_tangga.detail", compact('industri', 'id', 'nkk', 'isIndustri'));
+        } else {
             $isIndustri = false;
-            return view("industri_rumah_tangga.detail", compact('industri', 'id', 'nkk','isIndustri'));
+            return view("industri_rumah_tangga.detail", compact('industri', 'id', 'nkk', 'isIndustri'));
         }
-
     }
 
     /**
@@ -82,8 +83,7 @@ class IndustriRumahTanggaController extends Controller
 
         $industri = IndustriRumahTangga::findOrFail($id);
 
-        return view('industri_rumah_tangga.edit',compact('industri'))->fragment('edit');
-
+        return view('industri_rumah_tangga.edit', compact('industri'))->fragment('edit');
     }
 
     /**
@@ -91,7 +91,7 @@ class IndustriRumahTanggaController extends Controller
      */
     public function update(Request $request)
     {
-        $data =[
+        $data = [
             'bidang_sandang' => $request->bidang_sandang,
             'bidang_pangan' => $request->bidang_pangan,
             'bidang_jasa' => $request->bidang_jasa,

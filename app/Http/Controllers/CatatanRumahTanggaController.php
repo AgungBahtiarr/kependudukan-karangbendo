@@ -73,7 +73,7 @@ class CatatanRumahTanggaController extends Controller
     {
         $sumbers = SumberAir::all();
         $makanans = MakananPokok::all();
-        return view("catatan_rumah_tangga.partials.form", compact('sumbers'))->fragment('sumber-air');
+        return view("catatan_rumah_tangga.partials.form", compact('sumbers', 'makanans'))->fragment('sumber-air');
     }
 
     public function makananPokok()
@@ -152,7 +152,7 @@ class CatatanRumahTanggaController extends Controller
         $nkkInang = "";
 
         if ($request->satu_rumah_satu_kk == 0) {
-            $nkkInang = $request->satu_rumah_satu_kk;
+            $nkkInang = $request->nkk_inang;
         } else {
             $nkkInang = "";
         }
@@ -169,6 +169,12 @@ class CatatanRumahTanggaController extends Controller
             "ada_saluran_pembuangan_limbah" => $request->ada_saluran_pembuangan_limbah,
             "satu_rumah_satu_kk" => $request->satu_rumah_satu_kk,
         ];
+
+        // return $data;
+
+        if ($request->nkk == $nkkInang) {
+            return redirect(route('cargas.create1'))->withErrors(['add1' => "NKK tidak boleh sama dengan NKK induk"]);
+        }
 
 
         $request->session()->put('cargas1', $data);

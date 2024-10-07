@@ -73,9 +73,8 @@
 
                     <div class="form-group">
                         <label for="jenis_kb">Jenis KB</label>
-                        {{-- <input type="text" name="jenis_kb" class="form-control" placeholder="Intra Uterine Device,Implan,Sterilisasi dll" required
-                            value={{ $dawisSession ? $dawisSession['jenis_kb'] : '' }}> --}}
                         <select class="form-control" name="jenis_kb">
+                            <option value="" selected disabled>Pilih jenis KB</option>
                             @foreach ($jenisKb as $kb)
                                 <option {{ $dawis->jenis_kb == $kb ? 'selected' : '' }} value={{ $kb }}>
                                     {{ $kb }}
@@ -153,16 +152,16 @@
                         <div class="form-group">
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input hx-trigger="click" hx-post="/dawis/isKelompokBelajar/1" hx-method="POST"
-                                     hx-swap="innerHtml" hx-target="#jenisKelompok"
-                                    type="radio" id="kelompok_belajar_ya" name="kelompok_belajar" value="1"
+                                    hx-swap="innerHtml" hx-target="#jenisKelompok" type="radio"
+                                    id="kelompok_belajar_ya" name="kelompok_belajar" value="1"
                                     class="custom-control-input" required
                                     {{ $dawis->kelompok_belajar == '1' ? 'checked' : '' }}>
                                 <label class="custom-control-label" for="kelompok_belajar_ya"> Ya </label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input hx-trigger="click" hx-post="/dawis/isKelompokBelajar/0" hx-method="POST"
-                                     hx-swap="innerHtml" hx-target="#jenisKelompok"
-                                    type="radio" id="kelompok_belajar_tidak" name="kelompok_belajar" value="0"
+                                    hx-swap="innerHtml" hx-target="#jenisKelompok" type="radio"
+                                    id="kelompok_belajar_tidak" name="kelompok_belajar" value="0"
                                     class="custom-control-input" required
                                     {{ $dawis->kelompok_belajar == '0' ? 'checked' : '' }}>
                                 <label class="custom-control-label" for="kelompok_belajar_tidak"> Tidak </label>
@@ -174,7 +173,7 @@
                     @if ($dawis->id_jenis_kelompok_belajar == null && $dawis->kelompok_belajar == 0)
                         <div class="form-group">
                             <label for="jenis_kelompok_belajar">Jenis Kelompok Belajar</label>
-                            <select class="form-control" name="id_jenis_kelompok_belajar" required>
+                            <select class="form-control" name="id_jenis_kelompok_belajar">
                                 <option value="" selected disabled>Pilih Jenis Kelompok Belajar</option>
                                 @foreach ($kelompokBelajars as $kelompokBelajar)
                                     <option value={{ $kelompokBelajar->id }}>

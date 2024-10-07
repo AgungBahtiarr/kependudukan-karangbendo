@@ -94,7 +94,7 @@ class PenerimaBansosController extends Controller
         $warga = Warga::where('nik', $request->nik)->first();
 
         if (!$warga) {
-            return "<script>alert('NIK Belum Terdaftar Di Data Warga'); window.location = '/bansos';</script>";
+            return redirect(route("bansos.create"))->withErrors(["penerimaBansos" => "NIK tidak terdaftar di data warga!"]);
         }
 
         $data = [
