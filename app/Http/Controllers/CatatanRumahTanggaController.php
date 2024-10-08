@@ -125,6 +125,30 @@ class CatatanRumahTanggaController extends Controller
         }
     }
 
+    public function isPekarangan(Request $request, $id)
+    {
+        $carga = CatatanRumahTangga::findOrFail($id);
+        $pekarangan = PemanfaatanTanahPekarangan::where("nkk", $carga->nkk);
+
+        if ($pekarangan) {
+            return "<div></div>";
+        } else {
+            return view("catatan_rumah_tangga.partials.isPekarangan", compact("carga"))->fragment('isPekarangan');
+        }
+    }
+
+    public function isIndustri(Request $request, $id)
+    {
+        $carga = CatatanRumahTangga::findOrFail($id);
+        $industri = IndustriRumahTangga::where("nkk", $carga->nkk);
+
+        if ($industri) {
+            return "<div></div>";
+        } else {
+            return view("catatan_rumah_tangga.partials.isIndustri", compact("industri"))->fragment('isIndustri');
+        }
+    }
+
     public function create2(Request $request)
     {
         $makanans = MakananPokok::get();

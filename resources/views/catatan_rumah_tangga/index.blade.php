@@ -175,24 +175,21 @@
                                                 </a>
                                             @endcan
 
+
+
                                             @can('create_cargas')
-                                                @if ($carga->pemanfaatan_pekarangan == '1')
-                                                    <a href="{{ route('pekarangans.create', $carga->id) }}"
-                                                        class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
-                                                        <i class="ri-information-fill"></i>
-                                                        Tambah Data Pekarangan
-                                                    </a>
-                                                @endif
+                                                <div id="isPekarangan" hx-trigger="load"
+                                                    hx-get="/cargas/isPekarangan/{{ $carga->id }}" hx-swap="innerHTML"
+                                                    hx-target="this">
+
+                                                </div>
                                             @endcan
 
                                             @can('create_cargas')
-                                                @if ($carga->industri_rumah_tangga == '1')
-                                                    <a href="{{ route('industries.create', $carga->id) }}"
-                                                        class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
-                                                        <i class="ri-information-fill"></i>
-                                                        Tambah Data Industri Rumah Tangga
-                                                    </a>
-                                                @endif
+                                                <div id="isIndustri" hx-trigger="load"
+                                                    hx-get="/cargas/isIndustri/{{ $carga->id }}">
+
+                                                </div>
                                             @endcan
 
                                             @can('delete_cargas')

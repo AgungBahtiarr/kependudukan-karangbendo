@@ -133,6 +133,10 @@ Route::middleware('auth')->group(function () {
         Route::post('/isNkkInang/{id}', [CatatanRumahTanggaController::class, 'isNkkInang']);
         Route::post('/isUp2k/{id}', [CatatanRumahTanggaController::class, 'isUp2k']);
 
+        Route::get('/isPekarangan/{id}', [CatatanRumahTanggaController::class, 'isPekarangan']);
+        Route::get('/isIndustri/{id}', [CatatanRumahTanggaController::class, 'isIndustri']);
+
+
         Route::delete('/{id}', [CatatanRumahTanggaController::class, 'destroy'])->name('cargas.delete');
 
         // Route::get('/filter/kriteria-rumah', [CatatanRumahTanggaController::class, 'kriteriaRumah'])->name('cargas.filter-kriteria-rumah');
