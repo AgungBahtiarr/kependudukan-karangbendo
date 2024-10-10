@@ -211,7 +211,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="jabatan">Jabatan (Jika Ada)</label>
+                        <label for="jabatan">Jabatan (Struktur PKK)</label>
                         <input type="text" name="jabatan" class="form-control"
                             value={{ $wargaSession ? $wargaSession['jabatan'] : '' }}>
                     </div>

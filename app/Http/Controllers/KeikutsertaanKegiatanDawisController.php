@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\KeikutsertaanKegiatanDawis;
 use App\Http\Requests\StoreKeikutsertaanKegiatanDawisRequest;
 use App\Http\Requests\UpdateKeikutsertaanKegiatanDawisRequest;
+use App\Models\Disabilitas;
+use App\Models\JenjangSekolah;
 use App\Models\KelompokBelajar;
 use App\Models\Warga;
 use Illuminate\Database\QueryException;
@@ -40,7 +42,7 @@ class KeikutsertaanKegiatanDawisController extends Controller
         ];
 
         if ($id == 1) {
-            return view('keikutsertaandawis.partials.input', compact('kelompokBelajars', 'dawisSession','jenisKb'))->fragment('jenisKelompok');
+            return view('keikutsertaandawis.partials.input', compact('kelompokBelajars', 'dawisSession', 'jenisKb'))->fragment('jenisKelompok');
         } else {
             return '<div></div>';
         }
@@ -86,7 +88,7 @@ class KeikutsertaanKegiatanDawisController extends Controller
             'MAL (Metode Amenorea Laktasi)'
         ];
         if ($id == 1) {
-            return view('keikutsertaandawis.partials.input', compact('kelompokBelajars', 'dawisSession','jenisKb'))->fragment('frekPos');
+            return view('keikutsertaandawis.partials.input', compact('kelompokBelajars', 'dawisSession', 'jenisKb'))->fragment('frekPos');
         } else {
             return '<div></div>';
         }
@@ -110,7 +112,43 @@ class KeikutsertaanKegiatanDawisController extends Controller
             'MAL (Metode Amenorea Laktasi)'
         ];
         if ($id == 1) {
-            return view('keikutsertaandawis.partials.input', compact('kelompokBelajars', 'dawisSession','jenisKb'))->fragment('jenisKoperasi');
+            return view('keikutsertaandawis.partials.input', compact('kelompokBelajars', 'dawisSession', 'jenisKb'))->fragment('jenisKoperasi');
+        } else {
+            return '<div></div>';
+        }
+    }
+
+
+    public function isDisabilitas(Request $request, $id)
+    {
+        $dawisSession = $request->session()->get('dawis1');
+        $jenisDisabilitas = Disabilitas::get();
+
+
+        if ($id == 1) {
+            return view('keikutsertaandawis.partials.jenisdisabilitas', compact('jenisDisabilitas', 'dawisSession'))->fragment('jenisDisabilitas');
+        } else {
+            return '<div></div>';
+        }
+    }
+
+    public function isIndustri(Request $request, $id)
+    {
+        $dawisSession = $request->session()->get('dawis2');
+
+        if ($id == 1) {
+            return view('keikutsertaandawis.partials.sandangPangan', compact('dawisSession'))->fragment('sandangPangan');
+        } else {
+            return '<div></div>';
+        }
+    }
+
+    public function isPutusSekolah(Request $request, $id)
+    {
+        $jenjangSekolah = JenjangSekolah::get();
+
+        if ($id == 1) {
+            return view('keikutsertaandawis.partials.jenjangSekolah', compact('jenjangSekolah',))->fragment('jenjangSekolah');
         } else {
             return '<div></div>';
         }
@@ -126,6 +164,8 @@ class KeikutsertaanKegiatanDawisController extends Controller
         $title = 'Tambah Catatan Dawis';
         $warga = Warga::where('nik', $nik)->get();
         $kelompokBelajars = KelompokBelajar::get();
+        $jenisDisabilitas = Disabilitas::get();
+        $jenjangSekolah = JenjangSekolah::get();
 
         $warga = $warga[0];
         $nik = $warga->nik;
@@ -146,7 +186,7 @@ class KeikutsertaanKegiatanDawisController extends Controller
         ];
 
 
-        return view('keikutsertaandawis.create.create', compact('nik', 'title', 'kelompokBelajars', 'dawisSession', 'jenisKb'));
+        return view('keikutsertaandawis.create.create', compact('nik', 'title', 'kelompokBelajars', 'dawisSession', 'jenisKb', 'jenisDisabilitas', 'jenjangSekolah'));
     }
 
     public function create2(Request $request, $nik)
@@ -160,7 +200,7 @@ class KeikutsertaanKegiatanDawisController extends Controller
 
         $dawisSession = $request->session()->get('dawis2');
 
-        return view('keikutsertaandawis.create.create2', compact('nik', 'title', 'kelompokBelajars', 'dawisSession'));
+        return view('keikutsertaandawis.create.create2', compact('nik', 'title', 'kelompokBelajars', 'dawisSession',));
     }
 
     /**
@@ -198,24 +238,6 @@ class KeikutsertaanKegiatanDawisController extends Controller
             $jenisKoperasi = $request->jenis_koperasi;
         }
 
-        // $validator = $request->validate([
-        //     'nik' => 'required|string|size:16', // NIK biasanya 16 digit
-        //     'akseptor_kb' => 'required|boolean',
-        //     'jenis_kb' => 'required_if:akseptor_kb,1|string',
-        //     'posyandu' => 'required|boolean',
-        //     'frekuensi_posyandu' => 'required_if:posyandu,1|integer|min:0',
-        //     'bina_keluarga_balita' => 'required|boolean',
-        //     'memiliki_tabungan' => 'required|boolean',
-        //     'kelompok_belajar' => 'required|boolean',
-        //     'id_jenis_kelompok_belajar' => 'required_if:kelompok_belajar,1|integer|exists:jenis_kelompok_belajar,id',
-        //     'paud' => 'required|boolean',
-        //     'koperasi' => 'required|boolean',
-        //     'jenis_koperasi' => 'required_if:koperasi,1|string',
-        //     'berkebutuhan_khusus' => 'required|boolean',
-        // ]);
-
-
-
         $data = [
             'nik' => $request->nik,
             'akseptor_kb' => $request->akseptor_kb,
@@ -225,11 +247,14 @@ class KeikutsertaanKegiatanDawisController extends Controller
             'bina_keluarga_balita' => $request->bina_keluarga_balita,
             'memiliki_tabungan' => $request->memiliki_tabungan,
             'kelompok_belajar' => $request->kelompok_belajar,
+            'putus_sekolah' => $request->putus_sekolah,
+            'id_jenjang_sekolah' => $request->id_jenjang_sekolah,
             'id_jenis_kelompok_belajar' => $idKelompokBelajar,
             'paud' => $request->paud,
             'koperasi' => $request->koperasi,
             'jenis_koperasi' => $jenisKoperasi,
             'berkebutuhan_khusus' => $request->berkebutuhan_khusus,
+            'id_jenis_disabilitas' => $request->id_jenis_disabilitas
         ];
 
 
@@ -248,6 +273,7 @@ class KeikutsertaanKegiatanDawisController extends Controller
             'gotong_royong' => $request->gotong_royong,
             'pendidikan_keterampilan' => $request->pendidikan_keterampilan,
             'kehidupan_berkolaborasi' => $request->kehidupan_berkolaborasi,
+            'industri_rumahan' => $request->industri_rumahan,
             'pangan' => $request->pangan,
             'sandang' => $request->sandang,
             'kegiatan_kesehatan' => $request->kegiatan_kesehatan,
@@ -265,7 +291,6 @@ class KeikutsertaanKegiatanDawisController extends Controller
 
     public function store2(Request $request)
     {
-
         $userRole = auth()->user()->getRoleNames()->first();
 
         $data = [
@@ -273,6 +298,7 @@ class KeikutsertaanKegiatanDawisController extends Controller
             'gotong_royong' => $request->gotong_royong,
             'pendidikan_keterampilan' => $request->pendidikan_keterampilan,
             'kehidupan_berkolaborasi' => $request->kehidupan_berkolaborasi,
+            'industri_rumahan' => $request->industri_rumahan,
             'pangan' => $request->pangan,
             'sandang' => $request->sandang,
             'kegiatan_kesehatan' => $request->kegiatan_kesehatan,
@@ -289,11 +315,11 @@ class KeikutsertaanKegiatanDawisController extends Controller
 
         $allDawis = array_merge($dawis1, $dawis2);
 
-
         try {
             $dawis = KeikutsertaanKegiatanDawis::create($allDawis);
         } catch (QueryException $e) {
 
+            return $e;
             $errorCode = $e->getCode();
             $errorMessage = 'Mohon maaf, terjadi kesalahan saat menyimpan data.';
 
@@ -348,6 +374,7 @@ class KeikutsertaanKegiatanDawisController extends Controller
         $title = 'Edit Catatan Dawis';
         $warga = Warga::where('nik', $nik)->get();
         $kelompokBelajars = KelompokBelajar::get();
+        $jenjangSekolah = JenjangSekolah::get();
 
         $warga = $warga[0];
         $nik = $warga->nik;
@@ -375,7 +402,7 @@ class KeikutsertaanKegiatanDawisController extends Controller
             'MAL (Metode Amenorea Laktasi)'
         ];
 
-        return view('keikutsertaandawis.edit.edit', compact('nik', 'title', 'kelompokBelajars', 'dawis', 'warga', 'jenisKb'));
+        return view('keikutsertaandawis.edit.edit', compact('nik', 'title', 'kelompokBelajars', 'dawis', 'warga', 'jenisKb', 'jenjangSekolah'));
     }
 
     public function edit2(Request $request, $nik)
@@ -444,6 +471,9 @@ class KeikutsertaanKegiatanDawisController extends Controller
             'koperasi' => $request->koperasi,
             'jenis_koperasi' => $jenisKoperasi,
             'berkebutuhan_khusus' => $request->berkebutuhan_khusus,
+            'id_jenis_disabilitas' => $request->id_jenis_disabilitas,
+            'id_jenjang_sekolah' => $request->id_jenjang_sekolah,
+            'id_jenis_kelompok_belajar' => $idKelompokBelajar,
         ];
 
         $dawis = KeikutsertaanKegiatanDawis::findOrFail($request->id);
@@ -461,6 +491,8 @@ class KeikutsertaanKegiatanDawisController extends Controller
             'gotong_royong' => $request->gotong_royong,
             'pendidikan_keterampilan' => $request->pendidikan_keterampilan,
             'kehidupan_berkolaborasi' => $request->kehidupan_berkolaborasi,
+            // ini berubah
+            'industri_rumahan' => $request->industri_rumahan,
             'pangan' => $request->pangan,
             'sandang' => $request->sandang,
             'kegiatan_kesehatan' => $request->kegiatan_kesehatan,

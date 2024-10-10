@@ -70,18 +70,51 @@
                         </div>
                     </div>
 
-
-                    <div class="form-group">
-                        <label for="jenis_kb">Jenis KB</label>
-                        <select class="form-control" name="jenis_kb">
-                            <option value="" selected disabled>Pilih jenis KB</option>
-                            @foreach ($jenisKb as $kb)
-                                <option {{ $dawis->jenis_kb == $kb ? 'selected' : '' }} value={{ $kb }}>
-                                    {{ $kb }}
-                                </option>
-                            @endforeach
-                        </select>
+                    <div id="jenisKB">
+                        <div class="form-group">
+                            <label for="jenis_kb">Jenis KB</label>
+                            <select class="form-control" name="jenis_kb">
+                                <option value="" disabled>Pilih jenis KB</option>
+                                @foreach ($jenisKb as $kb)
+                                    <option value="{{ $kb }}" {{ $dawis->jenis_kb == $kb ? 'selected' : '' }}>
+                                        {{ $kb }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const kbYa = document.getElementById('kb_ya');
+                            const kbTidak = document.getElementById('kb_tidak');
+                            const jenisKBDiv = document.getElementById('jenisKB');
+
+                            function toggleJenisKB() {
+                                if (kbYa.checked) {
+                                    jenisKBDiv.style.display = 'block';
+                                    const jenisKbSelect = jenisKBDiv.querySelector('select[name="jenis_kb"]');
+                                    if (jenisKbSelect) {
+                                        jenisKbSelect.required = true;
+                                    }
+                                } else {
+                                    jenisKBDiv.style.display = 'none';
+                                    const jenisKbSelect = jenisKBDiv.querySelector('select[name="jenis_kb"]');
+                                    if (jenisKbSelect) {
+                                        jenisKbSelect.required = false;
+                                        jenisKbSelect.value = ''; // Reset pilihan jenis KB
+                                    }
+                                }
+                            }
+
+                            // Jalankan fungsi saat halaman dimuat untuk mengatur tampilan awal
+                            toggleJenisKB();
+
+                            // Tambahkan event listener untuk kedua radio button
+                            kbYa.addEventListener('change', toggleJenisKB);
+                            kbTidak.addEventListener('change', toggleJenisKB);
+                        });
+                    </script>
 
 
 
@@ -101,11 +134,41 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="frekuensi_posyandu">Frekuensi Posyandu</label>
-                        <input type="number" name="frekuensi_posyandu" class="form-control"
-                            {{ $dawis->posyandu == '1' ? 'required' : '' }} value={{ $dawis->frekuensi_posyandu }}>
+                    <div id="frekuensi_posyandu">
+                        <div class="form-group">
+                            <label for="frekuensi_posyandu">Frekuensi Posyandu</label>
+                            <input type="number" name="frekuensi_posyandu" class="form-control"
+                                {{ $dawis->posyandu == '1' ? 'required' : '' }} value={{ $dawis->frekuensi_posyandu }}>
+                        </div>
                     </div>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const posyanduYa = document.getElementById('posyandu_ya');
+                            const posyanduTidak = document.getElementById('posyandu_tidak');
+                            const frekuensiPosyanduDiv = document.getElementById('frekuensi_posyandu');
+                            const frekuensiPosyanduInput = frekuensiPosyanduDiv.querySelector('input[name="frekuensi_posyandu"]');
+
+                            function toggleFrekuensiPosyandu() {
+                                if (posyanduYa.checked) {
+                                    frekuensiPosyanduDiv.style.display = 'block';
+                                    frekuensiPosyanduInput.required = true;
+                                } else {
+                                    frekuensiPosyanduDiv.style.display = 'none';
+                                    frekuensiPosyanduInput.required = false;
+                                    frekuensiPosyanduInput.value = ''; // Reset nilai frekuensi
+                                }
+                            }
+
+                            // Jalankan fungsi saat halaman dimuat untuk mengatur tampilan awal
+                            toggleFrekuensiPosyandu();
+
+                            // Tambahkan event listener untuk kedua radio button
+                            posyanduYa.addEventListener('change', toggleFrekuensiPosyandu);
+                            posyanduTidak.addEventListener('change', toggleFrekuensiPosyandu);
+                        });
+                    </script>
+
 
                     <div class="form-group">
                         <label for="binabalita">Bina Keluarga Balita</label>
@@ -148,20 +211,75 @@
 
                 <div class="w-full bg-white flex flex-col gap-2 my-6 py-4 px-4 rounded-lg">
                     <div class="form-group">
+                        <label for="putus_sekolah">Putus Sekolah</label>
+                        <div class="form-group">
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="putus_sekolah_ya" name="putus_sekolah" value="1"
+                                    class="custom-control-input" required
+                                    {{ $dawis->putus_sekolah == '1' ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="putus_sekolah_ya"> Ya </label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="putus_sekolah_tidak" name="putus_sekolah" value="0"
+                                    class="custom-control-input" required
+                                    {{ $dawis->putus_sekolah == '0' ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="putus_sekolah_tidak"> Tidak </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="jenjangSekolah">
+                        <div class="form-group">
+                            <label for="jenjang_sekolah">Jenjang Putus Sekolah</label>
+                            <select class="form-control" name="id_jenjang_sekolah" required>
+                                @foreach ($jenjangSekolah as $item)
+                                    <option value="{{ $item->id }}"
+                                        {{ $dawis->id_jenjang_sekolah == $item->id ? 'selected' : '' }}>
+                                        {{ $item->jenjang_sekolah }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const putusSekolahYa = document.getElementById('putus_sekolah_ya');
+                            const putusSekolahTidak = document.getElementById('putus_sekolah_tidak');
+                            const jenjangSekolahDiv = document.getElementById('jenjangSekolah');
+                            const jenjangSekolahSelect = jenjangSekolahDiv.querySelector('select[name="id_jenjang_sekolah"]');
+
+                            function toggleJenjangSekolah() {
+                                if (putusSekolahYa.checked) {
+                                    jenjangSekolahDiv.style.display = 'block';
+                                    jenjangSekolahSelect.required = true;
+                                } else {
+                                    jenjangSekolahDiv.style.display = 'none';
+                                    jenjangSekolahSelect.required = false;
+                                    jenjangSekolahSelect.value = ''; // Reset pilihan jenjang sekolah
+                                }
+                            }
+
+                            // Jalankan fungsi saat halaman dimuat untuk mengatur tampilan awal
+                            toggleJenjangSekolah();
+
+                            // Tambahkan event listener untuk kedua radio button
+                            putusSekolahYa.addEventListener('change', toggleJenjangSekolah);
+                            putusSekolahTidak.addEventListener('change', toggleJenjangSekolah);
+                        });
+                    </script>
+
+
+                    <div class="form-group">
                         <label for="kelompok_belajar">Kelompok Belajar</label>
                         <div class="form-group">
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input hx-trigger="click" hx-post="/dawis/isKelompokBelajar/1" hx-method="POST"
-                                    hx-swap="innerHtml" hx-target="#jenisKelompok" type="radio"
-                                    id="kelompok_belajar_ya" name="kelompok_belajar" value="1"
+                                <input type="radio" id="kelompok_belajar_ya" name="kelompok_belajar" value="1"
                                     class="custom-control-input" required
                                     {{ $dawis->kelompok_belajar == '1' ? 'checked' : '' }}>
                                 <label class="custom-control-label" for="kelompok_belajar_ya"> Ya </label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input hx-trigger="click" hx-post="/dawis/isKelompokBelajar/0" hx-method="POST"
-                                    hx-swap="innerHtml" hx-target="#jenisKelompok" type="radio"
-                                    id="kelompok_belajar_tidak" name="kelompok_belajar" value="0"
+                                <input name="kelompok_belajar" type="radio" id="kelompok_belajar_tidak" value="0"
                                     class="custom-control-input" required
                                     {{ $dawis->kelompok_belajar == '0' ? 'checked' : '' }}>
                                 <label class="custom-control-label" for="kelompok_belajar_tidak"> Tidak </label>
@@ -170,33 +288,47 @@
                     </div>
 
 
-                    @if ($dawis->id_jenis_kelompok_belajar == null && $dawis->kelompok_belajar == 0)
+
+                    <div id="jenisKelompok">
                         <div class="form-group">
                             <label for="jenis_kelompok_belajar">Jenis Kelompok Belajar</label>
-                            <select class="form-control" name="id_jenis_kelompok_belajar">
-                                <option value="" selected disabled>Pilih Jenis Kelompok Belajar</option>
+                            <select class="form-control" name="id_jenis_kelompok_belajar" required>
                                 @foreach ($kelompokBelajars as $kelompokBelajar)
-                                    <option value={{ $kelompokBelajar->id }}>
+                                    <option value={{ $kelompokBelajar->id }}
+                                        {{ $dawis->id_jenis_kelompok_belajar == $kelompokBelajar->id ? 'selected' : '' }}>
                                         {{ $kelompokBelajar->nama_kelompok_belajar }}
                                     </option>
                                 @endforeach
                             </select>
                         </div>
-                    @else
-                        <div id="jenisKelompok">
-                            <div class="form-group">
-                                <label for="jenis_kelompok_belajar">Jenis Kelompok Belajar</label>
-                                <select class="form-control" name="id_jenis_kelompok_belajar" required>
-                                    @foreach ($kelompokBelajars as $kelompokBelajar)
-                                        <option value={{ $kelompokBelajar->id }}
-                                            {{ $dawis->id_jenis_kelompok_belajar == $kelompokBelajar->id ? 'selected' : '' }}>
-                                            {{ $kelompokBelajar->nama_kelompok_belajar }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    @endif
+                    </div>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const kelompokBelajarYa = document.getElementById('kelompok_belajar_ya');
+                            const kelompokBelajarTidak = document.getElementById('kelompok_belajar_tidak');
+                            const jenisKelompokDiv = document.getElementById('jenisKelompok');
+                            const jenisKelompokSelect = jenisKelompokDiv.querySelector('select[name="id_jenis_kelompok_belajar"]');
+
+                            function toggleJenisKelompok() {
+                                if (kelompokBelajarYa.checked) {
+                                    jenisKelompokDiv.style.display = 'block';
+                                    jenisKelompokSelect.required = true;
+                                } else {
+                                    jenisKelompokDiv.style.display = 'none';
+                                    jenisKelompokSelect.required = false;
+                                    jenisKelompokSelect.value = ''; // Reset pilihan jenis kelompok belajar
+                                }
+                            }
+
+                            // Jalankan fungsi saat halaman dimuat untuk mengatur tampilan awal
+                            toggleJenisKelompok();
+
+                            // Tambahkan event listener untuk kedua radio button
+                            kelompokBelajarYa.addEventListener('change', toggleJenisKelompok);
+                            kelompokBelajarTidak.addEventListener('change', toggleJenisKelompok);
+                        });
+                    </script>
 
 
 
@@ -235,11 +367,40 @@
                     </div>
 
 
-                    <div class="form-group">
+                    <div id="jenisKoperasi" class="form-group">
                         <label for="jenis_koperasi">Jenis Koperasi</label>
                         <input type="text" name="jenis_koperasi" class="form-control"
                             {{ $dawis->koperasi == '1' ? 'required' : '' }} value={{ $dawis->jenis_koperasi }}>
                     </div>
+
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const koperasiYa = document.getElementById('koperasi_ya');
+                            const koperasiTidak = document.getElementById('koperasi_tidak');
+                            const jenisKoperasiDiv = document.getElementById('jenisKoperasi');
+                            const jenisKoperasiInput = jenisKoperasiDiv.querySelector('input[name="jenis_koperasi"]');
+
+                            function toggleJenisKoperasi() {
+                                if (koperasiYa.checked) {
+                                    jenisKoperasiDiv.style.display = 'block';
+                                    jenisKoperasiInput.required = true;
+                                } else {
+                                    jenisKoperasiDiv.style.display = 'none';
+                                    jenisKoperasiInput.required = false;
+                                    jenisKoperasiInput.value = ''; // Reset nilai jenis koperasi
+                                }
+                            }
+
+                            // Jalankan fungsi saat halaman dimuat untuk mengatur tampilan awal
+                            toggleJenisKoperasi();
+
+                            // Tambahkan event listener untuk kedua radio button
+                            koperasiYa.addEventListener('change', toggleJenisKoperasi);
+                            koperasiTidak.addEventListener('change', toggleJenisKoperasi);
+                        });
+                    </script>
+
 
                     <div class="form-group">
                         <label for="berkebutuhan_khusus">Berkebutuhan Khusus</label>

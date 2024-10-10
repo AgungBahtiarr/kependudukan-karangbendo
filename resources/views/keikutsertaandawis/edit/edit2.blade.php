@@ -133,37 +133,90 @@
                 </div>
 
                 <div class="w-full flex flex-col gap-3 bg-white my-6 py-4 px-4 rounded-lg">
+
                     <div class="form-group">
-                        <label for="pangan">Pangan</label>
+                        <label for="industri_rumahan">Kegiatan Industri</label>
                         <div class="form-group">
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="pangan_ya" name="pangan" value="1"
-                                    class="custom-control-input" required {{ $dawis->pangan == '1' ? 'checked' : '' }}>
-                                <label class="custom-control-label" for="pangan_ya"> Ya </label>
+                                <input type="radio" {{ $dawis->industri_rumahan == '1' ? 'checked' : '' }}
+                                    id="industri_rumahan_ya" name="industri_rumahan" value="1"
+                                    class="custom-control-input" required>
+                                <label class="custom-control-label" for="industri_rumahan_ya"> Ya </label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="pangan_tidak" name="pangan" value="0"
-                                    class="custom-control-input" required {{ $dawis->pangan == '0' ? 'checked' : '' }}>
-                                <label class="custom-control-label" for="pangan_tidak"> Tidak </label>
+                                <input type="radio" {{ $dawis->industri_rumahan == '0' ? 'checked' : '' }}
+                                    id="industri_rumahan_tidak" name="industri_rumahan" value="0"
+                                    class="custom-control-input" required>
+                                <label class="custom-control-label" for="industri_rumahan_tidak"> Tidak </label>
                             </div>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="sandang">Sandang</label>
+
+                    <div id="sandangPangan">
                         <div class="form-group">
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="sandang_ya" name="sandang" value="1"
-                                    class="custom-control-input" required {{ $dawis->sandang == '1' ? 'checked' : '' }}>
-                                <label class="custom-control-label" for="sandang_ya"> Ya </label>
+                            <label for="pangan">Pangan</label>
+                            <div class="form-group">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="pangan_ya" name="pangan" value="1"
+                                        class="custom-control-input" required
+                                        {{ $dawis->pangan == '1' ? 'checked' : '' }}>
+                                    <label class="custom-control-label" for="pangan_ya"> Ya </label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="pangan_tidak" name="pangan" value="0"
+                                        class="custom-control-input" required
+                                        {{ $dawis->pangan == '0' ? 'checked' : '' }}>
+                                    <label class="custom-control-label" for="pangan_tidak"> Tidak </label>
+                                </div>
                             </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="sandang_tidak" name="sandang" value="0"
-                                    class="custom-control-input" required {{ $dawis->sandang == '0' ? 'checked' : '' }}>
-                                <label class="custom-control-label" for="sandang_tidak"> Tidak </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sandang">Sandang</label>
+                            <div class="form-group">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="sandang_ya" name="sandang" value="1"
+                                        class="custom-control-input" required
+                                        {{ $dawis->sandang == '1' ? 'checked' : '' }}>
+                                    <label class="custom-control-label" for="sandang_ya"> Ya </label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="sandang_tidak" name="sandang" value="0"
+                                        class="custom-control-input" required
+                                        {{ $dawis->sandang == '0' ? 'checked' : '' }}>
+                                    <label class="custom-control-label" for="sandang_tidak"> Tidak </label>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const radioYa = document.getElementById('industri_rumahan_ya');
+                            const radioTidak = document.getElementById('industri_rumahan_tidak');
+                            const sandangPanganDiv = document.getElementById('sandangPangan');
+
+                            // Fungsi untuk menampilkan atau menyembunyikan div sandangPangan
+                            function toggleSandangPangan() {
+                                if (radioYa.checked) {
+                                    sandangPanganDiv.style.display = 'block';
+                                } else {
+                                    sandangPanganDiv.style.display = 'none';
+                                }
+                            }
+
+                            // Jalankan fungsi saat halaman dimuat untuk mengatur tampilan awal
+                            toggleSandangPangan();
+
+                            // Tambahkan event listener untuk kedua radio button
+                            radioYa.addEventListener('change', toggleSandangPangan);
+                            radioTidak.addEventListener('change', toggleSandangPangan);
+                        });
+                    </script>
+
+
 
                     <div class="form-group">
                         <label for="kegiatan_kesehatan">Kegiatan Kesehatan</label>

@@ -62,7 +62,7 @@
 
             <input type="hidden" name="nik" value={{ $nik }}>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="w-full flex flex-col gap-3 bg-white my-6 py-4 px-4 rounded-lg">
+                <div class="card px-4 py-4">
 
                     <div class="form-group">
                         <label for="penghayatan_pengamalan_pancasila">Pengamalan Pancasila</label>
@@ -144,42 +144,45 @@
 
                 </div>
 
-                <div class="w-full flex flex-col gap-3 bg-white my-6 py-4 px-4 rounded-lg">
+
+
+
+                <div class="card px-4 py-4">
                     <div class="form-group">
-                        <label for="pangan">Pangan</label>
+                        <label for="industri_rumahan">Kegiatan Industri</label>
                         <div class="form-group">
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="pangan_ya" name="pangan" value="1"
-                                    class="custom-control-input" required
-                                    {{ $dawisSession && $dawisSession['pangan'] == '1' ? 'checked' : '' }}>
-                                <label class="custom-control-label" for="pangan_ya"> Ya </label>
+                                <input hx-trigger="click" hx-post="/dawis/isIndustri/1" hx-swap="innerHtml"
+                                    hx-target="#sandangPangan" type="radio"
+                                    {{ $dawisSession && $dawisSession['industri_rumahan'] == '1' ? 'checked' : '' }}
+                                    id="industri_rumahan_ya" name="industri_rumahan" value="1"
+                                    class="custom-control-input" required>
+                                <label class="custom-control-label" for="industri_rumahan_ya"> Ya </label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="pangan_tidak" name="pangan" value="0"
-                                    class="custom-control-input" required
-                                    {{ $dawisSession && $dawisSession['pangan'] == '0' ? 'checked' : '' }}>
-                                <label class="custom-control-label" for="pangan_tidak"> Tidak </label>
+                                <input hx-trigger="click" hx-post="/dawis/isIndustri/0" hx-swap="innerHtml"
+                                    hx-target="#sandangPangan" type="radio"
+                                    {{ $dawisSession && $dawisSession['industri_rumahan'] == '0' ? 'checked' : '' }}
+                                    id="industri_rumahan_tidak" name="industri_rumahan" value="0"
+                                    class="custom-control-input" required>
+                                <label class="custom-control-label" for="industri_rumahan_tidak"> Tidak </label>
                             </div>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="sandang">Sandang</label>
-                        <div class="form-group">
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="sandang_ya" name="sandang" value="1"
-                                    class="custom-control-input" required
-                                    {{ $dawisSession && $dawisSession['sandang'] == '1' ? 'checked' : '' }}>
-                                <label class="custom-control-label" for="sandang_ya"> Ya </label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="sandang_tidak" name="sandang" value="0"
-                                    class="custom-control-input" required
-                                    {{ $dawisSession && $dawisSession['sandang'] == '0' ? 'checked' : '' }}>
-                                <label class="custom-control-label" for="sandang_tidak"> Tidak </label>
-                            </div>
+
+                    @if ($dawisSession)
+                        <div id="sandangPangan" hx-swap="innerHtml" hx-trigger="load"
+                            hx-post="{{ $dawisSession && $dawisSession['industri_rumahan'] == '1' ? '/dawis/isIndustri/1' : '' }}">
                         </div>
-                    </div>
+                    @else
+                        <div id="sandangPangan"></div>
+                    @endif
+
+
+
+
+
 
                     <div class="form-group">
                         <label for="kegiatan_kesehatan">Kegiatan Kesehatan</label>

@@ -16,15 +16,16 @@
 @fragment('jenisKb')
     <div class="form-group">
         <label for="jenis_kb">Jenis KB</label>
-        {{-- <input type="text" name="jenis_kb" class="form-control" placeholder="Intra Uterine Device,Implan,Sterilisasi dll" required
-            value={{ $dawisSession ? $dawisSession['jenis_kb'] : '' }}> --}}
         <select class="form-control" name="jenis_kb" required>
-            <option value="" selected disabled>Pilih Jenis KB</option>
+            <option value="" {{ $dawisSession['jenis_kb'] ? '' : 'selected' }} disabled>Pilih Jenis KB</option>
+
             @foreach ($jenisKb as $kb)
-                <option value={{ $dawisSession ? $dawisSession['jenis_kb'] : '' }}>
+                <option value={{ $dawisSession ? $dawisSession['jenis_kb'] : $kb }}
+                    {{ $dawisSession['jenis_kb'] == $kb ? 'selected' : '' }}>
                     {{ $kb }}
                 </option>
             @endforeach
+
         </select>
     </div>
 @endfragment

@@ -102,6 +102,11 @@ Route::middleware('auth')->group(function () {
 
         Route::post('/isPosyandu/{id}', [KeikutsertaanKegiatanDawisController::class, 'isPosyandu'])->name('dawis.isPosyandu');
         Route::post('/isKoperasi/{id}', [KeikutsertaanKegiatanDawisController::class, 'isKoperasi'])->name('dawis.isKoperasi');
+
+        Route::post('/isDisabilitas/{id}', [KeikutsertaanKegiatanDawisController::class, 'isDisabilitas']);
+        Route::post('/isIndustri/{id}', [KeikutsertaanKegiatanDawisController::class, 'isIndustri']);
+        Route::post('/isPutusSekolah/{id}', [KeikutsertaanKegiatanDawisController::class, 'isPutusSekolah']);
+
     });
 
     Route::prefix('cargas')->group(function () {

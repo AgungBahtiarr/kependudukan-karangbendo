@@ -34,8 +34,6 @@ class WargaController extends Controller
         $pekerjaans = Pekerjaan::get();
         $searchQuery = $request->strquery;
 
-
-
         if ($request->filterPendidikan) {
             $wargas->where('id_pendidikan', $request->filterPendidikan);
         }
@@ -84,7 +82,7 @@ class WargaController extends Controller
 
         // return $wargas;
 
-        return view('warga.index', compact('title', 'wargas', 'status', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans',));
+        return view('warga.index', compact('title', 'wargas', 'status', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans', ));
     }
 
 
@@ -383,7 +381,7 @@ class WargaController extends Controller
 
 
 
-        return view('warga.edit.edit-2', compact('title', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans', 'warga', 'wargaSession',));
+        return view('warga.edit.edit-2', compact('title', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans', 'warga', 'wargaSession', ));
     }
 
     /**

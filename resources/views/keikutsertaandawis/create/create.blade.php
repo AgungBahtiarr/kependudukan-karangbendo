@@ -64,7 +64,7 @@
         <form action={{ route('dawis.store') }} method="POST">
             @csrf
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="w-full bg-white gap-2 my-6 py-4 px-4 rounded-lg">
+                <div class="card px-4 py-4">
                     <input type="hidden" name="nik" class="form-control" required value={{ $nik }}
                         @readonly(true)>
 
@@ -162,10 +162,54 @@
                         </div>
                     </div>
 
+
                 </div>
 
 
-                <div class="w-full bg-white flex flex-col gap-2 my-6 py-4 px-4 rounded-lg">
+                <div class="card px-4 py-4">
+
+                    <div class="form-group">
+                        <label for="putus_sekolah">Putus Sekolah</label>
+                        <div class="form-group">
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input hx-trigger="click" hx-post="/dawis/isPutusSekolah/1" hx-swap="innerHtml"
+                                    hx-target="#jenjangSekolah" type="radio" id="putus_sekolah_ya"
+                                    name="putus_sekolah" value="1" class="custom-control-input" required
+                                    {{ $dawisSession && $dawisSession['putus_sekolah'] == '1' ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="putus_sekolah_ya"> Ya </label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input hx-trigger="click" hx-post="/dawis/isPutusSekolah/0" hx-swap="innerHtml"
+                                    hx-target="#jenjangSekolah" type="radio" id="putus_sekolah_tidak"
+                                    name="putus_sekolah" value="0" class="custom-control-input" required
+                                    {{ $dawisSession && $dawisSession['putus_sekolah'] == '0' ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="putus_sekolah_tidak"> Tidak </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if ($dawisSession)
+                        @if ($dawisSession['id_jenjang_sekolah'] == null)
+                            <div id="jenjangSekolah"></div>
+                        @else
+                            <div id="jenjangSekolah">
+                                <div class="form-group">
+                                    <label for="jenjang_sekolah">Jenjang Putus Sekolah</label>
+                                    <select class="form-control" name="id_jenjang_sekolah" required>
+                                        @foreach ($jenjangSekolah as $item)
+                                            <option value="{{ $item->id }}"
+                                                {{ $dawisSession['id_jenjang_sekolah'] == $item->id ? 'selected' : '' }}>
+                                                {{ $item->jenjang_sekolah }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        @endif
+                    @else
+                        <div id="jenjangSekolah"></div>
+                    @endif
+
                     <div class="form-group">
                         <label for="kelompok_belajar">Kelompok Belajar</label>
                         <div class="form-group">
@@ -185,6 +229,9 @@
                             </div>
                         </div>
                     </div>
+
+
+
 
                     @if ($dawisSession)
                         @if ($dawisSession['id_jenis_kelompok_belajar'] == null)
@@ -207,8 +254,6 @@
                     @else
                         <div id="jenisKelompok"></div>
                     @endif
-
-
 
 
                     <div class="form-group">
@@ -259,19 +304,49 @@
                         <label for="berkebutuhan_khusus">Berkebutuhan Khusus</label>
                         <div class="form-group">
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="berkebutuhan_khusus_ya" name="berkebutuhan_khusus"
-                                    value="1" class="custom-control-input" required
+                                <input hx-trigger="click" hx-post="/dawis/isDisabilitas/1" hx-swap="innerHtml"
+                                    hx-target="#jenisDisabilitas" type="radio" id="berkebutuhan_khusus_ya"
+                                    name="berkebutuhan_khusus" value="1" class="custom-control-input" required
                                     {{ $dawisSession && $dawisSession['berkebutuhan_khusus'] == '1' ? 'checked' : '' }}>
                                 <label class="custom-control-label" for="berkebutuhan_khusus_ya"> Ya </label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="berkebutuhan_khusus_tidak" name="berkebutuhan_khusus"
-                                    value="0" class="custom-control-input" required
+                                <input hx-trigger="click" hx-post="/dawis/isDisabilitas/0" hx-swap="innerHtml"
+                                    hx-target="#jenisDisabilitas" type="radio" id="berkebutuhan_khusus_tidak"
+                                    name="berkebutuhan_khusus" value="0" class="custom-control-input" required
                                     {{ $dawisSession && $dawisSession['berkebutuhan_khusus'] == '0' ? 'checked' : '' }}>
                                 <label class="custom-control-label" for="berkebutuhan_khusus_tidak"> Tidak </label>
                             </div>
                         </div>
                     </div>
+
+
+
+                    @if ($dawisSession)
+                        @if ($dawisSession['id_jenis_disabilitas'] == null)
+                            <div id="jenisDisabilitas" hx-swap="innerHtml" hx-trigger="load"
+                                hx-post="{{ $dawisSession && $dawisSession['berkebutuhan_khusus'] == '1' ? '/dawis/isDisabilitas/1' : '' }}">
+
+                            </div>
+                        @else
+                            <div id="jenisDisabilitas">
+                                <div class="form-group">
+                                    <label for="jenis_disabilitas">Jenis Disabilitas</label>
+                                    <select class="form-control" name="id_jenis_disabilitas" required>
+                                        <option value="" selected disabled>Pilih Jenis Disabilitas</option>
+                                        @foreach ($jenisDisabilitas as $item)
+                                            <option value="{{ $item->id }}"
+                                                {{ $dawisSession['id_jenis_disabilitas'] == $item->id ? 'selected' : '' }}>
+                                                {{ $item->jenis_disabilitas }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        @endif
+                    @else
+                        <div id="jenisDisabilitas"></div>
+                    @endif
 
                 </div>
             </div>

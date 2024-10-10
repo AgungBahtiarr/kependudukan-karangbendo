@@ -17,4 +17,9 @@ class KeikutsertaanKegiatanDawis extends Model
     {
         return $this->belongsTo(KelompokBelajar::class, 'id_jenis_kelompok_belajar');
     }
+
+    public function jenisDisabilitas()
+    {
+        return $this->belongsTo(Disabilitas::class, 'id_jenis_disabilitas');
+    }
 }

@@ -21,7 +21,9 @@ class DatabaseSeeder extends Seeder
             PekerjaanSeeder::class,
             MakananPokokSeeder::class,
             KelompokBelajarSeeder::class,
-            SumberAirSeeder::class
+            SumberAirSeeder::class,
+            DisabilitasSeeder::class,
+            JenjangSekolahSeeder::class
         ]);
     }
 }
