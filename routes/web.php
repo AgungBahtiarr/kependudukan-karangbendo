@@ -68,6 +68,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/filter/agama', [WargaController::class, 'filterAgama'])->name('wargas.filter-agama');
         Route::get('/filter/pekerjaan', [WargaController::class, 'filterPekerjaan'])->name('wargas.filter-pekerjaan');
         Route::get('/filter/status-perkawinan', [WargaController::class, 'filterStatusPerkawinan'])->name('wargas.filter-status-perkawinan');
+
+        Route::get('/filter/alamat', [WargaController::class, 'filterAlamat']);
     });
 
     Route::prefix('kematian')->group(function () {
@@ -106,7 +108,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/isDisabilitas/{id}', [KeikutsertaanKegiatanDawisController::class, 'isDisabilitas']);
         Route::post('/isIndustri/{id}', [KeikutsertaanKegiatanDawisController::class, 'isIndustri']);
         Route::post('/isPutusSekolah/{id}', [KeikutsertaanKegiatanDawisController::class, 'isPutusSekolah']);
-
     });
 
     Route::prefix('cargas')->group(function () {

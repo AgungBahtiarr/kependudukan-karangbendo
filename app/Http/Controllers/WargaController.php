@@ -11,7 +11,6 @@ use App\Models\Pekerjaan;
 use App\Models\Pendidikan;
 use App\Models\PenerimaBansos;
 use App\Models\StatusPerkawinan;
-use App\Models\TransaksiBansos;
 use App\Models\Warga;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -52,6 +51,11 @@ class WargaController extends Controller
             $wargas->where('id_status_perkawinan', $request->filterPerkawinan);
         }
 
+        if ($request->alamat_dusun) {
+            $wargas->where(['alamat_dusun' => $request->alamat_dusun, 'rt' => $request->rt, 'rw' => $request->rw]);
+        }
+
+
         if ($searchQuery) {
             $wargas = $wargas->where(function ($query) use ($searchQuery) {
                 $query->whereRaw('LOWER(nama) LIKE ?', ['%' . strtolower($searchQuery) . '%'])
@@ -79,6 +83,7 @@ class WargaController extends Controller
         if ($status == 'domisili_tidak_sesuai') {
             $wargas->where('domisili_sesuai_ktp', '0');
         }
+
 
         $wargas = $wargas->get();
 
@@ -585,6 +590,58 @@ class WargaController extends Controller
 
 
         return redirect(route("dawis.edit", $warga->nik));
+    }
+
+
+    public function filterAlamat()
+    {
+        $dusun_data = [
+            'Karanganyar' => [
+                'jumlah_rw' => 4,
+                'rw_rt' => [
+                    '001' => ['001', '002', '003'],
+                    '002' => ['001', '002', '003'],
+                    '003' => ['001', '002', '003'],
+                    '004' => ['001', '002', '003']
+                ]
+            ],
+            'Krajan' => [
+                'jumlah_rw' => 2,
+                'rw_rt' => [
+                    '001' => ['001', '002'],
+                    '002' => ['001', '002', '003']
+                ]
+            ],
+            'Bades' => [
+                'jumlah_rw' => 4,
+                'rw_rt' => [
+                    '001' => ['001', '002', '003'],
+                    '002' => ['001', '002', '003'],
+                    '003' => ['001', '002'],
+                    '004' => ['001', '002']
+                ]
+            ],
+            'Jajangsurat' => [
+                'jumlah_rw' => 5,
+                'rw_rt' => [
+                    '001' => ['001', '002', '003'],
+                    '002' => ['001', '002', '003'],
+                    '003' => ['001', '002', '003'],
+                    '004' => ['001', '002', '003', '004'],
+                    '005' => ['001', '002', '003', '004']
+                ]
+            ],
+            'Pancoran' => [
+                'jumlah_rw' => 3,
+                'rw_rt' => [
+                    '001' => ['001', '002'],
+                    '002' => ['001', '002'],
+                    '003' => ['001', '002', '003']
+                ]
+            ]
+        ];
+
+        return view('warga.partials.filteralamat', compact('dusun_data'))->fragment('filterAlamat');
     }
 
     public function filterPendidikan()

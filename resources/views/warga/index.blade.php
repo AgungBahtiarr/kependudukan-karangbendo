@@ -88,6 +88,12 @@
                                                             {{ request('status') == 'status-perkawinan' ? 'selected' : '' }}>
                                                             Status Perkawinan
                                                         </option>
+                                                        <option hx-get="/warga/filter/alamat" hx-trigger="click"
+                                                            hx-swap="innerHtml" hx-target="#formFilter"
+                                                            value="alamat"
+                                                            {{ request('status') == 'alamat' ? 'selected' : '' }}>
+                                                            Alamat 
+                                                        </option>
                                                     </select>
                                                 </div>
 
