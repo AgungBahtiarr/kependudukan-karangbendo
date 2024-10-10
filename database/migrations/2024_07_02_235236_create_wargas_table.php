@@ -24,6 +24,7 @@ return new class extends Migration
             $table->enum('status_keluarga',['1','0']);
             $table->unsignedBigInteger('id_agama');
             $table->string('alamat_jalan',100);
+            $table->string('alamat_dusun');
             $table->string('alamat_desakel')->default('Karangbendo');
             $table->string('alamat_kec')->default('Rogojampi');
             $table->string('alamat_kab')->default('Banyuwangi');

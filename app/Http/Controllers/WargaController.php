@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agama;
+use App\Models\Disabilitas;
+use App\Models\JenjangSekolah;
 use App\Models\KeikutsertaanKegiatanDawis;
 use App\Models\Kematian;
 use App\Models\Pekerjaan;
@@ -82,7 +84,7 @@ class WargaController extends Controller
 
         // return $wargas;
 
-        return view('warga.index', compact('title', 'wargas', 'status', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans', ));
+        return view('warga.index', compact('title', 'wargas', 'status', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans',));
     }
 
 
@@ -122,9 +124,56 @@ class WargaController extends Controller
         $pendidikans = Pendidikan::get();
         $pekerjaans = Pekerjaan::get();
 
+        $dusun_data = [
+            'Karanganyar' => [
+                'jumlah_rw' => 4,
+                'rw_rt' => [
+                    '001' => ['001', '002', '003'],
+                    '002' => ['001', '002', '003'],
+                    '003' => ['001', '002', '003'],
+                    '004' => ['001', '002', '003']
+                ]
+            ],
+            'Krajan' => [
+                'jumlah_rw' => 2,
+                'rw_rt' => [
+                    '001' => ['001', '002'],
+                    '002' => ['001', '002', '003']
+                ]
+            ],
+            'Bades' => [
+                'jumlah_rw' => 4,
+                'rw_rt' => [
+                    '001' => ['001', '002', '003'],
+                    '002' => ['001', '002', '003'],
+                    '003' => ['001', '002'],
+                    '004' => ['001', '002']
+                ]
+            ],
+            'Jajangsurat' => [
+                'jumlah_rw' => 5,
+                'rw_rt' => [
+                    '001' => ['001', '002', '003'],
+                    '002' => ['001', '002', '003'],
+                    '003' => ['001', '002', '003'],
+                    '004' => ['001', '002', '003', '004'],
+                    '005' => ['001', '002', '003', '004']
+                ]
+            ],
+            'Pancoran' => [
+                'jumlah_rw' => 3,
+                'rw_rt' => [
+                    '001' => ['001', '002'],
+                    '002' => ['001', '002'],
+                    '003' => ['001', '002', '003']
+                ]
+            ]
+        ];
+
+
         $wargaSession = $request->session()->get('warga2');
 
-        return view('warga.create.create-2', compact('title', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans', 'wargaSession'));
+        return view('warga.create.create-2', compact('title', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans', 'wargaSession', 'dusun_data'));
     }
 
 
@@ -165,6 +214,7 @@ class WargaController extends Controller
             'alamat_kab' => $request->alamat_kab,
             'alamat_kec' => $request->alamat_kec,
             'alamat_desakel' => $request->alamat_desakel,
+            'alamat_dusun' => $request->alamat_dusun,
             'rt' => $request->rt,
             'rw' => $request->rw,
             'alamat_jalan' => $request->alamat_jalan,
@@ -187,6 +237,7 @@ class WargaController extends Controller
             'alamat_kab' => $request->alamat_kab,
             'alamat_kec' => $request->alamat_kec,
             'alamat_desakel' => $request->alamat_desakel,
+            'alamat_dusun' => $request->alamat_dusun,
             'rt' => $request->rt,
             'rw' => $request->rw,
             'alamat_jalan' => $request->alamat_jalan,
@@ -217,6 +268,7 @@ class WargaController extends Controller
             'status_keluarga' => $allSession['status_keluarga'],
             'alamat_jalan' => $allSession['alamat_jalan'],
             'alamat_desakel' => $allSession['alamat_desakel'],
+            'alamat_dusun' => $allSession['alamat_dusun'],
             'alamat_kec' => $allSession['alamat_kec'],
             'alamat_kab' => $allSession['alamat_kab'],
             'alamat_prov' => $allSession['alamat_prov'],
@@ -292,12 +344,15 @@ class WargaController extends Controller
     public function show($id)
     {
         $title = 'Detail Warga';
-        $warga = Warga::with('agama', 'pendidikan', 'pekerjaan', 'statusPerkawinan')->findOrFail($id);
+        $warga = Warga::with('agama', 'pendidikan', 'pekerjaan', 'statusPerkawinan',)->findOrFail($id);
+
 
         $perkawinan = StatusPerkawinan::get();
         $agamas = Agama::get();
         $pendidikans = Pendidikan::get();
         $pekerjaans = Pekerjaan::get();
+        $jenjangSekolah = JenjangSekolah::get();
+        $jenisDisabilitas = Disabilitas::get();
 
         $dawisraw = KeikutsertaanKegiatanDawis::with('jenisKelompokBelajar')->where('nik', $warga->nik)->first();
         $dawis = KeikutsertaanKegiatanDawis::with('jenisKelompokBelajar')->findOrFail($dawisraw->id);
@@ -309,7 +364,7 @@ class WargaController extends Controller
         $riwayatBansos = PenerimaBansos::with('program', 'riwayat')->where('nik', $warga->nik)->get();
         // return $riwayatBansos;
         // return $dawis;
-        return view("warga.show.detail", compact('warga', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans', 'dawis', 'kematian', 'riwayatBansos'));
+        return view("warga.show.detail", compact('warga', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans', 'dawis', 'kematian', 'riwayatBansos', 'jenjangSekolah', 'jenisDisabilitas'));
     }
 
     // public function show2($id)
@@ -348,11 +403,13 @@ class WargaController extends Controller
 
     public function backToEdit(Request $request)
     {
+
         $data = [
             'alamat_prov' => $request->alamat_prov,
             'alamat_kab' => $request->alamat_kab,
             'alamat_kec' => $request->alamat_kec,
             'alamat_desakel' => $request->alamat_desakel,
+            'alamat_dusun' => $request->alamat_dusun,
             'rt' => $request->rt,
             'rw' => $request->rw,
             'alamat_jalan' => $request->alamat_jalan,
@@ -376,12 +433,58 @@ class WargaController extends Controller
         $pendidikans = Pendidikan::get();
         $pekerjaans = Pekerjaan::get();
 
+        $dusun_data = [
+            'Karanganyar' => [
+                'jumlah_rw' => 4,
+                'rw_rt' => [
+                    '001' => ['001', '002', '003'],
+                    '002' => ['001', '002', '003'],
+                    '003' => ['001', '002', '003'],
+                    '004' => ['001', '002', '003']
+                ]
+            ],
+            'Krajan' => [
+                'jumlah_rw' => 2,
+                'rw_rt' => [
+                    '001' => ['001', '002'],
+                    '002' => ['001', '002', '003']
+                ]
+            ],
+            'Bades' => [
+                'jumlah_rw' => 4,
+                'rw_rt' => [
+                    '001' => ['001', '002', '003'],
+                    '002' => ['001', '002', '003'],
+                    '003' => ['001', '002'],
+                    '004' => ['001', '002']
+                ]
+            ],
+            'Jajangsurat' => [
+                'jumlah_rw' => 5,
+                'rw_rt' => [
+                    '001' => ['001', '002', '003'],
+                    '002' => ['001', '002', '003'],
+                    '003' => ['001', '002', '003'],
+                    '004' => ['001', '002', '003', '004'],
+                    '005' => ['001', '002', '003', '004']
+                ]
+            ],
+            'Pancoran' => [
+                'jumlah_rw' => 3,
+                'rw_rt' => [
+                    '001' => ['001', '002'],
+                    '002' => ['001', '002'],
+                    '003' => ['001', '002', '003']
+                ]
+            ]
+        ];
+
 
         $wargaSession = $request->session()->get('editWarga2');
 
 
 
-        return view('warga.edit.edit-2', compact('title', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans', 'warga', 'wargaSession', ));
+        return view('warga.edit.edit-2', compact('title', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans', 'warga', 'wargaSession', 'dusun_data'));
     }
 
     /**
@@ -432,6 +535,7 @@ class WargaController extends Controller
             'alamat_kab' => $request->alamat_kab,
             'alamat_kec' => $request->alamat_kec,
             'alamat_desakel' => $request->alamat_desakel,
+            'alamat_dusun' => $request->alamat_dusun,
             'rt' => $request->rt,
             'rw' => $request->rw,
             'alamat_jalan' => $request->alamat_jalan,
@@ -460,6 +564,7 @@ class WargaController extends Controller
             'status_di_keluarga' => $allSession['status_keluarga'],
             'alamat_jalan' => $allSession['alamat_jalan'],
             'alamat_desakel' => $allSession['alamat_desakel'],
+            'alamat_dusun' => $allSession['alamat_dusun'],
             'alamat_kec' => $allSession['alamat_kec'],
             'alamat_kab' => $allSession['alamat_kab'],
             'alamat_prov' => $allSession['alamat_prov'],

@@ -373,6 +373,7 @@ class KeikutsertaanKegiatanDawisController extends Controller
         $warga = Warga::where('nik', $nik)->get();
         $kelompokBelajars = KelompokBelajar::get();
         $jenjangSekolah = JenjangSekolah::get();
+        $jenisDisabilitas = Disabilitas::get();
 
         $warga = $warga[0];
         $nik = $warga->nik;
@@ -400,7 +401,7 @@ class KeikutsertaanKegiatanDawisController extends Controller
             'MAL (Metode Amenorea Laktasi)'
         ];
 
-        return view('keikutsertaandawis.edit.edit', compact('nik', 'title', 'kelompokBelajars', 'dawis', 'warga', 'jenisKb', 'jenjangSekolah'));
+        return view('keikutsertaandawis.edit.edit', compact('nik', 'title', 'kelompokBelajars', 'dawis', 'warga', 'jenisKb', 'jenjangSekolah', 'jenisDisabilitas'));
     }
 
     public function edit2(Request $request, $nik)
@@ -470,6 +471,7 @@ class KeikutsertaanKegiatanDawisController extends Controller
             'jenis_koperasi' => $jenisKoperasi,
             'berkebutuhan_khusus' => $request->berkebutuhan_khusus,
             'id_jenis_disabilitas' => $request->id_jenis_disabilitas,
+            'putus_sekolah' => $request->putus_sekolah,
             'id_jenjang_sekolah' => $request->id_jenjang_sekolah,
             'id_jenis_kelompok_belajar' => $idKelompokBelajar,
         ];

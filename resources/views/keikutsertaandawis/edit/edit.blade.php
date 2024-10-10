@@ -420,6 +420,49 @@
                         </div>
                     </div>
 
+                    <div id="jenisDisabilitas">
+                        <div class="form-group">
+                            <label for="jenis_disabilitas">Jenis Disabilitas</label>
+                            <select class="form-control" name="id_jenis_disabilitas" required>
+                                <option value="" selected disabled>Pilih Jenis Disabilitas</option>
+                                @foreach ($jenisDisabilitas as $item)
+                                    <option value="{{ $item->id }}"
+                                        {{ $dawis->id_jenis_disabilitas == $item->id ? 'selected' : '' }}>
+                                        {{ $item->jenis_disabilitas }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const berkebutuhanKhususYa = document.getElementById('berkebutuhan_khusus_ya');
+                            const berkebutuhanKhususTidak = document.getElementById('berkebutuhan_khusus_tidak');
+                            const jenisDisabilitasDiv = document.getElementById('jenisDisabilitas');
+                            const jenisDisabilitasSelect = jenisDisabilitasDiv.querySelector('select[name="id_jenis_disabilitas"]');
+
+                            function toggleJenisDisabilitas() {
+                                if (berkebutuhanKhususYa.checked) {
+                                    jenisDisabilitasDiv.style.display = 'block';
+                                    jenisDisabilitasSelect.required = true;
+                                } else {
+                                    jenisDisabilitasDiv.style.display = 'none';
+                                    jenisDisabilitasSelect.required = false;
+                                    jenisDisabilitasSelect.value = ''; // Reset pilihan jenis disabilitas
+                                }
+                            }
+
+                            // Jalankan fungsi saat halaman dimuat untuk mengatur tampilan awal
+                            toggleJenisDisabilitas();
+
+                            // Tambahkan event listener untuk kedua radio button
+                            berkebutuhanKhususYa.addEventListener('change', toggleJenisDisabilitas);
+                            berkebutuhanKhususTidak.addEventListener('change', toggleJenisDisabilitas);
+                        });
+                    </script>
+
+
                 </div>
             </div>
 

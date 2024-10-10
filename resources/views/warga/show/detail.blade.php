@@ -90,6 +90,11 @@
                         <div class="font-medium text-[#ADADAD]">Desa/Kelurahan</div>
                         <div>{{ $warga->alamat_desakel }}</div>
                     </li>
+
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Dusun</div>
+                        <div>{{ $warga->alamat_dusun }}</div>
+                    </li>
                     <li class="flex flex-col gap-3">
                         <div class="font-medium text-[#ADADAD]">RW</div>
                         <div>{{ $warga->rw }}</div>
@@ -151,6 +156,19 @@
 
                 <ul class="flex flex-col gap-7 pl-8 py-8">
                     <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Putus Sekolah</div>
+                        <div>{{ $dawis->putus_sekolah && $dawis->putus_sekolah == '1' ? 'Iya' : 'Tidak' }}</div>
+                    </li>
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Jenjang Putus Sekolah</div>
+
+                        @foreach ($jenjangSekolah as $item)
+                            <div>{{ $dawis->id_jenjang_sekolah == $item->id ? $item->jenjang_sekolah : '' }}
+                            </div>
+                        @endforeach
+
+                    </li>
+                    <li class="flex flex-col gap-3">
                         <div class="font-medium text-[#ADADAD]">Mengikuti Kelompok Belajar</div>
                         <div>{{ $dawis->kelompok_belajar && $dawis->kelompok_belajar == '1' ? 'Iya' : 'Tidak' }}</div>
                     </li>
@@ -174,6 +192,13 @@
                     <li class="flex flex-col gap-3">
                         <div class="font-medium text-[#ADADAD]">Berkebutuhan Khusus</div>
                         <div>{{ $dawis->berkebutuhan_khusus == '1' ? 'Iya' : 'Tidak' }}</div>
+                    </li>
+
+                    <li class="flex flex-col gap-3">
+                        <div class="font-medium text-[#ADADAD]">Jenis Kebutuhan Khusus</div>
+                        @foreach ($jenisDisabilitas as $item)
+                            <div>{{ $dawis->id_jenis_disabilitas == $item->id ? $item->jenis_disabilitas : '' }}</div>
+                        @endforeach
                     </li>
                 </ul>
             </div>
