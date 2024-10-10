@@ -128,9 +128,9 @@ class CatatanRumahTanggaController extends Controller
     public function isPekarangan(Request $request, $id)
     {
         $carga = CatatanRumahTangga::findOrFail($id);
-        $pekarangan = PemanfaatanTanahPekarangan::where("nkk", $carga->nkk);
+        $pekarangan = PemanfaatanTanahPekarangan::where("nkk", $carga->nkk)->get();
 
-        if ($pekarangan) {
+        if (count($pekarangan) == 1) {
             return "<div></div>";
         } else {
             return view("catatan_rumah_tangga.partials.isPekarangan", compact("carga"))->fragment('isPekarangan');
@@ -140,12 +140,12 @@ class CatatanRumahTanggaController extends Controller
     public function isIndustri(Request $request, $id)
     {
         $carga = CatatanRumahTangga::findOrFail($id);
-        $industri = IndustriRumahTangga::where("nkk", $carga->nkk);
+        $industri = IndustriRumahTangga::where("nkk", $carga->nkk)->get();
 
-        if ($industri) {
+        if (count($industri) == 1) {
             return "<div></div>";
         } else {
-            return view("catatan_rumah_tangga.partials.isIndustri", compact("industri"))->fragment('isIndustri');
+            return view("catatan_rumah_tangga.partials.isIndustri", compact("carga"))->fragment('isIndustri');
         }
     }
 
@@ -241,9 +241,12 @@ class CatatanRumahTanggaController extends Controller
             "jumlah_pus" => $request->jumlah_pus,
             "jumlah_wus" => $request->jumlah_wus,
             "jumlah_ibu_hamil" =>  $request->jumlah_ibu_hamil,
-            "jumlah_ibuta" => $request->jumlah_ibuta,
             "jumlah_ibu_menyusui" => $request->jumlah_ibu_menyusui,
             "jumlah_lansia" => $request->jumlah_lansia,
+            "jumlah_buta_baca" => $request->jumlah_buta_baca,
+            "jumlah_buta_tulis" => $request->jumlah_buta_tulis,
+            "jumlah_buta_hitung" => $request->jumlah_buta_hitung,
+            "jumlah_berkebutuhan_khusus" => $request->jumlah_berkebutuhan_khusus
         ];
 
         $request->session()->put('cargas3', $rawData);
@@ -333,9 +336,12 @@ class CatatanRumahTanggaController extends Controller
             "jumlah_pus" => $request->jumlah_pus,
             "jumlah_wus" => $request->jumlah_wus,
             "jumlah_ibu_hamil" =>  $request->jumlah_ibu_hamil,
-            "jumlah_ibuta" => $request->jumlah_ibuta,
             "jumlah_ibu_menyusui" => $request->jumlah_ibu_menyusui,
             "jumlah_lansia" => $request->jumlah_lansia,
+            "jumlah_buta_baca" => $request->jumlah_buta_baca,
+            "jumlah_buta_tulis" => $request->jumlah_buta_tulis,
+            "jumlah_buta_hitung" => $request->jumlah_buta_hitung,
+            "jumlah_berkebutuhan_khusus" => $request->jumlah_berkebutuhan_khusus
         ];
 
         $request->session()->put('cargas3', $data);
@@ -461,9 +467,12 @@ class CatatanRumahTanggaController extends Controller
             "jumlah_pus" => $request->jumlah_pus,
             "jumlah_wus" => $request->jumlah_wus,
             "jumlah_ibu_hamil" =>  $request->jumlah_ibu_hamil,
-            "jumlah_ibuta" => $request->jumlah_ibuta,
             "jumlah_ibu_menyusui" => $request->jumlah_ibu_menyusui,
             "jumlah_lansia" => $request->jumlah_lansia,
+            "jumlah_buta_baca" => $request->jumlah_buta_baca,
+            "jumlah_buta_tulis" => $request->jumlah_buta_tulis,
+            "jumlah_buta_hitung" => $request->jumlah_buta_hitung,
+            "jumlah_berkebutuhan_khusus" => $request->jumlah_berkebutuhan_khusus
         ];
 
         $carga = CatatanRumahTangga::findOrFail($request->id);

@@ -53,49 +53,64 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-group">
                         <label for="jumlah_balita">Jumlah Balita</label>
-                        <input type="number" name="jumlah_balita" class="form-control" required
+                        <input type="number" min="0" name="jumlah_balita" class="form-control" required
                             value={{ $cargasSession ? $cargasSession['jumlah_balita'] : '' }}>
                     </div>
 
-
                     <div class="form-group">
-                        <label for="jumlah_pus">Jumlah Pria Usaha Sosial</label>
-                        <input type="number" name="jumlah_pus" class="form-control" required
+                        <label for="jumlah_pus">Jumlah Pria Usia Subur</label>
+                        <input type="number" min="0" name="jumlah_pus" class="form-control" required
                             value={{ $cargasSession ? $cargasSession['jumlah_pus'] : '' }}>
                     </div>
 
                     <div class="form-group">
-                        <label for="jumlah_wus">Jumlah Wanita Usaha Sosial</label>
-                        <input type="number" name="jumlah_wus" class="form-control" required
+                        <label for="jumlah_wus">Jumlah Wanita Usia Subur</label>
+                        <input type="number" min="0" name="jumlah_wus" class="form-control" required
                             value={{ $cargasSession ? $cargasSession['jumlah_wus'] : '' }}>
                     </div>
 
                     <div class="form-group">
                         <label for="jumlah_ibu_hamil">Jumlah Ibu Hamil</label>
-                        <input type="number" name="jumlah_ibu_hamil" class="form-control" required
+                        <input type="number" min="0" name="jumlah_ibu_hamil" class="form-control" required
                             value={{ $cargasSession ? $cargasSession['jumlah_ibu_hamil'] : '' }}>
                     </div>
 
-
                     <div class="form-group">
-                        <label for="jumlah_ibuta">Jumlah Ibu Rumah Tangga</label>
-                        <input type="number" name="jumlah_ibuta" class="form-control" required
-                            value={{ $cargasSession ? $cargasSession['jumlah_ibuta'] : '' }}>
+                        <label for="jumlah_lansia">Jumlah Lansia</label>
+                        <input type="number" min="0" name="jumlah_lansia" class="form-control" required
+                            value={{ $cargasSession ? $cargasSession['jumlah_lansia'] : '' }}>
                     </div>
-
 
                     <div class="form-group">
                         <label for="jumlah_ibu_menyusui">Jumlah Ibu Menyusui</label>
-                        <input type="number" name="jumlah_ibu_menyusui" class="form-control" required
+                        <input type="number" min="0" name="jumlah_ibu_menyusui" class="form-control" required
                             value={{ $cargasSession ? $cargasSession['jumlah_ibu_menyusui'] : '' }}>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jumlah_buta_baca">Jumlah Buta Baca</label>
+                        <input type="number" min="0" name="jumlah_buta_baca" class="form-control" required
+                            value={{ $cargasSession ? $cargasSession['jumlah_buta_baca'] : '' }}>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jumlah_buta_tulis">Jumlah Buta Tulis</label>
+                        <input type="number" min="0" name="jumlah_buta_tulis" class="form-control" required
+                            value={{ $cargasSession ? $cargasSession['jumlah_buta_tulis'] : '' }}>
+                    </div>
+                    <div class="form-group">
+                        <label for="jumlah_buta_hitung">Jumlah Buta Hitung</label>
+                        <input type="number" min="0" name="jumlah_buta_hitung" class="form-control" required
+                            value={{ $cargasSession ? $cargasSession['jumlah_buta_hitung'] : '' }}>
+                    </div>
+                    <div class="form-group">
+                        <label for="jumlah_berkebutuhan_khusus">Jumlah Berkebutuhan Khusus</label>
+                        <input type="number" min="0" name="jumlah_berkebutuhan_khusus" class="form-control" required
+                            value={{ $cargasSession ? $cargasSession['jumlah_berkebutuhan_khusus'] : '' }}>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="jumlah_lansia">Jumlah Lansia</label>
-                    <input type="number" name="jumlah_lansia" class="form-control" required
-                        value={{ $cargasSession ? $cargasSession['jumlah_lansia'] : '' }}>
-                </div>
+
 
                 <div class="modal-footer">
                     <a hx-post={{ route('cargas.back2') }} hx-trigger="click" type="button"

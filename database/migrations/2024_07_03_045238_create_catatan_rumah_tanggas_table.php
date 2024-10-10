@@ -23,7 +23,6 @@ return new class extends Migration {
             $table->integer("jumlah_balita", 2)->autoIncrement(false);
             $table->integer("jumlah_pus", 2)->autoIncrement(false);
             $table->integer("jumlah_wus", 2)->autoIncrement(false);
-            $table->integer("jumlah_ibuta", 2)->autoIncrement(false);
             $table->integer("jumlah_lansia", 2)->autoIncrement(false);
             $table->integer("jumlah_ibu_hamil", 2)->autoIncrement(false);
             $table->integer("jumlah_ibu_menyusui", 2)->autoIncrement(false);

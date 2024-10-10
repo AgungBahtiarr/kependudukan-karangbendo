@@ -13,13 +13,25 @@ return new class extends Migration
     {
         Schema::create('pemanfaatan_tanah_pekarangans', function (Blueprint $table) {
             $table->id();
-            $table->string('nkk',16);
-            $table->enum('tanaman_keras',['0','1']);
-            $table->enum('toga',['0','1']);
-            $table->enum('lumbung_hidup',['0','1']);
-            $table->enum('warung_hidup',['0','1']);
-            $table->enum('perikanan',['0','1']);
-            $table->enum('peternakan',['0','1']);
+            $table->string('nkk', 16);
+            $table->enum('tanaman_keras', ['0', '1']);
+            $table->string('jenis_tanaman_keras')->nullable(true);
+            $table->integer('volume_tanaman_keras')->nullable(true)->autoIncrement(false);
+            $table->enum('toga', ['0', '1']);
+            $table->string('jenis_toga')->nullable(true);
+            $table->integer('volume_toga')->nullable(true)->autoIncrement(false);
+            $table->enum('lumbung_hidup', ['0', '1']);
+            $table->string('jenis_lumbung_hidup')->nullable(true);
+            $table->integer('volume_lumbung_hidup')->nullable(true)->autoIncrement(false);
+            $table->enum('warung_hidup', ['0', '1']);
+            $table->string('jenis_warung_hidup')->nullable(true);
+            $table->integer('volume_warung_hidup')->nullable(true)->autoIncrement(false);
+            $table->enum('perikanan', ['0', '1']);
+            $table->string('jenis_perikanan')->nullable(true);
+            $table->integer('volume_perikanan')->nullable(true)->autoIncrement(false);
+            $table->enum('peternakan', ['0', '1']);
+            $table->string('jenis_peternakan')->nullable(true);
+            $table->integer('volume_peternakan')->nullable(true)->autoIncrement(false);
             $table->timestamps();
         });
     }
