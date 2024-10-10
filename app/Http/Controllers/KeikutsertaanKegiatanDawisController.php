@@ -318,8 +318,6 @@ class KeikutsertaanKegiatanDawisController extends Controller
         try {
             $dawis = KeikutsertaanKegiatanDawis::create($allDawis);
         } catch (QueryException $e) {
-
-            return $e;
             $errorCode = $e->getCode();
             $errorMessage = 'Mohon maaf, terjadi kesalahan saat menyimpan data.';
 

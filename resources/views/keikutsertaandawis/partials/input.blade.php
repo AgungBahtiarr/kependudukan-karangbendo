@@ -16,17 +16,20 @@
 @fragment('jenisKb')
     <div class="form-group">
         <label for="jenis_kb">Jenis KB</label>
+
+
         <select class="form-control" name="jenis_kb" required>
-            <option value="" {{ $dawisSession['jenis_kb'] ? '' : 'selected' }} disabled>Pilih Jenis KB</option>
+            <option value="" selected disabled>Pilih Jenis KB</option>
 
             @foreach ($jenisKb as $kb)
-                <option value={{ $dawisSession ? $dawisSession['jenis_kb'] : $kb }}
-                    {{ $dawisSession['jenis_kb'] == $kb ? 'selected' : '' }}>
+                <option value={{ $kb }}>
                     {{ $kb }}
                 </option>
             @endforeach
 
         </select>
+
+
     </div>
 @endfragment
 

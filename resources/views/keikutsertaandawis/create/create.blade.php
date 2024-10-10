@@ -88,8 +88,25 @@
                         </div>
                     </div>
 
-                    <div id="jenisKb" hx-swap="innerHtml" hx-trigger="load"
-                        hx-post="{{ $dawisSession && $dawisSession['akseptor_kb'] == '1' ? '/dawis/isJenisKb/1' : '' }}">
+                    @if ($dawisSession)
+                        <div class="form-group">
+                            <select class="form-control" name="jenis_kb" required>
+                                <option value="" {{ $dawisSession['jenis_kb'] ? '' : 'selected' }} disabled>Pilih
+                                    Jenis KB
+                                </option>
+
+                                @foreach ($jenisKb as $kb)
+                                    <option value={{ $dawisSession ? $dawisSession['jenis_kb'] : $kb }}
+                                        {{ $dawisSession['jenis_kb'] == $kb ? 'selected' : '' }}>
+                                        {{ $kb }}
+                                    </option>
+                                @endforeach
+
+                            </select>
+                        </div>
+
+                    @endif
+                    <div id="jenisKb">
                     </div>
 
 
