@@ -13,9 +13,9 @@
                 </div>
                 <div class="card-body">
                     @error('addKader')
-                    <div class="alert alert-danger" role="alert">
-                        <div class="iq-alert-text">{{ $errors->first() }}</div>
-                    </div>
+                        <div class="alert alert-danger" role="alert">
+                            <div class="iq-alert-text">{{ $errors->first() }}</div>
+                        </div>
                     @enderror
                     <div class="row mb-4">
 
@@ -48,71 +48,74 @@
                         @endcan
                     </div>
 
-                    <table id="datatable" class="table data-table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>NIK</th>
-                                <th>Username</th>
-                                <th>Status</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($users as $user)
+                    <div class="overflow-x-scroll md:overflow-x-hidden w-full">
+                        <table id="datatable" class="table data-table table-striped table-bordered">
+                            <thead>
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->nik }}</td>
-                                    <td>{{ $user->username }}</td>
-                                    <td>
-                                        @if ($user->status == 'aktif')
-                                            <span class="btn btn-success btn-sm">{{ ucfirst($user->status) }}</span>
-                                        @elseif ($user->status == 'non aktif')
-                                            <span class="btn btn-danger btn-sm">{{ ucfirst($user->status) }}</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <!-- Edit Data Kader -->
-                                        <a href="{{ route('users.update', $user->id) }}"
-                                            class="btn btn-warning btn-sm mr-2 my-1 edit-btn" data-toggle="modal"
-                                            data-target="#editUserModal" data-name="{{ $user->name }}"
-                                            data-nik="{{ $user->nik }}" data-username="{{ $user->username }}">
-                                            <i class="ri-edit-2-line"></i>
-                                            Edit
-                                        </a>
-
-                                        <!-- Modal Edit Data Kader -->
-                                        @include('user.edit')
-
-                                        <!-- Ubah Status Kader -->
-                                        @if ($user->status == 'aktif')
-                                            <form action="{{ route('users.status.update', $user->id) }}" method="POST"
-                                                class="d-inline">
-                                                @csrf
-                                                @method('PATCH')
-                                                <input type="hidden" name="status" value="non aktif">
-                                                <button type="submit" class="btn btn-danger btn-sm mr-2 my-1">
-                                                    <i class="ri-alert-line"></i> Non Aktifkan
-                                                </button>
-                                            </form>
-                                        @elseif ($user->status == 'non aktif')
-                                            <form action="{{ route('users.status.update', $user->id) }}" method="POST"
-                                                class="d-inline">
-                                                @csrf
-                                                @method('PATCH')
-                                                <input type="hidden" name="status" value="aktif">
-                                                <button type="submit" class="btn btn-success btn-sm mr-2 my-1">
-                                                    <i class="ri-check-double-line"></i> Aktifkan
-                                                </button>
-                                            </form>
-                                        @endif
-                                    </td>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>NIK</th>
+                                    <th>Username</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($users as $user)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->nik }}</td>
+                                        <td>{{ $user->username }}</td>
+                                        <td>
+                                            @if ($user->status == 'aktif')
+                                                <span class="btn btn-success btn-sm">{{ ucfirst($user->status) }}</span>
+                                            @elseif ($user->status == 'non aktif')
+                                                <span class="btn btn-danger btn-sm">{{ ucfirst($user->status) }}</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <!-- Edit Data Kader -->
+                                            <a href="{{ route('users.update', $user->id) }}"
+                                                class="btn btn-warning btn-sm mr-2 my-1 edit-btn" data-toggle="modal"
+                                                data-target="#editUserModal" data-name="{{ $user->name }}"
+                                                data-nik="{{ $user->nik }}" data-username="{{ $user->username }}">
+                                                <i class="ri-edit-2-line"></i>
+                                                Edit
+                                            </a>
+
+                                            <!-- Modal Edit Data Kader -->
+                                            @include('user.edit')
+
+                                            <!-- Ubah Status Kader -->
+                                            @if ($user->status == 'aktif')
+                                                <form action="{{ route('users.status.update', $user->id) }}" method="POST"
+                                                    class="d-inline">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <input type="hidden" name="status" value="non aktif">
+                                                    <button type="submit" class="btn btn-danger btn-sm mr-2 my-1">
+                                                        <i class="ri-alert-line"></i> Non Aktifkan
+                                                    </button>
+                                                </form>
+                                            @elseif ($user->status == 'non aktif')
+                                                <form action="{{ route('users.status.update', $user->id) }}" method="POST"
+                                                    class="d-inline">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <input type="hidden" name="status" value="aktif">
+                                                    <button type="submit" class="btn btn-success btn-sm mr-2 my-1">
+                                                        <i class="ri-check-double-line"></i> Aktifkan
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
             </div>
         </div>
