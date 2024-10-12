@@ -52,6 +52,7 @@
         </div>
 
         <div class="w-full bg-white my-6 py-4 px-4 rounded-lg">
+            <h1 class="mb-4 font-semibold">Informasi Personal</h1>
             <form action="{{ route('wargas.store1') }}" method="POST">
                 @csrf
                 {{-- <div class="form-group">

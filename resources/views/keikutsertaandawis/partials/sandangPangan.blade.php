@@ -29,4 +29,19 @@
             </div>
         </div>
     </div>
+    <div class="form-group">
+        <label for="jasa">Jasa</label>
+        <div class="form-group">
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="jasa_ya" name="jasa" value="1" class="custom-control-input" required
+                    {{ $dawisSession && $dawisSession['jasa'] == '1' ? 'checked' : '' }}>
+                <label class="custom-control-label" for="jasa_ya"> Ya </label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="jasa_tidak" name="jasa" value="0" class="custom-control-input" required
+                    {{ $dawisSession && $dawisSession['jasa'] == '0' ? 'checked' : '' }}>
+                <label class="custom-control-label" for="jasa_tidak"> Tidak </label>
+            </div>
+        </div>
+    </div>
 @endfragment

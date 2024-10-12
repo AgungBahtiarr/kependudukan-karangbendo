@@ -369,7 +369,12 @@ class WargaController extends Controller
 
         $penerimaBansos = PenerimaBansos::with('program', 'riwayat')->where('nik', $warga->nik)->first();
 
-        $riwayatBansos = TransaksiBansos::with('program.programBansos')->where('id_penerima_bansos', $penerimaBansos->id)->get();
+        $riwayatBansos = null;
+
+        if ($penerimaBansos) {
+            $riwayatBansos = TransaksiBansos::with('program.programBansos')->where('id_penerima_bansos', $penerimaBansos->id)->get();
+        }
+
         // return $riwayatBansos;
 
         return view("warga.show.detail", compact('warga', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans', 'dawis', 'kematian', 'riwayatBansos', 'jenjangSekolah', 'jenisDisabilitas'));

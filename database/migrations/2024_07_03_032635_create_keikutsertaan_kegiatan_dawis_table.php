@@ -31,7 +31,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_jenis_disabilitas')->nullable(true);
             $table->enum('putus_sekolah', ['0', '1']);
             $table->unsignedBigInteger('id_jenjang_sekolah')->nullable(true);
-            
+
             $table->enum('penghayatan_pengamalan_pancasila', ['0', '1']);
             $table->enum('gotong_royong', ['0', '1']);
             $table->enum('pendidikan_keterampilan', ['0', '1']);
@@ -39,6 +39,7 @@ return new class extends Migration
             $table->enum('industri_rumahan', ['0', '1']);
             $table->enum('pangan', ['0', '1'])->nullable(true);
             $table->enum('sandang', ['0', '1'])->nullable(true);
+            $table->enum('jasa', ['0', '1'])->nullable(true);
             $table->enum('kegiatan_kesehatan', ['0', '1']);
             $table->enum('perencanaan_kesehatan', ['0', '1']);
             $table->enum('verified', ['yes', 'no']);
