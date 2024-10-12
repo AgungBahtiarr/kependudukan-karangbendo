@@ -42,7 +42,6 @@
                                     </option>
                                 </select>
                             </div>
-
                         @endcan
                         @can('read_bansos')
                             <div class="lg:col-span-1">
@@ -90,9 +89,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $bansos->nik }}</td>
-                                        <td>{{ $bansos->program->nama_program }}</td>
-                                        <td>{{ $bansos->program->jenis_bantuan }}</td>
-                                        <td>{{ $bansos->program->detail_bantuan }}</td>
+
                                         <td>{{ $bansos->status == '1' ? 'Aktif' : 'Non-Aktif' }}</td>
                                         <td>
                                             @can('edit_bansos')
@@ -111,11 +108,11 @@
                                             @endcan
 
 
-                                            @can('edit_bansos')
+                                            {{-- @can('edit_bansos')
                                                 <div hx-get={{ route('bansos.isLog', $bansos->id) }} hx-trigger="load"
                                                     hx-target="this" hx-swap="innerHtml">
                                                 </div>
-                                            @endcan
+                                            @endcan --}}
 
 
                                             @can('edit_bansos')

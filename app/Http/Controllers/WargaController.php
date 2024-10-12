@@ -11,6 +11,7 @@ use App\Models\Pekerjaan;
 use App\Models\Pendidikan;
 use App\Models\PenerimaBansos;
 use App\Models\StatusPerkawinan;
+use App\Models\TransaksiBansos;
 use App\Models\Warga;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -366,9 +367,11 @@ class WargaController extends Controller
 
         $kematian = Kematian::where('nik', $warga->nik)->first();
 
-        $riwayatBansos = PenerimaBansos::with('program', 'riwayat')->where('nik', $warga->nik)->get();
+        $penerimaBansos = PenerimaBansos::with('program', 'riwayat')->where('nik', $warga->nik)->first();
+
+        $riwayatBansos = TransaksiBansos::with('program.programBansos')->where('id_penerima_bansos', $penerimaBansos->id)->get();
         // return $riwayatBansos;
-        // return $dawis;
+
         return view("warga.show.detail", compact('warga', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans', 'dawis', 'kematian', 'riwayatBansos', 'jenjangSekolah', 'jenisDisabilitas'));
     }
 

@@ -28,16 +28,16 @@ class TransaksiBansosController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, $id)
+    public function store($id, $penerima_program)
     {
         $data = [
             'id_penerima_bansos' => $id,
+            'id_penerima_program' => $penerima_program,
         ];
 
         $trabas = TransaksiBansos::create($data);
 
-        return response(null, 200, ["HX-Redirect" => route("bansos.index")]);
-
+        return response(null, 200, ["HX-Redirect" => url()->previous()]);
     }
 
     /**

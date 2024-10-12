@@ -8,12 +8,14 @@ use App\Http\Controllers\KeikutsertaanKegiatanDawisController;
 use App\Http\Controllers\KematianController;
 use App\Http\Controllers\PemanfaatanTanahPekaranganController;
 use App\Http\Controllers\PenerimaBansosController;
+use App\Http\Controllers\PenerimaProgramController;
 use App\Http\Controllers\ProgramBansosController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TransaksiBansosController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WargaController;
 use App\Http\Middleware\CleanSession;
+use App\Models\PenerimaProgram;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])
@@ -175,12 +177,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit/{id}', [PenerimaBansosController::class, 'edit'])->middleware('can:edit_bansos')->name('bansos.edit');
         Route::patch('/update/{id}', [PenerimaBansosController::class, 'update'])->middleware('can:edit_bansos')->name('bansos.update');
         Route::delete('/{id}', [PenerimaBansosController::class, 'destroy'])->name('bansos.delete');
-        Route::get('is-log/{id}', [PenerimaBansosController::class, 'isLog'])->name('bansos.isLog');
+        Route::get('is-log/{id}/{penerima_program}', [PenerimaBansosController::class, 'isLog'])->name('bansos.isLog');
         Route::post('/status/{bansosid}/{id}', [PenerimaBansosController::class, 'status']);
     });
 
     Route::prefix('transaksi-bansos')->group(function () {
-        Route::post('/create/{id}', [TransaksiBansosController::class, 'store'])->name('trabas.store');
+        Route::post('/create/{id}/{penerima_program}', [TransaksiBansosController::class, 'store'])->name('trabas.store');
     });
 
     Route::prefix('program-bansos')->group(function () {
@@ -192,6 +194,9 @@ Route::middleware('auth')->group(function () {
         Route::delete('/delete/{id}', [ProgramBansosController::class, 'destroy'])->name('programbansos.delete');
 
         Route::post('/is-used/{id}', [ProgramBansosController::class, 'isUsed'])->name('programbansos.is-used');
+        Route::get('/create-penerima-program/{id}', [PenerimaProgramController::class, 'create'])->name("penerimaprogram.create");
+        Route::post('/create-penerima-program', [PenerimaProgramController::class, 'store'])->name('penerimaprogram.store');
+        Route::get('/penerima-program/{id}', [PenerimaProgramController::class, 'show'])->name("penerimaprogram.show");
     });
 
     Route::prefix('laporan')->group(function () {

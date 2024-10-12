@@ -21,16 +21,6 @@
                         value={{ $bansos->nik }} required>
                 </div>
 
-                <div class="form-group">
-                    <label for="id_program_bansos">Program Bansos</label>
-                    <select class="form-control" name="id_program_bansos" required>
-                        {{-- <option selected>Pilih Program Bansos </option> --}}
-                        @foreach ($programs as $program)
-                            <option value={{ $program->id }} {{$bansos->program->id == $program->id ? "selected" : ""}}>{{ $program->nama_program }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
                 <div class="modal-footer">
                     <a href="/bansos" type="button" class="btn btn-secondary" data-dismiss="modal">Batal</a>
                     <button type="submit" class="btn btn-primary">Simpan</a>

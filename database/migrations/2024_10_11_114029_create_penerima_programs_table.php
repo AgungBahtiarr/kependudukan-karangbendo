@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transaksi_bansos', function (Blueprint $table) {
+        Schema::create('penerima_programs', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_program_bansos');
             $table->unsignedBigInteger('id_penerima_bansos');
-            $table->unsignedBigInteger('id_penerima_program');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transaksi_bansos');
+        Schema::dropIfExists('penerima_programs');
     }
 };

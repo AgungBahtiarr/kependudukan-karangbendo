@@ -74,6 +74,22 @@
                                                     hx-post={{ route('programbansos.is-used', $program->id) }} hx-trigger="load"
                                                     hx-swap="innerHtml" hx-target="this"></div>
                                             @endcan
+
+                                            @can('edit_bansos')
+                                                <a href="{{ route('penerimaprogram.create', $program->id) }}"
+                                                    class="btn btn-primary btn-sm mr-2 my-1 edit-btn">
+                                                    <i class="ri-edit-2-line"></i>
+                                                    Tambah Penerima Program
+                                                </a>
+                                            @endcan
+
+                                            @can('edit_bansos')
+                                                <a href="{{ route('penerimaprogram.show', $program->id) }}"
+                                                    class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
+                                                    <i class="ri-edit-2-line"></i>
+                                                    Detail Penerima Program
+                                                </a>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach

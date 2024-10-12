@@ -89,10 +89,9 @@
                                                             Status Perkawinan
                                                         </option>
                                                         <option hx-get="/warga/filter/alamat" hx-trigger="click"
-                                                            hx-swap="innerHtml" hx-target="#formFilter"
-                                                            value="alamat"
+                                                            hx-swap="innerHtml" hx-target="#formFilter" value="alamat"
                                                             {{ request('status') == 'alamat' ? 'selected' : '' }}>
-                                                            Alamat 
+                                                            Alamat
                                                         </option>
                                                     </select>
                                                 </div>
@@ -172,15 +171,17 @@
                                                     Edit
                                                 </a>
                                             @endcan
-                                            @can('edit_wargas')
-                                                @if ($warga->verified == 'no')
-                                                    <a href={{ route('wargas.verify', $warga->id) }}
-                                                        class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
-                                                        <i class="ri-check-line"></i>
-                                                        Verifikasi
-                                                    </a>
-                                                @endif
-                                            @endcan
+                                            @role('Admin')
+                                                @can('edit_wargas')
+                                                    @if ($warga->verified == 'no')
+                                                        <a href={{ route('wargas.verify', $warga->id) }}
+                                                            class="btn btn-warning btn-sm mr-2 my-1 edit-btn">
+                                                            <i class="ri-check-line"></i>
+                                                            Verifikasi
+                                                        </a>
+                                                    @endif
+                                                @endcan
+                                            @endrole
                                             <div id="addDawis" hx-get="/warga/isDawis/{{ $warga->id }}"
                                                 hx-swap="innerHtml" hx-trigger="load">
                                             </div>

@@ -18,15 +18,6 @@
                     <input type="text" minlength="16" maxlength="16" name="nik" class="form-control" required>
                 </div>
 
-                <div class="form-group">
-                    <label for="id_program_bansos">Program Bansos</label>
-                    <select class="form-control" name="id_program_bansos" required>
-                        <option value="" selected>Pilih Program Bansos </option>
-                        @foreach ($programs as $program)
-                            <option value={{ $program->id }}>{{ $program->nama_program }}</option>
-                        @endforeach
-                    </select>
-                </div>
 
                 <div class="modal-footer">
                     <a href="/bansos" type="button" class="btn btn-secondary" data-dismiss="modal">Batal</a>

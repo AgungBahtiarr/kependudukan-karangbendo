@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PenerimaBansos;
-
+use App\Models\PenerimaProgram;
 use App\Models\ProgramBansos;
 use App\Models\Warga;
 use Carbon\Carbon;
@@ -53,23 +53,25 @@ class PenerimaBansosController extends Controller
     }
 
 
-    public function isLog($id)
+    public function isLog($id, $penerima_program)
     {
-        $bansos = PenerimaBansos::with('program', 'riwayat')->findOrFail($id);
+        $bansos = PenerimaProgram::with('riwayat', 'penerimaBansos')->findOrFail($penerima_program);
+
 
         $riwayats = $bansos->riwayat;
 
-        if ($bansos->status == "1") {
+
+        if ($bansos->penerimaBansos->status == "1") {
 
             if (count($riwayats) == 0) {
-                return view("bansos.partials.log", compact('bansos'))->fragment('log');
+                return view("bansos.partials.log", compact('bansos', 'penerima_program'))->fragment('log');
             }
 
             foreach ($riwayats as $riwayat) {
                 if ($riwayat->created_at->format('M') == Carbon::now()->format('M')) {
                     return "<div></div>";
                 } else {
-                    return view("bansos.partials.log", compact('bansos'))->fragment('log');
+                    return view("bansos.partials.log", compact('bansos', 'penerima_program'))->fragment('log');
                 }
             }
         }
@@ -99,7 +101,6 @@ class PenerimaBansosController extends Controller
 
         $data = [
             'nik' => $request->nik,
-            'id_program_bansos' => $request->id_program_bansos,
             'status' => '1',
             'created_by' => auth()->user()->id
         ];
@@ -149,7 +150,6 @@ class PenerimaBansosController extends Controller
 
         $data = [
             'nik' => $request->nik,
-            'id_program_bansos' => $request->id_program_bansos,
             'status' => '1',
             'created_by' => auth()->user()->id
         ];
