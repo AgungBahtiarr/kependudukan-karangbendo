@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('industri_rumah_tanggas', function (Blueprint $table) {
             $table->id();
-            $table->string('nkk',16);
-            $table->enum('bidang_sandang',['0','1']);
-            $table->enum('bidang_pangan',['0','1']);
-            $table->enum('bidang_jasa',['0','1']);
-            $table->string('nama_usaha',30);
+            $table->string('nkk', 16);
+            $table->enum('bidang_sandang', ['0', '1']);
+            $table->string('keterangan_sandang');
+            $table->enum('bidang_pangan', ['0', '1']);
+            $table->string('keterangan_pangan');
+            $table->enum('bidang_jasa', ['0', '1']);
+            $table->string('keterangan_jasa');
+            $table->string('nama_usaha', 30);
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
         });

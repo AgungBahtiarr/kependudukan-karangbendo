@@ -205,12 +205,6 @@
         </div>
     </div>
 
-    {{-- $(function() {
-        $('#select-warga-search-filter').change(e => {
-            window.location.href =
-                `{{ route('wargas.index') }}${$(e.target).val() ? `?status=${$(e.target).val()}` : ''}`;
-        });
-    }); --}}
 @endsection
 
 @section('script')

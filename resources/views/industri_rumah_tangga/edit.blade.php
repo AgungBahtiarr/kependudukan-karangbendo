@@ -1,5 +1,5 @@
 @fragment('edit')
-    <form action={{route("industries.update")}} method="POST">
+    <form action={{ route('industries.update') }} method="POST">
         @csrf
         @method('patch')
 
@@ -27,8 +27,40 @@
                     </div>
                 </div>
             </div>
-        </div>
 
+            <div id="bidang_sandang_keterangan" style="display: none;">
+                <div class="form-group">
+                    <label for="keterangan_bidang_sandang">Keterangan Bidang Sandang</label>
+                    <input type="text" id="keterangan_bidang_sandang" name="keterangan_sandang" class="form-control"
+                        value="{{ old('keterangan_bidang_sandang', $industri->keterangan_sandang) }}">
+                </div>
+            </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const bidangSandangYa = document.getElementById('bidang_sandang_ya');
+                    const bidangSandangTidak = document.getElementById('bidang_sandang_tidak');
+                    const bidangSandangKeterangan = document.getElementById('bidang_sandang_keterangan');
+                    const keteranganInput = document.getElementById('keterangan_bidang_sandang');
+
+                    function toggleBidangSandangKeterangan() {
+                        if (bidangSandangYa.checked) {
+                            bidangSandangKeterangan.style.display = 'block';
+                            keteranganInput.required = true;
+                        } else {
+                            bidangSandangKeterangan.style.display = 'none';
+                            keteranganInput.required = false;
+                        }
+                    }
+
+                    bidangSandangYa.addEventListener('change', toggleBidangSandangKeterangan);
+                    bidangSandangTidak.addEventListener('change', toggleBidangSandangKeterangan);
+
+                    // Jalankan fungsi saat halaman dimuat untuk mengatur tampilan awal
+                    toggleBidangSandangKeterangan();
+                });
+            </script>
+        </div>
         <div class="content-item mb-3">
             <div class="form-group">
                 <label for="bidang_pangan">Bidang Pangan</label>
@@ -47,6 +79,39 @@
             </div>
         </div>
 
+        <div id="bidang_pangan_keterangan" style="display: none;">
+            <div class="form-group">
+                <label for="keterangan_bidang_pangan">Keterangan Bidang Pangan</label>
+                <input type="text" id="keterangan_bidang_pangan" name="keterangan_pangan" class="form-control"
+                    value="{{ old('keterangan_bidang_pangan', $industri->keterangan_pangan) }}">
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const bidangPanganYa = document.getElementById('bidang_pangan_ya');
+                const bidangPanganTidak = document.getElementById('bidang_pangan_tidak');
+                const bidangPanganKeterangan = document.getElementById('bidang_pangan_keterangan');
+                const keteranganInput = document.getElementById('keterangan_bidang_pangan');
+
+                function toggleBidangPanganKeterangan() {
+                    if (bidangPanganYa.checked) {
+                        bidangPanganKeterangan.style.display = 'block';
+                        keteranganInput.required = true;
+                    } else {
+                        bidangPanganKeterangan.style.display = 'none';
+                        keteranganInput.required = false;
+                    }
+                }
+
+                bidangPanganYa.addEventListener('change', toggleBidangPanganKeterangan);
+                bidangPanganTidak.addEventListener('change', toggleBidangPanganKeterangan);
+
+                // Jalankan fungsi saat halaman dimuat untuk mengatur tampilan awal
+                toggleBidangPanganKeterangan();
+            });
+        </script>
+
         <div class="content-item mb-3">
             <div class="form-group">
                 <label for="bidang_jasa">Bidang Jasa</label>
@@ -64,6 +129,40 @@
                 </div>
             </div>
         </div>
+
+        <div id="bidang_jasa_keterangan" style="display: none;">
+            <div class="form-group">
+                <label for="keterangan_bidang_jasa">Keterangan Bidang Jasa</label>
+                <input type="text" id="keterangan_bidang_jasa" name="keterangan_jasa" class="form-control"
+                    value="{{ old('keterangan_bidang_jasa', $industri->keterangan_jasa) }}">
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const bidangJasaYa = document.getElementById('bidang_jasa_ya');
+                const bidangJasaTidak = document.getElementById('bidang_jasa_tidak');
+                const bidangJasaKeterangan = document.getElementById('bidang_jasa_keterangan');
+                const keteranganInput = document.getElementById('keterangan_bidang_jasa');
+
+                function toggleBidangJasaKeterangan() {
+                    if (bidangJasaYa.checked) {
+                        bidangJasaKeterangan.style.display = 'block';
+                        keteranganInput.required = true;
+                    } else {
+                        bidangJasaKeterangan.style.display = 'none';
+                        keteranganInput.required = false;
+                    }
+                }
+
+                bidangJasaYa.addEventListener('change', toggleBidangJasaKeterangan);
+                bidangJasaTidak.addEventListener('change', toggleBidangJasaKeterangan);
+
+                // Jalankan fungsi saat halaman dimuat untuk mengatur tampilan awal
+                toggleBidangJasaKeterangan();
+            });
+        </script>
+
 
         <div class="modal-footer">
             <a href="/industries/detail/{{ $industri->id }}/{{ $industri->nkk }}" type="button" class="btn btn-secondary"

@@ -62,6 +62,7 @@
         </div>
 
         <form action={{ route('dawis.store') }} method="POST">
+            <h1 class="mb-4 font-semibold">Catatan Dasawisma</h1>
             @csrf
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="card px-4 py-4">

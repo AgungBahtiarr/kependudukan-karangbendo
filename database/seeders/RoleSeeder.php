@@ -58,7 +58,7 @@ class RoleSeeder extends Seeder
             "edit_dawis",
             "update_dawis",
             "update_dawis_status",
-            
+
 
             #cargas
             "create_cargas",
@@ -102,6 +102,7 @@ class RoleSeeder extends Seeder
         );
 
         $kaderRole->givePermissionTo(
+            'dashboard_access',
             #warga
             "create_wargas",
             "read_wargas",

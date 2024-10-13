@@ -17,6 +17,7 @@ class KematianController extends Controller
         $search = $request->strquery;
         $kematians = Kematian::with('warga');
 
+
         if ($search) {
             $kematians->where('nik', 'like', '%' . strval($search) . '%');
         }
@@ -25,7 +26,7 @@ class KematianController extends Controller
         }
 
         $kematians = $kematians->get();
-        return view("kematian.index", compact("title", "kematians"));
+        return view("kematian.index", compact("title", "kematians",));
     }
 
     /**
@@ -33,7 +34,8 @@ class KematianController extends Controller
      */
     public function create()
     {
-        return view("kematian.create");
+        $wargas = Warga::get();
+        return view("kematian.create", compact('wargas'));
     }
 
     /**

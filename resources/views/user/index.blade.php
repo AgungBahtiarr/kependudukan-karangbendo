@@ -19,12 +19,6 @@
                     @enderror
                     <div class="row mb-4">
 
-
-                        {{-- <div class="col-md-3 iq-search-bar device-search">
-                            <form action="" class="">
-                                <input type="text" class="text search-input" placeholder="Cari" name="strquery">
-                            </form>
-                        </div> --}}
                         <div class="col-md-9">
                             <select class="form-control" id="select-user-status-filter" name="filter">
                                 <option value="" {{ request('status') == '' ? 'selected' : '' }}>Semua Kader</option>

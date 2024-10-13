@@ -58,6 +58,7 @@
         </div>
 
         <form action={{ route('dawis.store2') }} method="POST">
+            <h1 class="mb-4 font-semibold">Catatan Kegiatan Dasawisma</h1>
             @csrf
 
             <input type="hidden" name="nik" value={{ $nik }}>

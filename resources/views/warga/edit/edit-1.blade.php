@@ -42,11 +42,6 @@
                 @method('patch')
                 @csrf
                 <input type="hidden" name="id" value={{ $warga->id }}>
-                {{-- <div class="form-group">
-                    <label for="no_registrasi">No Registrasi</label>
-                    <input type="number" name="no_registrasi" class="form-control" required
-                        value={{ $wargaSession ? $wargaSession['no_registrasi'] : $warga->no_registrasi }}>
-                </div> --}}
 
                 <div class="grid grid-cols-2 gap-4">
                     <div class="form-group">

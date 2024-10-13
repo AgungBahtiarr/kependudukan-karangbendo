@@ -43,8 +43,11 @@ class IndustriRumahTanggaController extends Controller
         $data = [
             'nkk' => $request->nkk,
             'bidang_sandang' => $request->bidang_sandang,
+            'keterangan_sandang' => $request->keterangan_sandang,
             'bidang_pangan' => $request->bidang_pangan,
+            'keterangan_pangan' => $request->keterangan_pangan,
             'bidang_jasa' => $request->bidang_jasa,
+            'keterangan_jasa' => $request->keterangan_jasa,
             'nama_usaha' => $request->nama_usaha,
             'created_by' => auth()->user()->id
         ];
@@ -93,8 +96,11 @@ class IndustriRumahTanggaController extends Controller
     {
         $data = [
             'bidang_sandang' => $request->bidang_sandang,
+            'keterangan_sandang' => $request->keterangan_sandang,
             'bidang_pangan' => $request->bidang_pangan,
+            'keterangan_pangan' => $request->keterangan_pangan,
             'bidang_jasa' => $request->bidang_jasa,
+            'keterangan_jasa' => $request->keterangan_jasa,
             'nama_usaha' => $request->nama_usaha,
         ];
         $industri = IndustriRumahTangga::findOrFail($request->id);

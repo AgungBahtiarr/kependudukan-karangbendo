@@ -48,6 +48,8 @@
         </div>
 
         <div class="w-full bg-white my-6 py-4 px-4 rounded-lg">
+            <h1 class="mb-4 font-semibold">Informasi Alamat</h1>
+
             <form action="{{ route('wargas.store') }}" method="POST">
                 @csrf
                 <div class="form-group">
@@ -66,26 +68,6 @@
                     <label for="desa kel">Desa/Kelurahan</label>
                     <input type="text" name="alamat_desakel" class="form-control" required value="Karangbendo">
                 </div>
-                {{-- <div class="form-group">
-                    <label for="alamat_dusun">Alamat Dusun</label>
-                    <input type="text" name="alamat_dusun" class="form-control" required
-                        value={{ $wargaSession ? $wargaSession['alamat_dusun'] : '' }}>
-                </div>
-
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="form-group">
-                        <label for="rw">RW</label>
-                        <input type="text" minlength="3" maxlength="3" name="rw" class="form-control" required
-                            value={{ $wargaSession ? $wargaSession['rw'] : '' }}>
-                    </div>
-                    <div class="form-group">
-                        <label for="rt">RT</label>
-                        <input type="text" minlength="3" maxlength="3" name="rt" class="form-control" required
-                            value={{ $wargaSession ? $wargaSession['rt'] : '' }}>
-                    </div>
-                </div> --}}
-
-
 
                 <div class="form-group">
                     <label for="alamat_dusun">Alamat Dusun</label>
