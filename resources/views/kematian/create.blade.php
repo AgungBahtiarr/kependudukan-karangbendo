@@ -21,10 +21,16 @@
                             list="nikList" autocomplete="off">
                         <datalist id="nikList"></datalist>
                     </div>
+                    <div class="form-group">
+                        <label for="nik_pelapor">NIK Pelapor</label>
+                        <input type="text" inputmode="numeric" name="nik_pelapor" id="nik_pelapor" inputmode="numeric"
+                            minlength="16" maxlength="16" class="form-control" required value="{{ old('nik_pelapor') }}">
+                    </div>
 
                     <script>
                         document.addEventListener('DOMContentLoaded', function() {
                             const nikInput = document.getElementById('nik');
+                            const nikPelaporInput = document.getElementById('nik_pelapor');
                             const nikList = document.getElementById('nikList');
                             const wargas = @json($wargas->pluck('nik', 'nama'));
 
@@ -52,13 +58,34 @@
                                     // document.getElementById('nama').value = selectedNama;
                                 }
                             });
+
+                            // Fungsi validasi form
+                            window.validateForm = function() {
+                                const nik = nikInput.value;
+                                const nikPelapor = nikPelaporInput.value;
+
+                                if (nik === nikPelapor) {
+                                    alert('NIK yang meninggal tidak boleh sama dengan NIK pelapor.');
+                                    return false;
+                                }
+
+                                return true;
+                            };
+
+                            // Tambahkan event listener untuk validasi real-time
+                            nikInput.addEventListener('input', checkNikMatch);
+                            nikPelaporInput.addEventListener('input', checkNikMatch);
+
+                            function checkNikMatch() {
+                                if (nikInput.value === nikPelaporInput.value && nikInput.value !== '') {
+                                    nikPelaporInput.setCustomValidity('NIK pelapor tidak boleh sama dengan NIK yang meninggal');
+                                } else {
+                                    nikPelaporInput.setCustomValidity('');
+                                }
+                            }
                         });
                     </script>
-                    <div class="form-group">
-                        <label for="nik_pelapor">NIK Pelapor</label>
-                        <input type="text" inputmode="numeric" name="nik_pelapor" inputmode="numeric" minlength="16"
-                            maxlength="16" class="form-control" required>
-                    </div>
+
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

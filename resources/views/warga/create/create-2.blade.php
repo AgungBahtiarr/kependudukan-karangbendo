@@ -72,7 +72,7 @@
                 <div class="form-group">
                     <label for="alamat_dusun">Alamat Dusun</label>
                     <select name="alamat_dusun" id="alamat_dusun" class="form-control" required>
-                        <option value="">Pilih Dusun</option>
+                        <option value="" disabled>Pilih Dusun</option>
                         @foreach ($dusun_data as $dusun => $data)
                             <option value="{{ $dusun }}"
                                 {{ $wargaSession && $wargaSession['alamat_dusun'] == $dusun ? 'selected' : '' }}>
@@ -86,13 +86,13 @@
                     <div class="form-group">
                         <label for="rw">RW</label>
                         <select name="rw" id="rw" class="form-control" required>
-                            <option value="">Pilih RW</option>
+                            <option value="" disabled>Pilih RW</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="rt">RT</label>
                         <select name="rt" id="rt" class="form-control" required>
-                            <option value="">Pilih RT</option>
+                            <option value="" disabled>Pilih RT</option>
                         </select>
                     </div>
                 </div>
@@ -200,7 +200,7 @@
                 @endif
                 <div class="modal-footer">
                     <a hx-post={{ route('wargas.back') }} hx-trigger="click" type="button"
-                        class="btn btn-secondary">Kembali</a>
+                        class="btn btn-secondary text-white">Kembali</a>
                     {{-- <a href="/warga/create/1">back</a> --}}
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>

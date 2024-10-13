@@ -6,7 +6,8 @@
 
         <div class="content-item mb-3">
             <h2>Nomor KK</h2>
-            <input type="text" minlength="16" maxlength="16" class="form-control" value={{ $carga->nkk }} name="nkk">
+            <input type="text" minlength="16" maxlength="16" class="form-control" value={{ $carga->nkk }} name="nkk"
+                required>
         </div>
 
         <div class="content-item mb-3">
@@ -57,7 +58,7 @@
                     </div>
                     <div class="custom-control custom-radio custom-control-inline">
                         <input type="radio" id="tempat_sampah_tidak" name="ada_tempat_sampah" value="0"
-                            {{ $carga->ada_tempat_sampah == '1' ? 'checked' : '' }} class="custom-control-input" required>
+                            {{ $carga->ada_tempat_sampah == '0' ? 'checked' : '' }} class="custom-control-input" required>
                         <label class="custom-control-label" for="tempat_sampah_tidak"> Tidak </label>
                     </div>
                 </div>
@@ -104,7 +105,7 @@
         <div class="content-item mb-3">
             <h2>Nomor KK Inang</h2>
             <input type="text" minlength="16" maxlength="16" class="form-control" name="nkk_inang"
-                value={{ $carga->nkk_inang }}>
+                value="{{ $carga->nkk_inang }}">
         </div>
 
         <div class="modal-footer">

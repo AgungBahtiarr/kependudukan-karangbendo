@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="my-10 mx-12">
-        <h1 class="text-2xl font-semibold">Tambah Catatan Rumah Tangga</h1>
+        <h1 class="text-2xl font-semibold">Tambah Catatan Keluarga</h1>
 
         <div class="my-4">
             <ol

@@ -138,96 +138,82 @@
                         <label for="industri_rumahan">Kegiatan Industri</label>
                         <div class="form-group">
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" {{ $dawis->industri_rumahan == '1' ? 'checked' : '' }}
-                                    id="industri_rumahan_ya" name="industri_rumahan" value="1"
+                                <input type="radio" id="industri_rumahan_ya" name="industri_rumahan" value="1"
                                     class="custom-control-input" required>
                                 <label class="custom-control-label" for="industri_rumahan_ya"> Ya </label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" {{ $dawis->industri_rumahan == '0' ? 'checked' : '' }}
-                                    id="industri_rumahan_tidak" name="industri_rumahan" value="0"
+                                <input type="radio" id="industri_rumahan_tidak" name="industri_rumahan" value="0"
                                     class="custom-control-input" required>
                                 <label class="custom-control-label" for="industri_rumahan_tidak"> Tidak </label>
                             </div>
                         </div>
                     </div>
 
-
-                    <div id="sandangPangan">
+                    <div id="bidang_industri" style="display: none;">
+                        <!-- Bidang Sandang -->
                         <div class="form-group">
-                            <label for="pangan">Pangan</label>
-                            <div class="form-group">
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="pangan_ya" name="pangan" value="1"
-                                        class="custom-control-input" required
-                                        {{ $dawis->pangan == '1' ? 'checked' : '' }}>
-                                    <label class="custom-control-label" for="pangan_ya"> Ya </label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="pangan_tidak" name="pangan" value="0"
-                                        class="custom-control-input" required
-                                        {{ $dawis->pangan == '0' ? 'checked' : '' }}>
-                                    <label class="custom-control-label" for="pangan_tidak"> Tidak </label>
-                                </div>
-                            </div>
+                            <label for="sandang">Bidang Sandang</label>
+                            <select id="sandang" name="sandang" class="form-control">
+                                <option value="">Pilih</option>
+                                <option value="1">Ya</option>
+                                <option value="0">Tidak</option>
+                            </select>
                         </div>
 
+                        <!-- Bidang Pangan -->
                         <div class="form-group">
-                            <label for="sandang">Sandang</label>
-                            <div class="form-group">
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="sandang_ya" name="sandang" value="1"
-                                        class="custom-control-input" required
-                                        {{ $dawis->sandang == '1' ? 'checked' : '' }}>
-                                    <label class="custom-control-label" for="sandang_ya"> Ya </label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="sandang_tidak" name="sandang" value="0"
-                                        class="custom-control-input" required
-                                        {{ $dawis->sandang == '0' ? 'checked' : '' }}>
-                                    <label class="custom-control-label" for="sandang_tidak"> Tidak </label>
-                                </div>
-                            </div>
+                            <label for="pangan">Bidang Pangan</label>
+                            <select id="pangan" name="pangan" class="form-control">
+                                <option value="">Pilih</option>
+                                <option value="1">Ya</option>
+                                <option value="0">Tidak</option>
+                            </select>
                         </div>
+
+                        <!-- Bidang Jasa -->
                         <div class="form-group">
-                            <label for="jasa">Jasa</label>
-                            <div class="form-group">
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="jasa_ya" name="jasa" value="1"
-                                        class="custom-control-input" required {{ $dawis->jasa == '1' ? 'checked' : '' }}>
-                                    <label class="custom-control-label" for="jasa_ya"> Ya </label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="jasa_tidak" name="jasa" value="0"
-                                        class="custom-control-input" required {{ $dawis->jasa == '0' ? 'checked' : '' }}>
-                                    <label class="custom-control-label" for="jasa_tidak"> Tidak </label>
-                                </div>
-                            </div>
+                            <label for="jasa">Bidang Jasa</label>
+                            <select id="jasa" name="jasa" class="form-control">
+                                <option value="">Pilih</option>
+                                <option value="1">Ya</option>
+                                <option value="0">Tidak</option>
+                            </select>
                         </div>
                     </div>
 
-
                     <script>
                         document.addEventListener('DOMContentLoaded', function() {
-                            const radioYa = document.getElementById('industri_rumahan_ya');
-                            const radioTidak = document.getElementById('industri_rumahan_tidak');
-                            const sandangPanganDiv = document.getElementById('sandangPangan');
+                            const kegiatanIndustriYa = document.getElementById('industri_rumahan_ya');
+                            const kegiatanIndustriTidak = document.getElementById('industri_rumahan_tidak');
+                            const bidangIndustri = document.getElementById('bidang_industri');
+                            const bidangInputs = bidangIndustri.querySelectorAll('select');
 
-                            // Fungsi untuk menampilkan atau menyembunyikan div sandangPangan
-                            function toggleSandangPangan() {
-                                if (radioYa.checked) {
-                                    sandangPanganDiv.style.display = 'block';
+                            function toggleBidangIndustri() {
+                                if (kegiatanIndustriYa.checked) {
+                                    bidangIndustri.style.display = 'block';
+                                    bidangInputs.forEach(input => input.required = true);
                                 } else {
-                                    sandangPanganDiv.style.display = 'none';
+                                    bidangIndustri.style.display = 'none';
+                                    bidangInputs.forEach(input => {
+                                        input.required = false;
+                                        input.value = ''; // Reset nilai
+                                    });
                                 }
                             }
 
-                            // Jalankan fungsi saat halaman dimuat untuk mengatur tampilan awal
-                            toggleSandangPangan();
+                            kegiatanIndustriYa.addEventListener('change', toggleBidangIndustri);
+                            kegiatanIndustriTidak.addEventListener('change', toggleBidangIndustri);
 
-                            // Tambahkan event listener untuk kedua radio button
-                            radioYa.addEventListener('change', toggleSandangPangan);
-                            radioTidak.addEventListener('change', toggleSandangPangan);
+                            // Inisialisasi saat halaman dimuat
+                            toggleBidangIndustri();
+
+                            // Tambahkan ini ke event submit form
+                            document.querySelector('form').addEventListener('submit', function(e) {
+                                if (kegiatanIndustriTidak.checked) {
+                                    bidangInputs.forEach(input => input.disabled = true);
+                                }
+                            });
                         });
                     </script>
 

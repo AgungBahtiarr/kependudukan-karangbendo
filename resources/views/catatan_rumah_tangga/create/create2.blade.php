@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="my-10 mx-12">
-        <h1 class="text-2xl font-semibold">Tambah Catatan Rumah Tangga</h1>
+        <h1 class="text-2xl font-semibold">Tambah Catatan Keluarga</h1>
 
 
         <div class="my-4">
@@ -93,7 +93,7 @@
                                         {{ $makanan->nama_makanan_pokok }}</option>
                                 @endforeach
                             @else
-                                <option value="" selected>Pilih Jenis Makanan Pokok</option>
+                                <option value="" selected disabled>Pilih Jenis Makanan Pokok</option>
                                 @foreach ($makanans as $makanan)
                                     <option value={{ $makanan->id }}>{{ $makanan->nama_makanan_pokok }}</option>
                                 @endforeach
@@ -102,52 +102,59 @@
                         </select>
                     </div>
 
-                </div>
-
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-
                     <div class="form-group">
                         <label for="aktivitas_up2k">Aktivitas Usaha Peningkatan Pendapatan Keluarga</label>
-
                         <div class="form-group">
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input hx-trigger="click" hx-post="/cargas/isUp2k/1" hx-swap="innerHtml"
-                                    hx-target="#jenisUp2k" type="radio" id="aktivitas_up2k_ya" name="aktivitas_up2k"
-                                    value="1"
-                                    {{ $cargasSession && $cargasSession['aktivitas_up2k'] == '1' ? 'checked' : '' }}
-                                    class="custom-control-input" required>
+                                <input type="radio" id="aktivitas_up2k_ya" name="aktivitas_up2k" value="1"
+                                    class="custom-control-input" required
+                                    {{ $cargasSession && $cargasSession['aktivitas_up2k'] == '1' ? 'checked' : '' }}>
                                 <label class="custom-control-label" for="aktivitas_up2k_ya"> Ya </label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input hx-trigger="click" hx-post="/cargas/isUp2k/0" hx-swap="innerHtml"
-                                    hx-target="#jenisUp2k" type="radio" id="aktivitas_up2k_tidak" name="aktivitas_up2k"
-                                    value="0"
-                                    {{ $cargasSession && $cargasSession['aktivitas_up2k'] == '0' ? 'checked' : '' }}
-                                    class="custom-control-input" required>
+                                <input type="radio" id="aktivitas_up2k_tidak" name="aktivitas_up2k" value="0"
+                                    class="custom-control-input" required
+                                    {{ $cargasSession && $cargasSession['aktivitas_up2k'] == '0' ? 'checked' : '' }}>
                                 <label class="custom-control-label" for="aktivitas_up2k_tidak"> Tidak </label>
                             </div>
                         </div>
-
                     </div>
 
-                    @if ($cargasSession && $cargasSession['aktivitas_up2k'] == 1)
-                        <div id="jenisUp2k">
-                            <div class="form-group">
-                                <label for="jenis_up2k">Jenis Usaha Peningkatan Pendapatan Keluarga</label>
-                                <input type="text" name="jenis_up2k" class="form-control" required
-                                    value={{ $cargasSession ? $cargasSession['jenis_up2k'] : '' }}>
-                            </div>
+                    <div id="jenis_up2k_container" style="display: none;">
+                        <div class="form-group">
+                            <label for="jenis_up2k">Jenis Usaha Peningkatan Pendapatan Keluarga</label>
+                            <input type="text" id="jenis_up2k" name="jenis_up2k" class="form-control"
+                                value="{{ $cargasSession ? $cargasSession['jenis_up2k'] : '' }}">
                         </div>
-                    @else
-                        <div id="jenisUp2k">
+                    </div>
 
-                        </div>
-                    @endif
-                </div>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const aktivitasUp2kYa = document.getElementById('aktivitas_up2k_ya');
+                            const aktivitasUp2kTidak = document.getElementById('aktivitas_up2k_tidak');
+                            const jenisUp2kContainer = document.getElementById('jenis_up2k_container');
+                            const jenisUp2kInput = document.getElementById('jenis_up2k');
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            function toggleJenisUp2k() {
+                                if (aktivitasUp2kYa.checked) {
+                                    jenisUp2kContainer.style.display = 'block';
+                                    jenisUp2kInput.required = true;
+                                } else {
+                                    jenisUp2kContainer.style.display = 'none';
+                                    jenisUp2kInput.required = false;
+                                    jenisUp2kInput.value = ''; // Reset nilai
+                                }
+                            }
+
+                            aktivitasUp2kYa.addEventListener('change', toggleJenisUp2k);
+                            aktivitasUp2kTidak.addEventListener('change', toggleJenisUp2k);
+
+                            // Inisialisasi saat halaman dimuat
+                            toggleJenisUp2k();
+                        });
+                    </script>
+
+
                     <div class="form-group">
                         <label for="usaha_kesehatan_lingkungan">Usaha Kesehatan Lingkungan</label>
 
@@ -290,6 +297,32 @@
                         @endif
 
                     </div>
+
+                </div>
+
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+
+
+                    {{-- 
+                    @if ($cargasSession && $cargasSession['aktivitas_up2k'] == 1)
+                        <div id="jenisUp2k">
+                            <div class="form-group">
+                                <label for="jenis_up2k">Jenis Usaha Peningkatan Pendapatan Keluarga</label>
+                                <input type="text" name="jenis_up2k" class="form-control" required
+                                    value={{ $cargasSession ? $cargasSession['jenis_up2k'] : '' }}>
+                            </div>
+                        </div>
+                    @else
+                        <div id="jenisUp2k">
+
+                        </div>
+                    @endif --}}
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
                 </div>
 
 

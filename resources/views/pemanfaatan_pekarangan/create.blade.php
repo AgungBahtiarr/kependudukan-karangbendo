@@ -81,31 +81,11 @@
                             </div>
                         </div>
 
-                        {{-- <div id="tanaman_keras_details" style="display: none;" class="flex flex-col">
-                            <div class="form-group">
-                                <label for="jenis_tanaman_keras">Jenis Tanaman Keras</label>
-                                <select name="jenis_tanaman_keras" id="jenis_tanaman_keras" class="form-control">
-                                    <option value="">Pilih Jenis Tanaman Keras</option>
-                                    @foreach ($data_pekarangan['tanamanKeras'] as $tanaman)
-                                        <option value="{{ $tanaman }}"
-                                            {{ old('jenis_tanaman_keras') == $tanaman ? 'selected' : '' }}>
-                                            {{ $tanaman }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="volume_tanaman_keras">Volume Tanaman Keras</label>
-                                <input type="number" name="volume_tanaman_keras" id="volume_tanaman_keras"
-                                    class="form-control"
-                                    value="{{ old('volume_tanaman_keras') }}">
-                            </div>
-                        </div> --}}
                         <div id="tanaman_keras_details" style="display: none;" class="flex flex-col">
                             <div class="form-group">
                                 <label for="jenis_tanaman_keras">Jenis Tanaman Keras</label>
-                                <select name="jenis_tanaman_keras" id="jenis_tanaman_keras" class="form-control">
-                                    <option value="">Pilih Jenis Tanaman Keras</option>
+                                <select name="jenis_tanaman_keras" id="jenis_tanaman_keras" class="form-control" required>
+                                    <option value="" disabled>Pilih Jenis Tanaman Keras</option>
                                     @foreach ($data_pekarangan['tanamanKeras'] as $tanaman)
                                         <option value="{{ $tanaman }}"
                                             {{ old('jenis_tanaman_keras') == $tanaman ? 'selected' : '' }}>
@@ -117,7 +97,7 @@
                             <div class="form-group">
                                 <label for="volume_tanaman_keras">Volume Tanaman Keras</label>
                                 <input type="number" name="volume_tanaman_keras" id="volume_tanaman_keras"
-                                    class="form-control" value="{{ old('volume_tanaman_keras') }}">
+                                    class="form-control" value="{{ old('volume_tanaman_keras') }}" required>
                             </div>
                         </div>
                     </div>
@@ -173,8 +153,8 @@
                         <div id="toga_details" style="display: none;" class="flex flex-col">
                             <div class="form-group">
                                 <label for="jenis_toga">Jenis Toga</label>
-                                <select name="jenis_toga" id="jenis_toga" class="form-control">
-                                    <option value="">Pilih Jenis Toga</option>
+                                <select name="jenis_toga" id="jenis_toga" class="form-control" required>
+                                    <option value="" disabled>Pilih Jenis Toga</option>
                                     @foreach ($data_pekarangan['toga'] as $toga)
                                         <option value="{{ $toga }}"
                                             {{ old('jenis_toga') == $toga ? 'selected' : '' }}>
@@ -186,7 +166,7 @@
                             <div class="form-group">
                                 <label for="volume_toga">Volume Toga</label>
                                 <input type="number" name="volume_toga" id="volume_toga" class="form-control"
-                                    value="{{ old('volume_toga') }}">
+                                    value="{{ old('volume_toga') }}" required>
                             </div>
                         </div>
                     </div>
@@ -244,8 +224,8 @@
                         <div id="lumbung_hidup_details" style="display: none;" class="flex flex-col">
                             <div class="form-group">
                                 <label for="jenis_lumbung_hidup">Jenis Lumbung Hidup</label>
-                                <select name="jenis_lumbung_hidup" id="jenis_lumbung_hidup" class="form-control">
-                                    <option value="">Pilih Jenis Lumbung Hidup</option>
+                                <select name="jenis_lumbung_hidup" id="jenis_lumbung_hidup" class="form-control" required>
+                                    <option value="" disabled>Pilih Jenis Lumbung Hidup</option>
                                     @foreach ($data_pekarangan['lumbungHidup'] as $lumbung)
                                         <option value="{{ $lumbung }}"
                                             {{ old('jenis_lumbung_hidup') == $lumbung ? 'selected' : '' }}>
@@ -257,7 +237,7 @@
                             <div class="form-group">
                                 <label for="volume_lumbung_hidup">Volume Lumbung Hidup</label>
                                 <input type="number" name="volume_lumbung_hidup" id="volume_lumbung_hidup"
-                                    class="form-control" value="{{ old('volume_lumbung_hidup') }}">
+                                    class="form-control" value="{{ old('volume_lumbung_hidup') }}" required>
                             </div>
                         </div>
                     </div>
@@ -317,8 +297,8 @@
                         <div id="warung_hidup_details" style="display: none;" class="flex flex-col">
                             <div class="form-group">
                                 <label for="jenis_warung_hidup">Jenis Warung Hidup</label>
-                                <select name="jenis_warung_hidup" id="jenis_warung_hidup" class="form-control">
-                                    <option value="">Pilih Jenis Warung Hidup</option>
+                                <select name="jenis_warung_hidup" id="jenis_warung_hidup" class="form-control" required>
+                                    <option value="" disabled>Pilih Jenis Warung Hidup</option>
                                     @foreach ($data_pekarangan['warungHidup'] as $warung)
                                         <option value="{{ $warung }}"
                                             {{ old('jenis_warung_hidup') == $warung ? 'selected' : '' }}>
@@ -330,7 +310,7 @@
                             <div class="form-group">
                                 <label for="volume_warung_hidup">Volume Warung Hidup</label>
                                 <input type="number" name="volume_warung_hidup" id="volume_warung_hidup"
-                                    class="form-control" value="{{ old('volume_warung_hidup') }}">
+                                    class="form-control" value="{{ old('volume_warung_hidup') }}" required>
                             </div>
                         </div>
                     </div>
@@ -387,8 +367,8 @@
                         <div id="perikanan_details" style="display: none;" class="flex flex-col">
                             <div class="form-group">
                                 <label for="jenis_perikanan">Jenis Perikanan</label>
-                                <select name="jenis_perikanan" id="jenis_perikanan" class="form-control">
-                                    <option value="">Pilih Jenis Perikanan</option>
+                                <select name="jenis_perikanan" id="jenis_perikanan" class="form-control" required>
+                                    <option value="" disabled>Pilih Jenis Perikanan</option>
                                     @foreach ($data_pekarangan['perikanan'] as $ikan)
                                         <option value="{{ $ikan }}"
                                             {{ old('jenis_perikanan') == $ikan ? 'selected' : '' }}>
@@ -400,7 +380,7 @@
                             <div class="form-group">
                                 <label for="volume_perikanan">Volume Perikanan</label>
                                 <input type="number" name="volume_perikanan" id="volume_perikanan" class="form-control"
-                                    value="{{ old('volume_perikanan') }}">
+                                    value="{{ old('volume_perikanan') }}" required>
                             </div>
                         </div>
                     </div>
@@ -460,8 +440,8 @@
                         <div id="peternakan_details" style="display: none;" class="flex flex-col">
                             <div class="form-group">
                                 <label for="jenis_peternakan">Jenis Peternakan</label>
-                                <select name="jenis_peternakan" id="jenis_peternakan" class="form-control">
-                                    <option value="">Pilih Jenis Peternakan</option>
+                                <select name="jenis_peternakan" id="jenis_peternakan" class="form-control" required>
+                                    <option value="" disabled>Pilih Jenis Peternakan</option>
                                     @foreach ($data_pekarangan['peternakan'] as $ternak)
                                         <option value="{{ $ternak }}"
                                             {{ old('jenis_peternakan') == $ternak ? 'selected' : '' }}>
@@ -473,7 +453,7 @@
                             <div class="form-group">
                                 <label for="volume_peternakan">Volume Peternakan</label>
                                 <input type="number" name="volume_peternakan" id="volume_peternakan"
-                                    class="form-control" value="{{ old('volume_peternakan') }}">
+                                    class="form-control" value="{{ old('volume_peternakan') }}" required>
                             </div>
                         </div>
                     </div>

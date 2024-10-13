@@ -68,7 +68,7 @@
         </div>
     </div>
 
-    <div class="flex justify-end mr-6 mt-5">
+    <div class="flex justify-end mr-6 mt-5 mb-8">
         <div>
             <a class="btn btn-secondary" href="/cargas/show/{{ $carga->id }}">Kembali</a>
             <a class="btn btn-primary" href="/pekarangans/detail/{{ $carga->id }}/{{ $carga->nkk }}">Selanjutnya</a>

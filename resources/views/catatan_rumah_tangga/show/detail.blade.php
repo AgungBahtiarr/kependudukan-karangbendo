@@ -106,10 +106,50 @@
         </div>
     </div>
 
-    <div class="flex justify-end mr-6 mt-5">
+    <div class="flex justify-end mr-6 mt-5 mb-8">
         <div>
             <a href="/cargas" class="btn btn-secondary">Kembali</a>
             <a class="btn btn-primary" href="/cargas/show2/{{ $carga->id }}">Selanjutnya</a>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function toggleNKKInang() {
+                var satuKKTidak = document.getElementById('satu_kk_tidak');
+                var nkkInangInput = document.querySelector('input[name="nkk_inang"]');
+                var nkkInangContainer = nkkInangInput ? nkkInangInput.closest('.content-item') : null;
+
+                if (satuKKTidak && nkkInangContainer) {
+                    if (satuKKTidak.checked) {
+                        nkkInangContainer.style.display = 'block';
+                        nkkInangInput.required = true;
+                    } else {
+                        nkkInangContainer.style.display = 'none';
+                        nkkInangInput.required = false;
+                        nkkInangInput.value = '';
+                    }
+                }
+            }
+
+            // Fungsi untuk menambahkan event listeners
+            function addEventListeners() {
+                var satuKKYa = document.getElementById('satu_kk_ya');
+                var satuKKTidak = document.getElementById('satu_kk_tidak');
+
+                if (satuKKYa) satuKKYa.addEventListener('change', toggleNKKInang);
+                if (satuKKTidak) satuKKTidak.addEventListener('change', toggleNKKInang);
+            }
+
+            // Inisialisasi
+            addEventListeners();
+            toggleNKKInang();
+
+            // Jika menggunakan HTMX, tambahkan ini:
+            document.body.addEventListener('htmx:afterSwap', function() {
+                addEventListeners();
+                toggleNKKInang();
+            });
+        });
+    </script>
 @endsection

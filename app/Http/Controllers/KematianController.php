@@ -14,18 +14,21 @@ class KematianController extends Controller
     public function index(Request $request)
     {
         $title = "Kematian";
-        $search = $request->strquery;
+        $search = $request->input('strquery');
+
         $kematians = Kematian::with('warga');
 
-
         if ($search) {
-            $kematians->where('nik', 'like', '%' . strval($search) . '%');
-        }
-        if ($search == "") {
-            $kematians->get();
+            $kematians = $kematians->where(function ($query) use ($search) {
+                $query->where('nik', 'like', '%' . $search . '%')
+                    ->orWhereHas('warga', function ($subQuery) use ($search) {
+                        $subQuery->where('nama', 'like', '%' . $search . '%');
+                    });
+            });
         }
 
         $kematians = $kematians->get();
+
         return view("kematian.index", compact("title", "kematians",));
     }
 

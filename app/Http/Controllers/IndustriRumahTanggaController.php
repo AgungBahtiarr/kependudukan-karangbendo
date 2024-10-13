@@ -39,6 +39,7 @@ class IndustriRumahTanggaController extends Controller
     public function store(Request $request)
     {
 
+
         $id_carga = $request->id_carga;
         $data = [
             'nkk' => $request->nkk,

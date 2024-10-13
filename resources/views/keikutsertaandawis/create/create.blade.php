@@ -69,7 +69,7 @@
                     <input type="hidden" name="nik" class="form-control" required value={{ $nik }}
                         @readonly(true)>
 
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="akseptor_kb">Akseptor KB</label>
                         <div class="form-group">
                             <div class="custom-control custom-radio custom-control-inline">
@@ -87,7 +87,26 @@
                                 <label class="custom-control-label" for="kb_tidak"> Tidak </label>
                             </div>
                         </div>
+                    </div> --}}
+
+                    {{-- <div class="form-group">
+                        <label for="akseptor_kb">Akseptor KB</label>
+                        <div class="form-group">
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="kb_ya" name="akseptor_kb" value="1"
+                                    class="custom-control-input" required
+                                    {{ $dawisSession && $dawisSession['akseptor_kb'] == '1' ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="kb_ya"> Ya </label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="kb_tidak" name="akseptor_kb" value="0"
+                                    class="custom-control-input" required
+                                    {{ $dawisSession && $dawisSession['akseptor_kb'] == '0' ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="kb_tidak"> Tidak </label>
+                            </div>
+                        </div>
                     </div>
+
 
                     @if ($dawisSession)
                         <div class="form-group">
@@ -108,7 +127,66 @@
 
                     @endif
                     <div id="jenisKb">
+                    </div> --}}
+
+                    <div class="form-group">
+                        <label for="akseptor_kb">Akseptor KB</label>
+                        <div class="form-group">
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="kb_ya" name="akseptor_kb" value="1"
+                                    class="custom-control-input" required
+                                    {{ old('akseptor_kb', $dawisSession['akseptor_kb'] ?? '') == '1' ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="kb_ya"> Ya </label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="kb_tidak" name="akseptor_kb" value="0"
+                                    class="custom-control-input" required
+                                    {{ old('akseptor_kb', $dawisSession['akseptor_kb'] ?? '') == '0' ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="kb_tidak"> Tidak </label>
+                            </div>
+                        </div>
                     </div>
+
+                    <div id="jenis_kb_container" style="display: none;">
+                        <div class="form-group">
+                            <label for="jenis_kb">Jenis KB</label>
+                            <select class="form-control" name="jenis_kb" id="jenis_kb">
+                                <option value="" selected disabled>Pilih jenis KB</option>
+                                @foreach ($jenisKb as $kb)
+                                    <option value="{{ $kb }}"
+                                        {{ old('jenis_kb', $dawisSession['jenis_kb'] ?? '') == $kb ? 'selected' : '' }}>
+                                        {{ $kb }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const kbYa = document.getElementById('kb_ya');
+                            const kbTidak = document.getElementById('kb_tidak');
+                            const jenisKbContainer = document.getElementById('jenis_kb_container');
+                            const jenisKbSelect = document.getElementById('jenis_kb');
+
+                            function toggleJenisKb() {
+                                if (kbYa.checked) {
+                                    jenisKbContainer.style.display = 'block';
+                                    jenisKbSelect.required = true;
+                                } else {
+                                    jenisKbContainer.style.display = 'none';
+                                    jenisKbSelect.required = false;
+                                    jenisKbSelect.value = ''; // Reset pilihan
+                                }
+                            }
+
+                            kbYa.addEventListener('change', toggleJenisKb);
+                            kbTidak.addEventListener('change', toggleJenisKb);
+
+                            // Inisialisasi tampilan saat halaman dimuat
+                            toggleJenisKb();
+                        });
+                    </script>
 
 
                     <div class="form-group">
@@ -370,7 +448,6 @@
             </div>
 
             <div class="modal-footer">
-                <a href="/warga" type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</a>
                 <button type="submit" class="btn btn-primary">Selanjutnya</a>
             </div>
         </form>

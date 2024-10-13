@@ -55,14 +55,13 @@
         </div>
 
         <div class="w-full bg-white my-6 py-4 px-4 rounded-lg">
-            <form action="{{ route('industries.store') }}" method="POST">
+            <form action="{{ route('industries.store') }}" method="POST" id="industriesForm">
                 @csrf
-                <input type="hidden" name="id_carga" value={{ $carga->id }}>
+                <input type="hidden" name="id_carga" value="{{ $carga->id }}">
 
                 <div class="form-group">
                     <label for="nkk">No Kartu Keluarga</label>
-                    <input type="text" name="nkk" value={{ $carga->nkk }} @readonly(true) class="form-control"
-                        required>
+                    <input type="text" name="nkk" value="{{ $carga->nkk }}" readonly class="form-control" required>
                 </div>
 
                 <div class="form-group">
@@ -71,174 +70,94 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="flex flex-col">
-                        <div class="form-group">
-                            <label for="bidang_sandang">Bidang Sandang</label>
+                    @foreach (['sandang', 'pangan', 'jasa'] as $bidang)
+                        <div class="flex flex-col">
                             <div class="form-group">
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="bidang_sandang_ya" name="bidang_sandang" value="1"
-                                        class="custom-control-input" required>
-                                    <label class="custom-control-label" for="bidang_sandang_ya"> Ya </label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="bidang_sandang_tidak" name="bidang_sandang" value="0"
-                                        class="custom-control-input" required>
-                                    <label class="custom-control-label" for="bidang_sandang_tidak"> Tidak </label>
+                                <label for="bidang_{{ $bidang }}">Bidang {{ ucfirst($bidang) }}</label>
+                                <div class="form-group">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="bidang_{{ $bidang }}_ya"
+                                            name="bidang_{{ $bidang }}" value="1" class="custom-control-input"
+                                            required>
+                                        <label class="custom-control-label" for="bidang_{{ $bidang }}_ya"> Ya </label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="bidang_{{ $bidang }}_tidak"
+                                            name="bidang_{{ $bidang }}" value="0" class="custom-control-input"
+                                            required>
+                                        <label class="custom-control-label" for="bidang_{{ $bidang }}_tidak"> Tidak
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div id="bidang_sandang_keterangan" style="display: none;">
-                            <div class="form-group">
-                                <label for="keterangan_bidang_sandang">Keterangan Bidang Sandang</label>
-                                <input type="text" id="keterangan_sandang" name="keterangan_sandang"
-                                    class="form-control">
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function() {
-                            const bidangSandangYa = document.getElementById('bidang_sandang_ya');
-                            const bidangSandangTidak = document.getElementById('bidang_sandang_tidak');
-                            const bidangSandangKeterangan = document.getElementById('bidang_sandang_keterangan');
-                            const keteranganInput = document.getElementById('keterangan_bidang_sandang');
-
-                            function toggleBidangSandangKeterangan() {
-                                if (bidangSandangYa.checked) {
-                                    bidangSandangKeterangan.style.display = 'block';
-                                    keteranganInput.required = true;
-                                } else {
-                                    bidangSandangKeterangan.style.display = 'none';
-                                    keteranganInput.required = false;
-                                    keteranganInput.value = ''; // Reset nilai input
-                                }
-                            }
-
-                            bidangSandangYa.addEventListener('change', toggleBidangSandangKeterangan);
-                            bidangSandangTidak.addEventListener('change', toggleBidangSandangKeterangan);
-
-                            // Jalankan fungsi saat halaman dimuat untuk mengatur tampilan awal
-                            toggleBidangSandangKeterangan();
-                        });
-                    </script>
-
-
-                    <div class="flex flex-col">
-                        <div class="form-group">
-                            <label for="bidang_pangan">Bidang Pangan</label>
-                            <div class="form-group">
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="bidang_pangan_ya" name="bidang_pangan" value="1"
-                                        class="custom-control-input" required>
-                                    <label class="custom-control-label" for="bidang_pangan_ya"> Ya </label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="bidang_pangan_tidak" name="bidang_pangan" value="0"
-                                        class="custom-control-input" required>
-                                    <label class="custom-control-label" for="bidang_pangan_tidak"> Tidak </label>
+                            <div id="bidang_{{ $bidang }}_keterangan" style="display: none;">
+                                <div class="form-group">
+                                    <label for="keterangan_bidang_{{ $bidang }}">Keterangan Bidang
+                                        {{ ucfirst($bidang) }}</label>
+                                    <input type="text" id="keterangan_bidang_{{ $bidang }}"
+                                        name="keterangan_{{ $bidang }}" class="form-control">
                                 </div>
                             </div>
                         </div>
-
-                        <div id="bidang_pangan_keterangan" style="display: none;">
-                            <div class="form-group">
-                                <label for="keterangan_bidang_pangan">Keterangan Bidang Pangan</label>
-                                <input type="text" id="keterangan_bidang_pangan" name="keterangan_pangan"
-                                    class="form-control">
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function() {
-                            const bidangPanganYa = document.getElementById('bidang_pangan_ya');
-                            const bidangPanganTidak = document.getElementById('bidang_pangan_tidak');
-                            const bidangPanganKeterangan = document.getElementById('bidang_pangan_keterangan');
-                            const keteranganInput = document.getElementById('keterangan_bidang_pangan');
-
-                            function toggleBidangPanganKeterangan() {
-                                if (bidangPanganYa.checked) {
-                                    bidangPanganKeterangan.style.display = 'block';
-                                    keteranganInput.required = true;
-                                } else {
-                                    bidangPanganKeterangan.style.display = 'none';
-                                    keteranganInput.required = false;
-                                    keteranganInput.value = ''; // Reset nilai input
-                                }
-                            }
-
-                            bidangPanganYa.addEventListener('change', toggleBidangPanganKeterangan);
-                            bidangPanganTidak.addEventListener('change', toggleBidangPanganKeterangan);
-
-                            // Jalankan fungsi saat halaman dimuat untuk mengatur tampilan awal
-                            toggleBidangPanganKeterangan();
-                        });
-                    </script>
-
-
-                    <div class="flex flex-col">
-                        <div class="form-group">
-                            <label for="bidang_jasa">Bidang Jasa</label>
-                            <div class="form-group">
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="bidang_jasa_ya" name="bidang_jasa" value="1"
-                                        class="custom-control-input" required>
-                                    <label class="custom-control-label" for="bidang_jasa_ya"> Ya </label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="bidang_jasa_tidak" name="bidang_jasa" value="0"
-                                        class="custom-control-input" required>
-                                    <label class="custom-control-label" for="bidang_jasa_tidak"> Tidak </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="bidang_jasa_keterangan" style="display: none;">
-                            <div class="form-group">
-                                <label for="keterangan_bidang_jasa">Keterangan Bidang Jasa</label>
-                                <input type="text" id="keterangan_bidang_jasa" name="keterangan_jasa"
-                                    class="form-control">
-                            </div>
-                        </div>
-
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function() {
-                                const bidangJasaYa = document.getElementById('bidang_jasa_ya');
-                                const bidangJasaTidak = document.getElementById('bidang_jasa_tidak');
-                                const bidangJasaKeterangan = document.getElementById('bidang_jasa_keterangan');
-                                const keteranganInput = document.getElementById('keterangan_bidang_jasa');
-
-                                function toggleBidangJasaKeterangan() {
-                                    if (bidangJasaYa.checked) {
-                                        bidangJasaKeterangan.style.display = 'block';
-                                        keteranganInput.required = true;
-                                    } else {
-                                        bidangJasaKeterangan.style.display = 'none';
-                                        keteranganInput.required = false;
-                                        keteranganInput.value = ''; // Reset nilai input
-                                    }
-                                }
-
-                                bidangJasaYa.addEventListener('change', toggleBidangJasaKeterangan);
-                                bidangJasaTidak.addEventListener('change', toggleBidangJasaKeterangan);
-
-                                // Jalankan fungsi saat halaman dimuat untuk mengatur tampilan awal
-                                toggleBidangJasaKeterangan();
-                            });
-                        </script>
-                    </div>
-
-
+                    @endforeach
                 </div>
 
                 <div class="modal-footer">
                     <a href="/cargas" type="button" class="btn btn-secondary" data-dismiss="modal">Batal</a>
-                    <button type="submit" class="btn btn-primary">Simpan</a>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const bidangs = ['sandang', 'pangan', 'jasa'];
+
+                    function setupBidangToggle(bidangName) {
+                        const yaRadio = document.getElementById(`bidang_${bidangName}_ya`);
+                        const tidakRadio = document.getElementById(`bidang_${bidangName}_tidak`);
+                        const keteranganDiv = document.getElementById(`bidang_${bidangName}_keterangan`);
+                        const keteranganInput = document.getElementById(`keterangan_bidang_${bidangName}`);
+
+                        function toggleKeterangan() {
+                            if (yaRadio.checked) {
+                                keteranganDiv.style.display = 'block';
+                                keteranganInput.required = true;
+                            } else {
+                                keteranganDiv.style.display = 'none';
+                                keteranganInput.required = false;
+                                keteranganInput.value = '';
+                            }
+                        }
+
+                        yaRadio.addEventListener('change', toggleKeterangan);
+                        tidakRadio.addEventListener('change', toggleKeterangan);
+
+                        toggleKeterangan();
+                    }
+
+                    bidangs.forEach(setupBidangToggle);
+
+                    document.getElementById('industriesForm').addEventListener('submit', function(e) {
+                        let isValid = true;
+
+                        bidangs.forEach(bidang => {
+                            const yaRadio = document.getElementById(`bidang_${bidang}_ya`);
+                            const keteranganInput = document.getElementById(`keterangan_bidang_${bidang}`);
+
+                            if (yaRadio.checked && keteranganInput.value.trim() === '') {
+                                alert(
+                                    `Mohon isi keterangan untuk Bidang ${bidang.charAt(0).toUpperCase() + bidang.slice(1)}`);
+                                isValid = false;
+                            }
+                        });
+
+                        if (!isValid) {
+                            e.preventDefault(); // Mencegah form disubmit jika tidak valid
+                        }
+                    });
+                });
+            </script>
         </div>
     </div>
 @endsection

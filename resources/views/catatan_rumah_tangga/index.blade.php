@@ -8,7 +8,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <div class="header-title w-100">
-                        <h4 class="card-title d-inline-block mb-0">Data Catatan Rumah Tangga</h4>
+                        <h4 class="card-title d-inline-block mb-0">Data Catatan Keluarga</h4>
                     </div>
                 </div>
                 <div class="card-body">
@@ -16,7 +16,7 @@
                         @can('read_cargas')
                             <form action="" class="md:col-span-2">
                                 <div class="relative">
-                                    <input type="text" placeholder="Cari NIK ..."
+                                    <input type="text" placeholder="Cari NKK ..."
                                         class="w-full pl-4 pr-10 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#fafbfe]"
                                         name="strquery">
                                     <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">

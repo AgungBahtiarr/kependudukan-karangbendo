@@ -60,7 +60,7 @@
                     <div class="form-group">
                         <label for="name">Nama</label>
                         <input type="text" name="nama" class="form-control" required
-                            value={{ $wargaSession ? $wargaSession['nama'] : $warga->nama }}>
+                            value="{{ $wargaSession ? $wargaSession['nama'] : $warga->nama }}">
                     </div>
 
                     <div class="form-group">
@@ -231,11 +231,29 @@
                         </select>
                     </div>
 
+
                     <div class="form-group">
-                        <label for="jabatan">Jabatan</label>
-                        <input type="text" name="jabatan" class="form-control"
-                            value={{ $wargaSession ? $wargaSession['jabatan'] : $warga->jabatan }}>
+                        <label for="jabatan">Jabatan (Struktur PKK)</label>
+                        <select id="jabatan" name="jabatan" class="form-control" required>
+                            <option value="" disabled {{ !$wargaSession && !$warga->jabatan ? 'selected' : '' }}>
+                                Pilih Jabatan
+                            </option>
+                            <option value="Anggota"
+                                {{ ($wargaSession && $wargaSession['jabatan'] == 'Anggota') || (!$wargaSession && $warga->jabatan == 'Anggota')
+                                    ? 'selected'
+                                    : '' }}>
+                                Anggota
+                            </option>
+                            <option value="Bukan Anggota"
+                                {{ ($wargaSession && $wargaSession['jabatan'] == 'Bukan Anggota') ||
+                                (!$wargaSession && $warga->jabatan == 'Bukan Anggota')
+                                    ? 'selected'
+                                    : '' }}>
+                                Bukan Anggota
+                            </option>
+                        </select>
                     </div>
+
                 </div>
 
                 <div class="modal-footer">
@@ -243,6 +261,125 @@
                     <button type="submit" class="btn btn-primary">Selanjutnya</a>
                 </div>
             </form>
+
+            <script>
+                function validateForm() {
+                    var nik = document.getElementsByName('nik')[0];
+                    var nkk = document.getElementsByName('nkk')[0];
+                    var nama = document.getElementsByName('nama')[0];
+                    var jenisKelamin = document.getElementsByName('jenis_kelamin')[0];
+                    var tempatLahir = document.getElementsByName('tempat_lahir')[0];
+                    var tanggalLahir = document.getElementsByName('tanggal_lahir')[0];
+                    var agama = document.getElementsByName('id_agama')[0];
+                    var pendidikan = document.getElementsByName('id_pendidikan')[0];
+                    var statusPerkawinan = document.getElementsByName('id_status_perkawinan')[0];
+                    var statusKeluarga = document.getElementsByName('status_keluarga')[0];
+                    var pekerjaan = document.getElementsByName('id_pekerjaan')[0];
+
+                    // Validasi NIK
+                    if (nik.value.length !== 16 || !/^\d+$/.test(nik.value)) {
+                        alert('NIK harus terdiri dari 16 digit angka');
+                        nik.focus();
+                        return false;
+                    }
+
+                    // Validasi NKK
+                    if (nkk.value.length !== 16 || !/^\d+$/.test(nkk.value)) {
+                        alert('NKK harus terdiri dari 16 digit angka');
+                        nkk.focus();
+                        return false;
+                    }
+
+                    // Validasi NIK dan NKK tidak boleh sama
+                    if (nik.value === nkk.value) {
+                        alert('NIK dan NKK tidak boleh sama');
+                        nik.focus();
+                        return false;
+                    }
+
+                    // Validasi Nama
+                    if (nama.value.trim() === '') {
+                        alert('Nama tidak boleh kosong');
+                        nama.focus();
+                        return false;
+                    }
+
+                    // Validasi Jenis Kelamin
+                    if (jenisKelamin.value === '') {
+                        alert('Pilih Jenis Kelamin');
+                        jenisKelamin.focus();
+                        return false;
+                    }
+
+                    // Validasi Tempat Lahir
+                    if (tempatLahir.value.trim() === '') {
+                        alert('Tempat Lahir tidak boleh kosong');
+                        tempatLahir.focus();
+                        return false;
+                    }
+
+                    // Validasi Tanggal Lahir
+                    if (tanggalLahir.value === '') {
+                        alert('Tanggal Lahir harus diisi');
+                        tanggalLahir.focus();
+                        return false;
+                    }
+
+                    // Validasi Agama
+                    if (agama.value === '') {
+                        alert('Pilih Agama');
+                        agama.focus();
+                        return false;
+                    }
+
+                    // Validasi Pendidikan
+                    if (pendidikan.value === '') {
+                        alert('Pilih Pendidikan');
+                        pendidikan.focus();
+                        return false;
+                    }
+
+                    // Validasi Status Perkawinan
+                    if (statusPerkawinan.value === '') {
+                        alert('Pilih Status Perkawinan');
+                        statusPerkawinan.focus();
+                        return false;
+                    }
+
+                    // Validasi Status Keluarga
+                    if (statusKeluarga.value === '') {
+                        alert('Pilih Status Dalam Keluarga');
+                        statusKeluarga.focus();
+                        return false;
+                    }
+
+                    // Validasi Pekerjaan (jika diperlukan)
+                    if (pekerjaan.value === '') {
+                        alert('Pilih Pekerjaan');
+                        pekerjaan.focus();
+                        return false;
+                    }
+
+                    return true;
+                }
+
+                // Tambahkan event listener untuk input NIK dan NKK
+                document.getElementsByName('nik')[0].addEventListener('input', checkNikNkk);
+                document.getElementsByName('nkk')[0].addEventListener('input', checkNikNkk);
+
+                function checkNikNkk() {
+                    var nik = document.getElementsByName('nik')[0];
+                    var nkk = document.getElementsByName('nkk')[0];
+
+                    if (nik.value === nkk.value && nik.value !== '') {
+                        nik.setCustomValidity('NIK dan NKK tidak boleh sama');
+                        nkk.setCustomValidity('NIK dan NKK tidak boleh sama');
+                    } else {
+                        nik.setCustomValidity('');
+                        nkk.setCustomValidity('');
+                    }
+                }
+            </script>
         </div>
     </div>
 @endsection

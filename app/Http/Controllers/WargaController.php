@@ -192,7 +192,6 @@ class WargaController extends Controller
             $jabatan = $request->jabatan;
         }
         $data = [
-            // 'no_registrasi' => $request->no_registrasi,
             'nik' => $request->nik,
             'nkk' => $request->nkk,
             'nama' => $request->nama,

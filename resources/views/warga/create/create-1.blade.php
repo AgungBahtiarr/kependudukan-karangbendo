@@ -55,22 +55,19 @@
             <h1 class="mb-4 font-semibold">Informasi Personal</h1>
             <form action="{{ route('wargas.store1') }}" method="POST">
                 @csrf
-                {{-- <div class="form-group">
-                    <label for="no_registrasi">No Registrasi</label>
-                    <input type="number" name="no_registrasi" class="form-control" required
-                        value={{ $wargaSession ? $wargaSession['no_registrasi'] : '' }}>
-                </div> --}}
 
                 <div class="grid grid-cols-2 gap-4">
                     <div class="form-group">
                         <label for="nik">NIK</label>
-                        <input type="text" minlength="16" maxlength="16" name="nik" class="form-control" required
-                            value={{ $wargaSession ? $wargaSession['nik'] : '' }}>
+                        <input type="text" id="nik" name="nik" class="form-control" required pattern="\d{16}"
+                            title="NIK harus terdiri dari 16 digit angka" minlength="16" maxlength="16"
+                            value="{{ $wargaSession ? $wargaSession['nik'] : '' }}">
                     </div>
                     <div class="form-group">
                         <label for="nkk">NKK</label>
-                        <input type="text" minlength="16" maxlength="16" name="nkk" class="form-control" required
-                            value={{ $wargaSession ? $wargaSession['nkk'] : '' }}>
+                        <input type="text" id="nkk" name="nkk" class="form-control" required pattern="\d{16}"
+                            minlength="16" maxlength="16" title="NKK harus terdiri dari 16 digit angka"
+                            value="{{ $wargaSession ? $wargaSession['nkk'] : '' }}">
                     </div>
                 </div>
 
@@ -78,20 +75,19 @@
                     <div class="form-group">
                         <label for="name">Nama</label>
                         <input type="text" name="nama" class="form-control" required
-                            value={{ $wargaSession ? $wargaSession['nama'] : '' }}>
+                            value="{{ $wargaSession ? $wargaSession['nama'] : '' }}">
                     </div>
 
                     <div class="form-group">
                         <label for="jenis_kelamin">Jenis Kelamin</label>
                         <select class="form-control" name="jenis_kelamin" required>
                             @if ($wargaSession)
-                                {{-- <option value={{$wargaSession['jenis_kelamin']}}></option> --}}
                                 <option value="L" {{ $wargaSession['jenis_kelamin'] == 'L' ? 'selected' : '' }}>
                                     Laki-laki</option>
                                 <option value="P" {{ $wargaSession['jenis_kelamin'] == 'P' ? 'selected' : '' }}>
                                     Perempuan</option>
                             @else
-                                <option selected disabled>Pilih Jenis Kelamin</option>
+                                <option value="" selected disabled>Pilih Jenis Kelamin</option>
                                 <option value="L">Laki-laki</option>
                                 <option value="P">Perempuan</option>
                             @endif
@@ -167,9 +163,9 @@
                                     </option>
                                 @endforeach
                             @else
-                                <option value="" selected>Pilih Status Perkawinan</option>
+                                <option value="" selected disabled>Pilih Status Perkawinan</option>
                                 @foreach ($perkawinan as $kawin)
-                                    <option  value={{ $kawin->id }}>{{ $kawin->nama_status_kawin }}</option>
+                                    <option value={{ $kawin->id }}>{{ $kawin->nama_status_kawin }}</option>
                                 @endforeach
                             @endif
                         </select>
@@ -183,7 +179,7 @@
                                 <option value="1" {{ $wargaSession['status_keluarga'] == '1' ? 'selected' : '' }}>
                                     Kepala Keluarga</option>
                             @else
-                                <option value="" selected>Pilih Status Dalam Keluarga</option>
+                                <option value="" selected disabled>Pilih Status Dalam Keluarga</option>
                                 <option value="0">Anggota Keluarga</option>
                                 <option value="1">Kepala Keluarga</option>
                             @endif
@@ -203,7 +199,7 @@
                                     </option>
                                 @endforeach
                             @else
-                                <option  value="">Pilih Pekerjaan</option>
+                                <option value="">Pilih Pekerjaan</option>
                                 @foreach ($pekerjaans as $pekerjaan)
                                     <option value={{ $pekerjaan->id }}>{{ $pekerjaan->nama_pekerjaan }}</option>
                                 @endforeach
@@ -213,8 +209,15 @@
 
                     <div class="form-group">
                         <label for="jabatan">Jabatan (Struktur PKK)</label>
-                        <input type="text" name="jabatan" class="form-control"
-                            value={{ $wargaSession ? $wargaSession['jabatan'] : '' }}>
+                        <select id="jabatan" name="jabatan" class="form-control" required>
+                            <option value="" disabled {{ !$wargaSession ? 'selected' : '' }}>Pilih Jabatan</option>
+                            <option value="Anggota"
+                                {{ $wargaSession && $wargaSession['jabatan'] == 'Anggota' ? 'selected' : '' }}>Anggota
+                            </option>
+                            <option value="Bukan Anggota"
+                                {{ $wargaSession && $wargaSession['jabatan'] == 'Bukan Anggota' ? 'selected' : '' }}>Bukan
+                                Anggota</option>
+                        </select>
                     </div>
                 </div>
 
@@ -225,6 +228,123 @@
             </form>
         </div>
     </div>
+
+    <script>
+        function validateWargaForm() {
+            var nik = document.getElementById('nik');
+            var nkk = document.getElementById('nkk');
+            var nama = document.querySelector('input[name="nama"]');
+            var jenisKelamin = document.querySelector('select[name="jenis_kelamin"]');
+            var tempatLahir = document.querySelector('input[name="tempat_lahir"]');
+            var tanggalLahir = document.querySelector('input[name="tanggal_lahir"]');
+            var agama = document.querySelector('select[name="id_agama"]');
+            var pendidikan = document.querySelector('select[name="id_pendidikan"]');
+            var statusPerkawinan = document.querySelector('select[name="id_status_perkawinan"]');
+            var statusKeluarga = document.querySelector('select[name="status_keluarga"]');
+            var pekerjaan = document.querySelector('select[name="id_pekerjaan"]');
+
+            // NIK validation
+            if (nik.value.length !== 16 || !/^\d+$/.test(nik.value)) {
+                alert('NIK harus terdiri dari 16 digit angka');
+                nik.focus();
+                return false;
+            }
+
+            if (nik.value === nkk.value) {
+                alert('NIK dan NKK tidak boleh sama');
+                nik.focus();
+                return false;
+            }
+
+            // NKK validation
+            if (nkk.value.length !== 16 || !/^\d+$/.test(nkk.value)) {
+                alert('NKK harus terdiri dari 16 digit angka');
+                nkk.focus();
+                return false;
+            }
+
+            // Nama validation
+            if (nama.value.trim() === '') {
+                alert('Nama tidak boleh kosong');
+                nama.focus();
+                return false;
+            }
+
+            // Jenis Kelamin validation
+            if (jenisKelamin.value === '') {
+                alert('Pilih Jenis Kelamin');
+                jenisKelamin.focus();
+                return false;
+            }
+
+            // Tempat Lahir validation
+            if (tempatLahir.value.trim() === '') {
+                alert('Tempat Lahir tidak boleh kosong');
+                tempatLahir.focus();
+                return false;
+            }
+
+            // Tanggal Lahir validation
+            if (tanggalLahir.value === '') {
+                alert('Pilih Tanggal Lahir');
+                tanggalLahir.focus();
+                return false;
+            }
+
+            // Agama validation
+            if (agama.value === '') {
+                alert('Pilih Agama');
+                agama.focus();
+                return false;
+            }
+
+            // Pendidikan validation
+            if (pendidikan.value === '') {
+                alert('Pilih Pendidikan');
+                pendidikan.focus();
+                return false;
+            }
+
+            // Status Perkawinan validation
+            if (statusPerkawinan.value === '') {
+                alert('Pilih Status Perkawinan');
+                statusPerkawinan.focus();
+                return false;
+            }
+
+            // Status Keluarga validation
+            if (statusKeluarga.value === '') {
+                alert('Pilih Status Dalam Keluarga');
+                statusKeluarga.focus();
+                return false;
+            }
+
+            // Pekerjaan validation
+            if (pekerjaan.value === '') {
+                alert('Pilih Pekerjaan');
+                pekerjaan.focus();
+                return false;
+            }
+
+            return true;
+        }
+
+        document.getElementById('nik').addEventListener('input', checkNikNkk);
+        document.getElementById('nkk').addEventListener('input', checkNikNkk);
+
+        function checkNikNkk() {
+            var nik = document.getElementById('nik');
+            var nkk = document.getElementById('nkk');
+
+            if (nik.value === nkk.value && nik.value !== '') {
+                nik.setCustomValidity('NIK dan NKK tidak boleh sama');
+                nkk.setCustomValidity('NIK dan NKK tidak boleh sama');
+            } else {
+                nik.setCustomValidity('');
+                nkk.setCustomValidity('');
+            }
+        }
+    </script>
 @endsection
 
 

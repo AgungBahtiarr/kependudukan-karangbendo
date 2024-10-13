@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        <div class="flex justify-end mr-6 mt-5">
+        <div class="flex justify-end mr-6 mt-5 mb-12">
             <div>
                 <a class="btn btn-secondary" href={{ route('cargas.show2', $id) }}>Kembali</a>
                 <a class="btn btn-primary"

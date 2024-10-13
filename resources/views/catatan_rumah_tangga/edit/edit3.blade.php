@@ -1,8 +1,8 @@
 @fragment('detail-3')
-    <form action={{route('cargas.update3')}} method="POST">
+    <form action={{ route('cargas.update3') }} method="POST">
         @csrf
         @method('patch')
-        <input type="hidden" name="id" value={{$carga->id}}>
+        <input type="hidden" name="id" value={{ $carga->id }}>
         <div class="form-group">
             <label for="jumlah_balita">Jumlah Balita</label>
             <input type="number" name="jumlah_balita" class="form-control" required value={{ $carga->jumlah_balita }}>
@@ -37,12 +37,26 @@
                     value={{ $carga->jumlah_ibu_menyusui }}>
             </div>
         </div>
+        <div class="form-group">
+            <label for="jumlah_buta_baca">Jumlah Buta Baca</label>
+            <input type="number" min="0" name="jumlah_buta_baca" class="form-control" required
+                value="{{ $carga->jumlah_buta_baca }}">
+        </div>
 
-        <div class="content-item mb-3">
-            <div class="form-group">
-                <label for="jumlah_ibuta">Jumlah Ibu Rumah Tangga</label>
-                <input type="number" name="jumlah_ibuta" class="form-control" required value={{ $carga->jumlah_ibuta }}>
-            </div>
+        <div class="form-group">
+            <label for="jumlah_buta_tulis">Jumlah Buta Tulis</label>
+            <input type="number" min="0" name="jumlah_buta_tulis" class="form-control" required
+                value={{ $carga->jumlah_buta_tulis }}>
+        </div>
+        <div class="form-group">
+            <label for="jumlah_buta_hitung">Jumlah Buta Hitung</label>
+            <input type="number" min="0" name="jumlah_buta_hitung" class="form-control" required
+                value={{ $carga->jumlah_buta_hitung }}>
+        </div>
+        <div class="form-group">
+            <label for="jumlah_berkebutuhan_khusus">Jumlah Berkebutuhan Khusus</label>
+            <input type="number" min="0" name="jumlah_berkebutuhan_khusus" class="form-control" required
+                value={{ $carga->jumlah_berkebutuhan_khusus }}>
         </div>
 
         <div class="form-group">
@@ -50,8 +64,11 @@
             <input type="number" name="jumlah_lansia" class="form-control" required value={{ $carga->jumlah_lansia }}>
         </div>
 
+
+
         <div class="modal-footer">
-            <a href="{{route("cargas.show", $carga->id)}}" type="button" class="btn btn-secondary" data-dismiss="modal">Batal</a>
+            <a href="{{ route('cargas.show', $carga->id) }}" type="button" class="btn btn-secondary"
+                data-dismiss="modal">Batal</a>
             <button type="submit" class="btn btn-primary">Simpan</a>
         </div>
     </form>

@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('nkk', 16);
             $table->enum('bidang_sandang', ['0', '1']);
-            $table->string('keterangan_sandang');
+            $table->string('keterangan_sandang')->nullable(true);
             $table->enum('bidang_pangan', ['0', '1']);
-            $table->string('keterangan_pangan');
+            $table->string('keterangan_pangan')->nullable(true);
             $table->enum('bidang_jasa', ['0', '1']);
-            $table->string('keterangan_jasa');
+            $table->string('keterangan_jasa')->nullable(true);
             $table->string('nama_usaha', 30);
             $table->unsignedBigInteger('created_by');
             $table->timestamps();

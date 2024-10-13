@@ -50,7 +50,7 @@
                 <div class="form-group">
                     <label for="provinsi">Provinsi</label>
                     <input type="text" name="alamat_prov" class="form-control" required
-                        value={{ $wargaSession ? $wargaSession['alamat_prov'] : $warga->alamat_prov }}>
+                        value="{{ $wargaSession ? $wargaSession['alamat_prov'] : $warga->alamat_prov }}">
                 </div>
                 <div class="form-group">
                     <label for="kabupaten">Kabupaten</label>

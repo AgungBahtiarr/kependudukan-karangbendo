@@ -453,7 +453,19 @@ class CatatanRumahTanggaController extends Controller
             "kerja_bakti" => $request->kerja_bakti,
         ];
 
+
         $carga = CatatanRumahTangga::findOrFail($request->id);
+
+        $pekarangan = PemanfaatanTanahPekarangan::where('nkk', $carga->nkk)->first();
+        $industri = IndustriRumahTangga::where('nkk', $carga->nkk)->first();
+
+        if ($request->pemanfaatan_pekarangan == '0') {
+            $pekarangan->delete();
+        }
+
+        if ($request->industri_rumah_tangga == '0') {
+            $industri->delete();
+        }
 
         $carga->update($data);
 

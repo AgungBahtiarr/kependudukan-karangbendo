@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="my-10 mx-12">
-        <h1 class="text-2xl font-semibold">Tambah Catatan Rumah Tangga</h1>
+        <h1 class="text-2xl font-semibold">Tambah Catatan Keluarga</h1>
 
         <div class="my-4">
             <ol
@@ -72,17 +72,15 @@
                         <label for="satu_rumah_satu_kk">Satu Rumah Satu Kartu Keluarga</label>
                         <div class="form-group">
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input hx-trigger="click" hx-post="/cargas/isNkkInang/1" hx-swap="innerHtml"
-                                    hx-target="#nkkInang" type="radio" id="satu_kk_ya" name="satu_rumah_satu_kk"
-                                    value="1" class="custom-control-input"
+                                <input type="radio" id="satu_kk_ya" name="satu_rumah_satu_kk" value="1"
+                                    class="custom-control-input"
                                     {{ $cargasSession && $cargasSession['satu_rumah_satu_kk'] == '1' ? 'checked' : '' }}
                                     required>
                                 <label class="custom-control-label" for="satu_kk_ya"> Ya </label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input hx-trigger="click" hx-post="/cargas/isNkkInang/0" hx-swap="innerHtml"
-                                    hx-target="#nkkInang" type="radio" id="satu_kk_tidak" name="satu_rumah_satu_kk"
-                                    value="0" class="custom-control-input"
+                                <input type="radio" id="satu_kk_tidak" name="satu_rumah_satu_kk" value="0"
+                                    class="custom-control-input"
                                     {{ $cargasSession && $cargasSession['satu_rumah_satu_kk'] == '0' ? 'checked' : '' }}
                                     required>
                                 <label class="custom-control-label" for="satu_kk_tidak"> Tidak </label>
@@ -90,36 +88,20 @@
                         </div>
                     </div>
 
-                </div>
-
-
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
                     <div class="form-group">
                         <label for="jumlah_jamban_keluarga">Jumlah Jamban Keluarga</label>
                         <input type="number" name="jumlah_jamban_keluarga" class="form-control" required
-                            value={{ $cargasSession ? $cargasSession['jumlah_jamban_keluarga'] : '' }}>
+                            value="{{ $cargasSession ? $cargasSession['jumlah_jamban_keluarga'] : '' }}">
                     </div>
 
-
-                    @if ($cargasSession && $cargasSession['satu_rumah_satu_kk'] == 0)
-                        <div id="nkkInang">
-                            <div class="form-group">
-                                <label for="nkk_inang">Nomor Kartu Keluarga Induk</label>
-                                <input type="text" minlength="16" maxlength="16" name="nkk_inang" class="form-control"
-                                    required value={{ $cargasSession ? $cargasSession['nkk_inang'] : '' }}>
-                            </div>
+                    <div id="nkk_inang_container" style="display: none;">
+                        <div class="form-group">
+                            <label for="nkk_inang">Nomor Kartu Keluarga Induk</label>
+                            <input type="text" id="nkk_inang" name="nkk_inang" class="form-control" minlength="16"
+                                maxlength="16" value="{{ $cargasSession ? $cargasSession['nkk_inang'] : '' }}">
                         </div>
-                    @else
-                        <div id="nkkInang">
+                    </div>
 
-                        </div>
-                    @endif
-
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-group">
                         <label for="kriteria_rumah">Kriteria Rumah</label>
                         <div class="form-group">
@@ -189,7 +171,7 @@
                                         {{ $sumber->nama_sumber_air }}</option>
                                 @endforeach
                             @else
-                                <option value="" selected>Pilih Jenis Sumber Air</option>
+                                <option value="" selected disabled>Pilih Jenis Sumber Air</option>
                                 @foreach ($sumbers as $sumber)
                                     <option value={{ $sumber->id }}>{{ $sumber->nama_sumber_air }}</option>
                                 @endforeach
@@ -206,4 +188,59 @@
             </form>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const satuKkYa = document.getElementById('satu_kk_ya');
+            const satuKkTidak = document.getElementById('satu_kk_tidak');
+            const nkkInangContainer = document.getElementById('nkk_inang_container');
+            const nkkInangInput = document.getElementById('nkk_inang');
+            const dynamicGrid = document.getElementById('dynamic-grid');
+            const nkkInput = document.querySelector('input[name="nkk"]');
+
+            function toggleNkkInang() {
+                if (satuKkTidak.checked) {
+                    nkkInangContainer.style.display = 'block';
+                    nkkInangInput.required = true;
+                    dynamicGrid.classList.remove('md:grid-cols-1');
+                    dynamicGrid.classList.add('md:grid-cols-2');
+                } else {
+                    nkkInangContainer.style.display = 'none';
+                    nkkInangInput.required = false;
+                    nkkInangInput.value = ''; // Reset nilai
+                    dynamicGrid.classList.remove('md:grid-cols-2');
+                    dynamicGrid.classList.add('md:grid-cols-1');
+                }
+            }
+
+            satuKkYa.addEventListener('change', toggleNkkInang);
+            satuKkTidak.addEventListener('change', toggleNkkInang);
+
+            // Inisialisasi saat halaman dimuat
+            toggleNkkInang();
+
+            // Fungsi validasi form
+            window.validateForm = function() {
+                if (satuKkTidak.checked && nkkInput.value === nkkInangInput.value) {
+                    alert('Nomor Kartu Keluarga dan Nomor Kartu Keluarga Induk tidak boleh sama.');
+                    return false;
+                }
+                return true;
+            };
+
+            // Event listener untuk validasi real-time
+            nkkInput.addEventListener('input', checkNkkMatch);
+            nkkInangInput.addEventListener('input', checkNkkMatch);
+
+            function checkNkkMatch() {
+                if (satuKkTidak.checked && nkkInput.value === nkkInangInput.value && nkkInput.value !== '') {
+                    nkkInangInput.setCustomValidity('NKK dan NKK Inang tidak boleh sama');
+                } else {
+                    nkkInangInput.setCustomValidity('');
+                }
+            }
+        });
+    </script>
+
+
 @endsection
