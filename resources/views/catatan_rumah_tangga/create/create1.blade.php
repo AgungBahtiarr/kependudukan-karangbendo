@@ -63,9 +63,55 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-group">
                         <label for="nkk">No Kartu Keluarga</label>
-                        <input type="text" minlength="16" maxlength="16" name="nkk" class="form-control" required
-                            value={{ $cargasSession ? $cargasSession['nkk'] : '' }}>
+                        <input type="text" minlength="16" maxlength="16" name="nkk" id="nkk"
+                            class="form-control" required value="{{ $cargasSession ? $cargasSession['nkk'] : '' }}"
+                            pattern="\d{16}" title="NKK harus terdiri dari 16 digit angka" inputmode="numeric">
                     </div>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const nkkInput = document.getElementById('nkk');
+
+                            function allowOnlyNumbers(input) {
+                                input.addEventListener('keypress', function(e) {
+                                    if (e.key < '0' || e.key > '9') {
+                                        e.preventDefault();
+                                    }
+                                });
+
+                                input.addEventListener('paste', function(e) {
+                                    e.preventDefault();
+                                    const pastedData = e.clipboardData.getData('text');
+                                    const numbersOnly = pastedData.replace(/[^0-9]/g, '');
+                                    document.execCommand('insertText', false, numbersOnly.slice(0, 16));
+                                });
+                            }
+
+                            function validateNKK(input) {
+                                if (input.value.length !== 16) {
+                                    input.setCustomValidity('NKK harus terdiri dari 16 digit');
+                                } else {
+                                    input.setCustomValidity('');
+                                }
+                            }
+
+                            allowOnlyNumbers(nkkInput);
+
+                            nkkInput.addEventListener('input', function() {
+                                validateNKK(this);
+                            });
+
+                            // Validasi form sebelum submit
+                            document.querySelector('form').addEventListener('submit', function(e) {
+                                validateNKK(nkkInput);
+
+                                if (!nkkInput.validity.valid) {
+                                    e.preventDefault();
+                                    alert('Mohon periksa kembali input NKK');
+                                }
+                            });
+                        });
+                    </script>
 
 
                     <div class="form-group">
@@ -98,8 +144,55 @@
                         <div class="form-group">
                             <label for="nkk_inang">Nomor Kartu Keluarga Induk</label>
                             <input type="text" id="nkk_inang" name="nkk_inang" class="form-control" minlength="16"
-                                maxlength="16" value="{{ $cargasSession ? $cargasSession['nkk_inang'] : '' }}">
+                                maxlength="16" value="{{ $cargasSession ? $cargasSession['nkk_inang'] : '' }}"
+                                pattern="\d{16}" title="NKK Inang harus terdiri dari 16 digit angka" inputmode="numeric"
+                                oninput="validateNKKInang(this)">
+                            <small id="nkkInangHelp" class="form-text text-muted">Masukkan 16 digit nomor kartu keluarga
+                                induk.</small>
                         </div>
+
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const nkkInangInput = document.getElementById('nkk_inang');
+
+                                function validateNKKInang(input) {
+                                    const value = input.value;
+
+                                    // Hanya izinkan angka
+                                    input.value = value.replace(/[^0-9]/g, '');
+
+                                    if (value.length !== 16) {
+                                        input.setCustomValidity('NKK Inang harus terdiri dari 16 digit angka');
+                                    } else {
+                                        input.setCustomValidity('');
+                                    }
+
+                                    input.reportValidity();
+                                }
+
+                                nkkInangInput.addEventListener('input', function() {
+                                    validateNKKInang(this);
+                                });
+
+                                nkkInangInput.addEventListener('paste', function(e) {
+                                    e.preventDefault();
+                                    const pastedData = e.clipboardData.getData('text');
+                                    const numbersOnly = pastedData.replace(/[^0-9]/g, '').slice(0, 16);
+                                    this.value = numbersOnly;
+                                    validateNKKInang(this);
+                                });
+
+                                // Validasi form sebelum submit
+                                document.querySelector('form').addEventListener('submit', function(e) {
+                                    validateNKKInang(nkkInangInput);
+
+                                    if (!nkkInangInput.validity.valid) {
+                                        e.preventDefault();
+                                        alert('Mohon periksa kembali input Nomor Kartu Keluarga Induk');
+                                    }
+                                });
+                            });
+                        </script>
                     </div>
 
                     <div class="form-group">
@@ -182,7 +275,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <a href="/cargas" type="button" class="btn btn-secondary" data-dismiss="modal">Batal</a>
+                    <a href="/cargas" type="button" class="btn btn-secondary text-white" data-dismiss="modal">Batal</a>
                     <button type="submit" class="btn btn-primary">Selanjutnya</a>
                 </div>
             </form>

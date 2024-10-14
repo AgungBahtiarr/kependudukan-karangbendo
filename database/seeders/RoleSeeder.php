@@ -140,6 +140,14 @@ class RoleSeeder extends Seeder
             "update_industries",
             "update_industries_status",
 
+            #kematian
+            "create_kematians",
+            "read_kematians",
+            "edit_kematians",
+            "update_kematians",
+            "update_kematians_status",
+            "delete_kematians",
+
             // #bansos
             // "create_bansos",
             // "read_bansos",

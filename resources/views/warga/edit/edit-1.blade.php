@@ -42,19 +42,79 @@
                 @method('patch')
                 @csrf
                 <input type="hidden" name="id" value={{ $warga->id }}>
-
                 <div class="grid grid-cols-2 gap-4">
                     <div class="form-group">
                         <label for="nik">NIK</label>
-                        <input type="text" minlength="16" maxlength="16" name="nik" class="form-control" required
-                            value={{ $wargaSession ? $wargaSession['nik'] : $warga->nik }}>
+                        <input type="text" minlength="16" maxlength="16" name="nik" id="nik"
+                            class="form-control" required value="{{ $wargaSession ? $wargaSession['nik'] : $warga->nik }}"
+                            pattern="\d{16}" title="NIK harus terdiri dari 16 digit angka" inputmode="numeric">
                     </div>
                     <div class="form-group">
                         <label for="nkk">NKK</label>
-                        <input type="text" minlength="16" maxlength="16" name="nkk" class="form-control" required
-                            value={{ $wargaSession ? $wargaSession['nkk'] : $warga->nkk }}>
+                        <input type="text" minlength="16" maxlength="16" name="nkk" id="nkk"
+                            class="form-control" required value="{{ $wargaSession ? $wargaSession['nkk'] : $warga->nkk }}"
+                            pattern="\d{16}" title="NKK harus terdiri dari 16 digit angka" inputmode="numeric">
                     </div>
                 </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const nikInput = document.getElementById('nik');
+                        const nkkInput = document.getElementById('nkk');
+
+                        function allowOnlyNumbers(input) {
+                            input.addEventListener('keypress', function(e) {
+                                if (e.key < '0' || e.key > '9') {
+                                    e.preventDefault();
+                                }
+                            });
+
+                            input.addEventListener('paste', function(e) {
+                                e.preventDefault();
+                                const pastedData = e.clipboardData.getData('text');
+                                const numbersOnly = pastedData.replace(/[^0-9]/g, '');
+                                document.execCommand('insertText', false, numbersOnly.slice(0, 16));
+                            });
+                        }
+
+                        function validateInput(input) {
+                            if (input.value.length !== 16) {
+                                input.setCustomValidity(`${input.name.toUpperCase()} harus terdiri dari 16 digit`);
+                            } else {
+                                input.setCustomValidity('');
+                            }
+                        }
+
+                        function checkNikNkk() {
+                            if (nikInput.value === nkkInput.value && nikInput.value !== '') {
+                                nkkInput.setCustomValidity('NIK dan NKK tidak boleh sama');
+                            } else {
+                                nkkInput.setCustomValidity('');
+                            }
+                        }
+
+                        [nikInput, nkkInput].forEach(input => {
+                            allowOnlyNumbers(input);
+
+                            input.addEventListener('input', function() {
+                                validateInput(this);
+                                checkNikNkk();
+                            });
+                        });
+
+                        // Validasi form sebelum submit
+                        document.querySelector('form').addEventListener('submit', function(e) {
+                            validateInput(nikInput);
+                            validateInput(nkkInput);
+                            checkNikNkk();
+
+                            if (!nikInput.validity.valid || !nkkInput.validity.valid) {
+                                e.preventDefault();
+                                alert('Mohon periksa kembali input NIK dan NKK');
+                            }
+                        });
+                    });
+                </script>
 
                 <div class="grid grid-cols-2 gap-4">
                     <div class="form-group">
@@ -92,7 +152,7 @@
                     <div class="form-group">
                         <label for="tempat_lahir">Tempat Lahir</label>
                         <input type="text" name="tempat_lahir" class="form-control" required
-                            value={{ $wargaSession ? $wargaSession['tempat_lahir'] : $warga->tempat_lahir }}>
+                            value="{{ $wargaSession ? $wargaSession['tempat_lahir'] : $warga->tempat_lahir }}">
                     </div>
                     <div class="form-group">
                         <label for="tanggal_lahir">Tanggal Lahir</label>
@@ -146,7 +206,7 @@
                                     </option>
                                 @endforeach
                             @else
-                                <option value="" selected>Pilih Pendidikan</option>
+                                <option value="" selected disabled>Pilih Pendidikan</option>
                                 @foreach ($pendidikans as $pendidikan)
                                     <option value={{ $pendidikan->id }}>{{ $pendidikan->nama_pendidikan }}</option>
                                 @endforeach
@@ -177,7 +237,7 @@
                                     </option>
                                 @endforeach
                             @else
-                                <option value="" selected>Pilih Status Perkawinan</option>
+                                <option value="" selected disabled>Pilih Status Perkawinan</option>
                                 @foreach ($perkawinan as $kawin)
                                     <option value={{ $kawin->id }}>{{ $kawin->nama_status_kawin }}</option>
                                 @endforeach
@@ -206,11 +266,11 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div class="form-group">
                         <label for="pekerjaan">Pekerjaan</label>
-                        <select class="form-control" aria-label="Default select example" name="id_pekerjaan">
+                        <select class="form-control" aria-label="Default select example" name="id_pekerjaan" required>
                             @if ($wargaSession)
                                 @foreach ($pekerjaans as $pekerjaan)
                                     <option value={{ $pekerjaan->id }}
-                                        {{ $wargaSession['status_keluarga'] == $pekerjaan->id ? 'selected' : '' }}>
+                                        {{ $wargaSession['id_pekerjaan'] == $pekerjaan->id ? 'selected' : '' }}>
                                         {{ $pekerjaan->nama_pekerjaan }}
                                     </option>
                                 @endforeach
@@ -222,7 +282,7 @@
                                     </option>
                                 @endforeach
                             @else
-                                <option selected>Pilih Pekerjaan</option>
+                                <option selected value="" disabled>Pilih Pekerjaan</option>
                                 @foreach ($pekerjaans as $pekerjaan)
                                     <option value={{ $pekerjaan->id }}>{{ $pekerjaan->nama_pekerjaan }}</option>
                                 @endforeach

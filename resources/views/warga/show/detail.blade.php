@@ -124,130 +124,140 @@
         </div>
 
 
-        <div class="bg-white rounded-lg font-medium my-8">
-            <h2 class="border-black border-b pl-8 py-6">Keikutsertaan Kegiatan Dawis</h2>
-            <div class="grid grid-cols-2">
-                <ul class="flex flex-col gap-7 pl-8 py-8">
-                    <li class="flex flex-col gap-3">
-                        <div class="font-medium text-[#ADADAD]">Akseptor KB</div>
-                        <div>{{ $dawis->akseptor_kb == '1' ? 'Iya' : 'Tidak' }}</div>
-                    </li>
-                    <li class="flex flex-col gap-3">
-                        <div class="font-medium text-[#ADADAD]">Jenis Akseptor KB</div>
-                        <div>{{ $dawis->jenis_kb }}</div>
-                    </li>
-                    <li class="flex flex-col gap-3">
-                        <div class="font-medium text-[#ADADAD]">Aktif Dalam Kegiatan Posyandu</div>
-                        <div>{{ $dawis->posyandu == '1' ? 'Iya' : 'Tidak' }}</div>
-                    </li>
-                    <li class="flex flex-col gap-3">
-                        <div class="font-medium text-[#ADADAD]">Frekuensi Posyandu</div>
-                        <div>{{ $dawis->frekuensi_posyandu }}</div>
-                    </li>
-                    <li class="flex flex-col gap-3">
-                        <div class="font-medium text-[#ADADAD]">Mengikuti Program Bina Keluarga Balita</div>
-                        <div>{{ $dawis->bina_keluarga_balita == '1' ? 'Iya' : 'Tidak' }}</div>
-                    </li>
-                    <li class="flex flex-col gap-3">
-                        <div class="font-medium text-[#ADADAD]">Memiliki Tabungan</div>
-                        <div>{{ $dawis->memiliki_tabungan == '1' ? 'Iya' : 'Tidak' }}</div>
-                    </li>
-                </ul>
 
-                <ul class="flex flex-col gap-7 pl-8 py-8">
-                    <li class="flex flex-col gap-3">
-                        <div class="font-medium text-[#ADADAD]">Putus Sekolah</div>
-                        <div>{{ $dawis->putus_sekolah && $dawis->putus_sekolah == '1' ? 'Iya' : 'Tidak' }}</div>
-                    </li>
-                    <li class="flex flex-col gap-3">
-                        <div class="font-medium text-[#ADADAD]">Jenjang Putus Sekolah</div>
+        @if ($dawis)
+            <div class="bg-white rounded-lg font-medium my-8">
+                <h2 class="border-black border-b pl-8 py-6">Keikutsertaan Kegiatan Dawis</h2>
+                <div class="grid grid-cols-2">
+                    <ul class="flex flex-col gap-7 pl-8 py-8">
+                        <li class="flex flex-col gap-3">
+                            <div class="font-medium text-[#ADADAD]">Akseptor KB</div>
+                            <div>{{ $dawis->akseptor_kb == '1' ? 'Iya' : 'Tidak' }}</div>
+                        </li>
+                        <li class="flex flex-col gap-3">
+                            <div class="font-medium text-[#ADADAD]">Jenis Akseptor KB</div>
+                            <div>{{ $dawis->jenis_kb }}</div>
+                        </li>
+                        <li class="flex flex-col gap-3">
+                            <div class="font-medium text-[#ADADAD]">Aktif Dalam Kegiatan Posyandu</div>
+                            <div>{{ $dawis->posyandu == '1' ? 'Iya' : 'Tidak' }}</div>
+                        </li>
+                        <li class="flex flex-col gap-3">
+                            <div class="font-medium text-[#ADADAD]">Frekuensi Posyandu</div>
+                            <div>{{ $dawis->frekuensi_posyandu }}</div>
+                        </li>
+                        <li class="flex flex-col gap-3">
+                            <div class="font-medium text-[#ADADAD]">Mengikuti Program Bina Keluarga Balita</div>
+                            <div>{{ $dawis->bina_keluarga_balita == '1' ? 'Iya' : 'Tidak' }}</div>
+                        </li>
+                        <li class="flex flex-col gap-3">
+                            <div class="font-medium text-[#ADADAD]">Memiliki Tabungan</div>
+                            <div>{{ $dawis->memiliki_tabungan == '1' ? 'Iya' : 'Tidak' }}</div>
+                        </li>
+                    </ul>
 
-                        @foreach ($jenjangSekolah as $item)
-                            <div>{{ $dawis->id_jenjang_sekolah == $item->id ? $item->jenjang_sekolah : '' }}
+                    <ul class="flex flex-col gap-7 pl-8 py-8">
+                        <li class="flex flex-col gap-3">
+                            <div class="font-medium text-[#ADADAD]">Putus Sekolah</div>
+                            <div>{{ $dawis->putus_sekolah && $dawis->putus_sekolah == '1' ? 'Iya' : 'Tidak' }}</div>
+                        </li>
+                        <li class="flex flex-col gap-3">
+                            <div class="font-medium text-[#ADADAD]">Jenjang Putus Sekolah</div>
+
+                            @foreach ($jenjangSekolah as $item)
+                                <div>{{ $dawis->id_jenjang_sekolah == $item->id ? $item->jenjang_sekolah : '' }}
+                                </div>
+                            @endforeach
+
+                        </li>
+                        <li class="flex flex-col gap-3">
+                            <div class="font-medium text-[#ADADAD]">Mengikuti Kelompok Belajar</div>
+                            <div>{{ $dawis->kelompok_belajar && $dawis->kelompok_belajar == '1' ? 'Iya' : 'Tidak' }}</div>
+                        </li>
+                        <li class="flex flex-col gap-3">
+                            <div class="font-medium text-[#ADADAD]">Jenis Kelompok Belajar</div>
+                            <div>{{ $dawis->kelompok_belajar && $dawis->jenis_kelompok_belajar['nama_kelompok_belajar'] }}
                             </div>
-                        @endforeach
+                        </li>
+                        <li class="flex flex-col gap-3">
+                            <div class="font-medium text-[#ADADAD]">Mengikuti PAUD/Sejenis</div>
+                            <div>{{ $dawis->paud == '1' ? 'Iya' : 'Tidak' }}</div>
+                        </li>
+                        <li class="flex flex-col gap-3">
+                            <div class="font-medium text-[#ADADAD]">Ikut dalam Kegiatan Koperasi</div>
+                            <div>{{ $dawis->koperasi == '1' ? 'Iya' : 'Tidak' }}</div>
+                        </li>
+                        <li class="flex flex-col gap-3">
+                            <div class="font-medium text-[#ADADAD]">Jenis Koperasi</div>
+                            <div>{{ $dawis->jenis_koperasi }}</div>
+                        </li>
+                        <li class="flex flex-col gap-3">
+                            <div class="font-medium text-[#ADADAD]">Berkebutuhan Khusus</div>
+                            <div>{{ $dawis->berkebutuhan_khusus == '1' ? 'Iya' : 'Tidak' }}</div>
+                        </li>
 
-                    </li>
-                    <li class="flex flex-col gap-3">
-                        <div class="font-medium text-[#ADADAD]">Mengikuti Kelompok Belajar</div>
-                        <div>{{ $dawis->kelompok_belajar && $dawis->kelompok_belajar == '1' ? 'Iya' : 'Tidak' }}</div>
-                    </li>
-                    <li class="flex flex-col gap-3">
-                        <div class="font-medium text-[#ADADAD]">Jenis Kelompok Belajar</div>
-                        <div>{{ $dawis->kelompok_belajar && $dawis->jenis_kelompok_belajar['nama_kelompok_belajar'] }}
-                        </div>
-                    </li>
-                    <li class="flex flex-col gap-3">
-                        <div class="font-medium text-[#ADADAD]">Mengikuti PAUD/Sejenis</div>
-                        <div>{{ $dawis->paud == '1' ? 'Iya' : 'Tidak' }}</div>
-                    </li>
-                    <li class="flex flex-col gap-3">
-                        <div class="font-medium text-[#ADADAD]">Ikut dalam Kegiatan Koperasi</div>
-                        <div>{{ $dawis->koperasi == '1' ? 'Iya' : 'Tidak' }}</div>
-                    </li>
-                    <li class="flex flex-col gap-3">
-                        <div class="font-medium text-[#ADADAD]">Jenis Koperasi</div>
-                        <div>{{ $dawis->jenis_koperasi }}</div>
-                    </li>
-                    <li class="flex flex-col gap-3">
-                        <div class="font-medium text-[#ADADAD]">Berkebutuhan Khusus</div>
-                        <div>{{ $dawis->berkebutuhan_khusus == '1' ? 'Iya' : 'Tidak' }}</div>
-                    </li>
+                        <li class="flex flex-col gap-3">
+                            <div class="font-medium text-[#ADADAD]">Jenis Kebutuhan Khusus</div>
+                            @foreach ($jenisDisabilitas as $item)
+                                <div>{{ $dawis->id_jenis_disabilitas == $item->id ? $item->jenis_disabilitas : '' }}</div>
+                            @endforeach
+                        </li>
+                    </ul>
+                </div>
 
-                    <li class="flex flex-col gap-3">
-                        <div class="font-medium text-[#ADADAD]">Jenis Kebutuhan Khusus</div>
-                        @foreach ($jenisDisabilitas as $item)
-                            <div>{{ $dawis->id_jenis_disabilitas == $item->id ? $item->jenis_disabilitas : '' }}</div>
-                        @endforeach
-                    </li>
-                </ul>
             </div>
 
-        </div>
+            <div class="bg-white rounded-lg font-medium my-8">
+                <h2 class="border-black border-b pl-8 py-6">Kegiatan Yang Diikuti</h2>
+                <div class="grid grid-cols-2">
+                    <ul class="flex flex-col gap-7 pl-8 py-8">
+                        <li class="flex flex-col gap-3">
+                            <div class="font-medium text-[#ADADAD]">Penghayatan dan Pengamatan Pancasila</div>
+                            <div>{{ $dawis->penghayatan_pengamalan_pancasila == '1' ? 'Iya' : 'Tidak' }}</div>
+                        </li>
+                        <li class="flex flex-col gap-3">
+                            <div class="font-medium text-[#ADADAD]">Gotong Royong</div>
+                            <div>{{ $dawis->gotong_royong == '1' ? 'Iya' : 'Tidak' }}</div>
+                        </li>
+                        <li class="flex flex-col gap-3">
+                            <div class="font-medium text-[#ADADAD]">Pendidikan Dan Keterampilan</div>
+                            <div>{{ $dawis->pendidikan_keterampilan == '1' ? 'Iya' : 'Tidak' }}</div>
+                        </li>
+                        <li class="flex flex-col gap-3">
+                            <div class="font-medium text-[#ADADAD]">Kehidupan Berkolaborasi</div>
+                            <div>{{ $dawis->kehidupan_berkolaborasi == '1' ? 'Iya' : 'Tidak' }}</div>
+                        </li>
+                    </ul>
 
-        <div class="bg-white rounded-lg font-medium my-8">
-            <h2 class="border-black border-b pl-8 py-6">Kegiatan Yang Diikuti</h2>
-            <div class="grid grid-cols-2">
-                <ul class="flex flex-col gap-7 pl-8 py-8">
-                    <li class="flex flex-col gap-3">
-                        <div class="font-medium text-[#ADADAD]">Penghayatan dan Pengamatan Pancasila</div>
-                        <div>{{ $dawis->penghayatan_pengamalan_pancasila == '1' ? 'Iya' : 'Tidak' }}</div>
-                    </li>
-                    <li class="flex flex-col gap-3">
-                        <div class="font-medium text-[#ADADAD]">Gotong Royong</div>
-                        <div>{{ $dawis->gotong_royong == '1' ? 'Iya' : 'Tidak' }}</div>
-                    </li>
-                    <li class="flex flex-col gap-3">
-                        <div class="font-medium text-[#ADADAD]">Pendidikan Dan Keterampilan</div>
-                        <div>{{ $dawis->pendidikan_keterampilan == '1' ? 'Iya' : 'Tidak' }}</div>
-                    </li>
-                    <li class="flex flex-col gap-3">
-                        <div class="font-medium text-[#ADADAD]">Kehidupan Berkolaborasi</div>
-                        <div>{{ $dawis->kehidupan_berkolaborasi == '1' ? 'Iya' : 'Tidak' }}</div>
-                    </li>
-                </ul>
-
-                <ul class="flex flex-col gap-7 pl-8 py-8">
-                    <li class="flex flex-col gap-3">
-                        <div class="font-medium text-[#ADADAD]">Pangan</div>
-                        <div>{{ $dawis->pangan == '1' ? 'Iya' : 'Tidak' }}</div>
-                    </li>
-                    <li class="flex flex-col gap-3">
-                        <div class="font-medium text-[#ADADAD]">Sandang</div>
-                        <div>{{ $dawis->sandang == '1' ? 'Iya' : 'Tidak' }}</div>
-                    </li>
-                    <li class="flex flex-col gap-3">
-                        <div class="font-medium text-[#ADADAD]">Kegiatan Kesehatan</div>
-                        <div>{{ $dawis->kegiatan_kesehatan == '1' ? 'Iya' : 'Tidak' }}</div>
-                    </li>
-                    <li class="flex flex-col gap-3">
-                        <div class="font-medium text-[#ADADAD]">Perencanaan Kesehatan</div>
-                        <div>{{ $dawis->perencanaan_kesehatan == '1' ? 'Iya' : 'Tidak' }}</div>
-                    </li>
-                </ul>
+                    <ul class="flex flex-col gap-7 pl-8 py-8">
+                        <li class="flex flex-col gap-3">
+                            <div class="font-medium text-[#ADADAD]">Pangan</div>
+                            <div>{{ $dawis->pangan == '1' ? 'Iya' : 'Tidak' }}</div>
+                        </li>
+                        <li class="flex flex-col gap-3">
+                            <div class="font-medium text-[#ADADAD]">Sandang</div>
+                            <div>{{ $dawis->sandang == '1' ? 'Iya' : 'Tidak' }}</div>
+                        </li>
+                        <li class="flex flex-col gap-3">
+                            <div class="font-medium text-[#ADADAD]">Kegiatan Kesehatan</div>
+                            <div>{{ $dawis->kegiatan_kesehatan == '1' ? 'Iya' : 'Tidak' }}</div>
+                        </li>
+                        <li class="flex flex-col gap-3">
+                            <div class="font-medium text-[#ADADAD]">Perencanaan Kesehatan</div>
+                            <div>{{ $dawis->perencanaan_kesehatan == '1' ? 'Iya' : 'Tidak' }}</div>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
+        @else
+            <div class="bg-white rounded-lg font-medium my-8">
+                <h2 class="border-black border-b pl-8 py-6">Riwayat Bantuan Sosial</h2>
+                <div class="flex justify-center items-center my-12">Tidak Ada Catatan Dasa Wisma</div>
+            </div>
+        @endif
 
+
+        <div class="my-2"></div>
 
         <div class="bg-white rounded-lg font-medium my-8">
             <h2 class="border-black border-b pl-8 py-6">Riwayat Bantuan Sosial</h2>

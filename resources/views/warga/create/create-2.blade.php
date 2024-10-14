@@ -72,7 +72,7 @@
                 <div class="form-group">
                     <label for="alamat_dusun">Alamat Dusun</label>
                     <select name="alamat_dusun" id="alamat_dusun" class="form-control" required>
-                        <option value="" disabled>Pilih Dusun</option>
+                        <option value="" disabled selected>Pilih Dusun</option>
                         @foreach ($dusun_data as $dusun => $data)
                             <option value="{{ $dusun }}"
                                 {{ $wargaSession && $wargaSession['alamat_dusun'] == $dusun ? 'selected' : '' }}>
@@ -86,13 +86,13 @@
                     <div class="form-group">
                         <label for="rw">RW</label>
                         <select name="rw" id="rw" class="form-control" required>
-                            <option value="" disabled>Pilih RW</option>
+                            <option value="" disabled selected>Pilih RW</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="rt">RT</label>
                         <select name="rt" id="rt" class="form-control" required>
-                            <option value="" disabled>Pilih RT</option>
+                            <option value="" disabled selected>Pilih RT</option>
                         </select>
                     </div>
                 </div>

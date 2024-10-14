@@ -41,7 +41,9 @@
                 <label for="id_sumber_air">Sumber Air</label>
                 <select class="form-control" name="id_sumber_air" required>
                     @foreach ($sumbers as $sumber)
-                        <option value={{ $sumber->id }}>{{ $sumber->nama_sumber_air }}</option>
+                        <option value="{{ $carga->id_sumber_air }}"
+                            {{ $sumber->id == $carga->id_sumber_air ? 'selected' : '' }}>{{ $sumber->nama_sumber_air }}
+                        </option>
                     @endforeach
                 </select>
             </div>

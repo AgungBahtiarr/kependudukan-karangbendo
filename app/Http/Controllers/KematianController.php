@@ -49,7 +49,7 @@ class KematianController extends Controller
         $warga = Warga::where('nik', $request->nik)->first();
 
         if (!$warga) {
-            return "<script>alert('NIK Belum Terdaftar Di Data Warga'); window.location = '/kematian';</script>";
+            return "<script>alert('NIK Belum Terdaftar Di Data Warga'); window.location = '/kematian/create';</script>";
         }
 
         $data = [

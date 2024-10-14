@@ -130,7 +130,7 @@ class CatatanRumahTanggaController extends Controller
         $carga = CatatanRumahTangga::findOrFail($id);
         $pekarangan = PemanfaatanTanahPekarangan::where("nkk", $carga->nkk)->get();
 
-        if (count($pekarangan) == 1) {
+        if (count($pekarangan) == 1 && $carga->pemanfaatan_pekarangan == "1") {
             return "<div></div>";
         } else {
             return view("catatan_rumah_tangga.partials.isPekarangan", compact("carga"))->fragment('isPekarangan');
@@ -142,7 +142,7 @@ class CatatanRumahTanggaController extends Controller
         $carga = CatatanRumahTangga::findOrFail($id);
         $industri = IndustriRumahTangga::where("nkk", $carga->nkk)->get();
 
-        if (count($industri) == 1) {
+        if (count($industri) == 1 && $carga->industri_rumah_tangga == "1") {
             return "<div></div>";
         } else {
             return view("catatan_rumah_tangga.partials.isIndustri", compact("carga"))->fragment('isIndustri');

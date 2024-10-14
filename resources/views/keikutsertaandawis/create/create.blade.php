@@ -68,67 +68,6 @@
                 <div class="card px-4 py-4">
                     <input type="hidden" name="nik" class="form-control" required value={{ $nik }}
                         @readonly(true)>
-
-                    {{-- <div class="form-group">
-                        <label for="akseptor_kb">Akseptor KB</label>
-                        <div class="form-group">
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input hx-trigger="click" hx-post="/dawis/isJenisKb/1" hx-swap="innerHtml"
-                                    hx-target="#jenisKb" type="radio" id="kb_ya" name="akseptor_kb" value="1"
-                                    class="custom-control-input" required
-                                    {{ $dawisSession && $dawisSession['akseptor_kb'] == '1' ? 'checked' : '' }}>
-                                <label class="custom-control-label" for="kb_ya"> Ya </label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input hx-trigger="click" hx-post="/dawis/isJenisKb/0" hx-swap="innerHtml"
-                                    hx-target="#jenisKb" type="radio" id="kb_tidak" name="akseptor_kb" value="0"
-                                    class="custom-control-input" required
-                                    {{ $dawisSession && $dawisSession['akseptor_kb'] == '0' ? 'checked' : '' }}>
-                                <label class="custom-control-label" for="kb_tidak"> Tidak </label>
-                            </div>
-                        </div>
-                    </div> --}}
-
-                    {{-- <div class="form-group">
-                        <label for="akseptor_kb">Akseptor KB</label>
-                        <div class="form-group">
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="kb_ya" name="akseptor_kb" value="1"
-                                    class="custom-control-input" required
-                                    {{ $dawisSession && $dawisSession['akseptor_kb'] == '1' ? 'checked' : '' }}>
-                                <label class="custom-control-label" for="kb_ya"> Ya </label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="kb_tidak" name="akseptor_kb" value="0"
-                                    class="custom-control-input" required
-                                    {{ $dawisSession && $dawisSession['akseptor_kb'] == '0' ? 'checked' : '' }}>
-                                <label class="custom-control-label" for="kb_tidak"> Tidak </label>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    @if ($dawisSession)
-                        <div class="form-group">
-                            <select class="form-control" name="jenis_kb" required>
-                                <option value="" {{ $dawisSession['jenis_kb'] ? '' : 'selected' }} disabled>Pilih
-                                    Jenis KB
-                                </option>
-
-                                @foreach ($jenisKb as $kb)
-                                    <option value={{ $dawisSession ? $dawisSession['jenis_kb'] : $kb }}
-                                        {{ $dawisSession['jenis_kb'] == $kb ? 'selected' : '' }}>
-                                        {{ $kb }}
-                                    </option>
-                                @endforeach
-
-                            </select>
-                        </div>
-
-                    @endif
-                    <div id="jenisKb">
-                    </div> --}}
-
                     <div class="form-group">
                         <label for="akseptor_kb">Akseptor KB</label>
                         <div class="form-group">
@@ -448,6 +387,7 @@
             </div>
 
             <div class="modal-footer">
+                <a href="/warga" type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</a>
                 <button type="submit" class="btn btn-primary">Selanjutnya</a>
             </div>
         </form>

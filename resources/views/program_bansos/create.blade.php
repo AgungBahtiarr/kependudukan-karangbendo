@@ -22,8 +22,8 @@
                         <label for="jenis_bantuan">Jenis Bantuan</label>
                         <select class="form-control" name="jenis_bantuan" id="jenis_bantuan" required>
                             <option value="" selected disabled>Pilih Jenis Bantuan</option>
-                            <option value="tunai">Tunai</option>
-                            <option value="non-tunai">Non Tunai</option>
+                            <option value="Tunai">Tunai</option>
+                            <option value="Non-Tunai">Non Tunai</option>
                         </select>
                     </div>
                     <div class="form-group">

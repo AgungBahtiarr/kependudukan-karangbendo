@@ -359,11 +359,15 @@ class WargaController extends Controller
         $jenjangSekolah = JenjangSekolah::get();
         $jenisDisabilitas = Disabilitas::get();
 
-        $dawisraw = KeikutsertaanKegiatanDawis::with('jenisKelompokBelajar')->where('nik', $warga->nik)->first();
-        $dawis = KeikutsertaanKegiatanDawis::with('jenisKelompokBelajar')->findOrFail($dawisraw->id);
-        $dawis = json_decode($dawis, true);
-        $dawis = (object)$dawis;
 
+        $dawisraw = KeikutsertaanKegiatanDawis::with('jenisKelompokBelajar')->where('nik', $warga->nik)->first();
+        if ($dawisraw) {
+            $dawis = KeikutsertaanKegiatanDawis::with('jenisKelompokBelajar')->findOrFail($dawisraw->id);
+            $dawis = json_decode($dawis, true);
+            $dawis = (object)$dawis;
+        } else {
+            $dawis = null;
+        }
         $kematian = Kematian::where('nik', $warga->nik)->first();
 
         $penerimaBansos = PenerimaBansos::with('program', 'riwayat')->where('nik', $warga->nik)->first();

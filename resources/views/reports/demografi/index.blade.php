@@ -13,8 +13,72 @@
         }
 
         .header {
+            padding: 20px;
+            border-bottom: 2px solid #000;
+        }
+
+        .img-logo {
+            width: 50px;
+            height: 50px;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        .wrapper-header {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+
+        }
+
+        .wrapper-header>div:first-child {
+            flex-shrink: 0;
+            margin-right: 20px;
+        }
+
+        .wrapper-header img {
+            width: 100px;
+            /* Sesuaikan ukuran gambar */
+            height: auto;
+            max-width: 100%;
+        }
+
+        .kata-kata {
+            flex-grow: 1;
             text-align: center;
-            margin-bottom: 20px;
+            display: inline-block;
+            margin-left: 60px;
+        }
+
+        .kata-kata h1 {
+            margin: 0;
+            font-size: 18px;
+            /* Sesuaikan ukuran font */
+            font-weight: bold;
+            line-height: 1.2;
+        }
+
+        .kata-kata p {
+            margin: 5px 0 0;
+            font-size: 14px;
+            /* Sesuaikan ukuran font */
+        }
+
+        /* Media query untuk layar kecil */
+        @media (max-width: 768px) {
+            .wrapper-header {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .wrapper-header>div:first-child {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .kata-kata {
+                text-align: center;
+            }
         }
 
         h1 {
@@ -54,9 +118,26 @@
 </head>
 
 <body>
+    @php
+        $path = 'assets/images/logo/logobwi.png';
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+    @endphp
     <div class="header">
-        <h1>Laporan Demografi Desa Karangbendo</h1>
-        <p>Tanggal: {{ date('d F Y') }}</p>
+        <div class="wrapper-header">
+            <img class="img-logo" src="{{ $base64 }}" alt="" width="50" height="50" srcset="" />
+
+            <div class="kata-kata">
+                <h1>
+                    PEMERINTAH KABUPATEN BANYUWANGI
+                </h1>
+                <span>KECAMATAN ROGOJAMPI</span>
+                <span>DESA KARANGBENDO</span>
+                <p> Jl. H. Muso No.86 Phone (0333) 630786 </p>
+                <p>@mail : desa.karangbendo@gmail.com </p>
+            </div>
+        </div>
     </div>
 
     <h2>1. Distribusi Jenis Kelamin</h2>

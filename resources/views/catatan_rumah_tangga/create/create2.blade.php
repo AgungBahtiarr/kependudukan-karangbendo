@@ -328,7 +328,7 @@
 
                 <div class="modal-footer">
                     <a hx-post={{ route('cargas.back') }} hx-trigger="click" type="button"
-                        class="btn btn-secondary">Kembali</a>
+                        class="btn btn-secondary text-white">Kembali</a>
                     <button type="submit" class="btn btn-primary">Selanjutnya</a>
                 </div>
             </form>

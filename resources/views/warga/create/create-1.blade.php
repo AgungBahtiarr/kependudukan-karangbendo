@@ -99,12 +99,12 @@
                     <div class="form-group">
                         <label for="tempat_lahir">Tempat Lahir</label>
                         <input type="text" name="tempat_lahir" class="form-control" required
-                            value={{ $wargaSession ? $wargaSession['tempat_lahir'] : '' }}>
+                            value="{{ $wargaSession ? $wargaSession['tempat_lahir'] : '' }}">
                     </div>
                     <div class="form-group">
                         <label for="tanggal_lahir">Tanggal Lahir</label>
                         <input type="date" placeholder="dd-mm-yyyy" name="tanggal_lahir" class="form-control" required
-                            value={{ $wargaSession ? $wargaSession['tanggal_lahir'] : '' }}>
+                            value="{{ $wargaSession ? $wargaSession['tanggal_lahir'] : '' }}">
                     </div>
                 </div>
 
@@ -194,12 +194,12 @@
                             @if ($wargaSession)
                                 @foreach ($pekerjaans as $pekerjaan)
                                     <option value={{ $pekerjaan->id }}
-                                        {{ $wargaSession['status_keluarga'] == $pekerjaan->id ? 'selected' : '' }}>
+                                        {{ $wargaSession['id_pekerjaan'] == $pekerjaan->id ? 'selected' : '' }}>
                                         {{ $pekerjaan->nama_pekerjaan }}
                                     </option>
                                 @endforeach
                             @else
-                                <option value="">Pilih Pekerjaan</option>
+                                <option value="" disabled selected>Pilih Pekerjaan</option>
                                 @foreach ($pekerjaans as $pekerjaan)
                                     <option value={{ $pekerjaan->id }}>{{ $pekerjaan->nama_pekerjaan }}</option>
                                 @endforeach

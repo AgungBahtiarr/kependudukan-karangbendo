@@ -4,10 +4,6 @@
 @section('content')
     <div class="flex justify-between mx-4 my-4">
         <h1 class="text-xl font-bold">Laporan Demografi</h1>
-        {{-- <form action={{ route('laporan.demografi') }} method="POST">
-            @csrf
-            <button class="btn btn-primary">Cetak Laporan</button>
-        </form> --}}
         <a href={{ route('laporan.demografi') }} target="_blank" class="btn btn-primary">Cetak Laporan</a>
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mx-4">
