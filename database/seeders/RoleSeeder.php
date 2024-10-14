@@ -109,7 +109,7 @@ class RoleSeeder extends Seeder
             "edit_wargas",
             "update_wargas",
             "update_warga_status",
-            "delete_wargas",
+            // "delete_wargas",
 
             #dawis
             "create_dawis",
@@ -124,7 +124,7 @@ class RoleSeeder extends Seeder
             "edit_cargas",
             "update_cargas",
             "update_cargas_status",
-            "delete_cargas",
+            // "delete_cargas",
 
             #pekarangans
             "create_pekarangans",

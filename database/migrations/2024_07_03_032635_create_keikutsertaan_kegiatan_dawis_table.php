@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nik', 16)->unique();
             $table->enum('akseptor_kb', ['0', '1']);
-            $table->string('jenis_kb', 30)->nullable(true);
+            $table->string('jenis_kb')->nullable(true);
             $table->enum('posyandu', ['0', '1']);
             $table->integer('frekuensi_posyandu', 3)->autoIncrement(false)->nullable(true);
             $table->enum('bina_keluarga_balita', ['0', '1']);

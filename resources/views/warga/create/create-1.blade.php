@@ -56,7 +56,7 @@
             <form action="{{ route('wargas.store1') }}" method="POST">
                 @csrf
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-group">
                         <label for="nik">NIK</label>
                         <input type="text" id="nik" name="nik" class="form-control" required pattern="\d{16}"
@@ -71,7 +71,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-group">
                         <label for="name">Nama</label>
                         <input type="text" name="nama" class="form-control" required
@@ -95,7 +95,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-group">
                         <label for="tempat_lahir">Tempat Lahir</label>
                         <input type="text" name="tempat_lahir" class="form-control" required
@@ -109,7 +109,7 @@
                 </div>
 
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-group">
                         <label for="agama">Agama</label>
                         <select class="form-control" aria-label="Default select example" name="id_agama" required>
@@ -150,7 +150,7 @@
                 </div>
 
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-group">
                         <label for="id_status_perkawinan">Status Perkawinan</label>
                         <select class="form-control" aria-label="Default select example" name="id_status_perkawinan"
@@ -187,7 +187,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-group">
                         <label for="pekerjaan">Pekerjaan</label>
                         <select class="form-control" aria-label="Default select example" name="id_pekerjaan" required>
@@ -205,20 +205,23 @@
                                 @endforeach
                             @endif
                         </select>
+                        <div class="form-group">
+                            <label for="jabatan">Jabatan (Struktur PKK)</label>
+                            <select id="jabatan" name="jabatan" class="form-control" required>
+                                <option value="" disabled {{ !$wargaSession ? 'selected' : '' }}>Pilih Jabatan
+                                </option>
+                                <option value="Anggota"
+                                    {{ $wargaSession && $wargaSession['jabatan'] == 'Anggota' ? 'selected' : '' }}>Anggota
+                                </option>
+                                <option value="Bukan Anggota"
+                                    {{ $wargaSession && $wargaSession['jabatan'] == 'Bukan Anggota' ? 'selected' : '' }}>
+                                    Bukan
+                                    Anggota</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="jabatan">Jabatan (Struktur PKK)</label>
-                        <select id="jabatan" name="jabatan" class="form-control" required>
-                            <option value="" disabled {{ !$wargaSession ? 'selected' : '' }}>Pilih Jabatan</option>
-                            <option value="Anggota"
-                                {{ $wargaSession && $wargaSession['jabatan'] == 'Anggota' ? 'selected' : '' }}>Anggota
-                            </option>
-                            <option value="Bukan Anggota"
-                                {{ $wargaSession && $wargaSession['jabatan'] == 'Bukan Anggota' ? 'selected' : '' }}>Bukan
-                                Anggota</option>
-                        </select>
-                    </div>
+
                 </div>
 
                 <div class="modal-footer">
