@@ -143,9 +143,16 @@ class CatatanRumahTanggaController extends Controller
         $carga = CatatanRumahTangga::findOrFail($id);
         $pekarangan = PemanfaatanTanahPekarangan::where("nkk", $carga->nkk)->get();
 
+        if (count($pekarangan) == 1 && $carga->pemanfaatan_pekarangan == "0") {
+            return "<div></div>";
+        }
         if (count($pekarangan) == 1 && $carga->pemanfaatan_pekarangan == "1") {
             return "<div></div>";
-        } else {
+        }
+        if (count($pekarangan) == 0 && $carga->pemanfaatan_pekarangan == "0") {
+            return view("catatan_rumah_tangga.partials.isPekarangan", compact('title', "carga"))->fragment('isPekarangan');
+        }
+        if (count($pekarangan) == 0 && $carga->pemanfaatan_pekarangan == "1") {
             return view("catatan_rumah_tangga.partials.isPekarangan", compact('title', "carga"))->fragment('isPekarangan');
         }
     }
@@ -157,9 +164,18 @@ class CatatanRumahTanggaController extends Controller
         $carga = CatatanRumahTangga::findOrFail($id);
         $industri = IndustriRumahTangga::where("nkk", $carga->nkk)->get();
 
+        if (count($industri) == 1 && $carga->industri_rumah_tangga == "0") {
+            return "<div></div>";
+        }
         if (count($industri) == 1 && $carga->industri_rumah_tangga == "1") {
             return "<div></div>";
-        } else {
+        }
+
+        if (count($industri) == 0 && $carga->industri_rumah_tangga == "0") {
+            return view("catatan_rumah_tangga.partials.isIndustri", compact('title', "carga"))->fragment('isIndustri');
+        }
+
+        if (count($industri) == 0 && $carga->industri_rumah_tangga == "1") {
             return view("catatan_rumah_tangga.partials.isIndustri", compact('title', "carga"))->fragment('isIndustri');
         }
     }
