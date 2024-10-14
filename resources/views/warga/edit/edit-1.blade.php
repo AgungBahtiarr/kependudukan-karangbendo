@@ -42,7 +42,7 @@
                 @method('patch')
                 @csrf
                 <input type="hidden" name="id" value={{ $warga->id }}>
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-group">
                         <label for="nik">NIK</label>
                         <input type="text" minlength="16" maxlength="16" name="nik" id="nik"
@@ -116,7 +116,7 @@
                     });
                 </script>
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-group">
                         <label for="name">Nama</label>
                         <input type="text" name="nama" class="form-control" required
@@ -148,7 +148,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-group">
                         <label for="tempat_lahir">Tempat Lahir</label>
                         <input type="text" name="tempat_lahir" class="form-control" required
@@ -162,7 +162,7 @@
                 </div>
 
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-group">
                         <label for="agama">Agama</label>
                         <select class="form-control" aria-label="Default select example" name="id_agama" required>
@@ -217,7 +217,7 @@
                 </div>
 
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-group">
                         <label for="id_status_perkawinan">Status Perkawinan</label>
                         <select class="form-control" aria-label="Default select example" name="id_status_perkawinan"
@@ -263,7 +263,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-group">
                         <label for="pekerjaan">Pekerjaan</label>
                         <select class="form-control" aria-label="Default select example" name="id_pekerjaan" required>

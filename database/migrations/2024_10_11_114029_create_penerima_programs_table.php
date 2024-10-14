@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('penerima_programs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_program_bansos');
-            $table->unsignedBigInteger('id_penerima_bansos');
+            $table->unsignedBigInteger('id_penerima_bansos')->unique();
             $table->timestamps();
         });
     }

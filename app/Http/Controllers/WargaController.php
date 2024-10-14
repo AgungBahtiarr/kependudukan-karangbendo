@@ -10,6 +10,7 @@ use App\Models\Kematian;
 use App\Models\Pekerjaan;
 use App\Models\Pendidikan;
 use App\Models\PenerimaBansos;
+use App\Models\PenerimaProgram;
 use App\Models\StatusPerkawinan;
 use App\Models\TransaksiBansos;
 use App\Models\Warga;
@@ -702,6 +703,25 @@ class WargaController extends Controller
     {
         $warga = Warga::findOrFail($id);
         $dawis = KeikutsertaanKegiatanDawis::where('nik', $warga->nik)->get();
+        $penerimaBansos = PenerimaBansos::where('nik', $warga->nik)->first();
+
+
+
+        if ($penerimaBansos) {
+            $penerimaprogramBansos = PenerimaProgram::with('penerimaBansos')->where('id_penerima_bansos', $penerimaBansos->id)->first();
+            // return $penerimaprogramBansos;
+            $transaksis = TransaksiBansos::where('id_penerima_bansos', $penerimaBansos->id)->get();
+            if ($transaksis) {
+                foreach ($transaksis as $transaksi) {
+                    $transaksi->delete();
+                }
+            }
+            if ($penerimaprogramBansos) {
+                $penerimaprogramBansos->delete();
+            }
+
+            $penerimaBansos->delete();
+        }
 
         if (count($dawis)  != 0) {
             $dawis = $dawis[0];

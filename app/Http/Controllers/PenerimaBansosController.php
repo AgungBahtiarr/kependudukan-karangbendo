@@ -7,6 +7,7 @@ use App\Models\PenerimaProgram;
 use App\Models\ProgramBansos;
 use App\Models\Warga;
 use Carbon\Carbon;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 use function Laravel\Prompts\alert;
@@ -110,7 +111,12 @@ class PenerimaBansosController extends Controller
             'created_by' => auth()->user()->id
         ];
 
-        $bansos = PenerimaBansos::create($data);
+        try {
+            $bansos = PenerimaBansos::create($data);
+        } catch (QueryException $e) {
+            return redirect(route("bansos.create"))->withErrors(["penerimaBansos" => "NIK tidak boleh duplikat"]);
+        }
+
 
 
         return redirect('/bansos');

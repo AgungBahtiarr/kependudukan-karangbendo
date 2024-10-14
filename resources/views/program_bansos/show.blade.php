@@ -27,12 +27,7 @@
                                 <td>{{ $penerima->penerimaBansos->nik }}</td>
                                 <td>{{ $penerima->penerimaBansos->warga->nama }}</td>
                                 <td>{{ $penerima->penerimaBansos->status == '1' ? 'Aktif' : 'Non-Aktif' }}</td>
-                                {{-- <th> @can('edit_bansos')
-                                        <div hx-get={{ route('bansos.isLog', [$penerima->penerimaBansos->id, $penerima->id]) }}
-                                            hx-trigger="load" hx-target="this" hx-swap="innerHtml">
-                                        </div>
-                                    @endcan
-                                </th> --}}
+
                             </tr>
                         @endforeach
                     </tbody>

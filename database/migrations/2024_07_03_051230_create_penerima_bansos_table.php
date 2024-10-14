@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('penerima_bansos', function (Blueprint $table) {
             $table->id();
-            $table->string('nik', 16);
+            $table->string('nik', 16)->unique();
             $table->enum('status', ['0', '1']);
             $table->timestamps();
         });

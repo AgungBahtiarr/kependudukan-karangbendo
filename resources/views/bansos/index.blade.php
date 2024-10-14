@@ -87,7 +87,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $bansos->nik }}</td>
-                                        <td>{{ $bansos->warga->nama }}</td>
+                                        <td>{{ $bansos->warga->nama != null ? $bansos->warga->nama : '' }}</td>
                                         <td>{{ $bansos->status == '1' ? 'Aktif' : 'Non-Aktif' }}</td>
                                         <td>
                                             @can('edit_bansos')

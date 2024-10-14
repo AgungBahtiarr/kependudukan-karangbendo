@@ -212,9 +212,9 @@ class CatatanRumahTanggaController extends Controller
 
         // return $data;
 
-        if ($request->nkk == $nkkInang) {
-            return redirect(route('cargas.create1'))->withErrors(['add1' => "NKK tidak boleh sama dengan NKK induk"]);
-        }
+        // if ($request->nkk == $nkkInang) {
+        //     return redirect(route('cargas.create1'))->withErrors(['add1' => "NKK tidak boleh sama dengan NKK induk"]);
+        // }
 
         $request->session()->put('cargas1', $data);
 

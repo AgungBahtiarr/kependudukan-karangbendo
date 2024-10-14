@@ -67,26 +67,7 @@
                     <input type="text" name="alamat_desakel" class="form-control" required
                         value={{ $wargaSession ? $wargaSession['alamat_desakel'] : $warga->alamat_desakel }}>
                 </div>
-                {{-- <div class="form-group">
-                    <label for="alamat_dusun">Dusun</label>
-                    <input type="text" name="alamat_dusun" class="form-control" required
-                        value={{ $wargaSession ? $wargaSession['alamat_dusun'] : $warga->alamat_dusun }}>
-                </div>
-
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="form-group">
-                        <div class="form-group">
-                            <label for="rw">RW</label>
-                            <input type="text" minlength="3" maxlength="3" name="rw" class="form-control" required
-                                value={{ $wargaSession ? $wargaSession['rw'] : $warga->rw }}>
-                        </div>
-                        <label for="rt">RT</label>
-                        <input type="text" minlength="3" maxlength="3" name="rt" class="form-control" required
-                            value={{ $wargaSession ? $wargaSession['rt'] : $warga->rt }}>
-                    </div>
-
-                </div> --}}
-
+            
 
 
                 <div class="form-group">

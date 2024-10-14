@@ -7,6 +7,7 @@ use App\Http\Requests\UpdatePenerimaProgramRequest;
 use App\Models\PenerimaBansos;
 use App\Models\PenerimaProgram;
 use App\Models\TransaksiBansos;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class PenerimaProgramController extends Controller
@@ -46,7 +47,11 @@ class PenerimaProgramController extends Controller
                 'id_penerima_bansos' => $penerima
             ];
 
-            $penerimaProgram = PenerimaProgram::create($data);
+            try {
+                $penerimaProgram = PenerimaProgram::create($data);
+            } catch (QueryException $e) {
+                return redirect(route("penerimaprogram.create"))->withErrors(["penerimaProgram" => "Tidak boleh ada nik yang sama"]);
+            }
 
             $dataRiwayat = [
                 'id_penerima_bansos' => $penerimaProgram->id_penerima_bansos,

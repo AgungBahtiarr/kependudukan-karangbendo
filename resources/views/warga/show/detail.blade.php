@@ -128,7 +128,7 @@
         @if ($dawis)
             <div class="bg-white rounded-lg font-medium my-8">
                 <h2 class="border-black border-b pl-8 py-6">Keikutsertaan Kegiatan Dawis</h2>
-                <div class="grid grid-cols-2">
+                <div class="grid grid-cols-1 md:grid-cols-2">
                     <ul class="flex flex-col gap-7 pl-8 py-8">
                         <li class="flex flex-col gap-3">
                             <div class="font-medium text-[#ADADAD]">Akseptor KB</div>
@@ -209,7 +209,7 @@
 
             <div class="bg-white rounded-lg font-medium my-8">
                 <h2 class="border-black border-b pl-8 py-6">Kegiatan Yang Diikuti</h2>
-                <div class="grid grid-cols-2">
+                <div class="grid grid-cols-1 md:grid-cols-2">
                     <ul class="flex flex-col gap-7 pl-8 py-8">
                         <li class="flex flex-col gap-3">
                             <div class="font-medium text-[#ADADAD]">Penghayatan dan Pengamatan Pancasila</div>

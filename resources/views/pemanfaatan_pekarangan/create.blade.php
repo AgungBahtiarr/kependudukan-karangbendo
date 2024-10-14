@@ -63,7 +63,7 @@
                         @readonly(true) class="form-control" required>
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <div class="form-group">
                             <label for="tanaman_keras">Tanaman Keras</label>
@@ -224,7 +224,8 @@
                         <div id="lumbung_hidup_details" style="display: none;" class="flex flex-col">
                             <div class="form-group">
                                 <label for="jenis_lumbung_hidup">Jenis Lumbung Hidup</label>
-                                <select name="jenis_lumbung_hidup" id="jenis_lumbung_hidup" class="form-control" required>
+                                <select name="jenis_lumbung_hidup" id="jenis_lumbung_hidup" class="form-control"
+                                    required>
                                     <option value="" disabled>Pilih Jenis Lumbung Hidup</option>
                                     @foreach ($data_pekarangan['lumbungHidup'] as $lumbung)
                                         <option value="{{ $lumbung }}"

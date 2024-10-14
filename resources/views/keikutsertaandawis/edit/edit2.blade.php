@@ -139,12 +139,14 @@
                         <div class="form-group">
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" id="industri_rumahan_ya" name="industri_rumahan" value="1"
-                                    class="custom-control-input" required>
+                                    class="custom-control-input" {{ $dawis->industri_rumahan == '1' ? 'checked' : '' }}
+                                    required>
                                 <label class="custom-control-label" for="industri_rumahan_ya"> Ya </label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" id="industri_rumahan_tidak" name="industri_rumahan" value="0"
-                                    class="custom-control-input" required>
+                                    class="custom-control-input" {{ $dawis->industri_rumahan == '0' ? 'checked' : '' }}
+                                    required>
                                 <label class="custom-control-label" for="industri_rumahan_tidak"> Tidak </label>
                             </div>
                         </div>
@@ -155,9 +157,9 @@
                         <div class="form-group">
                             <label for="sandang">Bidang Sandang</label>
                             <select id="sandang" name="sandang" class="form-control">
-                                <option value="">Pilih</option>
-                                <option value="1">Ya</option>
-                                <option value="0">Tidak</option>
+                                {{-- <option value="" disabled>Pilih</option> --}}
+                                <option value="1" {{ $dawis->sandang == '1' ? 'selected' : '' }}>Ya</option>
+                                <option value="0" {{ $dawis->sandang == '0' ? 'selected' : '' }}>Tidak</option>
                             </select>
                         </div>
 
@@ -165,9 +167,9 @@
                         <div class="form-group">
                             <label for="pangan">Bidang Pangan</label>
                             <select id="pangan" name="pangan" class="form-control">
-                                <option value="">Pilih</option>
-                                <option value="1">Ya</option>
-                                <option value="0">Tidak</option>
+                                {{-- <option value="" disabled>Pilih</option> --}}
+                                <option value="1" {{ $dawis->pangan == '1' ? 'selected' : '' }}>Ya</option>
+                                <option value="0" {{ $dawis->pangan == '0' ? 'selected' : '' }}>Tidak</option>
                             </select>
                         </div>
 
@@ -175,9 +177,9 @@
                         <div class="form-group">
                             <label for="jasa">Bidang Jasa</label>
                             <select id="jasa" name="jasa" class="form-control">
-                                <option value="">Pilih</option>
-                                <option value="1">Ya</option>
-                                <option value="0">Tidak</option>
+                                {{-- <option value="" disabled>Pilih</option> --}}
+                                <option value="1" {{ $dawis->jasa == '1' ? 'selected' : '' }}>Ya</option>
+                                <option value="0" {{ $dawis->jasa == '0' ? 'selected' : '' }}>Tidak</option>
                             </select>
                         </div>
                     </div>

@@ -9,6 +9,11 @@
             <form action="{{ route('penerimaprogram.store') }}" method="POST">
                 @csrf
                 <div class="overflow-x-scroll md:overflow-x-hidden w-full">
+                    @error('penerimaProgram')
+                        <div class="alert alert-danger" role="alert">
+                            <div class="iq-alert-text">{{ $errors->first() }}</div>
+                        </div>
+                    @enderror
                     <table id="datatable" class="table data-table table-striped table-bordered">
                         <thead>
                             <tr>
@@ -28,8 +33,8 @@
                                         <input type="checkbox" name="selected_recipients[]" value="{{ $bansos->id }}"
                                             class="recipient-checkbox">
                                     </td>
-                                    <td>{{ $bansos->warga->nama }}</td>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $bansos->warga->nama }}</td>
                                     <td>{{ $bansos->nik }}</td>
                                     <td>{{ $bansos->status == '1' ? 'Aktif' : 'Non-Aktif' }}</td>
                                 </tr>
