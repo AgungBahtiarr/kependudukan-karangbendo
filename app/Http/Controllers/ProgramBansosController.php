@@ -13,8 +13,6 @@ class ProgramBansosController extends Controller
      */
     public function index(Request $request)
     {
-        $title = 'Program Bansos';
-
         $programs = ProgramBansos::query();
         $search = $request->strquery;
 
@@ -28,7 +26,7 @@ class ProgramBansosController extends Controller
 
         $programs = $programs->get();
 
-        return view('program_bansos.index', compact('title', 'programs'));
+        return view('program_bansos.index', compact('programs'));
     }
 
     /**

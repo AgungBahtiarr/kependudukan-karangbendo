@@ -27,7 +27,7 @@ class PenerimaProgramController extends Controller
     {
         $title = 'Tambah Data Penerima Program Bansos';
 
-        $bansoses = PenerimaBansos::with('program', 'riwayat', 'warga')->get();
+        $bansoses = PenerimaBansos::with('program', 'riwayat', 'warga')->where('status', '1')->get();
 
         $programId = $id;
 
