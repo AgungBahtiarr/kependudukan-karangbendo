@@ -58,19 +58,18 @@
                             <i id="widgetArrow" class="ri-arrow-down-s-line"></i>
                         </a>
                         <ul id="widgetSubmenu" class="hidden py-2 space-y-2">
-                            <li class="{{ isActiveSidebar(route('programbansos.index')) }}">
-                                <a href="{{ route('programbansos.index') }}">
-                                    <i class="ri-file-text-line"></i>
-                                    <span>Program Bansos</span>
-                                </a>
-                            </li>
                             <li class="{{ isActiveSidebar(route('bansos.index')) }}">
                                 <a href="{{ route('bansos.index') }}">
                                     <i class="ri-user-follow-line"></i>
                                     <span>Penerima Bantuan</span>
                                 </a>
                             </li>
-
+                            <li class="{{ isActiveSidebar(route('programbansos.index')) }}">
+                                <a href="{{ route('programbansos.index') }}">
+                                    <i class="ri-file-text-line"></i>
+                                    <span>Program Bansos</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 @endcan

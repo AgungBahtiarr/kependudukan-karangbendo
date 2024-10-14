@@ -6,7 +6,7 @@
         <h1 class="text-2xl font-semibold">Edit Program Bansos</h1>
 
         <div class="w-full bg-white my-6 py-4 px-4 rounded-lg">
-            <form action={{route("programbansos.update", $program->id)}} method="POST">
+            <form action={{ route('programbansos.update', $program->id) }} method="POST">
                 @method('patch')
                 @csrf
                 <div class="grid grid-cols-1 gap-4">
@@ -15,6 +15,12 @@
                         <input type="text" name="nama_program" class="form-control" required
                             value="{{ $program->nama_program }}">
                     </div>
+
+                    <div class="form-group">
+                        <label for="periode">Periode</label>
+                        <input type="date" name="periode" class="form-control" required value={{ $program->periode }}>
+                    </div>
+
                     <div class="form-group">
                         <label for="sumber_dana">Sumber Dana</label>
                         <input type="text" name="sumber_dana" class="form-control" required

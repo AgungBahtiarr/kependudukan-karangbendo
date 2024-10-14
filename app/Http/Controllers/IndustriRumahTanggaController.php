@@ -23,7 +23,6 @@ class IndustriRumahTanggaController extends Controller
      */
     public function create($id, Request $request)
     {
-
         $title = "Industri Rumah Tangga";
 
         $carga = CatatanRumahTangga::with('makananPokok', 'sumberAir')->findOrFail($id);
@@ -38,9 +37,8 @@ class IndustriRumahTanggaController extends Controller
      */
     public function store(Request $request)
     {
-
-
         $id_carga = $request->id_carga;
+
         $data = [
             'nkk' => $request->nkk,
             'bidang_sandang' => $request->bidang_sandang,
@@ -63,7 +61,6 @@ class IndustriRumahTanggaController extends Controller
      */
     public function show($id, $nkk)
     {
-
         $title = 'Detail Industri Rumah Tangga';
 
         $industri = IndustriRumahTangga::where('nkk', $nkk)->get();
@@ -72,10 +69,10 @@ class IndustriRumahTanggaController extends Controller
 
         if (count($industri) != 0) {
             $industri = $industri[0];
-            return view("industri_rumah_tangga.detail", compact('industri', 'id', 'nkk', 'isIndustri'));
+            return view("industri_rumah_tangga.detail", compact('title', 'industri', 'id', 'nkk', 'isIndustri'));
         } else {
             $isIndustri = false;
-            return view("industri_rumah_tangga.detail", compact('industri', 'id', 'nkk', 'isIndustri'));
+            return view("industri_rumah_tangga.detail", compact('title', 'industri', 'id', 'nkk', 'isIndustri'));
         }
     }
 
@@ -84,10 +81,11 @@ class IndustriRumahTanggaController extends Controller
      */
     public function edit(Request $request, $id)
     {
+        $title = 'Edit Industri Rumah Tangga';
 
         $industri = IndustriRumahTangga::findOrFail($id);
 
-        return view('industri_rumah_tangga.edit', compact('industri'))->fragment('edit');
+        return view('industri_rumah_tangga.edit', compact('title', 'industri'))->fragment('edit');
     }
 
     /**

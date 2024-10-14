@@ -11,6 +11,7 @@ class AuthController extends Controller
     public function index()
     {
         $title = "Login";
+
         return view('auth.login', compact('title'));
     }
 
@@ -26,18 +27,19 @@ class AuthController extends Controller
             return redirect('/');
         } else {
             return redirect('/auth/login')->withErrors(['auth' => 'Email atau password salah']);
-
         }
     }
 
 
     public function logout(Request $request)
     {
+        $title = "Logout";
+
         Auth::logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/auth/login');
+        return redirect('/auth/login', compact('title'));
     }
 }

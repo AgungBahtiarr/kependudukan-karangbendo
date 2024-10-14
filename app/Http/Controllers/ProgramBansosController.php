@@ -13,6 +13,8 @@ class ProgramBansosController extends Controller
      */
     public function index(Request $request)
     {
+        $title = 'Program Bansos';
+
         $programs = ProgramBansos::query();
         $search = $request->strquery;
 
@@ -26,7 +28,7 @@ class ProgramBansosController extends Controller
 
         $programs = $programs->get();
 
-        return view('program_bansos.index', compact('programs'));
+        return view('program_bansos.index', compact('title', 'programs'));
     }
 
     /**
@@ -34,15 +36,19 @@ class ProgramBansosController extends Controller
      */
     public function create()
     {
-        return view('program_bansos.create');
+        $title = 'Tambah Program Bansos';
+
+        return view('title', 'program_bansos.create');
     }
 
     public function isUsed($id)
     {
+        $title = 'Program Bansos';
+
         $penerima = PenerimaBansos::where('id_program_bansos', $id)->get();
         $program = ProgramBansos::findOrFail($id);
         if (count($penerima) == 0) {
-            return view("program_bansos.partials.delete", compact('program'))->fragment('delete');
+            return view("program_bansos.partials.delete", compact('title', 'program'))->fragment('delete');
         } else {
             return "";
         }
@@ -53,8 +59,10 @@ class ProgramBansosController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request;
         $data = [
             'nama_program' => $request->nama_program,
+            'periode' => $request->periode,
             'sumber_dana' => $request->sumber_dana,
             'jenis_bantuan' => $request->jenis_bantuan,
             'detail_bantuan' => $request->detail_bantuan
@@ -78,9 +86,11 @@ class ProgramBansosController extends Controller
      */
     public function edit($id)
     {
+        $title = 'Edit Program Bansos';
+
         $program = ProgramBansos::findOrFail($id);
 
-        return view('program_bansos.edit', compact('program'));
+        return view('program_bansos.edit', compact('title', 'program'));
     }
 
     /**
@@ -90,6 +100,7 @@ class ProgramBansosController extends Controller
     {
         $data = [
             'nama_program' => $request->nama_program,
+            'periode' => $request->periode,
             'sumber_dana' => $request->sumber_dana,
             'jenis_bantuan' => $request->jenis_bantuan,
             'detail_bantuan' => $request->detail_bantuan

@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="my-10 mx-12">
-        <h1 class="text-2xl font-semibold">Detial Penerima Program Bansos</h1>
+        <h1 class="text-2xl font-semibold">Detail Penerima Program Bansos</h1>
 
         <div class="w-full bg-white my-6 py-4 px-4 rounded-lg">
 
@@ -14,8 +14,9 @@
 
                             <th>No</th>
                             <th>NIK</th>
+                            <th>Nama</th>
                             <th>Status</th>
-                            <th>Aksi</th>
+                            {{-- <th>Aksi</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -24,13 +25,14 @@
 
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $penerima->penerimaBansos->nik }}</td>
+                                <td>{{ $penerima->penerimaBansos->warga->nama }}</td>
                                 <td>{{ $penerima->penerimaBansos->status == '1' ? 'Aktif' : 'Non-Aktif' }}</td>
-                                <th> @can('edit_bansos')
+                                {{-- <th> @can('edit_bansos')
                                         <div hx-get={{ route('bansos.isLog', [$penerima->penerimaBansos->id, $penerima->id]) }}
                                             hx-trigger="load" hx-target="this" hx-swap="innerHtml">
                                         </div>
                                     @endcan
-                                </th>
+                                </th> --}}
                             </tr>
                         @endforeach
                     </tbody>

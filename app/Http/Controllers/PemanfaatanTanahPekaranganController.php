@@ -14,7 +14,6 @@ class PemanfaatanTanahPekaranganController extends Controller
      */
     public function index()
     {
-
         $title = "Pemanfaatan Tanah Pekarangan";
 
         $cargas = CatatanRumahTangga::with('makananPokok', 'sumberAir')->where('pemanfaatan_pekarangan', '1')->get();
@@ -29,6 +28,7 @@ class PemanfaatanTanahPekaranganController extends Controller
     public function create(Request $request, $id)
     {
         $title = "Pemanfaatan Tanah Pekarangan";
+
         $carga = CatatanRumahTangga::with('makananPokok', 'sumberAir')->findOrFail($id);
         $carga = json_decode($carga);
 
@@ -124,8 +124,8 @@ class PemanfaatanTanahPekaranganController extends Controller
      */
     public function store(Request $request)
     {
-
         $id_carga = $request->id_carga;
+
         $data = [
             'nkk' => $request->nkk,
             'tanaman_keras' => $request->tanaman_keras,
@@ -157,7 +157,6 @@ class PemanfaatanTanahPekaranganController extends Controller
             return redirect('/industries/create/' . $carga->id);
         }
 
-
         return redirect(route('cargas.index'));
     }
 
@@ -166,16 +165,17 @@ class PemanfaatanTanahPekaranganController extends Controller
      */
     public function show($id, $nkk)
     {
+        $title = 'Detail Pemanfaatan Tanah Pekarangan';
 
         $pekarangan = PemanfaatanTanahPekarangan::where('nkk', $nkk)->get();
 
         $isPekarangan = true;
         if (count($pekarangan) != 0) {
             $pekarangan = $pekarangan[0];
-            return view('pemanfaatan_pekarangan.detail', compact('pekarangan', 'id', 'isPekarangan', 'nkk'));
+            return view('pemanfaatan_pekarangan.detail', compact('title', 'pekarangan', 'id', 'isPekarangan', 'nkk'));
         } else {
             $isPekarangan = false;
-            return view('pemanfaatan_pekarangan.detail', compact('pekarangan', 'id', 'isPekarangan', 'nkk'));;
+            return view('pemanfaatan_pekarangan.detail', compact('title', 'pekarangan', 'id', 'isPekarangan', 'nkk'));;
         }
     }
 
@@ -184,6 +184,8 @@ class PemanfaatanTanahPekaranganController extends Controller
      */
     public function edit($id)
     {
+        $title = 'Edit Pemanfaatan Tanah Pekarangan';
+
         $pekarangan = PemanfaatanTanahPekarangan::findOrFail($id);
         $data_pekarangan = [
             'peternakan' => [
@@ -270,7 +272,7 @@ class PemanfaatanTanahPekaranganController extends Controller
         ];
 
 
-        return view("pemanfaatan_pekarangan.edit", compact('pekarangan', 'data_pekarangan'))->fragment('edit');
+        return view("pemanfaatan_pekarangan.edit", compact('title', 'pekarangan', 'data_pekarangan'))->fragment('edit');
     }
 
     /**

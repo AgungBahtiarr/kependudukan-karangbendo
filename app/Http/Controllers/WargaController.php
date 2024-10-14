@@ -25,7 +25,6 @@ class WargaController extends Controller
     {
         $title = 'Data Warga';
 
-
         $wargas = Warga::with('agama', 'pendidikan', 'pekerjaan', 'statusPerkawinan');
         $status = $request->input('status');
 
@@ -349,6 +348,7 @@ class WargaController extends Controller
     public function show($id)
     {
         $title = 'Detail Warga';
+
         $warga = Warga::with('agama', 'pendidikan', 'pekerjaan', 'statusPerkawinan',)->findOrFail($id);
 
 
@@ -378,9 +378,8 @@ class WargaController extends Controller
             $riwayatBansos = TransaksiBansos::with('program.programBansos')->where('id_penerima_bansos', $penerimaBansos->id)->get();
         }
 
-        // return $riwayatBansos;
 
-        return view("warga.show.detail", compact('warga', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans', 'dawis', 'kematian', 'riwayatBansos', 'jenjangSekolah', 'jenisDisabilitas'));
+        return view("warga.show.detail", compact('title', 'warga', 'perkawinan', 'agamas', 'pekerjaans', 'pendidikans', 'dawis', 'kematian', 'riwayatBansos', 'jenjangSekolah', 'jenisDisabilitas'));
     }
 
     // public function show2($id)
@@ -419,7 +418,6 @@ class WargaController extends Controller
 
     public function backToEdit(Request $request)
     {
-
         $data = [
             'alamat_prov' => $request->alamat_prov,
             'alamat_kab' => $request->alamat_kab,
@@ -606,6 +604,8 @@ class WargaController extends Controller
 
     public function filterAlamat()
     {
+        $title = 'Alamat';
+
         $dusun_data = [
             'Karanganyar' => [
                 'jumlah_rw' => 4,
@@ -652,42 +652,50 @@ class WargaController extends Controller
             ]
         ];
 
-        return view('warga.partials.filteralamat', compact('dusun_data'))->fragment('filterAlamat');
+        return view('warga.partials.filteralamat', compact('title', 'dusun_data'))->fragment('filterAlamat');
     }
 
     public function filterPendidikan()
     {
+        $title = 'Pendidikan';
+
         $pendidikan = Pendidikan::all();
         $agama = Agama::all();
         $pekerjaan = Pekerjaan::all();
         $perkawinan = StatusPerkawinan::all();
-        return view('warga.partials.form', compact('pendidikan', 'agama', 'pekerjaan', 'perkawinan'))->fragment('pendidikan');
+        return view('warga.partials.form', compact('title', 'pendidikan', 'agama', 'pekerjaan', 'perkawinan'))->fragment('pendidikan');
     }
     public function filterAgama()
     {
+        $title = 'Agama';
+
         $pendidikan = Pendidikan::all();
         $agama = Agama::all();
         $pekerjaan = Pekerjaan::all();
         $perkawinan = StatusPerkawinan::all();
-        return view('warga.partials.form', compact('pendidikan', 'agama', 'pekerjaan', 'perkawinan'))->fragment('agama');
+        return view('warga.partials.form', compact('title', 'pendidikan', 'agama', 'pekerjaan', 'perkawinan'))->fragment('agama');
     }
 
     public function filterPekerjaan()
     {
+        $title = 'Pekerjaan';
+
         $pendidikan = Pendidikan::all();
         $agama = Agama::all();
         $pekerjaan = Pekerjaan::all();
         $perkawinan = StatusPerkawinan::all();
-        return view('warga.partials.form', compact('pendidikan', 'agama', 'pekerjaan', 'perkawinan'))->fragment('pekerjaan');
+        return view('warga.partials.form', compact('title', 'pendidikan', 'agama', 'pekerjaan', 'perkawinan'))->fragment('pekerjaan');
     }
 
     public function filterStatusPerkawinan()
     {
+        $title = 'Status Perkawinan';
+
         $pendidikan = Pendidikan::all();
         $agama = Agama::all();
         $pekerjaan = Pekerjaan::all();
         $perkawinan = StatusPerkawinan::all();
-        return view('warga.partials.form', compact('pendidikan', 'agama', 'pekerjaan', 'perkawinan'))->fragment('perkawinan');
+        return view('warga.partials.form', compact('title', 'pendidikan', 'agama', 'pekerjaan', 'perkawinan'))->fragment('perkawinan');
     }
 
     public function destroy($id)

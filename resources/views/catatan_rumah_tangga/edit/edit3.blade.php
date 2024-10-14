@@ -10,14 +10,14 @@
 
         <div class="content-item mb-3">
             <div class="form-group">
-                <label for="jumlah_pus">Jumlah Pria Usaha Sosial</label>
+                <label for="jumlah_pus">Jumlah Pasangan Usia Subur</label>
                 <input type="number" name="jumlah_pus" class="form-control" required value={{ $carga->jumlah_pus }}>
             </div>
         </div>
 
         <div class="content-item mb-3">
             <div class="form-group">
-                <label for="jumlah_wus">Jumlah Wanita Usaha Sosial</label>
+                <label for="jumlah_wus">Jumlah Wanita Usia Subur</label>
                 <input type="number" name="jumlah_wus" class="form-control" required value={{ $carga->jumlah_wus }}>
             </div>
         </div>

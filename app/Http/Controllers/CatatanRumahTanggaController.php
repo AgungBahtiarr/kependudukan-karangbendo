@@ -18,6 +18,7 @@ class CatatanRumahTanggaController extends Controller
     public function index(Request $request)
     {
         $title = 'Catatan Rumah Tangga';
+
         $cargas = CatatanRumahTangga::with('makananPokok', 'sumberAir');
         $select = $request->input('status');
         $seacrhQuery = $request->strquery;
@@ -71,16 +72,22 @@ class CatatanRumahTanggaController extends Controller
 
     public function sumberAir()
     {
+        $title = 'Sumber Air';
+
         $sumbers = SumberAir::all();
         $makanans = MakananPokok::all();
-        return view("catatan_rumah_tangga.partials.form", compact('sumbers', 'makanans'))->fragment('sumber-air');
+
+        return view("catatan_rumah_tangga.partials.form", compact('title', 'sumbers', 'makanans'))->fragment('sumber-air');
     }
 
     public function makananPokok()
     {
+        $title = 'Makanan Pokok';
+
         $sumbers = SumberAir::all();
         $makanans = MakananPokok::all();
-        return view("catatan_rumah_tangga.partials.form", compact('sumbers', 'makanans'))->fragment('makanan-pokok');
+
+        return view("catatan_rumah_tangga.partials.form", compact('title', 'sumbers', 'makanans'))->fragment('makanan-pokok');
     }
 
 
@@ -89,24 +96,26 @@ class CatatanRumahTanggaController extends Controller
      */
     public function create1(Request $request)
     {
+        $title = 'Tambah Catatan Keluarga';
 
         $makanans = MakananPokok::get();
         $sumbers = SumberAir::get();
 
         $cargasSession = $request->session()->get('cargas1');
 
-
-        return view('catatan_rumah_tangga.create.create1', compact('makanans', 'sumbers', 'cargasSession'));
+        return view('catatan_rumah_tangga.create.create1', compact('title', 'makanans', 'sumbers', 'cargasSession'));
     }
 
     public function isNkkInang(Request $request, $id)
     {
+        $title = 'Catatan Keluarga';
+
         $cargasSession = $request->session()->get('cargas1');
 
         // return $id;
 
         if ($id == 0) {
-            return view("catatan_rumah_tangga.partials.input", compact('cargasSession'))->fragment('nkkInang');
+            return view("catatan_rumah_tangga.partials.input", compact('title', 'cargasSession'))->fragment('nkkInang');
         } else {
             return "";
         }
@@ -114,12 +123,14 @@ class CatatanRumahTanggaController extends Controller
 
     public function isUp2k(Request $request, $id)
     {
+        $title = 'Catatan Keluarga';
+
         $cargasSession = $request->session()->get('cargas2');
 
         // return $id;
 
         if ($id == 1) {
-            return view("catatan_rumah_tangga.partials.satukk", compact('cargasSession'))->fragment('jenisUp2k');
+            return view("catatan_rumah_tangga.partials.satukk", compact('title', 'cargasSession'))->fragment('jenisUp2k');
         } else {
             return "";
         }
@@ -127,44 +138,52 @@ class CatatanRumahTanggaController extends Controller
 
     public function isPekarangan(Request $request, $id)
     {
+        $title = 'Catatan Keluarga';
+
         $carga = CatatanRumahTangga::findOrFail($id);
         $pekarangan = PemanfaatanTanahPekarangan::where("nkk", $carga->nkk)->get();
 
         if (count($pekarangan) == 1 && $carga->pemanfaatan_pekarangan == "1") {
             return "<div></div>";
         } else {
-            return view("catatan_rumah_tangga.partials.isPekarangan", compact("carga"))->fragment('isPekarangan');
+            return view("catatan_rumah_tangga.partials.isPekarangan", compact('title', "carga"))->fragment('isPekarangan');
         }
     }
 
     public function isIndustri(Request $request, $id)
     {
+        $title = 'Catatan Keluarga';
+
         $carga = CatatanRumahTangga::findOrFail($id);
         $industri = IndustriRumahTangga::where("nkk", $carga->nkk)->get();
 
         if (count($industri) == 1 && $carga->industri_rumah_tangga == "1") {
             return "<div></div>";
         } else {
-            return view("catatan_rumah_tangga.partials.isIndustri", compact("carga"))->fragment('isIndustri');
+            return view("catatan_rumah_tangga.partials.isIndustri", compact('title', "carga"))->fragment('isIndustri');
         }
     }
 
     public function create2(Request $request)
     {
+        $title = 'Catatan Keluarga';
+
         $makanans = MakananPokok::get();
         $sumbers = SumberAir::get();
         $cargasSession = $request->session()->get('cargas2');
 
-        return view('catatan_rumah_tangga.create.create2', compact('makanans', 'sumbers', 'cargasSession'));
+        return view('catatan_rumah_tangga.create.create2', compact('title', 'makanans', 'sumbers', 'cargasSession'));
     }
 
     public function create3(Request $request)
     {
+        $title = 'Catatan Keluarga';
+
         $makanans = MakananPokok::get();
         $sumbers = SumberAir::get();
         $cargasSession = $request->session()->get('cargas3');
 
-        return view('catatan_rumah_tangga.create.create3', compact('makanans', 'sumbers', 'cargasSession'));
+        return view('catatan_rumah_tangga.create.create3', compact('title', 'makanans', 'sumbers', 'cargasSession'));
     }
 
     /**
@@ -172,7 +191,6 @@ class CatatanRumahTanggaController extends Controller
      */
     public function store1(Request $request)
     {
-
         $nkkInang = "";
 
         if ($request->satu_rumah_satu_kk == 0) {
@@ -180,8 +198,6 @@ class CatatanRumahTanggaController extends Controller
         } else {
             $nkkInang = "";
         }
-
-
 
         $data = [
             "nkk" => $request->nkk,
@@ -200,9 +216,7 @@ class CatatanRumahTanggaController extends Controller
             return redirect(route('cargas.create1'))->withErrors(['add1' => "NKK tidak boleh sama dengan NKK induk"]);
         }
 
-
         $request->session()->put('cargas1', $data);
-
 
         return redirect(route('cargas.create2'));
     }
@@ -368,23 +382,27 @@ class CatatanRumahTanggaController extends Controller
      */
     public function show($id)
     {
+        $title = 'Detail Catatan Keluarga';
+
         $carga = CatatanRumahTangga::with('makananPokok', 'sumberAir')->findOrFail($id);
         $carga = json_decode($carga);
         $sumbers = SumberAir::get();
         $makanans = MakananPokok::get();
 
-        return view('catatan_rumah_tangga.show.detail', compact('carga', 'sumbers', 'makanans'));
+        return view('catatan_rumah_tangga.show.detail', compact('title', 'carga', 'sumbers', 'makanans'));
     }
 
     public function show2($id, Request $request)
     {
+        $title = 'Detail Catatan Keluarga';
+
         $carga = CatatanRumahTangga::with('makananPokok', 'sumberAir')->findOrFail($id);
 
         $carga = json_decode($carga);
         $sumbers = SumberAir::get();
         $makanans = MakananPokok::get();
 
-        return view('catatan_rumah_tangga.show.detail2', compact('carga', 'makanans'));
+        return view('catatan_rumah_tangga.show.detail2', compact('title', 'carga', 'makanans'));
     }
 
 
@@ -393,28 +411,34 @@ class CatatanRumahTanggaController extends Controller
      */
     public function edit1($id)
     {
+        $title = 'Edit Catatan Keluarga';
+
         $carga = CatatanRumahTangga::with('makananPokok', 'sumberAir')->findOrFail($id);
         $sumbers = SumberAir::get();
 
-        return view('catatan_rumah_tangga.edit.edit1', compact('carga', 'sumbers'))->fragment('detail-1');
+        return view('catatan_rumah_tangga.edit.edit1', compact('title', 'carga', 'sumbers'))->fragment('detail-1');
     }
 
     public function edit2($id)
     {
+        $title = 'Edit Catatan Keluarga';
+
         $makanans = MakananPokok::get();
         $carga = CatatanRumahTangga::with('makananPokok', 'sumberAir')->findOrFail($id);
         $carga = json_decode($carga);
 
-        return view('catatan_rumah_tangga.edit.edit2', compact('carga', 'makanans'))->fragment('detail-2');
+        return view('catatan_rumah_tangga.edit.edit2', compact('title', 'carga', 'makanans'))->fragment('detail-2');
     }
 
     public function edit3($id)
     {
+        $title = 'Edit Catatan Keluarga';
+
         $makanans = MakananPokok::get();
         $carga = CatatanRumahTangga::with('makananPokok', 'sumberAir')->findOrFail($id);
         $carga = json_decode($carga);
 
-        return view('catatan_rumah_tangga.edit.edit3', compact('carga', 'makanans'))->fragment('detail-3');
+        return view('catatan_rumah_tangga.edit.edit3', compact('title', 'carga', 'makanans'))->fragment('detail-3');
     }
 
     /**

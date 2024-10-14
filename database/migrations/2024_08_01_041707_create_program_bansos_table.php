@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nama_program');
             $table->string('sumber_dana');
-            $table->enum('jenis_bantuan',["tunai","non-tunai"]);
+            $table->date('periode');
+            $table->enum('jenis_bantuan', ["tunai", "non-tunai"]);
             $table->string('detail_bantuan')->nullable(true);
             $table->timestamps();
         });

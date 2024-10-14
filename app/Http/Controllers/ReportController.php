@@ -78,6 +78,7 @@ class ReportController extends Controller
     {
         $pria = [];
         $wanita = [];
+
         foreach ($wargas as $warga) {
             if ($warga->jenis_kelamin == "L") {
                 array_push($pria, $warga);
@@ -250,6 +251,8 @@ class ReportController extends Controller
 
     public function index()
     {
+        $title = 'Laporan Data Warga';
+
         $wargas = Warga::with('agama', 'pendidikan', 'pekerjaan', 'statusPerkawinan')->get();
 
         $jenis_kelamin = ReportController::jenisKelamin($wargas);
@@ -259,7 +262,7 @@ class ReportController extends Controller
         $pekerjaan = ReportController::pekerjaan($wargas);
         $perkawinan = ReportController::perkawinan($wargas);
 
-        return view("reports.index", compact('wargas', 'jenis_kelamin', 'rentangUsia', 'agama', 'pendidikan', 'pekerjaan', 'perkawinan'));
+        return view("reports.index", compact('title', 'wargas', 'jenis_kelamin', 'rentangUsia', 'agama', 'pendidikan', 'pekerjaan', 'perkawinan'));
     }
 
 
@@ -286,6 +289,7 @@ class ReportController extends Controller
         $pdf = Pdf::loadView('reports.demografi.index', $data);
         $pdf->setPaper('A4', 'potrait');
         $pdf->render();
+
         return $pdf->stream('test.pdf');
     }
 
@@ -298,8 +302,6 @@ class ReportController extends Controller
         $persentaseKriteria0 = CatatanRumahTangga::where('kriteria_rumah', '0')->count();
         $tidakAdaJamban = CatatanRumahTangga::where('jumlah_jamban_keluarga', 0)->get();
         $adaJamban = CatatanRumahTangga::where('jumlah_jamban_keluarga', '>', 0)->get();
-
-
 
         $data = [
             'totalRumahTangga' => $totalRumahTangga,
@@ -316,8 +318,8 @@ class ReportController extends Controller
 
     public function analisisSanitasi($cargas)
     {
-
         $cargas = json_decode($cargas);
+
         $adaTempatSampah = CatatanRumahTangga::where('ada_tempat_sampah', '1')->count();
         $tidakAdaTempatSampah = CatatanRumahTangga::where('ada_tempat_sampah', '0')->count();
         $adaSaluranLimbah = CatatanRumahTangga::where('ada_saluran_pembuangan_limbah', '1')->count();
@@ -438,6 +440,7 @@ class ReportController extends Controller
 
     public function indexCargas()
     {
+        $title = 'Laporan Catatan Keluarga';
 
         $cargas = CatatanRumahTangga::with('makananPokok', 'sumberAir')->get();
         $statistikDasar = ReportController::statistikDasar();
@@ -446,7 +449,7 @@ class ReportController extends Controller
 
         // return $sosial;
         // return $kesehatan;
-        return view('reports.cargas.index', compact('statistikDasar', 'sanitasi', 'sosial'));
+        return view('reports.cargas.index', compact('title', 'statistikDasar', 'sanitasi', 'sosial'));
     }
 
     public function reportCargas()
@@ -467,6 +470,7 @@ class ReportController extends Controller
         $pdf = Pdf::loadView('reports.cargas.report', $data);
         $pdf->setPaper('A4', 'potrait');
         $pdf->render();
+
         return $pdf->stream('test.pdf');
     }
 }

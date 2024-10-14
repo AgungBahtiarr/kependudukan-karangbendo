@@ -13,7 +13,7 @@
                 </div>
 
                 <div class="card-body">
-                    <div class="grid grid-cols-1 md:grid-cols-2 mb-3 lg:grid-cols-4 gap-1">
+                    <div class="grid grid-cols-1 md:grid-cols-3 mb-3 gap-1">
 
                         @can('read_bansos')
                             <form action="" class="">
@@ -43,7 +43,7 @@
                                 </select>
                             </div>
                         @endcan
-                        @can('read_bansos')
+                        {{-- @can('read_bansos')
                             <div class="lg:col-span-1">
                                 <select class="form-control" id="select-filter" name="filter">
                                     <option value="" {{ request('status') == '' ? 'selected' : '' }}>Filter Berdasarkan
@@ -58,7 +58,7 @@
                                 </select>
                             </div>
 
-                        @endcan
+                        @endcan --}}
 
                         @can('create_bansos')
                             <div class="">
@@ -77,9 +77,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>NIK</th>
-                                    <th>Sumber Dana</th>
-                                    <th>Jenis Bantuan</th>
-                                    <th>Detail Bantuan</th>
+                                    <th>Nama</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -89,7 +87,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $bansos->nik }}</td>
-
+                                        <td>{{ $bansos->warga->nama }}</td>
                                         <td>{{ $bansos->status == '1' ? 'Aktif' : 'Non-Aktif' }}</td>
                                         <td>
                                             @can('edit_bansos')
@@ -106,14 +104,6 @@
                                                     hx-delete={{ route('bansos.delete', $bansos->id) }}><i
                                                         class="ri-delete-bin-2-line"></i>Delete</a>
                                             @endcan
-
-
-                                            {{-- @can('edit_bansos')
-                                                <div hx-get={{ route('bansos.isLog', $bansos->id) }} hx-trigger="load"
-                                                    hx-target="this" hx-swap="innerHtml">
-                                                </div>
-                                            @endcan --}}
-
 
                                             @can('edit_bansos')
                                                 @if ($bansos->status == '1')

@@ -6,6 +6,7 @@ use App\Http\Requests\StorePenerimaProgramRequest;
 use App\Http\Requests\UpdatePenerimaProgramRequest;
 use App\Models\PenerimaBansos;
 use App\Models\PenerimaProgram;
+use App\Models\TransaksiBansos;
 use Illuminate\Http\Request;
 
 class PenerimaProgramController extends Controller
@@ -23,9 +24,13 @@ class PenerimaProgramController extends Controller
      */
     public function create($id)
     {
-        $bansoses = PenerimaBansos::with('program', 'riwayat')->get();
+        $title = 'Tambah Data Penerima Program Bansos';
+
+        $bansoses = PenerimaBansos::with('program', 'riwayat', 'warga')->get();
+
         $programId = $id;
-        return view("program_bansos.add-penerima-program", compact('bansoses', 'programId'));
+
+        return view("program_bansos.add-penerima-program", compact('title', 'bansoses', 'programId'));
     }
 
     /**
@@ -33,7 +38,6 @@ class PenerimaProgramController extends Controller
      */
     public function store(Request $request)
     {
-
         $penerimas = $request->selected_recipients;
 
         foreach ($penerimas as $penerima) {
@@ -41,7 +45,15 @@ class PenerimaProgramController extends Controller
                 'id_program_bansos' => $request->program_id,
                 'id_penerima_bansos' => $penerima
             ];
+
             $penerimaProgram = PenerimaProgram::create($data);
+
+            $dataRiwayat = [
+                'id_penerima_bansos' => $penerimaProgram->id_penerima_bansos,
+                'id_penerima_program' => $penerimaProgram->id,
+            ];
+
+            $trabas = TransaksiBansos::create($dataRiwayat);
         }
 
         return redirect(route("programbansos.index"));
@@ -52,9 +64,11 @@ class PenerimaProgramController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $penerimas = PenerimaProgram::with('penerimaBansos', 'programBansos')->where('id_program_bansos', $id)->get();
+        $title = 'Detail Data Penerima Program Bansos';
 
-        return view("program_bansos.show", compact('penerimas'));
+        $penerimas = PenerimaProgram::with('penerimaBansos.warga', 'programBansos')->where('id_program_bansos', $id)->get();
+
+        return view("program_bansos.show", compact('title', 'penerimas'));
     }
 
     /**

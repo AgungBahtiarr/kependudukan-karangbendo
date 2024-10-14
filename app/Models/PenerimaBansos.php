@@ -12,11 +12,19 @@ class PenerimaBansos extends Model
 
     protected $guarded = ['id'];
 
-    public function program(){
-        return $this->belongsTo(ProgramBansos::class,'id_program_bansos');
+    public function program()
+    {
+        return $this->belongsTo(ProgramBansos::class, 'id_program_bansos');
     }
 
-    public function riwayat(){
-        return $this->hasMany(TransaksiBansos::class,'id_penerima_bansos');
+    public function riwayat()
+    {
+        return $this->hasMany(TransaksiBansos::class, 'id_penerima_bansos');
+    }
+
+
+    public function warga()
+    {
+        return $this->belongsTo(Warga::class, 'nik', 'nik');
     }
 }

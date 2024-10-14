@@ -25,6 +25,8 @@ class KeikutsertaanKegiatanDawisController extends Controller
 
     public function isKelompokBelajar(Request $request, $id)
     {
+        $title = 'Kelompok Belajar';
+
         $dawisSession = $request->session()->get('dawis1');
         $kelompokBelajars = KelompokBelajar::get();
 
@@ -42,7 +44,7 @@ class KeikutsertaanKegiatanDawisController extends Controller
         ];
 
         if ($id == 1) {
-            return view('keikutsertaandawis.partials.input', compact('kelompokBelajars', 'dawisSession', 'jenisKb'))->fragment('jenisKelompok');
+            return view('keikutsertaandawis.partials.input', compact('title', 'kelompokBelajars', 'dawisSession', 'jenisKb'))->fragment('jenisKelompok');
         } else {
             return '<div></div>';
         }
@@ -50,6 +52,8 @@ class KeikutsertaanKegiatanDawisController extends Controller
 
     public function isKb(Request $request, $id)
     {
+        $title = 'Kelompok Belajar';
+
         $dawisSession = $request->session()->get('dawis1');
         $kelompokBelajars = KelompokBelajar::get();
         $jenisKb = [
@@ -65,7 +69,7 @@ class KeikutsertaanKegiatanDawisController extends Controller
             'MAL (Metode Amenorea Laktasi)'
         ];
         if ($id == 1) {
-            return view('keikutsertaandawis.partials.input', compact('kelompokBelajars', 'dawisSession', 'jenisKb'))->fragment('jenisKb');
+            return view('keikutsertaandawis.partials.input', compact('title', 'kelompokBelajars', 'dawisSession', 'jenisKb'))->fragment('jenisKb');
         } else {
             return '<div></div>';
         }
@@ -73,6 +77,8 @@ class KeikutsertaanKegiatanDawisController extends Controller
 
     public function isPosyandu(Request $request, $id)
     {
+        $title = 'Posyandu';
+
         $dawisSession = $request->session()->get('dawis1');
         $kelompokBelajars = KelompokBelajar::get();
         $jenisKb = [
@@ -88,7 +94,7 @@ class KeikutsertaanKegiatanDawisController extends Controller
             'MAL (Metode Amenorea Laktasi)'
         ];
         if ($id == 1) {
-            return view('keikutsertaandawis.partials.input', compact('kelompokBelajars', 'dawisSession', 'jenisKb'))->fragment('frekPos');
+            return view('keikutsertaandawis.partials.input', compact('title', 'kelompokBelajars', 'dawisSession', 'jenisKb'))->fragment('frekPos');
         } else {
             return '<div></div>';
         }
@@ -97,6 +103,8 @@ class KeikutsertaanKegiatanDawisController extends Controller
 
     public function isKoperasi(Request $request, $id)
     {
+        $title = 'Koperasi';
+
         $dawisSession = $request->session()->get('dawis1');
         $kelompokBelajars = KelompokBelajar::get();
         $jenisKb = [
@@ -112,7 +120,7 @@ class KeikutsertaanKegiatanDawisController extends Controller
             'MAL (Metode Amenorea Laktasi)'
         ];
         if ($id == 1) {
-            return view('keikutsertaandawis.partials.input', compact('kelompokBelajars', 'dawisSession', 'jenisKb'))->fragment('jenisKoperasi');
+            return view('keikutsertaandawis.partials.input', compact('title', 'kelompokBelajars', 'dawisSession', 'jenisKb'))->fragment('jenisKoperasi');
         } else {
             return '<div></div>';
         }
@@ -121,12 +129,14 @@ class KeikutsertaanKegiatanDawisController extends Controller
 
     public function isDisabilitas(Request $request, $id)
     {
+        $title = 'Disabilitas';
+
         $dawisSession = $request->session()->get('dawis1');
         $jenisDisabilitas = Disabilitas::get();
 
 
         if ($id == 1) {
-            return view('keikutsertaandawis.partials.jenisdisabilitas', compact('jenisDisabilitas', 'dawisSession'))->fragment('jenisDisabilitas');
+            return view('keikutsertaandawis.partials.jenisdisabilitas', compact('title', 'jenisDisabilitas', 'dawisSession'))->fragment('jenisDisabilitas');
         } else {
             return '<div></div>';
         }
@@ -134,10 +144,12 @@ class KeikutsertaanKegiatanDawisController extends Controller
 
     public function isIndustri(Request $request, $id)
     {
+        $title = 'Industri';
+
         $dawisSession = $request->session()->get('dawis2');
 
         if ($id == 1) {
-            return view('keikutsertaandawis.partials.sandangPangan', compact('dawisSession'))->fragment('sandangPangan');
+            return view('keikutsertaandawis.partials.sandangPangan', compact('title', 'dawisSession'))->fragment('sandangPangan');
         } else {
             return '<div></div>';
         }
@@ -145,10 +157,12 @@ class KeikutsertaanKegiatanDawisController extends Controller
 
     public function isPutusSekolah(Request $request, $id)
     {
+        $title = 'Putus Sekolah';
+
         $jenjangSekolah = JenjangSekolah::get();
 
         if ($id == 1) {
-            return view('keikutsertaandawis.partials.jenjangSekolah', compact('jenjangSekolah',))->fragment('jenjangSekolah');
+            return view('keikutsertaandawis.partials.jenjangSekolah', compact('title', 'jenjangSekolah',))->fragment('jenjangSekolah');
         } else {
             return '<div></div>';
         }
@@ -162,6 +176,7 @@ class KeikutsertaanKegiatanDawisController extends Controller
     public function create(Request $request, $nik)
     {
         $title = 'Tambah Catatan Dawis';
+
         $warga = Warga::where('nik', $nik)->get();
         $kelompokBelajars = KelompokBelajar::get();
         $jenisDisabilitas = Disabilitas::get();
@@ -192,6 +207,7 @@ class KeikutsertaanKegiatanDawisController extends Controller
     public function create2(Request $request, $nik)
     {
         $title = 'Tambah Catatan Dawis';
+        
         $warga = Warga::where('nik', $nik)->get();
         $kelompokBelajars = KelompokBelajar::get();
 

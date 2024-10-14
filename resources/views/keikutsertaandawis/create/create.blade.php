@@ -128,7 +128,7 @@
                     </script>
 
 
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="posyandu">Posyandu</label>
                         <div class="form-group">
                             <div class="custom-control custom-radio custom-control-inline">
@@ -152,14 +152,87 @@
                     @if ($dawisSession && $dawisSession['posyandu'] == 1)
                         <div id="frekPos">
                             <div class="form-group">
-                                <label for="frekuensi_posyandu">Frekuensi Posyandu</label>
-                                <input type="number" min="0" name="frekuensi_posyandu" class="form-control"
-                                    required value={{ $dawisSession ? $dawisSession['frekuensi_posyandu'] : '' }}>
+                                <label for="frekuensi_posyandu">Frekuensi Posyandu (Dalam 1 Tahun)</label>
+                                <input type="text" min="0" name="frekuensi_posyandu" class="form-control"
+                                    inputmode="numeric" required
+                                    value={{ $dawisSession ? $dawisSession['frekuensi_posyandu'] : '' }}>
                             </div>
                         </div>
                     @else
                         <div id="frekPos"></div>
-                    @endif
+                    @endif --}}
+
+                    <div class="form-group">
+                        <label for="posyandu">Posyandu</label>
+                        <div class="form-group">
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="posyandu_ya" name="posyandu" value="1"
+                                    class="custom-control-input" required
+                                    {{ $dawisSession && $dawisSession['posyandu'] == '1' ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="posyandu_ya"> Ya </label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="posyandu_tidak" name="posyandu" value="0"
+                                    class="custom-control-input" required
+                                    {{ $dawisSession && $dawisSession['posyandu'] == '0' ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="posyandu_tidak"> Tidak </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="frekPos" style="display: none;">
+                        <div class="form-group">
+                            <label for="frekuensi_posyandu">Frekuensi Posyandu (Dalam 1 Tahun)</label>
+                            <input type="text" id="frekuensi_posyandu" name="frekuensi_posyandu" class="form-control"
+                                inputmode="numeric" min="0"
+                                value="{{ $dawisSession ? $dawisSession['frekuensi_posyandu'] : '' }}">
+                        </div>
+                    </div>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const posyanduYa = document.getElementById('posyandu_ya');
+                            const posyanduTidak = document.getElementById('posyandu_tidak');
+                            const frekPosDiv = document.getElementById('frekPos');
+                            const frekuensiInput = document.getElementById('frekuensi_posyandu');
+
+                            function toggleFrekuensiPosyandu() {
+                                if (posyanduYa.checked) {
+                                    frekPosDiv.style.display = 'block';
+                                    frekuensiInput.required = true;
+                                } else {
+                                    frekPosDiv.style.display = 'none';
+                                    frekuensiInput.required = false;
+                                    frekuensiInput.value = '';
+                                }
+                            }
+
+                            posyanduYa.addEventListener('change', toggleFrekuensiPosyandu);
+                            posyanduTidak.addEventListener('change', toggleFrekuensiPosyandu);
+
+                            // Hanya menerima input angka
+                            frekuensiInput.addEventListener('input', function(e) {
+                                this.value = this.value.replace(/[^0-9]/g, '');
+                            });
+
+                            frekuensiInput.addEventListener('paste', function(e) {
+                                e.preventDefault();
+                                const pastedData = e.clipboardData.getData('text');
+                                this.value = pastedData.replace(/[^0-9]/g, '');
+                            });
+
+                            // Inisialisasi saat halaman dimuat
+                            toggleFrekuensiPosyandu();
+
+                            // Validasi form sebelum submit
+                            document.querySelector('form').addEventListener('submit', function(e) {
+                                if (posyanduYa.checked && frekuensiInput.value.trim() === '') {
+                                    e.preventDefault();
+                                    alert('Mohon isi frekuensi Posyandu');
+                                }
+                            });
+                        });
+                    </script>
 
                     <div class="form-group">
                         <label for="binabalita">Bina Keluarga Balita</label>

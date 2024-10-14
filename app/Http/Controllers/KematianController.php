@@ -14,6 +14,7 @@ class KematianController extends Controller
     public function index(Request $request)
     {
         $title = "Kematian";
+
         $search = $request->input('strquery');
 
         $kematians = Kematian::with('warga');
@@ -37,8 +38,10 @@ class KematianController extends Controller
      */
     public function create()
     {
+        $title = 'Tambah Data Kematian';
+
         $wargas = Warga::get();
-        return view("kematian.create", compact('wargas'));
+        return view("kematian.create", compact("title", 'wargas'));
     }
 
     /**
@@ -80,8 +83,11 @@ class KematianController extends Controller
      */
     public function show($id)
     {
+        $title = 'Detail Kematian';
+
         $kematian = Kematian::with('warga')->findOrFail($id);
-        return view('kematian.detail', compact('kematian'));
+
+        return view('kematian.detail', compact("title", 'kematian'));
     }
 
     /**
@@ -89,8 +95,11 @@ class KematianController extends Controller
      */
     public function edit($id)
     {
+        $title = 'Edit Data Kematian';
+
         $kematian = Kematian::with('warga')->findOrFail($id);
-        return view('kematian.edit', compact('kematian'));
+
+        return view('kematian.edit', compact("title", 'kematian'));
     }
 
     /**

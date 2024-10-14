@@ -205,22 +205,20 @@
                                 @endforeach
                             @endif
                         </select>
-                        <div class="form-group">
-                            <label for="jabatan">Jabatan (Struktur PKK)</label>
-                            <select id="jabatan" name="jabatan" class="form-control" required>
-                                <option value="" disabled {{ !$wargaSession ? 'selected' : '' }}>Pilih Jabatan
-                                </option>
-                                <option value="Anggota"
-                                    {{ $wargaSession && $wargaSession['jabatan'] == 'Anggota' ? 'selected' : '' }}>Anggota
-                                </option>
-                                <option value="Bukan Anggota"
-                                    {{ $wargaSession && $wargaSession['jabatan'] == 'Bukan Anggota' ? 'selected' : '' }}>
-                                    Bukan
-                                    Anggota</option>
-                            </select>
-                        </div>
                     </div>
-
+                    <div class="form-group">
+                        <label for="jabatan">Jabatan (Struktur PKK)</label>
+                        <select id="jabatan" name="jabatan" class="form-control" required>
+                            <option value="" disabled {{ !$wargaSession ? 'selected' : '' }}>Pilih Jabatan
+                            </option>
+                            <option value="Anggota"
+                                {{ $wargaSession && $wargaSession['jabatan'] == 'Anggota' ? 'selected' : '' }}>Anggota
+                            </option>
+                            <option value="Pengurus"
+                                {{ $wargaSession && $wargaSession['jabatan'] == 'Pengurus' ? 'selected' : '' }}>
+                                Pengurus</option>
+                        </select>
+                    </div>
 
                 </div>
 
@@ -255,7 +253,7 @@
 
             if (nik.value === nkk.value) {
                 alert('NIK dan NKK tidak boleh sama');
-                nik.focus();
+                nkk.focus();
                 return false;
             }
 
@@ -340,7 +338,7 @@
             var nkk = document.getElementById('nkk');
 
             if (nik.value === nkk.value && nik.value !== '') {
-                nik.setCustomValidity('NIK dan NKK tidak boleh sama');
+                nkk.setCustomValidity('NIK dan NKK tidak boleh sama');
                 nkk.setCustomValidity('NIK dan NKK tidak boleh sama');
             } else {
                 nik.setCustomValidity('');

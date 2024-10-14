@@ -153,21 +153,36 @@
 
                         <script>
                             document.addEventListener('DOMContentLoaded', function() {
+                                const satuKKYa = document.getElementById('satu_kk_ya');
+                                const satuKKTidak = document.getElementById('satu_kk_tidak');
+                                const nkkInangContainer = document.getElementById('nkk_inang_container');
                                 const nkkInangInput = document.getElementById('nkk_inang');
+
+                                function toggleNKKInang() {
+                                    if (satuKKTidak.checked) {
+                                        nkkInangContainer.style.display = 'block';
+                                        nkkInangInput.disabled = false;
+                                        nkkInangInput.required = true;
+                                    } else {
+                                        nkkInangContainer.style.display = 'none';
+                                        nkkInangInput.disabled = true;
+                                        nkkInangInput.required = false;
+                                        nkkInangInput.value = '';
+                                    }
+                                }
+
+                                satuKKYa.addEventListener('change', toggleNKKInang);
+                                satuKKTidak.addEventListener('change', toggleNKKInang);
 
                                 function validateNKKInang(input) {
                                     const value = input.value;
-
-                                    // Hanya izinkan angka
                                     input.value = value.replace(/[^0-9]/g, '');
 
-                                    if (value.length !== 16) {
+                                    if (satuKKTidak.checked && (value.length !== 16)) {
                                         input.setCustomValidity('NKK Inang harus terdiri dari 16 digit angka');
                                     } else {
                                         input.setCustomValidity('');
                                     }
-
-                                    input.reportValidity();
                                 }
 
                                 nkkInangInput.addEventListener('input', function() {
@@ -182,13 +197,17 @@
                                     validateNKKInang(this);
                                 });
 
+                                // Inisialisasi saat halaman dimuat
+                                toggleNKKInang();
+
                                 // Validasi form sebelum submit
                                 document.querySelector('form').addEventListener('submit', function(e) {
-                                    validateNKKInang(nkkInangInput);
-
-                                    if (!nkkInangInput.validity.valid) {
-                                        e.preventDefault();
-                                        alert('Mohon periksa kembali input Nomor Kartu Keluarga Induk');
+                                    if (satuKKTidak.checked) {
+                                        validateNKKInang(nkkInangInput);
+                                        if (!nkkInangInput.validity.valid) {
+                                            e.preventDefault();
+                                            alert('Mohon periksa kembali input Nomor Kartu Keluarga Induk');
+                                        }
                                     }
                                 });
                             });
@@ -313,13 +332,13 @@
             toggleNkkInang();
 
             // Fungsi validasi form
-            window.validateForm = function() {
-                if (satuKkTidak.checked && nkkInput.value === nkkInangInput.value) {
-                    alert('Nomor Kartu Keluarga dan Nomor Kartu Keluarga Induk tidak boleh sama.');
-                    return false;
-                }
-                return true;
-            };
+            // window.validateForm = function() {
+            //     if (satuKkTidak.checked && nkkInput.value === nkkInangInput.value) {
+            //         alert('Nomor Kartu Keluarga dan Nomor Kartu Keluarga Induk tidak boleh sama.');
+            //         return false;
+            //     }
+            //     return true;
+            // };
 
             // Event listener untuk validasi real-time
             nkkInput.addEventListener('input', checkNkkMatch);

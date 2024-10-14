@@ -265,27 +265,24 @@
                 @if ($riwayatBansos == null)
                     <div class="flex justify-center items-center my-12">Tidak Ada Riwayat Bantuan Sosial</div>
                 @else
-                    @foreach ($riwayatBansos as $bansos)
-                        <h1 class="my-4">Nama Program: {{ $bansos->program->programBansos->nama_program }}</h1>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">No</th>
-                                    <th scope="col">Periode Bulan</th>
-                                    <th scope="col">Periode Tahun</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">No</th>
+                                <th>Nama Program</th>
+                                <th>Periode</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($riwayatBansos as $bansos)
                                 <tr>
                                     <th scope="row">{{ $loop->iteration }}</th>
-                                    <td>{{ $bansos->created_at->format('M') }}</td>
-                                    <td>{{ $bansos->created_at->format('Y') }}</td>
+                                    <th>{{ $bansos->program->programBansos->nama_program }}</th>
+                                    <td>{{ $bansos->program->programBansos->periode }}</td>
                                 </tr>
-
-                            </tbody>
-                        </table>
-                    @endforeach
+                            @endforeach
+                        </tbody>
+                    </table>
                 @endif
             </div>
         </div>

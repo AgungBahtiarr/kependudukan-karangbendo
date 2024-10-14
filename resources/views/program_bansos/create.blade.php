@@ -13,6 +13,13 @@
                         <label for="nama_program">Nama Program</label>
                         <input type="text" name="nama_program" class="form-control" required>
                     </div>
+
+                    <div class="form-group">
+                        <label for="periode">Periode</label>
+                        <input type="date" name="periode" id="periode" class="form-control" required
+                            min="{{ now()->format('Y-m-d') }}" value="{{ old('periode') }}">
+                    </div>
+
                     <div class="form-group">
                         <label for="sumber_dana">Sumber Dana</label>
                         <input type="text" name="sumber_dana" class="form-control" required>

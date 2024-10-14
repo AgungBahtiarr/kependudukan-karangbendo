@@ -58,7 +58,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="jumlah_pus">Jumlah Pria Usia Subur</label>
+                        <label for="jumlah_pus">Jumlah Pasangan Usia Subur</label>
                         <input type="number" min="0" name="jumlah_pus" class="form-control" required
                             value={{ $cargasSession ? $cargasSession['jumlah_pus'] : '' }}>
                     </div>

@@ -19,9 +19,10 @@ class PenerimaBansosController extends Controller
     public function index(Request $request)
     {
         $title = "Data Bansos";
+
         $search = $request->strquery;
         $select = $request->input('status');
-        $bansoses = PenerimaBansos::with('program', 'riwayat');
+        $bansoses = PenerimaBansos::with('program', 'riwayat', 'warga');
         $programs = ProgramBansos::get();
 
         if ($search) {
@@ -49,29 +50,31 @@ class PenerimaBansosController extends Controller
 
         $bansoses = $bansoses->get();
 
+        // return $bansoses;
+
         return view("bansos.index", compact('title', 'bansoses', 'programs'));
     }
 
 
     public function isLog($id, $penerima_program)
     {
+        $title = 'Penerima Bansos';
+
         $bansos = PenerimaProgram::with('riwayat', 'penerimaBansos')->findOrFail($penerima_program);
 
-
         $riwayats = $bansos->riwayat;
-
 
         if ($bansos->penerimaBansos->status == "1") {
 
             if (count($riwayats) == 0) {
-                return view("bansos.partials.log", compact('bansos', 'penerima_program'))->fragment('log');
+                return view("bansos.partials.log", compact('title', 'bansos', 'penerima_program'))->fragment('log');
             }
 
             foreach ($riwayats as $riwayat) {
                 if ($riwayat->created_at->format('M') == Carbon::now()->format('M')) {
                     return "<div></div>";
                 } else {
-                    return view("bansos.partials.log", compact('bansos', 'penerima_program'))->fragment('log');
+                    return view("bansos.partials.log", compact('title', 'bansos', 'penerima_program'))->fragment('log');
                 }
             }
         }
@@ -82,9 +85,11 @@ class PenerimaBansosController extends Controller
      */
     public function create()
     {
-        $title = 'Data Bansos';
+        $title = 'Tambah Data Bansos';
+
         $programs = ProgramBansos::get();
         $months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agus', 'Sep', 'Okt', 'Nov', 'Des'];
+
         return view('bansos.create', compact('title', 'months', 'programs'));
     }
 
@@ -135,7 +140,8 @@ class PenerimaBansosController extends Controller
     public function edit($id)
     {
         $bansos = PenerimaBansos::findOrFail($id);
-        $title = 'Data Bansos';
+
+        $title = 'Edit Data Bansos';
         // $months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agus', 'Sep', 'Okt', 'Nov', 'Des'];
         $programs = ProgramBansos::get();
 
@@ -147,7 +153,6 @@ class PenerimaBansosController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $data = [
             'nik' => $request->nik,
             'status' => '1',

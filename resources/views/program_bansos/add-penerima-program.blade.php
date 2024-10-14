@@ -17,6 +17,7 @@
                                 </th>
                                 <th>No</th>
                                 <th>NIK</th>
+                                <th>Nama</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -27,6 +28,7 @@
                                         <input type="checkbox" name="selected_recipients[]" value="{{ $bansos->id }}"
                                             class="recipient-checkbox">
                                     </td>
+                                    <td>{{ $bansos->warga->nama }}</td>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $bansos->nik }}</td>
                                     <td>{{ $bansos->status == '1' ? 'Aktif' : 'Non-Aktif' }}</td>

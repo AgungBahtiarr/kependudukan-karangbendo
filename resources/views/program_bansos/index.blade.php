@@ -46,6 +46,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Program</th>
+                                    <th>Periode</th>
                                     <th>Sumber Dana</th>
                                     <th>Jenis Bantuan</th>
                                     <th>Detail Bantuan</th>
@@ -57,6 +58,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $program->nama_program }}</td>
+                                        <td>{{ $program->periode }}</td>
                                         <td>{{ $program->sumber_dana }}</td>
                                         <td>{{ $program->jenis_bantuan }}</td>
                                         <td>{{ $program->detail_bantuan }}</td>

@@ -304,12 +304,12 @@
                                     : '' }}>
                                 Anggota
                             </option>
-                            <option value="Bukan Anggota"
-                                {{ ($wargaSession && $wargaSession['jabatan'] == 'Bukan Anggota') ||
-                                (!$wargaSession && $warga->jabatan == 'Bukan Anggota')
+                            <option value="Pengurus"
+                                {{ ($wargaSession && $wargaSession['jabatan'] == 'Pengurus') ||
+                                (!$wargaSession && $warga->jabatan == 'Pengurus')
                                     ? 'selected'
                                     : '' }}>
-                                Bukan Anggota
+                                Pengurus
                             </option>
                         </select>
                     </div>
