@@ -34,9 +34,8 @@ class ProgramBansosController extends Controller
      */
     public function create()
     {
-        $title = 'Tambah Program Bansos';
 
-        return view('title', 'program_bansos.create');
+        return view('program_bansos.create');
     }
 
     public function isUsed($id)
@@ -84,11 +83,10 @@ class ProgramBansosController extends Controller
      */
     public function edit($id)
     {
-        $title = 'Edit Program Bansos';
 
         $program = ProgramBansos::findOrFail($id);
 
-        return view('program_bansos.edit', compact('title', 'program'));
+        return view('program_bansos.edit', compact('program'));
     }
 
     /**
