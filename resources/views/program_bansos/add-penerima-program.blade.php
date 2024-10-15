@@ -44,7 +44,9 @@
                 </div>
                 <div class="mt-4">
                     <input type="hidden" name="program_id" value="{{ $programId }}">
+                    <a href="/program-bansos" class="btn btn-secondary">Kembali</a>
                     <button type="submit" class="btn btn-primary">Tambahkan Penerima Terpilih ke Program</button>
+
                 </div>
             </form>
         </div>

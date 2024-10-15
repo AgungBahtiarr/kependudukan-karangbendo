@@ -50,7 +50,7 @@ class PenerimaProgramController extends Controller
             try {
                 $penerimaProgram = PenerimaProgram::create($data);
             } catch (QueryException $e) {
-                return redirect(route("penerimaprogram.create"))->withErrors(["penerimaProgram" => "Tidak boleh ada nik yang sama"]);
+                return redirect()->back()->withErrors(["penerimaProgram" => "Tidak boleh ada nik yang sama"]);
             }
 
             $dataRiwayat = [
